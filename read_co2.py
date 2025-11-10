@@ -83,7 +83,7 @@ def animate(frame):
         
         # Print current readings
         print(f"CO2: {co2_value:.1f} ppm, O2: {o2_value:.1f}%")
-        
+        time.sleep(1)
     except Exception as e:
         print(f"Error reading sensors: {e}")
     
