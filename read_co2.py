@@ -12,7 +12,7 @@ sensor_o2 = sensors.Sensor("O2", 108)
 sensor_o2.connect()
 
 # Data storage
-max_points = 100  # Number of data points to display
+max_points = 1000  # Number of data points to display
 co2_data = deque(maxlen=max_points)
 o2_data = deque(maxlen=max_points)
 time_data = deque(maxlen=max_points)
