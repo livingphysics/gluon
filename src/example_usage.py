@@ -62,7 +62,7 @@ with Bioreactor(config) as reactor:
     # frequency: time between calls in seconds, or True for continuous
     # duration: how long to run in seconds, or True for indefinite
     jobs = [
-        (actuate_pump1_relay, 300, True),  # Run every 5 minutes (300s) indefinitely
+        (actuate_pump1_relay, 180, True),  # Run every 5 minutes (300s) indefinitely
         (read_sensors_and_plot, 5, True),  # Read sensors and update plot every 5 seconds
         # (create_flush_tank_job(30), 3600, True),  # Flush tank every hour (30s valve open)
     ]
