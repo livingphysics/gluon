@@ -32,7 +32,9 @@ config.INIT_COMPONENTS = {
 # Option 3: Customize component settings
 config.RELAY_PINS = [6, 13, 19, 26]
 config.RELAY_NAMES = ['pump_1', 'co2_solenoid', 'dump_valve', 'relay_4']
-config.CO2_SENSOR_ADDRESS = 105
+# CO2 sensor uses serial (default: /dev/ttyUSB0 at 9600 baud)
+# config.CO2_SERIAL_PORT = '/dev/ttyUSB0'
+# config.CO2_SERIAL_BAUDRATE = 9600
 
 # Option 4: Control logging output
 config.LOG_TO_TERMINAL = True  # Print logs to terminal (default: True)

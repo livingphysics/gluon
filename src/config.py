@@ -30,7 +30,10 @@ class Config:
     RELAY_NAMES: list[str] = ['relay_1', 'relay_2', 'relay_3', 'relay_4']  # Names for each relay
     
     # Sensor Configuration
-    CO2_SENSOR_ADDRESS: int = 105
+    # CO2 sensor uses serial interface
+    CO2_SERIAL_PORT: str = '/dev/ttyUSB0'
+    CO2_SERIAL_BAUDRATE: int = 9600
+    # O2 sensor uses I2C (Atlas Scientific)
     O2_SENSOR_ADDRESS: int = 108
     
     # Sensor Labels for CSV output

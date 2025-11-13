@@ -48,24 +48,28 @@ def init_relays(bioreactor, config):
 
 def init_co2_sensor(bioreactor, config):
     """
-    Initialize CO2 sensor.
+    Initialize CO2 sensor via serial (TTYUSB0).
     
     Args:
         bioreactor: Bioreactor instance
         config: Configuration object
         
     Returns:
-        dict: {'sensor': sensor object, 'initialized': bool}
+        dict: {'sensor': serial object, 'initialized': bool}
     """
     try:
-        from atlas_i2c import sensors
+        import serial
+        import time
         
-        address = getattr(config, 'CO2_SENSOR_ADDRESS', 105)
-        sensor = sensors.Sensor("CO2", address)
-        sensor.connect()
+        serial_port = getattr(config, 'CO2_SERIAL_PORT', '/dev/ttyUSB0')
+        baudrate = getattr(config, 'CO2_SERIAL_BAUDRATE', 9600)
+        
+        sensor = serial.Serial(serial_port, baudrate=baudrate, timeout=1)
+        sensor.flushInput()
+        time.sleep(1)  # Allow sensor to initialize
         
         bioreactor.co2_sensor = sensor
-        logger.info(f"CO2 sensor initialized at address {address}")
+        logger.info(f"CO2 sensor initialized on {serial_port} at {baudrate} baud")
         
         return {'sensor': sensor, 'initialized': True}
     except Exception as e:

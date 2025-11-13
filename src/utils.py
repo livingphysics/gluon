@@ -129,33 +129,19 @@ def read_sensors_and_plot(bioreactor, elapsed=None):
             except Exception as e:
                 bioreactor.logger.warning(f"Error reading O2 sensor: {e}")
         
-        # Read CO2 sensor if available
+        # Read CO2 sensor from serial if available
         if bioreactor.is_component_initialized('co2_sensor') and hasattr(bioreactor, 'co2_sensor'):
             try:
-                from atlas_i2c import commands
-                co2_reading = bioreactor.co2_sensor.query(commands.READ)
-                co2_value = float(co2_reading.data.decode().replace('ppm', '').strip())
-            except Exception as e:
-                bioreactor.logger.warning(f"Error reading CO2 sensor: {e}")
-        
-        # Alternative: Read CO2 from serial if sensor not available
-        if co2_value is None:
-            try:
-                import serial
-                if not hasattr(bioreactor, '_co2_serial'):
-                    bioreactor._co2_serial = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=1)
-                    bioreactor._co2_serial.flushInput()
-                    time.sleep(1)
-                
-                bioreactor._co2_serial.write(b"\xFE\x44\x00\x08\x02\x9F\x25")
+                # CO2 sensor is now a serial.Serial object
+                bioreactor.co2_sensor.write(b"\xFE\x44\x00\x08\x02\x9F\x25")
                 time.sleep(0.1)
-                resp = bioreactor._co2_serial.read(7)
+                resp = bioreactor.co2_sensor.read(7)
                 if len(resp) >= 5:
                     high = resp[3]
                     low = resp[4]
                     co2_value = 10 * ((high * 256) + low)
             except Exception as e:
-                bioreactor.logger.warning(f"Error reading CO2 from serial: {e}")
+                bioreactor.logger.warning(f"Error reading CO2 sensor: {e}")
         
         # Add data to arrays
         current_time = time.time()
