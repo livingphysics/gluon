@@ -19,10 +19,11 @@ except Exception as e:
         print(f"Error opening GPIO chip 0: {e2}")
         gpio_chip = None
 
-# Initialize all relay pins as outputs and set to LOW (OFF)
+# Initialize all relay pins as outputs and set to HIGH (OFF)
+# Note: 0 = relay ON, 1 = relay OFF (inverted logic)
 if gpio_chip is not None:
     for physical_pin in RELAY_PINS.values():
-        lgpio.gpio_claim_output(gpio_chip, physical_pin, 0)  # 0 = LOW/OFF
+        lgpio.gpio_claim_output(gpio_chip, physical_pin, 1)  # 1 = OFF
 
 def actuate_relay(relay_name, state):
     """
@@ -61,8 +62,9 @@ def actuate_relay(relay_name, state):
         state = bool(state)
     
     try:
-        lgpio.gpio_write(gpio_chip, physical_pin, 1 if state else 0)
-        print(f"{relay_name} (Physical Pin {physical_pin}, {'ON' if state else 'OFF'}")
+        # Inverted logic: 0 = ON, 1 = OFF
+        lgpio.gpio_write(gpio_chip, physical_pin, 0 if state else 1)
+        print(f"{relay_name} (Physical Pin {physical_pin}): {'ON' if state else 'OFF'}")
         return True
     except Exception as e:
         print(f"Error actuating {relay_name}: {e}")
@@ -70,12 +72,12 @@ def actuate_relay(relay_name, state):
 
 def actuate_relay_by_pin(physical_pin, state):
     """
-    Actuate a relay by its physical pin number.
+    Actuate a relay by its GPIO pin number.
     
     Parameters:
     -----------
     physical_pin : int
-        Physical pin number (29, 31, 33, or 37)
+        GPIO pin number (6, 13, 19, or 26)
     state : bool or str
         True/'on'/1 to turn relay ON, False/'off'/0 to turn relay OFF
     
@@ -85,8 +87,8 @@ def actuate_relay_by_pin(physical_pin, state):
     
     Example:
     --------
-    actuate_relay_by_pin(29, True)   # Turn relay on pin 29 ON
-    actuate_relay_by_pin(31, False)  # Turn relay on pin 31 OFF
+    actuate_relay_by_pin(6, True)   # Turn relay on pin 6 ON
+    actuate_relay_by_pin(13, False)  # Turn relay on pin 13 OFF
     """
     if gpio_chip is None:
         print("Error: GPIO chip not initialized")
@@ -103,9 +105,10 @@ def actuate_relay_by_pin(physical_pin, state):
         state = bool(state)
     
     try:
-        lgpio.gpio_write(gpio_chip, physical_pin, 1 if state else 0)
+        # Inverted logic: 0 = ON, 1 = OFF
+        lgpio.gpio_write(gpio_chip, physical_pin, 0 if state else 1)
         relay_name = [name for name, p in RELAY_PINS.items() if p == physical_pin][0]
-        print(f"{relay_name} (Physical Pin {physical_pin}, {'ON' if state else 'OFF'}")
+        print(f"{relay_name} (Physical Pin {physical_pin}): {'ON' if state else 'OFF'}")
         return True
     except Exception as e:
         print(f"Error actuating relay on pin {physical_pin}: {e}")
@@ -143,7 +146,9 @@ def get_relay_states():
     states = {}
     for relay_name, physical_pin in RELAY_PINS.items():
         try:
-            states[relay_name] = bool(lgpio.gpio_read(gpio_chip, physical_pin))
+            # Inverted logic: GPIO reads 0 = relay ON (True), 1 = relay OFF (False)
+            gpio_value = lgpio.gpio_read(gpio_chip, physical_pin)
+            states[relay_name] = not bool(gpio_value)  # Invert: 0 -> True (ON), 1 -> False (OFF)
         except Exception as e:
             print(f"Error reading {relay_name}: {e}")
             states[relay_name] = None
@@ -165,10 +170,10 @@ def cleanup_gpio():
     """
     global gpio_chip
     if gpio_chip is not None:
-        # Turn off all relays before cleanup
+        # Turn off all relays before cleanup (write 1 = OFF)
         for physical_pin in RELAY_PINS.values():
             try:
-                lgpio.gpio_write(gpio_chip, physical_pin, 0)
+                lgpio.gpio_write(gpio_chip, physical_pin, 1)  # 1 = OFF
             except:
                 pass
         
@@ -195,7 +200,7 @@ if __name__ == "__main__":
         print(get_relay_states())
         
         # Turn off by pin number
-        actuate_relay_by_pin(29, False)
+        actuate_relay_by_pin(6, False)
         
         # Turn all on
         print("\nTurning all relays ON:")
