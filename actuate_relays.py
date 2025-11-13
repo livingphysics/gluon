@@ -53,7 +53,6 @@ def actuate_relay(relay_name, state):
         return False
     
     physical_pin = RELAY_PINS[relay_name]
-    bcm_pin = PHYSICAL_TO_BCM[physical_pin]
     
     # Convert state to boolean
     if isinstance(state, str):
@@ -62,8 +61,8 @@ def actuate_relay(relay_name, state):
         state = bool(state)
     
     try:
-        lgpio.gpio_write(gpio_chip, bcm_pin, 1 if state else 0)
-        print(f"{relay_name} (Physical Pin {physical_pin}, GPIO {bcm_pin}): {'ON' if state else 'OFF'}")
+        lgpio.gpio_write(gpio_chip, physical_pin, 1 if state else 0)
+        print(f"{relay_name} (Physical Pin {physical_pin}, {'ON' if state else 'OFF'}")
         return True
     except Exception as e:
         print(f"Error actuating {relay_name}: {e}")
@@ -96,9 +95,7 @@ def actuate_relay_by_pin(physical_pin, state):
     if physical_pin not in RELAY_PINS.values():
         print(f"Error: Invalid pin number {physical_pin}. Valid pins: {list(RELAY_PINS.values())}")
         return False
-    
-    bcm_pin = PHYSICAL_TO_BCM[physical_pin]
-    
+        
     # Convert state to boolean
     if isinstance(state, str):
         state = state.lower() in ['on', 'true', '1']
@@ -106,9 +103,9 @@ def actuate_relay_by_pin(physical_pin, state):
         state = bool(state)
     
     try:
-        lgpio.gpio_write(gpio_chip, bcm_pin, 1 if state else 0)
+        lgpio.gpio_write(gpio_chip, physical_pin, 1 if state else 0)
         relay_name = [name for name, p in RELAY_PINS.items() if p == physical_pin][0]
-        print(f"{relay_name} (Physical Pin {physical_pin}, GPIO {bcm_pin}): {'ON' if state else 'OFF'}")
+        print(f"{relay_name} (Physical Pin {physical_pin}, {'ON' if state else 'OFF'}")
         return True
     except Exception as e:
         print(f"Error actuating relay on pin {physical_pin}: {e}")
@@ -145,9 +142,8 @@ def get_relay_states():
     
     states = {}
     for relay_name, physical_pin in RELAY_PINS.items():
-        bcm_pin = PHYSICAL_TO_BCM[physical_pin]
         try:
-            states[relay_name] = bool(lgpio.gpio_read(gpio_chip, bcm_pin))
+            states[relay_name] = bool(lgpio.gpio_read(gpio_chip, physical_pin))
         except Exception as e:
             print(f"Error reading {relay_name}: {e}")
             states[relay_name] = None
@@ -171,9 +167,8 @@ def cleanup_gpio():
     if gpio_chip is not None:
         # Turn off all relays before cleanup
         for physical_pin in RELAY_PINS.values():
-            bcm_pin = PHYSICAL_TO_BCM[physical_pin]
             try:
-                lgpio.gpio_write(gpio_chip, bcm_pin, 0)
+                lgpio.gpio_write(gpio_chip, physical_pin, 0)
             except:
                 pass
         
