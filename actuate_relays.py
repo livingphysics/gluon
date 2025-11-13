@@ -1,19 +1,10 @@
 import lgpio
 
-# GPIO Setup for Relays
-# Physical pin to GPIO (BCM) mapping for Raspberry Pi 5
-PHYSICAL_TO_BCM = {
-    29: 5,   # Physical pin 29 -> GPIO 5
-    31: 6,   # Physical pin 31 -> GPIO 6
-    33: 13,  # Physical pin 33 -> GPIO 13
-    37: 26   # Physical pin 37 -> GPIO 26
-}
-
 RELAY_PINS = {
-    'relay1': 29,
-    'relay2': 31,
-    'relay3': 33,
-    'relay4': 37
+    'relay1': 6,
+    'relay2': 13,
+    'relay3': 19,
+    'relay4': 26
 }
 
 # Initialize GPIO chip
@@ -31,8 +22,7 @@ except Exception as e:
 # Initialize all relay pins as outputs and set to LOW (OFF)
 if gpio_chip is not None:
     for physical_pin in RELAY_PINS.values():
-        bcm_pin = PHYSICAL_TO_BCM[physical_pin]
-        lgpio.gpio_claim_output(gpio_chip, bcm_pin, 0)  # 0 = LOW/OFF
+        lgpio.gpio_claim_output(gpio_chip, physical_pin, 0)  # 0 = LOW/OFF
 
 def actuate_relay(relay_name, state):
     """
