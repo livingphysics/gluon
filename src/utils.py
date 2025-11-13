@@ -75,6 +75,64 @@ def actuate_pump1_relay(bioreactor, elapsed=None):
     actuate_relay_timed(bioreactor, 'pump_1', 10, elapsed)
 
 
+def inject_co2_delayed(bioreactor, elapsed=None):
+    """
+    Wait 5 minutes, then inject CO2 for 30 seconds by turning on co2_solenoid relay.
+    This is a one-time job that completes after the injection.
+    
+    Sequence:
+    1. Wait 5 minutes (300 seconds)
+    2. Turn ON co2_solenoid relay for 30 seconds
+    3. Turn OFF co2_solenoid relay
+    4. Job completes
+    
+    Args:
+        bioreactor: Bioreactor instance
+        elapsed: Time elapsed since job started (optional, provided by run())
+    """
+    if not bioreactor.is_component_initialized('relays'):
+        bioreactor.logger.warning("Relays not initialized, cannot inject CO2")
+        return
+    
+    if not hasattr(bioreactor, 'relays') or 'co2_solenoid' not in bioreactor.relays:
+        bioreactor.logger.warning("co2_solenoid relay not found")
+        return
+    
+    try:
+        import lgpio
+        
+        relay_info = bioreactor.relays['co2_solenoid']
+        gpio_chip = relay_info['chip']
+        relay_pin = relay_info['pin']
+        
+        # Step 1: Wait 5 minutes
+        bioreactor.logger.info("Waiting 5 minutes before CO2 injection...")
+        time.sleep(300)  # 5 minutes = 300 seconds
+        
+        # Step 2: Turn ON co2_solenoid for 30 seconds
+        bioreactor.logger.info("Starting CO2 injection (30 seconds)...")
+        lgpio.gpio_write(gpio_chip, relay_pin, 0)  # 0 = ON
+        bioreactor.logger.info("co2_solenoid turned ON")
+        
+        time.sleep(30)  # Inject for 30 seconds
+        
+        # Step 3: Turn OFF co2_solenoid
+        lgpio.gpio_write(gpio_chip, relay_pin, 1)  # 1 = OFF
+        bioreactor.logger.info("co2_solenoid turned OFF - CO2 injection complete")
+        
+    except Exception as e:
+        bioreactor.logger.error(f"Error during CO2 injection: {e}")
+        # Try to turn off relay in case of error
+        try:
+            import lgpio
+            gpio_chip = bioreactor.relays['co2_solenoid']['chip']
+            relay_pin = bioreactor.relays['co2_solenoid']['pin']
+            lgpio.gpio_write(gpio_chip, relay_pin, 1)  # Turn off
+            bioreactor.logger.info("Emergency: co2_solenoid turned OFF")
+        except:
+            pass
+
+
 def create_flush_tank_job(duration_seconds):
     """
     Create a flush_tank function with a specific duration for use with bioreactor.run().
