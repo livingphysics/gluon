@@ -30,7 +30,7 @@ _anim = None  # Animation object
 
 # Global variables for CO2 duration (editable via text box)
 _co2_setpoint = 10000.0  # Default CO2 setpoint in ppm (editable via text box)
-_co2_duration = _co2_setpoint / 100000.0  # Default based on setpoint (setpoint/100000)
+_co2_duration = _co2_setpoint / 100000.0 if _co2_setpoint is not None and _co2_setpoint > 0 else 0.5  # Default based on setpoint (setpoint/100000), or 0.5s if no setpoint
 _co2_setpoint_textbox = None  # Store text box reference
 _bioreactor_ref = None  # Store bioreactor reference
 _setpoint_ref = None  # Reference to setpoint for control job
@@ -377,8 +377,11 @@ def create_stabilize_co2_job(setpoint_ppm=1000, tolerance_ppm=2000, pressurize_d
         ]
     """
     global _co2_duration
-    # Initialize CO2 duration based on setpoint (setpoint/100000)
-    _co2_duration = setpoint_ppm / 100000.0
+    # Initialize CO2 duration based on setpoint (setpoint/100000), or 0.5s if no setpoint
+    if setpoint_ppm is not None and setpoint_ppm > 0:
+        _co2_duration = setpoint_ppm / 100000.0
+    else:
+        _co2_duration = 0.5  # Default 0.5 seconds if no setpoint provided
     
     def stabilize_co2_job(bioreactor, elapsed=None):
         stabilize_co2(bioreactor, setpoint_ppm=setpoint_ppm, tolerance_ppm=tolerance_ppm, 
@@ -421,7 +424,7 @@ def stabilize_co2(bioreactor, setpoint_ppm=None, tolerance_ppm=1000, pressurize_
     
     # Use global co2_duration if not provided (this is the default amount)
     if co2_duration is None:
-        co2_duration = _co2_duration
+        co2_duration = _co2_duration if _co2_duration is not None and _co2_duration > 0 else 0.5
     
     # Always pressurize and inject with default CO2 duration
     # This happens regardless of tolerance
