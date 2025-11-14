@@ -421,7 +421,7 @@ def stabilize_co2(bioreactor, pressurize_duration=10, pause=30, co2_duration=Non
         coeffs = np.polyfit(time_values, co2_values, 1)
         slope = coeffs[0]  # ppm per second
         
-        bioreactor.logger.info(f"CO2 slope: {slope:.2f} ppm/s (from {min_len} points)")
+        bioreactor.logger.info(f"CO2 slope: {slope:.2f} ppm/s (from {len(co2_values)} points)")
         
         # Adjust CO2 duration based on slope
         if abs(slope) < 1e-6:  # Essentially zero (avoid floating point issues)
