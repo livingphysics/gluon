@@ -450,22 +450,17 @@ def stabilize_co2(bioreactor, setpoint_ppm=None, tolerance_ppm=1000, pressurize_
         # Calculate setpoint adjustment: difference * 2.5e-4
         setpoint_adjustment = signed_difference * 2.5e-4
         
-        if difference > tolerance_ppm:
-            # Not within tolerance - pause full stabilization
-            bioreactor.logger.info(f"Stabilization paused: CO2 ({avg_co2:.1f} ppm) is {difference:.1f} ppm away from setpoint ({setpoint_ppm} ppm), exceeds tolerance ({tolerance_ppm} ppm)")
-            if signed_difference > 0:
-                # CO2 is above setpoint: flush for the calculated duration
-                flush_duration = abs(setpoint_adjustment)
-                bioreactor.logger.info(f"CO2 above setpoint, flushing for {flush_duration:.3f}s")
-                flush_tank(bioreactor, duration_seconds=flush_duration, elapsed=elapsed)
-            else:
-                # CO2 is below setpoint: pressurize and inject CO2 for the adjustment duration
-                co2_inject_duration = abs(setpoint_adjustment)
-                bioreactor.logger.info(f"CO2 below setpoint, injecting CO2 for {co2_inject_duration:.3f}s")
-                pressurize_and_inject_co2(bioreactor, pressurize_duration, pause, co2_inject_duration, elapsed)
+        # Only pause stabilization if CO2 is above setpoint by more than tolerance (let flush job handle it)
+        if signed_difference > tolerance_ppm:
+            # CO2 is significantly above setpoint - pause stabilization and let flush job handle it
+            bioreactor.logger.info(f"Stabilization paused: CO2 ({avg_co2:.1f} ppm) is {signed_difference:.1f} ppm above setpoint ({setpoint_ppm} ppm), exceeds tolerance ({tolerance_ppm} ppm), flush job will handle")
             return
         else:
-            bioreactor.logger.info(f"CO2 ({avg_co2:.1f} ppm) within {tolerance_ppm} ppm of setpoint ({setpoint_ppm} ppm), running full stabilization")
+            # CO2 is at or below setpoint+tolerance - continue with normal stabilization
+            if signed_difference > 0:
+                bioreactor.logger.info(f"CO2 ({avg_co2:.1f} ppm) is {signed_difference:.1f} ppm above setpoint ({setpoint_ppm} ppm), within tolerance, running full stabilization")
+            else:
+                bioreactor.logger.info(f"CO2 ({avg_co2:.1f} ppm) is {abs(signed_difference):.1f} ppm below setpoint ({setpoint_ppm} ppm), running full stabilization")
             if setpoint_adjustment != 0:
                 bioreactor.logger.info(f"Setpoint adjustment: {setpoint_adjustment:.3f}s (will be added to CO2 injection if below setpoint)")
     
