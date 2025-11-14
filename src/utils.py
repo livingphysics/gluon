@@ -556,11 +556,21 @@ def stabilize_co2(bioreactor, setpoint_ppm=None, tolerance_ppm=1000, pressurize_
                     pressurize_duration_ref['value'] = current_pressurize_duration
                 bioreactor.logger.info(f"CO2 above setpoint: increased pressurize duration by {pressurize_adjustment:.3f}s (1e-3 * {signed_difference:.1f} ppm) to {current_pressurize_duration:.3f}s")
             elif signed_difference < 0:
-                # CO2 is below setpoint: increase CO2 injection duration by 1e-5 * difference (in addition to slope adjustment)
-                co2_adjustment = abs(signed_difference) * 1e-5
-                co2_duration = max(0, co2_duration + co2_adjustment)
-                _co2_duration = co2_duration
-                bioreactor.logger.info(f"CO2 below setpoint: increased CO2 injection duration by {co2_adjustment:.3f}s (1e-5 * {abs(signed_difference):.1f} ppm) to {co2_duration:.3f}s")
+                # CO2 is below setpoint: first decrease pressurize duration if > 10, then increase CO2 duration
+                if current_pressurize_duration > 10:
+                    # Decrease pressurize duration using same factor (1e-3 * difference)
+                    pressurize_adjustment = abs(signed_difference) * 1e-3
+                    current_pressurize_duration = max(10, current_pressurize_duration - pressurize_adjustment)
+                    # Update the reference if provided
+                    if pressurize_duration_ref is not None:
+                        pressurize_duration_ref['value'] = current_pressurize_duration
+                    bioreactor.logger.info(f"CO2 below setpoint: decreased pressurize duration by {pressurize_adjustment:.3f}s (1e-3 * {abs(signed_difference):.1f} ppm) to {current_pressurize_duration:.3f}s")
+                else:
+                    # Pressurize duration is at or below 10, now increase CO2 injection duration
+                    co2_adjustment = abs(signed_difference) * 1e-5
+                    co2_duration = max(0, co2_duration + co2_adjustment)
+                    _co2_duration = co2_duration
+                    bioreactor.logger.info(f"CO2 below setpoint: pressurize duration at {current_pressurize_duration:.3f}s, increased CO2 injection duration by {co2_adjustment:.3f}s (1e-5 * {abs(signed_difference):.1f} ppm) to {co2_duration:.3f}s")
     
     # Add setpoint adjustment to CO2 injection duration if below setpoint (legacy adjustment)
     if setpoint_ppm is not None and setpoint_adjustment < 0:
