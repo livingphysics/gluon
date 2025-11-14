@@ -272,19 +272,19 @@ def create_flush_tank_job(duration_seconds):
 def flush_tank(bioreactor, duration_seconds, elapsed=None):
     """
     Flush tank by running pump_1 and opening dump_valve for specified duration,
-    then closing valve and continuing pump for additional 20 seconds.
+    then closing valve and continuing pump for the same duration.
     
     Sequence:
     1. Turn ON pump_1
     2. Turn ON dump_valve (valve opens)
     3. Wait for duration_seconds
     4. Turn OFF dump_valve (valve closes)
-    5. Continue running pump_1 for additional 20 seconds
+    5. Continue running pump_1 for additional duration_seconds
     6. Turn OFF pump_1
     
     Args:
         bioreactor: Bioreactor instance
-        duration_seconds: Duration to keep valve open (in seconds)
+        duration_seconds: Duration to keep valve open and continue pump after closing (in seconds)
         elapsed: Time elapsed since job started (optional, provided by run())
     """
     if not bioreactor.is_component_initialized('relays'):
@@ -333,9 +333,9 @@ def flush_tank(bioreactor, duration_seconds, elapsed=None):
         lgpio.gpio_write(gpio_chip, valve_pin, 1)  # 1 = OFF
         bioreactor.logger.info(f"{valve_relay} turned OFF (valve closed)")
         
-        # Step 5: Continue running pump_1 for additional 20 seconds
-        bioreactor.logger.info("Continuing pump for additional 20 seconds")
-        time.sleep(20)
+        # Step 5: Continue running pump_1 for additional duration_seconds
+        bioreactor.logger.info(f"Continuing pump for additional {duration_seconds} seconds")
+        time.sleep(duration_seconds)
         
         # Step 6: Turn OFF pump_1
         lgpio.gpio_write(gpio_chip, pump_pin, 1)  # 1 = OFF
