@@ -29,8 +29,8 @@ _sensor_queue = queue.Queue()  # Thread-safe queue for sensor data
 _anim = None  # Animation object
 
 # Global variables for CO2 duration (editable via text box)
-_co2_duration = 1.0  # Default 1 second (for pressurize_and_inject_co2 job)
 _co2_setpoint = 10000.0  # Default CO2 setpoint in ppm (editable via text box)
+_co2_duration = _co2_setpoint / 100000.0  # Default based on setpoint (setpoint/100000)
 _co2_setpoint_textbox = None  # Store text box reference
 _bioreactor_ref = None  # Store bioreactor reference
 _setpoint_ref = None  # Reference to setpoint for control job
@@ -376,6 +376,10 @@ def create_stabilize_co2_job(setpoint_ppm=1000, tolerance_ppm=2000, pressurize_d
             (create_stabilize_co2_job(pressurize_duration=10), 180, True),  # Stabilize CO2 every 3 minutes
         ]
     """
+    global _co2_duration
+    # Initialize CO2 duration based on setpoint (setpoint/100000)
+    _co2_duration = setpoint_ppm / 100000.0
+    
     def stabilize_co2_job(bioreactor, elapsed=None):
         stabilize_co2(bioreactor, setpoint_ppm=setpoint_ppm, tolerance_ppm=tolerance_ppm, 
                      pressurize_duration=pressurize_duration, pause=pause, 
