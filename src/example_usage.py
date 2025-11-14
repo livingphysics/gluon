@@ -16,7 +16,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src import Bioreactor, Config
-from src.utils import actuate_pump1_relay, read_sensors_and_plot, create_flush_tank_job, flush_tank, inject_co2_delayed, create_inject_co2_job, relay_control_window
+from src.utils import actuate_pump1_relay, read_sensors_and_plot, create_flush_tank_job, flush_tank, inject_co2_delayed, create_inject_co2_job, relay_control_window, init_relay_control_window
 
 # Option 1: Use default config
 config = Config()
@@ -56,6 +56,10 @@ with Bioreactor(config) as reactor:
     if reactor.is_component_initialized('co2_sensor'):
         print("CO2 sensor is ready!")
         # Use sensor via reactor.co2_sensor
+    
+    # Initialize relay control window in main thread (required for matplotlib)
+    if reactor.is_component_initialized('relays'):
+        init_relay_control_window(reactor)
     
     # Start scheduled jobs
     # Format: (function, frequency_seconds, duration)

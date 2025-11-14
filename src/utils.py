@@ -506,48 +506,64 @@ def read_sensors_and_plot(bioreactor, elapsed=None):
         bioreactor.logger.error(f"Error in read_sensors_and_plot: {e}")
 
 
+def init_relay_control_window(bioreactor):
+    """
+    Initialize the relay control window. Must be called from the main thread.
+    
+    Args:
+        bioreactor: Bioreactor instance
+    """
+    global _relay_window_initialized, _relay_fig, _bioreactor_ref
+    
+    if _relay_window_initialized:
+        return  # Already initialized
+    
+    if not bioreactor.is_component_initialized('relays') or not hasattr(bioreactor, 'relays'):
+        bioreactor.logger.warning("Relays not initialized, cannot create relay control window")
+        return
+    
+    try:
+        # Create a new figure for relay control
+        _relay_fig = plt.figure(figsize=(8, 6))
+        _relay_fig.suptitle('Relay Control', fontsize=14, fontweight='bold')
+        
+        # Store bioreactor reference for button callbacks
+        _bioreactor_ref = bioreactor
+        
+        # Create relay control buttons
+        _create_relay_buttons(bioreactor)
+        
+        plt.ion()  # Turn on interactive mode
+        plt.show(block=False)  # Show all figures (non-blocking)
+        
+        _relay_window_initialized = True
+        bioreactor.logger.info("Relay control window initialized")
+    except Exception as e:
+        bioreactor.logger.error(f"Error initializing relay control window: {e}")
+
+
 def relay_control_window(bioreactor, elapsed=None):
     """
-    Create and maintain a separate window with relay control buttons.
-    Designed to run at a lower frequency than sensor plotting (e.g., every 1-2 seconds).
-    The window is created once and then just refreshed to keep it responsive.
+    Refresh the relay control window. The window must be initialized first using init_relay_control_window()
+    from the main thread. This function just refreshes the window to keep it responsive.
+    
+    Designed to run at a lower frequency than sensor plotting (e.g., every 0.5-1 seconds).
     
     Args:
         bioreactor: Bioreactor instance
         elapsed: Time elapsed since job started (optional, provided by run())
     """
-    global _relay_window_initialized, _relay_fig, _bioreactor_ref
+    global _relay_fig
     
-    # Initialize relay control window on first call
+    # Only refresh if window is already initialized
     if not _relay_window_initialized:
-        if not bioreactor.is_component_initialized('relays') or not hasattr(bioreactor, 'relays'):
-            bioreactor.logger.warning("Relays not initialized, cannot create relay control window")
-            return
-        
-        try:
-            # Create a new figure for relay control
-            _relay_fig = plt.figure(figsize=(8, 6))
-            _relay_fig.suptitle('Relay Control', fontsize=14, fontweight='bold')
-            
-            # Store bioreactor reference for button callbacks
-            _bioreactor_ref = bioreactor
-            
-            # Create relay control buttons
-            _create_relay_buttons(bioreactor)
-            
-            plt.ion()  # Turn on interactive mode
-            plt.show(block=False)  # Show all figures (non-blocking)
-            
-            _relay_window_initialized = True
-            bioreactor.logger.info("Relay control window initialized")
-        except Exception as e:
-            bioreactor.logger.error(f"Error initializing relay control window: {e}")
-            return
+        bioreactor.logger.debug("Relay control window not initialized yet")
+        return
     
     # Refresh the window to keep it responsive
     try:
         if _relay_fig and plt.fignum_exists(_relay_fig.number):
-            _relay_fig.canvas.draw()
+            _relay_fig.canvas.draw_idle()  # Use draw_idle for thread safety
             _relay_fig.canvas.flush_events()
     except Exception as e:
         bioreactor.logger.warning(f"Error refreshing relay control window: {e}")
