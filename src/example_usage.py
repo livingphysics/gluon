@@ -79,10 +79,12 @@ with Bioreactor(config) as reactor:
     reactor.run(jobs)
     print("Started scheduled jobs. Press Ctrl+C to stop.")
     
-    # Keep the program running
+    # Keep the program running and process matplotlib events
     try:
+        import matplotlib.pyplot as plt
         while True:
-            time.sleep(1)
+            plt.pause(0.1)  # Process matplotlib events (keeps animation running)
+            time.sleep(0.9)  # Sleep the rest of the second
     except KeyboardInterrupt:
         print("\nStopping bioreactor...")
         reactor.finish()

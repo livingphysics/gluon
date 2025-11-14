@@ -522,11 +522,16 @@ def init_plot_window(bioreactor):
         
         plt.subplots_adjust(bottom=0.1)  # Make room for text boxes and button
         
-        # Start animation (runs in main thread)
-        _anim = animation.FuncAnimation(_fig, _animate, interval=100, blit=False, cache_frame_data=False)
-        
         plt.ion()  # Turn on interactive mode
         plt.show(block=False)
+        
+        # Start animation (runs in main thread)
+        # Store animation globally to prevent garbage collection
+        _anim = animation.FuncAnimation(_fig, _animate, interval=50, blit=False, cache_frame_data=False, repeat=True)
+        
+        # Force initial draw
+        plt.draw()
+        plt.pause(0.01)
         
         _start_time = time.time()
         _plot_initialized = True
