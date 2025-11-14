@@ -16,7 +16,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src import Bioreactor, Config
-from src.utils import actuate_pump1_relay, read_sensors_and_plot, create_flush_tank_job, flush_tank, inject_co2_delayed, create_inject_co2_job, pressurize_and_inject_co2, stabilize_co2, init_plot_window
+from src.utils import actuate_pump1_relay, read_sensors_and_plot, create_flush_tank_job, flush_tank, inject_co2_delayed, create_inject_co2_job, pressurize_and_inject_co2, stabilize_co2, create_control_co2_setpoint_job, init_plot_window
 
 # Option 1: Use default config
 config = Config()
@@ -70,7 +70,8 @@ with Bioreactor(config) as reactor:
         # (pressurize_and_inject_co2, 180, True),  # Pressurize and inject CO2 every 3 minutes (uses editable CO2 duration)
         # (create_flush_tank_job(30), 3600, True),  # Flush tank every hour (30s valve open)
         # (create_inject_co2_job(300, 10), True, 310),  # Wait 5 min (300s), inject CO2 for 10s, then end (total: 310s)
-        (stabilize_co2, 180, True)  # Stabilize CO2 every 3 minutes (uses editable CO2 duration)
+        (stabilize_co2, 180, True),  # Stabilize CO2 every 3 minutes (uses editable CO2 duration)
+        (create_control_co2_setpoint_job(10000), 180, True)  # Control CO2 setpoint every 3 minutes (default: 10000 ppm)
     ]
     
     # You can also call functions directly (not as scheduled jobs):

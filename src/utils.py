@@ -456,6 +456,120 @@ def stabilize_co2(bioreactor, pressurize_duration=10, pause=30, co2_duration=Non
     pressurize_and_inject_co2(bioreactor, current_pressurize_duration, pause, co2_duration, elapsed)
 
 
+def pressurize_only(bioreactor, duration_seconds, elapsed=None):
+    """
+    Pressurize by running pump_1 for specified duration.
+    
+    Args:
+        bioreactor: Bioreactor instance
+        duration_seconds: Duration to run pump_1 (in seconds)
+        elapsed: Time elapsed since job started (optional)
+    """
+    if not bioreactor.is_component_initialized('relays'):
+        bioreactor.logger.warning("Relays not initialized")
+        return
+    
+    if not hasattr(bioreactor, 'relays') or 'pump_1' not in bioreactor.relays:
+        bioreactor.logger.warning("pump_1 relay not found")
+        return
+    
+    try:
+        import lgpio
+        
+        relay_info = bioreactor.relays['pump_1']
+        gpio_chip = relay_info['chip']
+        relay_pin = relay_info['pin']
+        
+        bioreactor.logger.info(f"Pressurizing: pump_1 ON for {duration_seconds}s")
+        lgpio.gpio_write(gpio_chip, relay_pin, 0)  # 0 = ON
+        time.sleep(duration_seconds)
+        lgpio.gpio_write(gpio_chip, relay_pin, 1)  # 1 = OFF
+        bioreactor.logger.info("pump_1 turned OFF - Pressurization complete")
+        
+    except Exception as e:
+        bioreactor.logger.error(f"Error during pressurization: {e}")
+        # Try to turn off relay in case of error
+        try:
+            import lgpio
+            gpio_chip = bioreactor.relays['pump_1']['chip']
+            relay_pin = bioreactor.relays['pump_1']['pin']
+            lgpio.gpio_write(gpio_chip, relay_pin, 1)  # Turn off
+            bioreactor.logger.info("Emergency: pump_1 turned OFF")
+        except:
+            pass
+
+
+def create_control_co2_setpoint_job(setpoint_ppm=1000):
+    """
+    Create a control_co2_setpoint function with a specific setpoint for use with bioreactor.run().
+    
+    Args:
+        setpoint_ppm: Target CO2 level in ppm (default: 1000)
+        
+    Returns:
+        function: A function that can be used with bioreactor.run()
+        
+    Example:
+        jobs = [
+            (create_control_co2_setpoint_job(1000), 180, True),  # Control CO2 every 3 minutes
+        ]
+    """
+    def control_co2_setpoint_job(bioreactor, elapsed=None):
+        control_co2_setpoint(bioreactor, setpoint_ppm=setpoint_ppm, elapsed=elapsed)
+    
+    return control_co2_setpoint_job
+
+
+def control_co2_setpoint(bioreactor, setpoint_ppm=1000, elapsed=None):
+    """
+    Control CO2 level based on setpoint using average of last 70 measurements.
+    
+    If CO2 is below setpoint: inject CO2 for 2.5e-4 * difference seconds
+    If CO2 is above setpoint: flush tank for 2.5e-4 * difference seconds, then pressurize for same duration
+    
+    Args:
+        bioreactor: Bioreactor instance
+        setpoint_ppm: Target CO2 level in ppm (default: 1000)
+        elapsed: Time elapsed since job started (optional)
+    """
+    global _co2_data
+    
+    if not bioreactor.is_component_initialized('relays'):
+        bioreactor.logger.warning("Relays not initialized")
+        return
+    
+    # Get CO2 data (last 70 points or all if fewer)
+    if len(_co2_data) < 1:
+        bioreactor.logger.warning("No CO2 data available for setpoint control")
+        return
+    
+    # Get the last 70 points (or all if fewer)
+    n_points = min(70, len(_co2_data))
+    co2_values = np.array(list(_co2_data)[-n_points:])
+    
+    # Calculate average
+    avg_co2 = np.mean(co2_values)
+    difference = avg_co2 - setpoint_ppm
+    
+    bioreactor.logger.info(f"CO2 setpoint control: average={avg_co2:.1f} ppm, setpoint={setpoint_ppm} ppm, difference={difference:.1f} ppm")
+    
+    # Calculate duration: 2.5e-4 * difference (in seconds)
+    duration = abs(difference) * 2.5e-4
+    
+    if difference < 0:
+        # Below setpoint: inject CO2
+        bioreactor.logger.info(f"CO2 below setpoint, injecting CO2 for {duration:.3f} seconds")
+        inject_co2_delayed(bioreactor, delay_seconds=0, injection_duration_seconds=duration, elapsed=elapsed)
+    elif difference > 0:
+        # Above setpoint: flush tank, then pressurize
+        bioreactor.logger.info(f"CO2 above setpoint, flushing tank for {duration:.3f} seconds, then pressurizing for {duration:.3f} seconds")
+        flush_tank(bioreactor, duration_seconds=duration, elapsed=elapsed)
+        pressurize_only(bioreactor, duration_seconds=duration, elapsed=elapsed)
+    else:
+        # At setpoint (within floating point precision)
+        bioreactor.logger.info("CO2 at setpoint, no action needed")
+
+
 def _update_co2_duration(text):
     """Handler for CO2 duration text box - updates global value in real time."""
     global _co2_duration, _co2_duration_textbox
