@@ -588,20 +588,25 @@ def pressurize_only(bioreactor, duration_seconds, elapsed=None):
             pass
 
 
-def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0):
+def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0, flush_multiplier=2.5e-4, inject_multiplier=2.5e-4, tolerance_ppm=1000):
     """
     Create a control_co2_setpoint function with a specific setpoint for use with bioreactor.run().
+    
+    The job will pause (skip action) when CO2 average is within tolerance, allowing the stabilize job to take control.
     
     Args:
         setpoint_ppm: Target CO2 level in ppm (default: 1000)
         initial_delay: Initial delay in seconds before first execution (default: 0)
+        flush_multiplier: Multiplier for flush duration when CO2 is above setpoint (default: 2.5e-4)
+        inject_multiplier: Multiplier for CO2 injection duration when CO2 is below setpoint (default: 2.5e-4)
+        tolerance_ppm: Tolerance around setpoint in ppm - job pauses when average is within this range (default: 1000)
         
     Returns:
         function: A function that can be used with bioreactor.run()
         
     Example:
         jobs = [
-            (create_control_co2_setpoint_job(1000, initial_delay=30), 180, True),  # Control CO2 every 3 minutes, starting 30s after other jobs
+            (create_control_co2_setpoint_job(1000, initial_delay=30, flush_multiplier=5e-4, tolerance_ppm=1000), 180, True),  # Control CO2 every 3 minutes, starting 30s after other jobs
         ]
     """
     _first_call = {'value': True}
@@ -612,21 +617,26 @@ def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0):
             bioreactor.logger.info(f"Waiting {initial_delay}s before first CO2 setpoint control...")
             time.sleep(initial_delay)
             _first_call['value'] = False
-        control_co2_setpoint(bioreactor, setpoint_ppm=setpoint_ppm, elapsed=elapsed)
+        control_co2_setpoint(bioreactor, setpoint_ppm=setpoint_ppm, flush_multiplier=flush_multiplier, 
+                           inject_multiplier=inject_multiplier, tolerance_ppm=tolerance_ppm, elapsed=elapsed)
     
     return control_co2_setpoint_job
 
 
-def control_co2_setpoint(bioreactor, setpoint_ppm=1000, elapsed=None):
+def control_co2_setpoint(bioreactor, setpoint_ppm=1000, flush_multiplier=2.5e-4, inject_multiplier=2.5e-4, tolerance_ppm=1000, elapsed=None):
     """
-    Control CO2 level based on setpoint using average of last 70 measurements.
+    Control CO2 level based on setpoint using average of last 15 measurements.
     
-    If CO2 is below setpoint: inject CO2 for 2.5e-4 * difference seconds
-    If CO2 is above setpoint: flush tank for 2.5e-4 * difference seconds, then pressurize for same duration
+    If CO2 average is within tolerance of setpoint, the job pauses (skips action) to allow stabilize job to take control.
+    If CO2 is below setpoint: inject CO2 for inject_multiplier * difference seconds
+    If CO2 is above setpoint: flush tank for flush_multiplier * difference seconds, then pressurize for same duration
     
     Args:
         bioreactor: Bioreactor instance
         setpoint_ppm: Target CO2 level in ppm (default: 1000)
+        flush_multiplier: Multiplier for flush duration when CO2 is above setpoint (default: 2.5e-4)
+        inject_multiplier: Multiplier for CO2 injection duration when CO2 is below setpoint (default: 2.5e-4)
+        tolerance_ppm: Tolerance around setpoint in ppm - job pauses when average is within this range (default: 1000)
         elapsed: Time elapsed since job started (optional)
     """
     global _co2_data
@@ -635,31 +645,36 @@ def control_co2_setpoint(bioreactor, setpoint_ppm=1000, elapsed=None):
         bioreactor.logger.warning("Relays not initialized")
         return
     
-    # Get CO2 data (last 70 points or all if fewer)
+    # Get CO2 data (last 15 points or all if fewer)
     if len(_co2_data) < 1:
         bioreactor.logger.warning("No CO2 data available for setpoint control")
         return
     
-    # Get the last 70 points (or all if fewer)
-    n_points = min(70, len(_co2_data))
+    # Get the last 15 points (or all if fewer)
+    n_points = min(15, len(_co2_data))
     co2_values = np.array(list(_co2_data)[-n_points:])
     
     # Calculate average
     avg_co2 = np.mean(co2_values)
     difference = avg_co2 - setpoint_ppm
+    abs_difference = abs(difference)
     
     bioreactor.logger.info(f"CO2 setpoint control: average={avg_co2:.1f} ppm, setpoint={setpoint_ppm} ppm, difference={difference:.1f} ppm")
     
-    # Calculate duration: 2.5e-4 * difference (in seconds)
-    duration = abs(difference) * 2.5e-4
+    # Check if within tolerance - if so, pause the control job (let stabilize job take over)
+    if abs_difference <= tolerance_ppm:
+        bioreactor.logger.info(f"CO2 setpoint control paused: average ({avg_co2:.1f} ppm) is within {tolerance_ppm} ppm of setpoint ({setpoint_ppm} ppm), stabilize job is active")
+        return
     
     if difference < 0:
         # Below setpoint: inject CO2
-        bioreactor.logger.info(f"CO2 below setpoint, injecting CO2 for {duration:.3f} seconds")
+        duration = abs(difference) * inject_multiplier
+        bioreactor.logger.info(f"CO2 below setpoint, injecting CO2 for {duration:.3f} seconds (multiplier: {inject_multiplier})")
         inject_co2_delayed(bioreactor, delay_seconds=0, injection_duration_seconds=duration, elapsed=elapsed)
     elif difference > 0:
         # Above setpoint: flush tank, then pressurize
-        bioreactor.logger.info(f"CO2 above setpoint, flushing tank for {duration:.3f} seconds, then pressurizing for {duration:.3f} seconds")
+        duration = abs(difference) * flush_multiplier
+        bioreactor.logger.info(f"CO2 above setpoint, flushing tank for {duration:.3f} seconds, then pressurizing for {duration:.3f} seconds (flush multiplier: {flush_multiplier})")
         flush_tank(bioreactor, duration_seconds=duration, elapsed=elapsed)
         pressurize_only(bioreactor, duration_seconds=duration, elapsed=elapsed)
     else:

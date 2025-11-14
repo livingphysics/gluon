@@ -71,7 +71,7 @@ with Bioreactor(config) as reactor:
         # (create_flush_tank_job(30), 3600, True),  # Flush tank every hour (30s valve open)
         # (create_inject_co2_job(300, 10), True, 310),  # Wait 5 min (300s), inject CO2 for 10s, then end (total: 310s)
         (create_stabilize_co2_job(setpoint_ppm=10000, tolerance_ppm=1000), 180, True),  # Stabilize CO2 every 3 minutes (only when within 1000ppm of setpoint)
-        (create_control_co2_setpoint_job(10000, initial_delay=30), 60, True)  # Control CO2 setpoint every 3 minutes, offset by 30s (default: 10000 ppm)
+        (create_control_co2_setpoint_job(10000, initial_delay=30, flush_multiplier=5e-4, tolerance_ppm=1000), 60, True)  # Control CO2 setpoint every 60s, offset by 30s, flush multiplier 5e-4, pauses when average within 1000ppm (default: 10000 ppm)
     ]
     
     # You can also call functions directly (not as scheduled jobs):
