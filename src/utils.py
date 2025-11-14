@@ -361,10 +361,12 @@ def create_stabilize_co2_job(setpoint_ppm=1000, tolerance_ppm=1000, pressurize_d
     Only runs full stabilization if CO2 is within tolerance of setpoint.
     Otherwise, just pressurizes with 0s CO2 injection.
     
+    Each job instance maintains its own independent pressurize_duration state.
+    
     Args:
         setpoint_ppm: Target CO2 level in ppm (default: 1000)
         tolerance_ppm: Tolerance around setpoint in ppm (default: 1000)
-        pressurize_duration: Duration to run pump_1 (default: 10 seconds)
+        pressurize_duration: Initial duration to run pump_1 (default: 10 seconds, may be adjusted)
         pause: Wait time between pump and CO2 injection (default: 30 seconds)
         
     Returns:
@@ -375,14 +377,18 @@ def create_stabilize_co2_job(setpoint_ppm=1000, tolerance_ppm=1000, pressurize_d
             (create_stabilize_co2_job(10000, tolerance_ppm=1000), 180, True),  # Stabilize CO2 every 3 minutes
         ]
     """
+    # Store pressurize_duration in closure to maintain independent state
+    _local_pressurize_duration = {'value': pressurize_duration}
+    
     def stabilize_co2_job(bioreactor, elapsed=None):
         stabilize_co2(bioreactor, setpoint_ppm=setpoint_ppm, tolerance_ppm=tolerance_ppm, 
-                     pressurize_duration=pressurize_duration, pause=pause, elapsed=elapsed)
+                     pressurize_duration=_local_pressurize_duration['value'], pause=pause, 
+                     elapsed=elapsed, pressurize_duration_ref=_local_pressurize_duration)
     
     return stabilize_co2_job
 
 
-def stabilize_co2(bioreactor, setpoint_ppm=None, tolerance_ppm=1000, pressurize_duration=10, pause=30, co2_duration=None, elapsed=None):
+def stabilize_co2(bioreactor, setpoint_ppm=None, tolerance_ppm=1000, pressurize_duration=10, pause=30, co2_duration=None, elapsed=None, pressurize_duration_ref=None):
     """
     Stabilize CO2 by adjusting injection duration based on CO2 trend.
     
@@ -407,8 +413,9 @@ def stabilize_co2(bioreactor, setpoint_ppm=None, tolerance_ppm=1000, pressurize_
         pause: Wait time between pump and CO2 injection (default: 30 seconds)
         co2_duration: Initial CO2 injection duration (default: uses global _co2_duration, may be adjusted)
         elapsed: Time elapsed since job started (optional)
+        pressurize_duration_ref: Reference to store pressurize_duration state (optional, for independent state per job)
     """
-    global _co2_duration, _co2_data, _time_data, _start_time, _pressurize_duration
+    global _co2_duration, _co2_data, _time_data, _start_time
     
     if not bioreactor.is_component_initialized('relays'):
         bioreactor.logger.warning("Relays not initialized")
@@ -418,8 +425,11 @@ def stabilize_co2(bioreactor, setpoint_ppm=None, tolerance_ppm=1000, pressurize_
     if co2_duration is None:
         co2_duration = _co2_duration
     
-    # Use global pressurize_duration
-    current_pressurize_duration = _pressurize_duration
+    # Use pressurize_duration from reference if provided (for independent state), otherwise use parameter
+    if pressurize_duration_ref is not None:
+        current_pressurize_duration = pressurize_duration_ref['value']
+    else:
+        current_pressurize_duration = pressurize_duration
     
     # Check if we should run full stabilization or just pressurize
     setpoint_adjustment = 0.0  # Will be calculated if setpoint is provided
@@ -441,16 +451,17 @@ def stabilize_co2(bioreactor, setpoint_ppm=None, tolerance_ppm=1000, pressurize_
         setpoint_adjustment = signed_difference * 2.5e-4
         
         if difference > tolerance_ppm:
-            # Not within tolerance
+            # Not within tolerance - pause full stabilization
+            bioreactor.logger.info(f"Stabilization paused: CO2 ({avg_co2:.1f} ppm) is {difference:.1f} ppm away from setpoint ({setpoint_ppm} ppm), exceeds tolerance ({tolerance_ppm} ppm)")
             if signed_difference > 0:
                 # CO2 is above setpoint: flush for the calculated duration
                 flush_duration = abs(setpoint_adjustment)
-                bioreactor.logger.info(f"CO2 ({avg_co2:.1f} ppm) above setpoint ({setpoint_ppm} ppm) by {difference:.1f} ppm, flushing for {flush_duration:.3f}s")
+                bioreactor.logger.info(f"CO2 above setpoint, flushing for {flush_duration:.3f}s")
                 flush_tank(bioreactor, duration_seconds=flush_duration, elapsed=elapsed)
             else:
                 # CO2 is below setpoint: pressurize and inject CO2 for the adjustment duration
                 co2_inject_duration = abs(setpoint_adjustment)
-                bioreactor.logger.info(f"CO2 ({avg_co2:.1f} ppm) below setpoint ({setpoint_ppm} ppm) by {difference:.1f} ppm, injecting CO2 for {co2_inject_duration:.3f}s")
+                bioreactor.logger.info(f"CO2 below setpoint, injecting CO2 for {co2_inject_duration:.3f}s")
                 pressurize_and_inject_co2(bioreactor, pressurize_duration, pause, co2_inject_duration, elapsed)
             return
         else:
@@ -509,7 +520,9 @@ def stabilize_co2(bioreactor, setpoint_ppm=None, tolerance_ppm=1000, pressurize_
                 # Increase pressurize_duration by slope/100
                 pressurize_adjustment = slope / 100.0
                 current_pressurize_duration = max(0, current_pressurize_duration + pressurize_adjustment)
-                _pressurize_duration = current_pressurize_duration
+                # Update the reference if provided (for independent state per job)
+                if pressurize_duration_ref is not None:
+                    pressurize_duration_ref['value'] = current_pressurize_duration
                 # Keep CO2 duration at zero
                 co2_duration = 0.0
                 _co2_duration = 0.0
