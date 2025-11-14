@@ -450,8 +450,8 @@ def stabilize_co2(bioreactor, setpoint_ppm=None, tolerance_ppm=1000, pressurize_
             pressurize_and_inject_co2(bioreactor, pressurize_duration, pause, 0, elapsed)
             return
         
-        # Get the last 15 points (or all if fewer) to calculate average
-        n_points = min(15, len(_co2_data))
+        # Get the last 5 points (or all if fewer) to calculate average
+        n_points = min(5, len(_co2_data))
         co2_values = np.array(list(_co2_data)[-n_points:])
         avg_co2 = np.mean(co2_values)
         signed_difference = avg_co2 - setpoint_ppm  # Positive if above, negative if below
