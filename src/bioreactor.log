@@ -2231,3 +2231,942 @@
 2025-11-13 17:06:34,163 - Bioreactor - INFO - Stop event set for all threads.
 2025-11-13 17:06:34,163 - Bioreactor - INFO - Data file closed.
 2025-11-13 17:06:34,163 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-13 18:32:47,506 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-13 18:32:47,506 - Bioreactor - INFO - Initializing relays...
+2025-11-13 18:32:47,508 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-13 18:32:47,508 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-13 18:32:47,508 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-13 18:32:47,508 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-13 18:32:47,508 - Bioreactor - INFO - relays initialized successfully
+2025-11-13 18:32:47,508 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-13 18:32:48,522 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-13 18:32:48,522 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-13 18:32:48,522 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-13 18:32:48,526 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-13 18:32:48,526 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-13 18:32:48,526 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-13 18:32:48,526 - Bioreactor - INFO - Starting automatic tank flush (30s)...
+2025-11-13 18:32:48,526 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 30s
+2025-11-13 18:32:48,527 - Bioreactor - INFO - pump_1 turned ON
+2025-11-13 18:32:48,527 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-13 18:33:18,527 - Bioreactor - INFO - Valve open duration (30s) completed
+2025-11-13 18:33:18,527 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-13 18:33:18,527 - Bioreactor - INFO - Continuing pump for additional 20 seconds
+2025-11-13 18:33:38,527 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-13 18:33:38,527 - Bioreactor - INFO - Automatic tank flush completed.
+2025-11-13 18:33:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 18:33:38,529 - Bioreactor - INFO - Waiting 300 seconds before CO2 injection...
+2025-11-13 18:33:38,529 - Bioreactor - INFO - Started 3 job threads.
+2025-11-13 18:33:38,725 - Bioreactor - INFO - Plot initialized for sensor monitoring
+2025-11-13 18:33:40,329 - Bioreactor - INFO - CO2: 9230.0 ppm, O2: 20.9%
+2025-11-13 18:33:45,316 - Bioreactor - INFO - CO2: 10480.0 ppm, O2: 20.9%
+2025-11-13 18:33:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 18:33:50,287 - Bioreactor - INFO - CO2: 10910.0 ppm, O2: 20.9%
+2025-11-13 18:33:55,363 - Bioreactor - INFO - CO2: 10620.0 ppm, O2: 20.9%
+2025-11-13 18:34:00,295 - Bioreactor - INFO - CO2: 10180.0 ppm, O2: 20.9%
+2025-11-13 18:34:05,290 - Bioreactor - INFO - CO2: 9150.0 ppm, O2: 20.9%
+2025-11-13 18:34:10,261 - Bioreactor - INFO - CO2: 8770.0 ppm, O2: 20.9%
+2025-11-13 18:34:15,268 - Bioreactor - INFO - CO2: 8180.0 ppm, O2: 20.9%
+2025-11-13 18:34:20,290 - Bioreactor - INFO - CO2: 8050.0 ppm, O2: 20.9%
+2025-11-13 18:34:25,276 - Bioreactor - INFO - CO2: 8030.0 ppm, O2: 20.9%
+2025-11-13 18:34:30,260 - Bioreactor - INFO - CO2: 8010.0 ppm, O2: 20.9%
+2025-11-13 18:34:35,260 - Bioreactor - INFO - CO2: 7950.0 ppm, O2: 20.9%
+2025-11-13 18:34:40,297 - Bioreactor - INFO - CO2: 7910.0 ppm, O2: 20.9%
+2025-11-13 18:34:45,300 - Bioreactor - INFO - CO2: 7820.0 ppm, O2: 20.9%
+2025-11-13 18:34:50,270 - Bioreactor - INFO - CO2: 7820.0 ppm, O2: 20.9%
+2025-11-13 18:34:55,292 - Bioreactor - INFO - CO2: 7820.0 ppm, O2: 20.9%
+2025-11-13 18:35:00,300 - Bioreactor - INFO - CO2: 7810.0 ppm, O2: 20.9%
+2025-11-13 18:35:05,256 - Bioreactor - INFO - CO2: 7800.0 ppm, O2: 20.9%
+2025-11-13 18:35:10,262 - Bioreactor - INFO - CO2: 7790.0 ppm, O2: 20.9%
+2025-11-13 18:35:15,297 - Bioreactor - INFO - CO2: 7740.0 ppm, O2: 20.9%
+2025-11-13 18:35:20,265 - Bioreactor - INFO - CO2: 7720.0 ppm, O2: 20.9%
+2025-11-13 18:35:25,266 - Bioreactor - INFO - CO2: 7710.0 ppm, O2: 20.9%
+2025-11-13 18:35:30,292 - Bioreactor - INFO - CO2: 7660.0 ppm, O2: 20.9%
+2025-11-13 18:35:35,269 - Bioreactor - INFO - CO2: 7600.0 ppm, O2: 20.9%
+2025-11-13 18:35:40,297 - Bioreactor - INFO - CO2: 7510.0 ppm, O2: 20.9%
+2025-11-13 18:35:45,270 - Bioreactor - INFO - CO2: 7420.0 ppm, O2: 20.9%
+2025-11-13 18:35:50,266 - Bioreactor - INFO - CO2: 7360.0 ppm, O2: 20.9%
+2025-11-13 18:35:55,306 - Bioreactor - INFO - CO2: 7250.0 ppm, O2: 20.9%
+2025-11-13 18:36:00,276 - Bioreactor - INFO - CO2: 7210.0 ppm, O2: 20.9%
+2025-11-13 18:36:05,287 - Bioreactor - INFO - CO2: 7120.0 ppm, O2: 20.9%
+2025-11-13 18:36:10,290 - Bioreactor - INFO - CO2: 7070.0 ppm, O2: 20.9%
+2025-11-13 18:36:15,315 - Bioreactor - INFO - CO2: 7010.0 ppm, O2: 20.9%
+2025-11-13 18:36:20,279 - Bioreactor - INFO - CO2: 6860.0 ppm, O2: 20.9%
+2025-11-13 18:36:25,289 - Bioreactor - INFO - CO2: 6730.0 ppm, O2: 20.9%
+2025-11-13 18:36:30,268 - Bioreactor - INFO - CO2: 6700.0 ppm, O2: 20.9%
+2025-11-13 18:36:35,268 - Bioreactor - INFO - CO2: 6650.0 ppm, O2: 20.9%
+2025-11-13 18:36:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 18:36:40,286 - Bioreactor - INFO - CO2: 6630.0 ppm, O2: 20.9%
+2025-11-13 18:36:45,286 - Bioreactor - INFO - CO2: 6580.0 ppm, O2: 20.9%
+2025-11-13 18:36:48,528 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 18:36:50,274 - Bioreactor - INFO - CO2: 6610.0 ppm, O2: 20.9%
+2025-11-13 18:36:55,304 - Bioreactor - INFO - CO2: 6570.0 ppm, O2: 20.9%
+2025-11-13 18:37:00,275 - Bioreactor - INFO - CO2: 6560.0 ppm, O2: 20.9%
+2025-11-13 18:37:05,298 - Bioreactor - INFO - CO2: 6560.0 ppm, O2: 20.9%
+2025-11-13 18:37:10,260 - Bioreactor - INFO - CO2: 6520.0 ppm, O2: 20.9%
+2025-11-13 18:37:15,318 - Bioreactor - INFO - CO2: 6540.0 ppm, O2: 20.9%
+2025-11-13 18:37:20,260 - Bioreactor - INFO - CO2: 6520.0 ppm, O2: 20.9%
+2025-11-13 18:37:25,261 - Bioreactor - INFO - CO2: 6510.0 ppm, O2: 20.9%
+2025-11-13 18:37:30,291 - Bioreactor - INFO - CO2: 6510.0 ppm, O2: 20.9%
+2025-11-13 18:37:35,260 - Bioreactor - INFO - CO2: 6490.0 ppm, O2: 20.9%
+2025-11-13 18:37:40,335 - Bioreactor - INFO - CO2: 6520.0 ppm, O2: 20.9%
+2025-11-13 18:37:45,261 - Bioreactor - INFO - CO2: 6520.0 ppm, O2: 20.9%
+2025-11-13 18:37:50,296 - Bioreactor - INFO - CO2: 6500.0 ppm, O2: 20.9%
+2025-11-13 18:37:55,262 - Bioreactor - INFO - CO2: 6500.0 ppm, O2: 20.9%
+2025-11-13 18:38:00,268 - Bioreactor - INFO - CO2: 6470.0 ppm, O2: 20.9%
+2025-11-13 18:38:05,287 - Bioreactor - INFO - CO2: 6460.0 ppm, O2: 20.9%
+2025-11-13 18:38:10,276 - Bioreactor - INFO - CO2: 6460.0 ppm, O2: 20.9%
+2025-11-13 18:38:15,296 - Bioreactor - INFO - CO2: 6430.0 ppm, O2: 20.9%
+2025-11-13 18:38:20,262 - Bioreactor - INFO - CO2: 6440.0 ppm, O2: 20.9%
+2025-11-13 18:38:25,284 - Bioreactor - INFO - CO2: 6420.0 ppm, O2: 20.9%
+2025-11-13 18:38:30,287 - Bioreactor - INFO - CO2: 6410.0 ppm, O2: 20.9%
+2025-11-13 18:38:35,266 - Bioreactor - INFO - CO2: 6400.0 ppm, O2: 20.9%
+2025-11-13 18:38:38,530 - Bioreactor - INFO - Starting CO2 injection (10 seconds)...
+2025-11-13 18:38:38,530 - Bioreactor - INFO - co2_solenoid turned ON
+2025-11-13 18:38:40,291 - Bioreactor - INFO - CO2: 6390.0 ppm, O2: 20.9%
+2025-11-13 18:38:45,276 - Bioreactor - INFO - CO2: 6390.0 ppm, O2: 20.9%
+2025-11-13 18:38:48,530 - Bioreactor - INFO - co2_solenoid turned OFF - CO2 injection complete
+2025-11-13 18:38:50,299 - Bioreactor - INFO - CO2: 6370.0 ppm, O2: 20.9%
+2025-11-13 18:38:55,267 - Bioreactor - INFO - CO2: 6350.0 ppm, O2: 20.9%
+2025-11-13 18:39:00,286 - Bioreactor - INFO - CO2: 6340.0 ppm, O2: 20.9%
+2025-11-13 18:39:05,296 - Bioreactor - INFO - CO2: 6310.0 ppm, O2: 20.9%
+2025-11-13 18:39:10,268 - Bioreactor - INFO - CO2: 6310.0 ppm, O2: 20.9%
+2025-11-13 18:39:15,340 - Bioreactor - INFO - CO2: 6280.0 ppm, O2: 20.9%
+2025-11-13 18:39:20,271 - Bioreactor - INFO - CO2: 6200.0 ppm, O2: 20.9%
+2025-11-13 18:39:25,304 - Bioreactor - INFO - CO2: 6170.0 ppm, O2: 20.9%
+2025-11-13 18:39:30,272 - Bioreactor - INFO - CO2: 6080.0 ppm, O2: 20.9%
+2025-11-13 18:39:35,303 - Bioreactor - INFO - CO2: 6080.0 ppm, O2: 20.9%
+2025-11-13 18:39:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 18:39:40,272 - Bioreactor - INFO - CO2: 6060.0 ppm, O2: 20.9%
+2025-11-13 18:39:45,272 - Bioreactor - INFO - CO2: 6050.0 ppm, O2: 20.9%
+2025-11-13 18:39:48,528 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 18:39:50,304 - Bioreactor - INFO - CO2: 6050.0 ppm, O2: 21.0%
+2025-11-13 18:39:55,273 - Bioreactor - INFO - CO2: 6050.0 ppm, O2: 20.9%
+2025-11-13 18:40:00,309 - Bioreactor - INFO - CO2: 6040.0 ppm, O2: 20.9%
+2025-11-13 18:40:05,273 - Bioreactor - INFO - CO2: 6020.0 ppm, O2: 20.9%
+2025-11-13 18:40:10,309 - Bioreactor - INFO - CO2: 6000.0 ppm, O2: 20.9%
+2025-11-13 18:40:15,277 - Bioreactor - INFO - CO2: 6010.0 ppm, O2: 20.9%
+2025-11-13 18:40:20,273 - Bioreactor - INFO - CO2: 6010.0 ppm, O2: 20.9%
+2025-11-13 18:40:25,298 - Bioreactor - INFO - CO2: 6000.0 ppm, O2: 20.9%
+2025-11-13 18:40:30,277 - Bioreactor - INFO - CO2: 6000.0 ppm, O2: 20.9%
+2025-11-13 18:40:35,280 - Bioreactor - INFO - CO2: 6000.0 ppm, O2: 20.9%
+2025-11-13 18:40:40,326 - Bioreactor - INFO - CO2: 6000.0 ppm, O2: 20.9%
+2025-11-13 18:40:45,263 - Bioreactor - INFO - CO2: 6010.0 ppm, O2: 20.9%
+2025-11-13 18:40:50,295 - Bioreactor - INFO - CO2: 6010.0 ppm, O2: 20.9%
+2025-11-13 18:40:55,267 - Bioreactor - INFO - CO2: 6000.0 ppm, O2: 20.9%
+2025-11-13 18:41:00,287 - Bioreactor - INFO - CO2: 5990.0 ppm, O2: 20.9%
+2025-11-13 18:41:05,280 - Bioreactor - INFO - CO2: 6000.0 ppm, O2: 20.9%
+2025-11-13 18:41:10,316 - Bioreactor - INFO - CO2: 6010.0 ppm, O2: 20.9%
+2025-11-13 18:41:15,269 - Bioreactor - INFO - CO2: 6030.0 ppm, O2: 20.9%
+2025-11-13 18:41:20,266 - Bioreactor - INFO - CO2: 6050.0 ppm, O2: 20.9%
+2025-11-13 18:41:25,296 - Bioreactor - INFO - CO2: 6060.0 ppm, O2: 20.9%
+2025-11-13 18:41:30,272 - Bioreactor - INFO - CO2: 6070.0 ppm, O2: 20.9%
+2025-11-13 18:41:35,302 - Bioreactor - INFO - CO2: 6090.0 ppm, O2: 20.9%
+2025-11-13 18:41:40,272 - Bioreactor - INFO - CO2: 6110.0 ppm, O2: 20.9%
+2025-11-13 18:41:45,304 - Bioreactor - INFO - CO2: 6160.0 ppm, O2: 20.9%
+2025-11-13 18:41:50,273 - Bioreactor - INFO - CO2: 6210.0 ppm, O2: 20.9%
+2025-11-13 18:41:55,273 - Bioreactor - INFO - CO2: 6350.0 ppm, O2: 20.9%
+2025-11-13 18:42:00,293 - Bioreactor - INFO - CO2: 6520.0 ppm, O2: 20.9%
+2025-11-13 18:42:05,281 - Bioreactor - INFO - CO2: 6760.0 ppm, O2: 20.9%
+2025-11-13 18:42:10,326 - Bioreactor - INFO - CO2: 6940.0 ppm, O2: 20.9%
+2025-11-13 18:42:15,310 - Bioreactor - INFO - CO2: 7450.0 ppm, O2: 20.9%
+2025-11-13 18:42:20,288 - Bioreactor - INFO - CO2: 7720.0 ppm, O2: 20.9%
+2025-11-13 18:42:25,294 - Bioreactor - INFO - CO2: 8130.0 ppm, O2: 20.9%
+2025-11-13 18:42:30,271 - Bioreactor - INFO - CO2: 8650.0 ppm, O2: 20.9%
+2025-11-13 18:42:35,300 - Bioreactor - INFO - CO2: 9090.0 ppm, O2: 20.9%
+2025-11-13 18:42:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 18:42:40,270 - Bioreactor - INFO - CO2: 9510.0 ppm, O2: 20.9%
+2025-11-13 18:42:45,294 - Bioreactor - INFO - CO2: 9900.0 ppm, O2: 20.9%
+2025-11-13 18:42:48,528 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 18:42:50,274 - Bioreactor - INFO - CO2: 10020.0 ppm, O2: 20.9%
+2025-11-13 18:42:55,296 - Bioreactor - INFO - CO2: 10360.0 ppm, O2: 20.9%
+2025-11-13 18:43:00,278 - Bioreactor - INFO - CO2: 10700.0 ppm, O2: 20.9%
+2025-11-13 18:43:05,269 - Bioreactor - INFO - CO2: 11310.0 ppm, O2: 20.9%
+2025-11-13 18:43:10,299 - Bioreactor - INFO - CO2: 11510.0 ppm, O2: 20.9%
+2025-11-13 18:43:15,273 - Bioreactor - INFO - CO2: 12060.0 ppm, O2: 20.9%
+2025-11-13 18:43:20,305 - Bioreactor - INFO - CO2: 12180.0 ppm, O2: 20.9%
+2025-11-13 18:43:25,279 - Bioreactor - INFO - CO2: 12260.0 ppm, O2: 20.9%
+2025-11-13 18:43:30,277 - Bioreactor - INFO - CO2: 12400.0 ppm, O2: 20.9%
+2025-11-13 18:43:35,303 - Bioreactor - INFO - CO2: 12660.0 ppm, O2: 20.9%
+2025-11-13 18:43:40,285 - Bioreactor - INFO - CO2: 13020.0 ppm, O2: 20.9%
+2025-11-13 18:43:45,305 - Bioreactor - INFO - CO2: 13360.0 ppm, O2: 20.9%
+2025-11-13 18:43:50,322 - Bioreactor - INFO - CO2: 13850.0 ppm, O2: 20.8%
+2025-11-13 18:43:55,308 - Bioreactor - INFO - CO2: 14180.0 ppm, O2: 20.8%
+2025-11-13 18:44:00,281 - Bioreactor - INFO - CO2: 14220.0 ppm, O2: 20.8%
+2025-11-13 18:44:05,277 - Bioreactor - INFO - CO2: 14330.0 ppm, O2: 20.8%
+2025-11-13 18:44:10,309 - Bioreactor - INFO - CO2: 14390.0 ppm, O2: 20.8%
+2025-11-13 18:44:15,277 - Bioreactor - INFO - CO2: 14540.0 ppm, O2: 20.8%
+2025-11-13 18:44:20,304 - Bioreactor - INFO - CO2: 14760.0 ppm, O2: 20.8%
+2025-11-13 18:44:25,285 - Bioreactor - INFO - CO2: 15130.0 ppm, O2: 20.8%
+2025-11-13 18:44:30,308 - Bioreactor - INFO - CO2: 15310.0 ppm, O2: 20.8%
+2025-11-13 18:44:35,282 - Bioreactor - INFO - CO2: 15480.0 ppm, O2: 20.8%
+2025-11-13 18:44:40,279 - Bioreactor - INFO - CO2: 15680.0 ppm, O2: 20.8%
+2025-11-13 18:44:45,320 - Bioreactor - INFO - CO2: 15860.0 ppm, O2: 20.8%
+2025-11-13 18:44:50,282 - Bioreactor - INFO - CO2: 16090.0 ppm, O2: 20.8%
+2025-11-13 18:44:55,304 - Bioreactor - INFO - CO2: 16630.0 ppm, O2: 20.8%
+2025-11-13 18:45:00,304 - Bioreactor - INFO - CO2: 16930.0 ppm, O2: 20.8%
+2025-11-13 18:45:05,281 - Bioreactor - INFO - CO2: 17470.0 ppm, O2: 20.8%
+2025-11-13 18:45:10,286 - Bioreactor - INFO - CO2: 17790.0 ppm, O2: 20.8%
+2025-11-13 18:45:15,303 - Bioreactor - INFO - CO2: 18370.0 ppm, O2: 20.8%
+2025-11-13 18:45:20,332 - Bioreactor - INFO - CO2: 18650.0 ppm, O2: 20.8%
+2025-11-13 18:45:25,275 - Bioreactor - INFO - CO2: 18920.0 ppm, O2: 20.8%
+2025-11-13 18:45:30,314 - Bioreactor - INFO - CO2: 19140.0 ppm, O2: 20.8%
+2025-11-13 18:45:35,282 - Bioreactor - INFO - CO2: 19260.0 ppm, O2: 20.8%
+2025-11-13 18:45:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 18:45:40,308 - Bioreactor - INFO - CO2: 19400.0 ppm, O2: 20.8%
+2025-11-13 18:45:45,294 - Bioreactor - INFO - CO2: 19490.0 ppm, O2: 20.8%
+2025-11-13 18:45:48,528 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 18:45:50,282 - Bioreactor - INFO - CO2: 19660.0 ppm, O2: 20.8%
+2025-11-13 18:45:55,312 - Bioreactor - INFO - CO2: 19710.0 ppm, O2: 20.8%
+2025-11-13 18:46:00,286 - Bioreactor - INFO - CO2: 19650.0 ppm, O2: 20.8%
+2025-11-13 18:46:05,299 - Bioreactor - INFO - CO2: 19850.0 ppm, O2: 20.8%
+2025-11-13 18:46:10,299 - Bioreactor - INFO - CO2: 19910.0 ppm, O2: 20.8%
+2025-11-13 18:46:15,280 - Bioreactor - INFO - CO2: 20060.0 ppm, O2: 20.8%
+2025-11-13 18:46:20,308 - Bioreactor - INFO - CO2: 20110.0 ppm, O2: 20.8%
+2025-11-13 18:46:25,291 - Bioreactor - INFO - CO2: 19970.0 ppm, O2: 20.7%
+2025-11-13 18:46:30,308 - Bioreactor - INFO - CO2: 20050.0 ppm, O2: 20.8%
+2025-11-13 18:46:35,299 - Bioreactor - INFO - CO2: 20080.0 ppm, O2: 20.7%
+2025-11-13 18:46:40,281 - Bioreactor - INFO - CO2: 20080.0 ppm, O2: 20.7%
+2025-11-13 18:46:45,326 - Bioreactor - INFO - CO2: 20020.0 ppm, O2: 20.7%
+2025-11-13 18:46:50,304 - Bioreactor - INFO - CO2: 20040.0 ppm, O2: 20.7%
+2025-11-13 18:46:55,307 - Bioreactor - INFO - CO2: 20040.0 ppm, O2: 20.7%
+2025-11-13 18:47:00,288 - Bioreactor - INFO - CO2: 20090.0 ppm, O2: 20.7%
+2025-11-13 18:47:05,319 - Bioreactor - INFO - CO2: 20080.0 ppm, O2: 20.7%
+2025-11-13 18:47:10,284 - Bioreactor - INFO - CO2: 20140.0 ppm, O2: 20.7%
+2025-11-13 18:47:15,348 - Bioreactor - INFO - CO2: 20200.0 ppm, O2: 20.7%
+2025-11-13 18:47:20,274 - Bioreactor - INFO - CO2: 20320.0 ppm, O2: 20.7%
+2025-11-13 18:47:25,269 - Bioreactor - INFO - CO2: 20320.0 ppm, O2: 20.7%
+2025-11-13 18:47:30,298 - Bioreactor - INFO - CO2: 20300.0 ppm, O2: 20.7%
+2025-11-13 18:47:35,272 - Bioreactor - INFO - CO2: 20310.0 ppm, O2: 20.7%
+2025-11-13 18:47:40,301 - Bioreactor - INFO - CO2: 20330.0 ppm, O2: 20.7%
+2025-11-13 18:47:45,286 - Bioreactor - INFO - CO2: 20330.0 ppm, O2: 20.7%
+2025-11-13 18:47:50,298 - Bioreactor - INFO - CO2: 20340.0 ppm, O2: 20.7%
+2025-11-13 18:47:55,272 - Bioreactor - INFO - CO2: 20360.0 ppm, O2: 20.7%
+2025-11-13 18:48:00,274 - Bioreactor - INFO - CO2: 20350.0 ppm, O2: 20.7%
+2025-11-13 18:48:05,303 - Bioreactor - INFO - CO2: 20330.0 ppm, O2: 20.7%
+2025-11-13 18:48:10,326 - Bioreactor - INFO - CO2: 20290.0 ppm, O2: 20.7%
+2025-11-13 18:48:15,296 - Bioreactor - INFO - CO2: 20220.0 ppm, O2: 20.7%
+2025-11-13 18:48:20,270 - Bioreactor - INFO - CO2: 20140.0 ppm, O2: 20.7%
+2025-11-13 18:48:25,304 - Bioreactor - INFO - CO2: 20120.0 ppm, O2: 20.7%
+2025-11-13 18:48:30,270 - Bioreactor - INFO - CO2: 20030.0 ppm, O2: 20.7%
+2025-11-13 18:48:35,271 - Bioreactor - INFO - CO2: 19970.0 ppm, O2: 20.7%
+2025-11-13 18:48:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 18:48:40,296 - Bioreactor - INFO - CO2: 19910.0 ppm, O2: 20.7%
+2025-11-13 18:48:45,281 - Bioreactor - INFO - CO2: 19800.0 ppm, O2: 20.7%
+2025-11-13 18:48:48,528 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 18:48:50,289 - Bioreactor - INFO - CO2: 19740.0 ppm, O2: 20.8%
+2025-11-13 18:48:55,284 - Bioreactor - INFO - CO2: 19690.0 ppm, O2: 20.7%
+2025-11-13 18:49:00,275 - Bioreactor - INFO - CO2: 19690.0 ppm, O2: 20.7%
+2025-11-13 18:49:05,288 - Bioreactor - INFO - CO2: 19620.0 ppm, O2: 20.7%
+2025-11-13 18:49:10,285 - Bioreactor - INFO - CO2: 19600.0 ppm, O2: 20.7%
+2025-11-13 18:49:15,271 - Bioreactor - INFO - CO2: 19570.0 ppm, O2: 20.7%
+2025-11-13 18:49:20,272 - Bioreactor - INFO - CO2: 19510.0 ppm, O2: 20.7%
+2025-11-13 18:49:25,299 - Bioreactor - INFO - CO2: 19440.0 ppm, O2: 20.7%
+2025-11-13 18:49:30,277 - Bioreactor - INFO - CO2: 19470.0 ppm, O2: 20.7%
+2025-11-13 18:49:35,276 - Bioreactor - INFO - CO2: 19460.0 ppm, O2: 20.7%
+2025-11-13 18:49:40,303 - Bioreactor - INFO - CO2: 19470.0 ppm, O2: 20.7%
+2025-11-13 18:49:45,310 - Bioreactor - INFO - CO2: 19480.0 ppm, O2: 20.7%
+2025-11-13 18:49:50,306 - Bioreactor - INFO - CO2: 19500.0 ppm, O2: 20.7%
+2025-11-13 18:49:55,276 - Bioreactor - INFO - CO2: 19510.0 ppm, O2: 20.7%
+2025-11-13 18:50:00,309 - Bioreactor - INFO - CO2: 19530.0 ppm, O2: 20.7%
+2025-11-13 18:50:05,276 - Bioreactor - INFO - CO2: 19530.0 ppm, O2: 20.7%
+2025-11-13 18:50:10,276 - Bioreactor - INFO - CO2: 19530.0 ppm, O2: 20.7%
+2025-11-13 18:50:15,306 - Bioreactor - INFO - CO2: 19550.0 ppm, O2: 20.7%
+2025-11-13 18:50:20,276 - Bioreactor - INFO - CO2: 19560.0 ppm, O2: 20.7%
+2025-11-13 18:50:25,310 - Bioreactor - INFO - CO2: 19560.0 ppm, O2: 20.7%
+2025-11-13 18:50:30,275 - Bioreactor - INFO - CO2: 19550.0 ppm, O2: 20.7%
+2025-11-13 18:50:35,311 - Bioreactor - INFO - CO2: 19560.0 ppm, O2: 20.7%
+2025-11-13 18:50:40,275 - Bioreactor - INFO - CO2: 19570.0 ppm, O2: 20.7%
+2025-11-13 18:50:45,277 - Bioreactor - INFO - CO2: 19570.0 ppm, O2: 20.7%
+2025-11-13 18:50:50,300 - Bioreactor - INFO - CO2: 19530.0 ppm, O2: 20.7%
+2025-11-13 18:50:55,284 - Bioreactor - INFO - CO2: 19500.0 ppm, O2: 20.7%
+2025-11-13 18:51:00,311 - Bioreactor - INFO - CO2: 19490.0 ppm, O2: 20.7%
+2025-11-13 18:51:05,276 - Bioreactor - INFO - CO2: 19430.0 ppm, O2: 20.7%
+2025-11-13 18:51:10,303 - Bioreactor - INFO - CO2: 19330.0 ppm, O2: 20.7%
+2025-11-13 18:51:15,289 - Bioreactor - INFO - CO2: 19210.0 ppm, O2: 20.7%
+2025-11-13 18:51:20,313 - Bioreactor - INFO - CO2: 19110.0 ppm, O2: 20.8%
+2025-11-13 18:51:25,309 - Bioreactor - INFO - CO2: 19040.0 ppm, O2: 20.8%
+2025-11-13 18:51:30,276 - Bioreactor - INFO - CO2: 19000.0 ppm, O2: 20.8%
+2025-11-13 18:51:35,311 - Bioreactor - INFO - CO2: 18940.0 ppm, O2: 20.8%
+2025-11-13 18:51:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 18:51:40,277 - Bioreactor - INFO - CO2: 18890.0 ppm, O2: 20.8%
+2025-11-13 18:51:45,313 - Bioreactor - INFO - CO2: 18740.0 ppm, O2: 20.8%
+2025-11-13 18:51:48,528 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 18:51:50,276 - Bioreactor - INFO - CO2: 18690.0 ppm, O2: 20.8%
+2025-11-13 18:51:55,277 - Bioreactor - INFO - CO2: 18670.0 ppm, O2: 20.8%
+2025-11-13 18:52:00,311 - Bioreactor - INFO - CO2: 18590.0 ppm, O2: 20.8%
+2025-11-13 18:52:05,278 - Bioreactor - INFO - CO2: 18520.0 ppm, O2: 20.8%
+2025-11-13 18:52:10,308 - Bioreactor - INFO - CO2: 18500.0 ppm, O2: 20.8%
+2025-11-13 18:52:15,284 - Bioreactor - INFO - CO2: 18460.0 ppm, O2: 20.8%
+2025-11-13 18:52:20,279 - Bioreactor - INFO - CO2: 18450.0 ppm, O2: 20.8%
+2025-11-13 18:52:25,295 - Bioreactor - INFO - CO2: 18380.0 ppm, O2: 20.8%
+2025-11-13 18:52:30,292 - Bioreactor - INFO - CO2: 18350.0 ppm, O2: 20.8%
+2025-11-13 18:52:35,281 - Bioreactor - INFO - CO2: 18330.0 ppm, O2: 20.8%
+2025-11-13 18:52:40,279 - Bioreactor - INFO - CO2: 18350.0 ppm, O2: 20.8%
+2025-11-13 18:52:45,315 - Bioreactor - INFO - CO2: 18360.0 ppm, O2: 20.8%
+2025-11-13 18:52:50,281 - Bioreactor - INFO - CO2: 18370.0 ppm, O2: 20.8%
+2025-11-13 18:52:55,317 - Bioreactor - INFO - CO2: 18380.0 ppm, O2: 20.8%
+2025-11-13 18:53:00,315 - Bioreactor - INFO - CO2: 18370.0 ppm, O2: 20.8%
+2025-11-13 18:53:05,281 - Bioreactor - INFO - CO2: 18380.0 ppm, O2: 20.8%
+2025-11-13 18:53:10,308 - Bioreactor - INFO - CO2: 18390.0 ppm, O2: 20.8%
+2025-11-13 18:53:15,289 - Bioreactor - INFO - CO2: 18390.0 ppm, O2: 20.8%
+2025-11-13 18:53:20,313 - Bioreactor - INFO - CO2: 18390.0 ppm, O2: 20.8%
+2025-11-13 18:53:25,284 - Bioreactor - INFO - CO2: 18400.0 ppm, O2: 20.8%
+2025-11-13 18:53:30,283 - Bioreactor - INFO - CO2: 18400.0 ppm, O2: 20.8%
+2025-11-13 18:53:35,315 - Bioreactor - INFO - CO2: 18380.0 ppm, O2: 20.8%
+2025-11-13 18:53:40,282 - Bioreactor - INFO - CO2: 18340.0 ppm, O2: 20.8%
+2025-11-13 18:53:45,301 - Bioreactor - INFO - CO2: 18330.0 ppm, O2: 20.8%
+2025-11-13 18:53:50,300 - Bioreactor - INFO - CO2: 18280.0 ppm, O2: 20.8%
+2025-11-13 18:53:55,288 - Bioreactor - INFO - CO2: 18260.0 ppm, O2: 20.8%
+2025-11-13 18:54:00,288 - Bioreactor - INFO - CO2: 18210.0 ppm, O2: 20.8%
+2025-11-13 18:54:05,309 - Bioreactor - INFO - CO2: 18180.0 ppm, O2: 20.8%
+2025-11-13 18:54:10,304 - Bioreactor - INFO - CO2: 18110.0 ppm, O2: 20.8%
+2025-11-13 18:54:15,285 - Bioreactor - INFO - CO2: 18000.0 ppm, O2: 20.8%
+2025-11-13 18:54:20,306 - Bioreactor - INFO - CO2: 17940.0 ppm, O2: 20.8%
+2025-11-13 18:54:25,307 - Bioreactor - INFO - CO2: 17820.0 ppm, O2: 20.8%
+2025-11-13 18:54:30,321 - Bioreactor - INFO - CO2: 17690.0 ppm, O2: 20.8%
+2025-11-13 18:54:35,319 - Bioreactor - INFO - CO2: 17550.0 ppm, O2: 20.8%
+2025-11-13 18:54:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 18:54:40,285 - Bioreactor - INFO - CO2: 17490.0 ppm, O2: 20.8%
+2025-11-13 18:54:45,308 - Bioreactor - INFO - CO2: 17410.0 ppm, O2: 20.8%
+2025-11-13 18:54:48,528 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 18:54:50,296 - Bioreactor - INFO - CO2: 17370.0 ppm, O2: 20.8%
+2025-11-13 18:54:55,321 - Bioreactor - INFO - CO2: 17330.0 ppm, O2: 20.8%
+2025-11-13 18:55:00,293 - Bioreactor - INFO - CO2: 17350.0 ppm, O2: 20.8%
+2025-11-13 18:55:05,322 - Bioreactor - INFO - CO2: 17340.0 ppm, O2: 20.8%
+2025-11-13 18:55:10,287 - Bioreactor - INFO - CO2: 17330.0 ppm, O2: 20.8%
+2025-11-13 18:55:15,288 - Bioreactor - INFO - CO2: 17300.0 ppm, O2: 20.8%
+2025-11-13 18:55:20,319 - Bioreactor - INFO - CO2: 17310.0 ppm, O2: 20.8%
+2025-11-13 18:55:25,288 - Bioreactor - INFO - CO2: 17320.0 ppm, O2: 20.8%
+2025-11-13 18:55:30,321 - Bioreactor - INFO - CO2: 17310.0 ppm, O2: 20.8%
+2025-11-13 18:55:35,292 - Bioreactor - INFO - CO2: 17300.0 ppm, O2: 20.8%
+2025-11-13 18:55:40,287 - Bioreactor - INFO - CO2: 17290.0 ppm, O2: 20.8%
+2025-11-13 18:55:45,307 - Bioreactor - INFO - CO2: 17290.0 ppm, O2: 20.8%
+2025-11-13 18:55:50,300 - Bioreactor - INFO - CO2: 17270.0 ppm, O2: 20.8%
+2025-11-13 18:55:55,288 - Bioreactor - INFO - CO2: 17260.0 ppm, O2: 20.8%
+2025-11-13 18:56:00,292 - Bioreactor - INFO - CO2: 17250.0 ppm, O2: 20.8%
+2025-11-13 18:56:05,354 - Bioreactor - INFO - CO2: 17250.0 ppm, O2: 20.8%
+2025-11-13 18:56:10,291 - Bioreactor - INFO - CO2: 17230.0 ppm, O2: 20.8%
+2025-11-13 18:56:15,287 - Bioreactor - INFO - CO2: 17200.0 ppm, O2: 20.8%
+2025-11-13 18:56:20,321 - Bioreactor - INFO - CO2: 17200.0 ppm, O2: 20.8%
+2025-11-13 18:56:25,291 - Bioreactor - INFO - CO2: 17180.0 ppm, O2: 20.8%
+2025-11-13 18:56:30,320 - Bioreactor - INFO - CO2: 17180.0 ppm, O2: 20.8%
+2025-11-13 18:56:35,289 - Bioreactor - INFO - CO2: 17190.0 ppm, O2: 20.8%
+2025-11-13 18:56:40,320 - Bioreactor - INFO - CO2: 17180.0 ppm, O2: 20.8%
+2025-11-13 18:56:45,288 - Bioreactor - INFO - CO2: 17170.0 ppm, O2: 20.8%
+2025-11-13 18:56:50,289 - Bioreactor - INFO - CO2: 17150.0 ppm, O2: 20.8%
+2025-11-13 18:56:55,325 - Bioreactor - INFO - CO2: 17140.0 ppm, O2: 20.8%
+2025-11-13 18:57:00,292 - Bioreactor - INFO - CO2: 17120.0 ppm, O2: 20.8%
+2025-11-13 18:57:05,323 - Bioreactor - INFO - CO2: 17080.0 ppm, O2: 20.8%
+2025-11-13 18:57:10,291 - Bioreactor - INFO - CO2: 17050.0 ppm, O2: 20.8%
+2025-11-13 18:57:15,334 - Bioreactor - INFO - CO2: 17010.0 ppm, O2: 20.8%
+2025-11-13 18:57:20,293 - Bioreactor - INFO - CO2: 17020.0 ppm, O2: 20.8%
+2025-11-13 18:57:25,296 - Bioreactor - INFO - CO2: 17010.0 ppm, O2: 20.8%
+2025-11-13 18:57:30,345 - Bioreactor - INFO - CO2: 16880.0 ppm, O2: 20.8%
+2025-11-13 18:57:35,313 - Bioreactor - INFO - CO2: 16840.0 ppm, O2: 20.8%
+2025-11-13 18:57:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 18:57:40,293 - Bioreactor - INFO - CO2: 16730.0 ppm, O2: 20.8%
+2025-11-13 18:57:45,292 - Bioreactor - INFO - CO2: 16660.0 ppm, O2: 20.8%
+2025-11-13 18:57:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 18:57:50,328 - Bioreactor - INFO - CO2: 16590.0 ppm, O2: 20.8%
+2025-11-13 18:57:55,294 - Bioreactor - INFO - CO2: 16560.0 ppm, O2: 20.8%
+2025-11-13 18:58:00,299 - Bioreactor - INFO - CO2: 16440.0 ppm, O2: 20.8%
+2025-11-13 18:58:05,328 - Bioreactor - INFO - CO2: 16390.0 ppm, O2: 20.8%
+2025-11-13 18:58:10,293 - Bioreactor - INFO - CO2: 16370.0 ppm, O2: 20.8%
+2025-11-13 18:58:15,336 - Bioreactor - INFO - CO2: 16340.0 ppm, O2: 20.8%
+2025-11-13 18:58:20,293 - Bioreactor - INFO - CO2: 16310.0 ppm, O2: 20.8%
+2025-11-13 18:58:25,292 - Bioreactor - INFO - CO2: 16280.0 ppm, O2: 20.8%
+2025-11-13 18:58:30,322 - Bioreactor - INFO - CO2: 16250.0 ppm, O2: 20.8%
+2025-11-13 18:58:35,298 - Bioreactor - INFO - CO2: 16230.0 ppm, O2: 20.8%
+2025-11-13 18:58:40,324 - Bioreactor - INFO - CO2: 16210.0 ppm, O2: 20.8%
+2025-11-13 18:58:45,293 - Bioreactor - INFO - CO2: 16250.0 ppm, O2: 20.8%
+2025-11-13 18:58:50,364 - Bioreactor - INFO - CO2: 16200.0 ppm, O2: 20.8%
+2025-11-13 18:58:55,292 - Bioreactor - INFO - CO2: 16140.0 ppm, O2: 20.8%
+2025-11-13 18:59:00,298 - Bioreactor - INFO - CO2: 16130.0 ppm, O2: 20.8%
+2025-11-13 18:59:05,327 - Bioreactor - INFO - CO2: 16130.0 ppm, O2: 20.8%
+2025-11-13 18:59:10,302 - Bioreactor - INFO - CO2: 16100.0 ppm, O2: 20.8%
+2025-11-13 18:59:15,319 - Bioreactor - INFO - CO2: 16100.0 ppm, O2: 20.8%
+2025-11-13 18:59:20,311 - Bioreactor - INFO - CO2: 16140.0 ppm, O2: 20.8%
+2025-11-13 18:59:25,297 - Bioreactor - INFO - CO2: 16110.0 ppm, O2: 20.8%
+2025-11-13 18:59:30,296 - Bioreactor - INFO - CO2: 16040.0 ppm, O2: 20.8%
+2025-11-13 18:59:35,328 - Bioreactor - INFO - CO2: 16020.0 ppm, O2: 20.8%
+2025-11-13 18:59:40,301 - Bioreactor - INFO - CO2: 16000.0 ppm, O2: 20.8%
+2025-11-13 18:59:45,300 - Bioreactor - INFO - CO2: 16000.0 ppm, O2: 20.8%
+2025-11-13 18:59:50,336 - Bioreactor - INFO - CO2: 15930.0 ppm, O2: 20.8%
+2025-11-13 18:59:55,304 - Bioreactor - INFO - CO2: 15900.0 ppm, O2: 20.8%
+2025-11-13 19:00:00,411 - Bioreactor - INFO - CO2: 15880.0 ppm, O2: 20.8%
+2025-11-13 19:00:05,306 - Bioreactor - INFO - CO2: 15860.0 ppm, O2: 20.8%
+2025-11-13 19:00:10,344 - Bioreactor - INFO - CO2: 15800.0 ppm, O2: 20.8%
+2025-11-13 19:00:15,333 - Bioreactor - INFO - CO2: 15740.0 ppm, O2: 20.8%
+2025-11-13 19:00:20,306 - Bioreactor - INFO - CO2: 15640.0 ppm, O2: 20.8%
+2025-11-13 19:00:25,335 - Bioreactor - INFO - CO2: 15580.0 ppm, O2: 20.8%
+2025-11-13 19:00:30,303 - Bioreactor - INFO - CO2: 15450.0 ppm, O2: 20.8%
+2025-11-13 19:00:35,320 - Bioreactor - INFO - CO2: 15360.0 ppm, O2: 20.8%
+2025-11-13 19:00:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 19:00:40,347 - Bioreactor - INFO - CO2: 15300.0 ppm, O2: 20.8%
+2025-11-13 19:00:45,302 - Bioreactor - INFO - CO2: 15250.0 ppm, O2: 20.8%
+2025-11-13 19:00:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 19:00:50,337 - Bioreactor - INFO - CO2: 15200.0 ppm, O2: 20.8%
+2025-11-13 19:00:55,305 - Bioreactor - INFO - CO2: 15110.0 ppm, O2: 20.8%
+2025-11-13 19:01:00,321 - Bioreactor - INFO - CO2: 15090.0 ppm, O2: 20.8%
+2025-11-13 19:01:05,308 - Bioreactor - INFO - CO2: 15060.0 ppm, O2: 20.8%
+2025-11-13 19:01:10,297 - Bioreactor - INFO - CO2: 15000.0 ppm, O2: 20.8%
+2025-11-13 19:01:15,329 - Bioreactor - INFO - CO2: 14970.0 ppm, O2: 20.8%
+2025-11-13 19:01:20,301 - Bioreactor - INFO - CO2: 14950.0 ppm, O2: 20.8%
+2025-11-13 19:01:25,327 - Bioreactor - INFO - CO2: 14940.0 ppm, O2: 20.8%
+2025-11-13 19:01:30,311 - Bioreactor - INFO - CO2: 14880.0 ppm, O2: 20.8%
+2025-11-13 19:01:35,372 - Bioreactor - INFO - CO2: 14880.0 ppm, O2: 20.8%
+2025-11-13 19:01:40,299 - Bioreactor - INFO - CO2: 14870.0 ppm, O2: 20.8%
+2025-11-13 19:01:45,300 - Bioreactor - INFO - CO2: 14860.0 ppm, O2: 20.8%
+2025-11-13 19:01:50,333 - Bioreactor - INFO - CO2: 14870.0 ppm, O2: 20.8%
+2025-11-13 19:01:55,300 - Bioreactor - INFO - CO2: 14930.0 ppm, O2: 20.8%
+2025-11-13 19:02:00,339 - Bioreactor - INFO - CO2: 14910.0 ppm, O2: 20.8%
+2025-11-13 19:02:05,304 - Bioreactor - INFO - CO2: 14900.0 ppm, O2: 20.8%
+2025-11-13 19:02:10,331 - Bioreactor - INFO - CO2: 14890.0 ppm, O2: 20.8%
+2025-11-13 19:02:15,302 - Bioreactor - INFO - CO2: 14940.0 ppm, O2: 20.8%
+2025-11-13 19:02:20,325 - Bioreactor - INFO - CO2: 14920.0 ppm, O2: 20.8%
+2025-11-13 19:02:25,332 - Bioreactor - INFO - CO2: 14890.0 ppm, O2: 20.8%
+2025-11-13 19:02:30,304 - Bioreactor - INFO - CO2: 14890.0 ppm, O2: 20.8%
+2025-11-13 19:02:35,335 - Bioreactor - INFO - CO2: 14890.0 ppm, O2: 20.8%
+2025-11-13 19:02:40,301 - Bioreactor - INFO - CO2: 14880.0 ppm, O2: 20.8%
+2025-11-13 19:02:45,336 - Bioreactor - INFO - CO2: 14880.0 ppm, O2: 20.8%
+2025-11-13 19:02:50,299 - Bioreactor - INFO - CO2: 14880.0 ppm, O2: 20.8%
+2025-11-13 19:02:55,297 - Bioreactor - INFO - CO2: 14870.0 ppm, O2: 20.8%
+2025-11-13 19:03:00,370 - Bioreactor - INFO - CO2: 14880.0 ppm, O2: 20.8%
+2025-11-13 19:03:05,297 - Bioreactor - INFO - CO2: 14820.0 ppm, O2: 20.8%
+2025-11-13 19:03:10,331 - Bioreactor - INFO - CO2: 14810.0 ppm, O2: 20.8%
+2025-11-13 19:03:15,298 - Bioreactor - INFO - CO2: 14760.0 ppm, O2: 20.8%
+2025-11-13 19:03:20,332 - Bioreactor - INFO - CO2: 14680.0 ppm, O2: 20.8%
+2025-11-13 19:03:25,304 - Bioreactor - INFO - CO2: 14600.0 ppm, O2: 20.8%
+2025-11-13 19:03:30,301 - Bioreactor - INFO - CO2: 14590.0 ppm, O2: 20.8%
+2025-11-13 19:03:35,322 - Bioreactor - INFO - CO2: 14560.0 ppm, O2: 20.8%
+2025-11-13 19:03:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 19:03:40,318 - Bioreactor - INFO - CO2: 14510.0 ppm, O2: 20.8%
+2025-11-13 19:03:45,302 - Bioreactor - INFO - CO2: 14420.0 ppm, O2: 20.8%
+2025-11-13 19:03:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 19:03:50,304 - Bioreactor - INFO - CO2: 14420.0 ppm, O2: 20.8%
+2025-11-13 19:03:55,334 - Bioreactor - INFO - CO2: 14380.0 ppm, O2: 20.8%
+2025-11-13 19:04:00,313 - Bioreactor - INFO - CO2: 14340.0 ppm, O2: 20.8%
+2025-11-13 19:04:05,297 - Bioreactor - INFO - CO2: 14280.0 ppm, O2: 20.8%
+2025-11-13 19:04:10,331 - Bioreactor - INFO - CO2: 14250.0 ppm, O2: 20.8%
+2025-11-13 19:04:15,304 - Bioreactor - INFO - CO2: 14250.0 ppm, O2: 20.8%
+2025-11-13 19:04:20,331 - Bioreactor - INFO - CO2: 14250.0 ppm, O2: 20.8%
+2025-11-13 19:04:25,338 - Bioreactor - INFO - CO2: 14210.0 ppm, O2: 20.8%
+2025-11-13 19:04:30,300 - Bioreactor - INFO - CO2: 14220.0 ppm, O2: 20.8%
+2025-11-13 19:04:35,331 - Bioreactor - INFO - CO2: 14180.0 ppm, O2: 20.8%
+2025-11-13 19:04:40,299 - Bioreactor - INFO - CO2: 14140.0 ppm, O2: 20.8%
+2025-11-13 19:04:45,334 - Bioreactor - INFO - CO2: 14080.0 ppm, O2: 20.8%
+2025-11-13 19:04:50,304 - Bioreactor - INFO - CO2: 14050.0 ppm, O2: 20.8%
+2025-11-13 19:04:55,334 - Bioreactor - INFO - CO2: 14040.0 ppm, O2: 20.8%
+2025-11-13 19:05:00,316 - Bioreactor - INFO - CO2: 14030.0 ppm, O2: 20.8%
+2025-11-13 19:05:05,300 - Bioreactor - INFO - CO2: 13950.0 ppm, O2: 20.8%
+2025-11-13 19:05:10,336 - Bioreactor - INFO - CO2: 13930.0 ppm, O2: 20.8%
+2025-11-13 19:05:15,308 - Bioreactor - INFO - CO2: 13860.0 ppm, O2: 20.8%
+2025-11-13 19:05:20,336 - Bioreactor - INFO - CO2: 13830.0 ppm, O2: 20.8%
+2025-11-13 19:05:25,307 - Bioreactor - INFO - CO2: 13820.0 ppm, O2: 20.8%
+2025-11-13 19:05:30,341 - Bioreactor - INFO - CO2: 13840.0 ppm, O2: 20.8%
+2025-11-13 19:05:35,306 - Bioreactor - INFO - CO2: 13820.0 ppm, O2: 20.8%
+2025-11-13 19:05:40,308 - Bioreactor - INFO - CO2: 13810.0 ppm, O2: 20.8%
+2025-11-13 19:05:45,375 - Bioreactor - INFO - CO2: 13790.0 ppm, O2: 20.8%
+2025-11-13 19:05:50,305 - Bioreactor - INFO - CO2: 13780.0 ppm, O2: 20.8%
+2025-11-13 19:05:55,339 - Bioreactor - INFO - CO2: 13730.0 ppm, O2: 20.8%
+2025-11-13 19:06:00,313 - Bioreactor - INFO - CO2: 13700.0 ppm, O2: 20.8%
+2025-11-13 19:06:05,324 - Bioreactor - INFO - CO2: 13590.0 ppm, O2: 20.8%
+2025-11-13 19:06:10,335 - Bioreactor - INFO - CO2: 13500.0 ppm, O2: 20.8%
+2025-11-13 19:06:15,305 - Bioreactor - INFO - CO2: 13400.0 ppm, O2: 20.8%
+2025-11-13 19:06:20,340 - Bioreactor - INFO - CO2: 13340.0 ppm, O2: 20.8%
+2025-11-13 19:06:25,308 - Bioreactor - INFO - CO2: 13240.0 ppm, O2: 20.8%
+2025-11-13 19:06:30,340 - Bioreactor - INFO - CO2: 13130.0 ppm, O2: 20.8%
+2025-11-13 19:06:35,310 - Bioreactor - INFO - CO2: 13100.0 ppm, O2: 20.8%
+2025-11-13 19:06:38,528 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 19:06:40,339 - Bioreactor - INFO - CO2: 12960.0 ppm, O2: 20.8%
+2025-11-13 19:06:45,318 - Bioreactor - INFO - CO2: 12950.0 ppm, O2: 20.8%
+2025-11-13 19:06:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 19:06:50,308 - Bioreactor - INFO - CO2: 12980.0 ppm, O2: 20.8%
+2025-11-13 19:06:55,338 - Bioreactor - INFO - CO2: 12980.0 ppm, O2: 20.8%
+2025-11-13 19:07:00,320 - Bioreactor - INFO - CO2: 12960.0 ppm, O2: 20.8%
+2025-11-13 19:07:05,375 - Bioreactor - INFO - CO2: 12940.0 ppm, O2: 20.8%
+2025-11-13 19:07:10,323 - Bioreactor - INFO - CO2: 12940.0 ppm, O2: 20.8%
+2025-11-13 19:07:15,304 - Bioreactor - INFO - CO2: 12930.0 ppm, O2: 20.8%
+2025-11-13 19:07:20,341 - Bioreactor - INFO - CO2: 12920.0 ppm, O2: 20.8%
+2025-11-13 19:07:25,342 - Bioreactor - INFO - CO2: 12940.0 ppm, O2: 20.8%
+2025-11-13 19:07:30,335 - Bioreactor - INFO - CO2: 12920.0 ppm, O2: 20.8%
+2025-11-13 19:07:35,309 - Bioreactor - INFO - CO2: 12920.0 ppm, O2: 20.8%
+2025-11-13 19:07:40,338 - Bioreactor - INFO - CO2: 12900.0 ppm, O2: 20.8%
+2025-11-13 19:07:45,309 - Bioreactor - INFO - CO2: 12870.0 ppm, O2: 20.8%
+2025-11-13 19:07:50,295 - Bioreactor - INFO - CO2: 12820.0 ppm, O2: 20.8%
+2025-11-13 19:07:55,322 - Bioreactor - INFO - CO2: 12780.0 ppm, O2: 20.8%
+2025-11-13 19:08:00,295 - Bioreactor - INFO - CO2: 12780.0 ppm, O2: 20.8%
+2025-11-13 19:08:05,313 - Bioreactor - INFO - CO2: 12780.0 ppm, O2: 20.8%
+2025-11-13 19:08:10,304 - Bioreactor - INFO - CO2: 12780.0 ppm, O2: 20.8%
+2025-11-13 19:08:15,295 - Bioreactor - INFO - CO2: 12780.0 ppm, O2: 20.8%
+2025-11-13 19:08:20,292 - Bioreactor - INFO - CO2: 12780.0 ppm, O2: 20.8%
+2025-11-13 19:08:25,320 - Bioreactor - INFO - CO2: 12770.0 ppm, O2: 20.8%
+2025-11-13 19:08:30,302 - Bioreactor - INFO - CO2: 12760.0 ppm, O2: 20.8%
+2025-11-13 19:08:35,331 - Bioreactor - INFO - CO2: 12750.0 ppm, O2: 20.8%
+2025-11-13 19:08:40,309 - Bioreactor - INFO - CO2: 12750.0 ppm, O2: 20.8%
+2025-11-13 19:08:45,305 - Bioreactor - INFO - CO2: 12750.0 ppm, O2: 20.8%
+2025-11-13 19:08:50,294 - Bioreactor - INFO - CO2: 12740.0 ppm, O2: 20.8%
+2025-11-13 19:08:55,298 - Bioreactor - INFO - CO2: 12710.0 ppm, O2: 20.8%
+2025-11-13 19:09:00,315 - Bioreactor - INFO - CO2: 12650.0 ppm, O2: 20.8%
+2025-11-13 19:09:05,310 - Bioreactor - INFO - CO2: 12620.0 ppm, O2: 20.8%
+2025-11-13 19:09:10,296 - Bioreactor - INFO - CO2: 12590.0 ppm, O2: 20.8%
+2025-11-13 19:09:15,331 - Bioreactor - INFO - CO2: 12520.0 ppm, O2: 20.8%
+2025-11-13 19:09:20,296 - Bioreactor - INFO - CO2: 12430.0 ppm, O2: 20.8%
+2025-11-13 19:09:25,317 - Bioreactor - INFO - CO2: 12370.0 ppm, O2: 20.8%
+2025-11-13 19:09:30,317 - Bioreactor - INFO - CO2: 12320.0 ppm, O2: 20.8%
+2025-11-13 19:09:35,300 - Bioreactor - INFO - CO2: 12300.0 ppm, O2: 20.8%
+2025-11-13 19:09:38,529 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 19:09:40,316 - Bioreactor - INFO - CO2: 12210.0 ppm, O2: 20.8%
+2025-11-13 19:09:45,310 - Bioreactor - INFO - CO2: 12160.0 ppm, O2: 20.8%
+2025-11-13 19:09:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 19:09:50,300 - Bioreactor - INFO - CO2: 12160.0 ppm, O2: 20.9%
+2025-11-13 19:09:55,296 - Bioreactor - INFO - CO2: 12140.0 ppm, O2: 20.9%
+2025-11-13 19:10:00,332 - Bioreactor - INFO - CO2: 12070.0 ppm, O2: 20.8%
+2025-11-13 19:10:05,296 - Bioreactor - INFO - CO2: 12070.0 ppm, O2: 20.8%
+2025-11-13 19:10:10,335 - Bioreactor - INFO - CO2: 12030.0 ppm, O2: 20.8%
+2025-11-13 19:10:15,320 - Bioreactor - INFO - CO2: 12060.0 ppm, O2: 20.8%
+2025-11-13 19:10:20,304 - Bioreactor - INFO - CO2: 12020.0 ppm, O2: 20.8%
+2025-11-13 19:10:25,324 - Bioreactor - INFO - CO2: 12040.0 ppm, O2: 20.8%
+2025-11-13 19:10:30,302 - Bioreactor - INFO - CO2: 12010.0 ppm, O2: 20.8%
+2025-11-13 19:10:35,300 - Bioreactor - INFO - CO2: 11990.0 ppm, O2: 20.8%
+2025-11-13 19:10:40,319 - Bioreactor - INFO - CO2: 11950.0 ppm, O2: 20.8%
+2025-11-13 19:10:45,304 - Bioreactor - INFO - CO2: 11890.0 ppm, O2: 20.8%
+2025-11-13 19:10:50,329 - Bioreactor - INFO - CO2: 11890.0 ppm, O2: 20.8%
+2025-11-13 19:10:55,301 - Bioreactor - INFO - CO2: 11860.0 ppm, O2: 20.8%
+2025-11-13 19:11:00,333 - Bioreactor - INFO - CO2: 11820.0 ppm, O2: 20.8%
+2025-11-13 19:11:05,305 - Bioreactor - INFO - CO2: 11810.0 ppm, O2: 20.8%
+2025-11-13 19:11:10,301 - Bioreactor - INFO - CO2: 11810.0 ppm, O2: 20.8%
+2025-11-13 19:11:15,324 - Bioreactor - INFO - CO2: 11830.0 ppm, O2: 20.8%
+2025-11-13 19:11:20,309 - Bioreactor - INFO - CO2: 11820.0 ppm, O2: 20.8%
+2025-11-13 19:11:25,317 - Bioreactor - INFO - CO2: 11800.0 ppm, O2: 20.8%
+2025-11-13 19:11:30,314 - Bioreactor - INFO - CO2: 11770.0 ppm, O2: 20.8%
+2025-11-13 19:11:35,299 - Bioreactor - INFO - CO2: 11760.0 ppm, O2: 20.8%
+2025-11-13 19:11:40,301 - Bioreactor - INFO - CO2: 11760.0 ppm, O2: 20.8%
+2025-11-13 19:11:45,365 - Bioreactor - INFO - CO2: 11750.0 ppm, O2: 20.8%
+2025-11-13 19:11:50,309 - Bioreactor - INFO - CO2: 11700.0 ppm, O2: 20.8%
+2025-11-13 19:11:55,300 - Bioreactor - INFO - CO2: 11630.0 ppm, O2: 20.8%
+2025-11-13 19:12:00,351 - Bioreactor - INFO - CO2: 11610.0 ppm, O2: 20.8%
+2025-11-13 19:12:05,300 - Bioreactor - INFO - CO2: 11570.0 ppm, O2: 20.8%
+2025-11-13 19:12:10,348 - Bioreactor - INFO - CO2: 11530.0 ppm, O2: 20.8%
+2025-11-13 19:12:15,319 - Bioreactor - INFO - CO2: 11480.0 ppm, O2: 20.8%
+2025-11-13 19:12:20,327 - Bioreactor - INFO - CO2: 11480.0 ppm, O2: 20.8%
+2025-11-13 19:12:25,317 - Bioreactor - INFO - CO2: 11400.0 ppm, O2: 20.8%
+2025-11-13 19:12:30,315 - Bioreactor - INFO - CO2: 11340.0 ppm, O2: 20.9%
+2025-11-13 19:12:35,302 - Bioreactor - INFO - CO2: 11290.0 ppm, O2: 20.9%
+2025-11-13 19:12:38,529 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 19:12:40,300 - Bioreactor - INFO - CO2: 11240.0 ppm, O2: 20.9%
+2025-11-13 19:12:45,320 - Bioreactor - INFO - CO2: 11210.0 ppm, O2: 20.9%
+2025-11-13 19:12:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 19:12:50,323 - Bioreactor - INFO - CO2: 11150.0 ppm, O2: 20.9%
+2025-11-13 19:12:55,304 - Bioreactor - INFO - CO2: 11120.0 ppm, O2: 20.9%
+2025-11-13 19:13:00,338 - Bioreactor - INFO - CO2: 11120.0 ppm, O2: 20.9%
+2025-11-13 19:13:05,301 - Bioreactor - INFO - CO2: 11090.0 ppm, O2: 20.9%
+2025-11-13 19:13:10,337 - Bioreactor - INFO - CO2: 11100.0 ppm, O2: 20.9%
+2025-11-13 19:13:15,301 - Bioreactor - INFO - CO2: 11060.0 ppm, O2: 20.9%
+2025-11-13 19:13:20,340 - Bioreactor - INFO - CO2: 11060.0 ppm, O2: 20.9%
+2025-11-13 19:13:25,337 - Bioreactor - INFO - CO2: 11070.0 ppm, O2: 20.9%
+2025-11-13 19:13:30,306 - Bioreactor - INFO - CO2: 11060.0 ppm, O2: 20.9%
+2025-11-13 19:13:35,333 - Bioreactor - INFO - CO2: 11030.0 ppm, O2: 20.9%
+2025-11-13 19:13:40,302 - Bioreactor - INFO - CO2: 11030.0 ppm, O2: 20.9%
+2025-11-13 19:13:45,335 - Bioreactor - INFO - CO2: 11020.0 ppm, O2: 20.9%
+2025-11-13 19:13:50,308 - Bioreactor - INFO - CO2: 11040.0 ppm, O2: 20.9%
+2025-11-13 19:13:55,303 - Bioreactor - INFO - CO2: 11030.0 ppm, O2: 20.9%
+2025-11-13 19:14:00,330 - Bioreactor - INFO - CO2: 11030.0 ppm, O2: 20.9%
+2025-11-13 19:14:05,312 - Bioreactor - INFO - CO2: 11030.0 ppm, O2: 20.9%
+2025-11-13 19:14:10,322 - Bioreactor - INFO - CO2: 11010.0 ppm, O2: 20.9%
+2025-11-13 19:14:15,316 - Bioreactor - INFO - CO2: 11010.0 ppm, O2: 20.9%
+2025-11-13 19:14:20,304 - Bioreactor - INFO - CO2: 11010.0 ppm, O2: 20.9%
+2025-11-13 19:14:25,301 - Bioreactor - INFO - CO2: 11010.0 ppm, O2: 20.9%
+2025-11-13 19:14:30,337 - Bioreactor - INFO - CO2: 11000.0 ppm, O2: 20.9%
+2025-11-13 19:14:35,303 - Bioreactor - INFO - CO2: 11000.0 ppm, O2: 20.9%
+2025-11-13 19:14:40,302 - Bioreactor - INFO - CO2: 11000.0 ppm, O2: 20.9%
+2025-11-13 19:14:45,338 - Bioreactor - INFO - CO2: 11010.0 ppm, O2: 20.9%
+2025-11-13 19:14:50,302 - Bioreactor - INFO - CO2: 10990.0 ppm, O2: 20.9%
+2025-11-13 19:14:55,362 - Bioreactor - INFO - CO2: 10970.0 ppm, O2: 20.9%
+2025-11-13 19:15:00,322 - Bioreactor - INFO - CO2: 10960.0 ppm, O2: 20.9%
+2025-11-13 19:15:05,303 - Bioreactor - INFO - CO2: 10900.0 ppm, O2: 20.9%
+2025-11-13 19:15:10,351 - Bioreactor - INFO - CO2: 10870.0 ppm, O2: 20.9%
+2025-11-13 19:15:15,302 - Bioreactor - INFO - CO2: 10770.0 ppm, O2: 20.9%
+2025-11-13 19:15:20,335 - Bioreactor - INFO - CO2: 10720.0 ppm, O2: 20.9%
+2025-11-13 19:15:25,301 - Bioreactor - INFO - CO2: 10620.0 ppm, O2: 20.9%
+2025-11-13 19:15:30,327 - Bioreactor - INFO - CO2: 10580.0 ppm, O2: 20.9%
+2025-11-13 19:15:35,318 - Bioreactor - INFO - CO2: 10570.0 ppm, O2: 20.9%
+2025-11-13 19:15:38,529 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 19:15:40,305 - Bioreactor - INFO - CO2: 10530.0 ppm, O2: 20.9%
+2025-11-13 19:15:45,337 - Bioreactor - INFO - CO2: 10440.0 ppm, O2: 20.9%
+2025-11-13 19:15:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 19:15:50,303 - Bioreactor - INFO - CO2: 10440.0 ppm, O2: 20.9%
+2025-11-13 19:15:55,335 - Bioreactor - INFO - CO2: 10430.0 ppm, O2: 20.9%
+2025-11-13 19:16:00,311 - Bioreactor - INFO - CO2: 10400.0 ppm, O2: 20.9%
+2025-11-13 19:16:05,306 - Bioreactor - INFO - CO2: 10400.0 ppm, O2: 20.9%
+2025-11-13 19:16:10,339 - Bioreactor - INFO - CO2: 10380.0 ppm, O2: 20.9%
+2025-11-13 19:16:15,304 - Bioreactor - INFO - CO2: 10380.0 ppm, O2: 20.9%
+2025-11-13 19:16:20,339 - Bioreactor - INFO - CO2: 10380.0 ppm, O2: 20.9%
+2025-11-13 19:16:25,304 - Bioreactor - INFO - CO2: 10370.0 ppm, O2: 20.9%
+2025-11-13 19:16:30,369 - Bioreactor - INFO - CO2: 10360.0 ppm, O2: 20.9%
+2025-11-13 19:16:35,307 - Bioreactor - INFO - CO2: 10360.0 ppm, O2: 20.9%
+2025-11-13 19:16:40,305 - Bioreactor - INFO - CO2: 10360.0 ppm, O2: 20.9%
+2025-11-13 19:16:45,334 - Bioreactor - INFO - CO2: 10350.0 ppm, O2: 20.9%
+2025-11-13 19:16:50,304 - Bioreactor - INFO - CO2: 10340.0 ppm, O2: 20.9%
+2025-11-13 19:16:55,337 - Bioreactor - INFO - CO2: 10340.0 ppm, O2: 20.9%
+2025-11-13 19:17:00,306 - Bioreactor - INFO - CO2: 10330.0 ppm, O2: 20.9%
+2025-11-13 19:17:05,332 - Bioreactor - INFO - CO2: 10320.0 ppm, O2: 20.9%
+2025-11-13 19:17:10,308 - Bioreactor - INFO - CO2: 10330.0 ppm, O2: 20.9%
+2025-11-13 19:17:15,305 - Bioreactor - INFO - CO2: 10330.0 ppm, O2: 20.9%
+2025-11-13 19:17:20,324 - Bioreactor - INFO - CO2: 10290.0 ppm, O2: 20.9%
+2025-11-13 19:17:25,367 - Bioreactor - INFO - CO2: 10290.0 ppm, O2: 20.9%
+2025-11-13 19:17:30,307 - Bioreactor - INFO - CO2: 10310.0 ppm, O2: 20.9%
+2025-11-13 19:17:35,304 - Bioreactor - INFO - CO2: 10300.0 ppm, O2: 20.9%
+2025-11-13 19:17:40,321 - Bioreactor - INFO - CO2: 10300.0 ppm, O2: 20.9%
+2025-11-13 19:17:45,328 - Bioreactor - INFO - CO2: 10300.0 ppm, O2: 20.9%
+2025-11-13 19:17:50,306 - Bioreactor - INFO - CO2: 10290.0 ppm, O2: 20.9%
+2025-11-13 19:17:55,324 - Bioreactor - INFO - CO2: 10260.0 ppm, O2: 20.9%
+2025-11-13 19:18:00,325 - Bioreactor - INFO - CO2: 10210.0 ppm, O2: 20.9%
+2025-11-13 19:18:05,342 - Bioreactor - INFO - CO2: 10180.0 ppm, O2: 20.9%
+2025-11-13 19:18:10,304 - Bioreactor - INFO - CO2: 10080.0 ppm, O2: 20.9%
+2025-11-13 19:18:15,339 - Bioreactor - INFO - CO2: 9990.0 ppm, O2: 20.9%
+2025-11-13 19:18:20,307 - Bioreactor - INFO - CO2: 9890.0 ppm, O2: 20.9%
+2025-11-13 19:18:25,304 - Bioreactor - INFO - CO2: 9800.0 ppm, O2: 20.9%
+2025-11-13 19:18:30,336 - Bioreactor - INFO - CO2: 9690.0 ppm, O2: 20.9%
+2025-11-13 19:18:35,309 - Bioreactor - INFO - CO2: 9620.0 ppm, O2: 20.9%
+2025-11-13 19:18:38,529 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 19:18:40,331 - Bioreactor - INFO - CO2: 9620.0 ppm, O2: 20.9%
+2025-11-13 19:18:45,317 - Bioreactor - INFO - CO2: 9620.0 ppm, O2: 20.9%
+2025-11-13 19:18:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 19:18:50,340 - Bioreactor - INFO - CO2: 9570.0 ppm, O2: 20.9%
+2025-11-13 19:18:55,307 - Bioreactor - INFO - CO2: 9590.0 ppm, O2: 20.9%
+2025-11-13 19:19:00,309 - Bioreactor - INFO - CO2: 9620.0 ppm, O2: 20.9%
+2025-11-13 19:19:05,336 - Bioreactor - INFO - CO2: 9590.0 ppm, O2: 20.9%
+2025-11-13 19:19:10,312 - Bioreactor - INFO - CO2: 9590.0 ppm, O2: 20.9%
+2025-11-13 19:19:15,343 - Bioreactor - INFO - CO2: 9600.0 ppm, O2: 20.9%
+2025-11-13 19:19:20,315 - Bioreactor - INFO - CO2: 9560.0 ppm, O2: 20.9%
+2025-11-13 19:19:25,307 - Bioreactor - INFO - CO2: 9570.0 ppm, O2: 20.9%
+2025-11-13 19:19:30,341 - Bioreactor - INFO - CO2: 9570.0 ppm, O2: 20.9%
+2025-11-13 19:19:35,308 - Bioreactor - INFO - CO2: 9550.0 ppm, O2: 20.9%
+2025-11-13 19:19:40,377 - Bioreactor - INFO - CO2: 9570.0 ppm, O2: 20.9%
+2025-11-13 19:19:45,309 - Bioreactor - INFO - CO2: 9560.0 ppm, O2: 20.9%
+2025-11-13 19:19:50,340 - Bioreactor - INFO - CO2: 9580.0 ppm, O2: 20.9%
+2025-11-13 19:19:55,312 - Bioreactor - INFO - CO2: 9560.0 ppm, O2: 20.9%
+2025-11-13 19:20:00,312 - Bioreactor - INFO - CO2: 9550.0 ppm, O2: 20.9%
+2025-11-13 19:20:05,340 - Bioreactor - INFO - CO2: 9540.0 ppm, O2: 20.9%
+2025-11-13 19:20:10,310 - Bioreactor - INFO - CO2: 9540.0 ppm, O2: 20.9%
+2025-11-13 19:20:15,329 - Bioreactor - INFO - CO2: 9530.0 ppm, O2: 20.9%
+2025-11-13 19:20:20,328 - Bioreactor - INFO - CO2: 9490.0 ppm, O2: 20.9%
+2025-11-13 19:20:25,315 - Bioreactor - INFO - CO2: 9450.0 ppm, O2: 20.9%
+2025-11-13 19:20:30,318 - Bioreactor - INFO - CO2: 9470.0 ppm, O2: 20.9%
+2025-11-13 19:20:35,347 - Bioreactor - INFO - CO2: 9470.0 ppm, O2: 20.9%
+2025-11-13 19:20:40,316 - Bioreactor - INFO - CO2: 9470.0 ppm, O2: 20.9%
+2025-11-13 19:20:45,315 - Bioreactor - INFO - CO2: 9460.0 ppm, O2: 20.9%
+2025-11-13 19:20:50,348 - Bioreactor - INFO - CO2: 9460.0 ppm, O2: 20.9%
+2025-11-13 19:20:55,316 - Bioreactor - INFO - CO2: 9430.0 ppm, O2: 20.9%
+2025-11-13 19:21:00,337 - Bioreactor - INFO - CO2: 9380.0 ppm, O2: 20.9%
+2025-11-13 19:21:05,337 - Bioreactor - INFO - CO2: 9290.0 ppm, O2: 20.9%
+2025-11-13 19:21:10,317 - Bioreactor - INFO - CO2: 9250.0 ppm, O2: 20.9%
+2025-11-13 19:21:15,373 - Bioreactor - INFO - CO2: 9250.0 ppm, O2: 20.9%
+2025-11-13 19:21:20,334 - Bioreactor - INFO - CO2: 9240.0 ppm, O2: 20.9%
+2025-11-13 19:21:25,319 - Bioreactor - INFO - CO2: 9230.0 ppm, O2: 20.9%
+2025-11-13 19:21:30,323 - Bioreactor - INFO - CO2: 9210.0 ppm, O2: 20.9%
+2025-11-13 19:21:35,344 - Bioreactor - INFO - CO2: 9180.0 ppm, O2: 20.9%
+2025-11-13 19:21:38,529 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 19:21:40,340 - Bioreactor - INFO - CO2: 9160.0 ppm, O2: 20.9%
+2025-11-13 19:21:45,327 - Bioreactor - INFO - CO2: 9110.0 ppm, O2: 20.9%
+2025-11-13 19:21:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 19:21:50,357 - Bioreactor - INFO - CO2: 9080.0 ppm, O2: 20.9%
+2025-11-13 19:21:55,329 - Bioreactor - INFO - CO2: 9060.0 ppm, O2: 20.9%
+2025-11-13 19:22:00,360 - Bioreactor - INFO - CO2: 9040.0 ppm, O2: 20.9%
+2025-11-13 19:22:05,360 - Bioreactor - INFO - CO2: 9020.0 ppm, O2: 20.9%
+2025-11-13 19:22:10,327 - Bioreactor - INFO - CO2: 8980.0 ppm, O2: 20.9%
+2025-11-13 19:22:15,352 - Bioreactor - INFO - CO2: 8940.0 ppm, O2: 20.9%
+2025-11-13 19:22:20,332 - Bioreactor - INFO - CO2: 8930.0 ppm, O2: 20.9%
+2025-11-13 19:22:25,358 - Bioreactor - INFO - CO2: 8920.0 ppm, O2: 20.9%
+2025-11-13 19:22:30,366 - Bioreactor - INFO - CO2: 8920.0 ppm, O2: 20.9%
+2025-11-13 19:22:35,345 - Bioreactor - INFO - CO2: 8900.0 ppm, O2: 20.9%
+2025-11-13 19:22:40,344 - Bioreactor - INFO - CO2: 8900.0 ppm, O2: 20.9%
+2025-11-13 19:22:45,324 - Bioreactor - INFO - CO2: 8900.0 ppm, O2: 20.9%
+2025-11-13 19:22:50,383 - Bioreactor - INFO - CO2: 8850.0 ppm, O2: 20.9%
+2025-11-13 19:22:55,339 - Bioreactor - INFO - CO2: 8810.0 ppm, O2: 20.9%
+2025-11-13 19:23:00,324 - Bioreactor - INFO - CO2: 8790.0 ppm, O2: 20.9%
+2025-11-13 19:23:05,324 - Bioreactor - INFO - CO2: 8800.0 ppm, O2: 20.9%
+2025-11-13 19:23:10,356 - Bioreactor - INFO - CO2: 8800.0 ppm, O2: 20.9%
+2025-11-13 19:23:15,327 - Bioreactor - INFO - CO2: 8800.0 ppm, O2: 20.9%
+2025-11-13 19:23:20,323 - Bioreactor - INFO - CO2: 8790.0 ppm, O2: 20.9%
+2025-11-13 19:23:25,358 - Bioreactor - INFO - CO2: 8770.0 ppm, O2: 20.9%
+2025-11-13 19:23:30,324 - Bioreactor - INFO - CO2: 8760.0 ppm, O2: 20.9%
+2025-11-13 19:23:35,341 - Bioreactor - INFO - CO2: 8770.0 ppm, O2: 20.9%
+2025-11-13 19:23:40,341 - Bioreactor - INFO - CO2: 8760.0 ppm, O2: 20.9%
+2025-11-13 19:23:45,324 - Bioreactor - INFO - CO2: 8750.0 ppm, O2: 20.9%
+2025-11-13 19:23:50,325 - Bioreactor - INFO - CO2: 8760.0 ppm, O2: 20.9%
+2025-11-13 19:23:55,348 - Bioreactor - INFO - CO2: 8760.0 ppm, O2: 20.9%
+2025-11-13 19:24:00,343 - Bioreactor - INFO - CO2: 8760.0 ppm, O2: 20.9%
+2025-11-13 19:24:05,327 - Bioreactor - INFO - CO2: 8740.0 ppm, O2: 20.9%
+2025-11-13 19:24:10,344 - Bioreactor - INFO - CO2: 8730.0 ppm, O2: 20.9%
+2025-11-13 19:24:15,342 - Bioreactor - INFO - CO2: 8700.0 ppm, O2: 20.9%
+2025-11-13 19:24:20,326 - Bioreactor - INFO - CO2: 8690.0 ppm, O2: 20.9%
+2025-11-13 19:24:25,392 - Bioreactor - INFO - CO2: 8670.0 ppm, O2: 20.9%
+2025-11-13 19:24:30,326 - Bioreactor - INFO - CO2: 8620.0 ppm, O2: 20.9%
+2025-11-13 19:24:35,357 - Bioreactor - INFO - CO2: 8570.0 ppm, O2: 20.9%
+2025-11-13 19:24:38,529 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-13 19:24:40,327 - Bioreactor - INFO - CO2: 8550.0 ppm, O2: 20.9%
+2025-11-13 19:24:45,358 - Bioreactor - INFO - CO2: 8520.0 ppm, O2: 20.9%
+2025-11-13 19:24:48,529 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-13 19:24:50,326 - Bioreactor - INFO - CO2: 8480.0 ppm, O2: 20.9%
+2025-11-13 19:24:55,343 - Bioreactor - INFO - CO2: 8470.0 ppm, O2: 20.9%
+2025-11-13 19:25:00,356 - Bioreactor - INFO - CO2: 8470.0 ppm, O2: 20.9%
+2025-11-13 19:25:05,324 - Bioreactor - INFO - CO2: 8450.0 ppm, O2: 20.9%
+2025-11-13 19:25:10,356 - Bioreactor - INFO - CO2: 8430.0 ppm, O2: 20.9%
+2025-11-13 19:25:15,328 - Bioreactor - INFO - CO2: 8370.0 ppm, O2: 20.9%
+2025-11-13 19:25:20,328 - Bioreactor - INFO - CO2: 8340.0 ppm, O2: 20.9%
+2025-11-13 19:25:23,049 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-13 19:25:23,049 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-13 19:25:23,049 - Bioreactor - INFO - Data file closed.
+2025-11-13 19:25:23,049 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-13 19:25:23,049 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-13 19:25:23,049 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-13 19:25:23,049 - Bioreactor - INFO - Data file closed.
+2025-11-13 19:25:23,049 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 08:39:37,855 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-14 08:39:37,858 - Bioreactor - INFO - Initializing relays...
+2025-11-14 08:39:37,866 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-14 08:39:37,866 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-14 08:39:37,866 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-14 08:39:37,866 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-14 08:39:37,866 - Bioreactor - INFO - relays initialized successfully
+2025-11-14 08:39:37,866 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-14 08:39:38,882 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-14 08:39:38,882 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-14 08:39:38,882 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-14 08:39:38,891 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-14 08:39:38,891 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-14 08:39:38,891 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-14 08:39:38,891 - Bioreactor - INFO - Starting automatic tank flush (30s)...
+2025-11-14 08:39:38,891 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 30s
+2025-11-14 08:39:38,891 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 08:39:38,891 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 08:40:08,891 - Bioreactor - INFO - Valve open duration (30s) completed
+2025-11-14 08:40:08,892 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 08:40:08,892 - Bioreactor - INFO - Continuing pump for additional 20 seconds
+2025-11-14 08:40:28,892 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 08:40:28,892 - Bioreactor - INFO - Automatic tank flush completed.
+2025-11-14 08:40:28,892 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-14 08:40:29,105 - Bioreactor - INFO - Waiting 300 seconds before CO2 injection...
+2025-11-14 08:40:29,105 - Bioreactor - INFO - Started 3 job threads.
+2025-11-14 08:40:29,466 - Bioreactor - INFO - Plot initialized for sensor monitoring with relay controls
+2025-11-14 08:40:31,070 - Bioreactor - INFO - CO2: 1720.0 ppm, O2: 20.7%
+2025-11-14 08:40:35,740 - Bioreactor - INFO - CO2: 3430.0 ppm, O2: 20.9%
+2025-11-14 08:40:39,105 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-14 08:40:40,685 - Bioreactor - INFO - CO2: 5110.0 ppm, O2: 20.9%
+2025-11-14 08:40:45,753 - Bioreactor - INFO - CO2: 7690.0 ppm, O2: 20.9%
+2025-11-14 08:40:50,764 - Bioreactor - INFO - CO2: 8810.0 ppm, O2: 20.9%
+2025-11-14 08:40:55,667 - Bioreactor - INFO - CO2: 9580.0 ppm, O2: 20.8%
+2025-11-14 08:41:00,713 - Bioreactor - INFO - CO2: 9630.0 ppm, O2: 20.8%
+2025-11-14 08:41:05,516 - Bioreactor - INFO - Button: pump_1 turned ON
+2025-11-14 08:41:05,531 - Bioreactor - INFO - Button: pump_1 turned OFF
+2025-11-14 08:41:05,531 - Bioreactor - INFO - CO2: 9590.0 ppm, O2: 20.8%
+2025-11-14 08:41:10,532 - Bioreactor - INFO - Button: relay_4 turned ON
+2025-11-14 08:41:10,532 - Bioreactor - INFO - CO2: 9580.0 ppm, O2: 20.8%
+2025-11-14 08:41:15,547 - Bioreactor - INFO - Button: relay_4 turned OFF
+2025-11-14 08:41:15,548 - Bioreactor - INFO - CO2: 9540.0 ppm, O2: 20.8%
+2025-11-14 08:41:20,536 - Bioreactor - INFO - CO2: 9540.0 ppm, O2: 20.8%
+2025-11-14 08:41:25,537 - Bioreactor - INFO - Button: pump_1 turned ON
+2025-11-14 08:41:25,696 - Bioreactor - INFO - CO2: 9510.0 ppm, O2: 20.8%
+2025-11-14 08:41:30,525 - Bioreactor - INFO - Button: pump_1 turned OFF
+2025-11-14 08:41:30,529 - Bioreactor - INFO - Button: pump_1 turned OFF
+2025-11-14 08:41:30,529 - Bioreactor - INFO - CO2: 9510.0 ppm, O2: 20.8%
+2025-11-14 08:41:35,713 - Bioreactor - INFO - CO2: 9430.0 ppm, O2: 20.8%
+2025-11-14 08:41:40,689 - Bioreactor - INFO - CO2: 9430.0 ppm, O2: 20.8%
+2025-11-14 08:41:45,712 - Bioreactor - INFO - CO2: 9370.0 ppm, O2: 20.8%
+2025-11-14 08:41:50,689 - Bioreactor - INFO - CO2: 9330.0 ppm, O2: 20.8%
+2025-11-14 08:41:55,689 - Bioreactor - INFO - CO2: 9160.0 ppm, O2: 20.8%
+2025-11-14 08:42:00,691 - Bioreactor - INFO - CO2: 9100.0 ppm, O2: 20.8%
+2025-11-14 08:42:05,663 - Bioreactor - INFO - CO2: 8940.0 ppm, O2: 20.8%
+2025-11-14 08:42:10,677 - Bioreactor - INFO - CO2: 8830.0 ppm, O2: 20.8%
+2025-11-14 08:42:15,700 - Bioreactor - INFO - CO2: 8710.0 ppm, O2: 20.8%
+2025-11-14 08:42:20,663 - Bioreactor - INFO - CO2: 8590.0 ppm, O2: 20.8%
+2025-11-14 08:42:25,687 - Bioreactor - INFO - CO2: 8380.0 ppm, O2: 20.8%
+2025-11-14 08:42:30,683 - Bioreactor - INFO - CO2: 8300.0 ppm, O2: 20.8%
+2025-11-14 08:42:35,664 - Bioreactor - INFO - CO2: 8300.0 ppm, O2: 20.8%
+2025-11-14 08:42:40,666 - Bioreactor - INFO - CO2: 8210.0 ppm, O2: 20.8%
+2025-11-14 08:42:45,722 - Bioreactor - INFO - CO2: 8130.0 ppm, O2: 20.8%
+2025-11-14 08:42:50,700 - Bioreactor - INFO - CO2: 8110.0 ppm, O2: 20.8%
+2025-11-14 08:42:52,748 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 08:42:52,748 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 08:42:52,749 - Bioreactor - INFO - Data file closed.
+2025-11-14 08:42:52,749 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 08:42:52,749 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 08:42:52,749 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 08:42:52,749 - Bioreactor - INFO - Data file closed.
+2025-11-14 08:42:52,749 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 08:45:25,225 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-14 08:45:25,226 - Bioreactor - INFO - Initializing relays...
+2025-11-14 08:45:25,227 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-14 08:45:25,228 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-14 08:45:25,228 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-14 08:45:25,228 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-14 08:45:25,228 - Bioreactor - INFO - relays initialized successfully
+2025-11-14 08:45:25,228 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-14 08:45:26,238 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-14 08:45:26,238 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-14 08:45:26,238 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-14 08:45:26,242 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-14 08:45:26,242 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-14 08:45:26,242 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-14 08:45:26,242 - Bioreactor - INFO - Starting automatic tank flush (30s)...
+2025-11-14 08:45:26,243 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 30s
+2025-11-14 08:45:26,243 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 08:45:26,243 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 08:45:56,243 - Bioreactor - INFO - Valve open duration (30s) completed
+2025-11-14 08:45:56,243 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 08:45:56,243 - Bioreactor - INFO - Continuing pump for additional 20 seconds
+2025-11-14 08:46:16,243 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 08:46:16,243 - Bioreactor - INFO - Automatic tank flush completed.
+2025-11-14 08:46:16,244 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-14 08:46:16,247 - Bioreactor - INFO - Waiting 300 seconds before CO2 injection...
+2025-11-14 08:46:16,247 - Bioreactor - INFO - Started 4 job threads.
+2025-11-14 08:46:16,524 - Bioreactor - ERROR - Error initializing relay control window: Can not put single artist in more than one figure
+2025-11-14 08:46:16,524 - Bioreactor - INFO - Plot initialized for sensor monitoring
+2025-11-14 08:46:16,832 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:17,331 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:17,831 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:18,128 - Bioreactor - INFO - CO2: 7780.0 ppm, O2: 20.8%
+2025-11-14 08:46:18,329 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:18,892 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:19,331 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:19,831 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:20,434 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:20,832 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:21,334 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:21,858 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:22,451 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:22,832 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:23,334 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:23,835 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:23,887 - Bioreactor - ERROR - Error in read_sensors_and_plot: main thread is not in main loop
+2025-11-14 08:46:24,332 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:24,931 - Bioreactor - ERROR - Error initializing relay control window: Figure.show() got an unexpected keyword argument 'block'
+2025-11-14 08:46:25,143 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 08:46:25,143 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 08:46:25,143 - Bioreactor - INFO - Data file closed.
+2025-11-14 08:46:25,143 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 08:46:25,143 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 08:46:25,143 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 08:46:25,143 - Bioreactor - INFO - Data file closed.
+2025-11-14 08:46:25,143 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 08:49:14,880 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-14 08:49:14,880 - Bioreactor - INFO - Initializing relays...
+2025-11-14 08:49:14,882 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-14 08:49:14,882 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-14 08:49:14,883 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-14 08:49:14,883 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-14 08:49:14,883 - Bioreactor - INFO - relays initialized successfully
+2025-11-14 08:49:14,883 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-14 08:49:15,894 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-14 08:49:15,894 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-14 08:49:15,894 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-14 08:49:15,898 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-14 08:49:15,898 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-14 08:49:15,898 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-14 08:49:15,899 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-14 08:49:15,902 - Bioreactor - INFO - Waiting 300 seconds before CO2 injection...
+2025-11-14 08:49:15,902 - Bioreactor - INFO - Started 4 job threads.
+2025-11-14 08:49:16,161 - Bioreactor - ERROR - Error initializing relay control window: Can not put single artist in more than one figure
+2025-11-14 08:49:16,168 - Bioreactor - INFO - Plot initialized for sensor monitoring
+2025-11-14 08:49:17,488 - Bioreactor - ERROR - Error initializing relay control window: main thread is not in main loop
+2025-11-14 08:49:17,772 - Bioreactor - INFO - CO2: 5460.0 ppm, O2: 20.8%
+2025-11-14 08:49:18,577 - Bioreactor - ERROR - Error initializing relay control window: main thread is not in main loop
+2025-11-14 08:49:19,667 - Bioreactor - ERROR - Error initializing relay control window: main thread is not in main loop
+2025-11-14 08:49:20,759 - Bioreactor - ERROR - Error initializing relay control window: main thread is not in main loop
+2025-11-14 08:49:21,909 - Bioreactor - ERROR - Error initializing relay control window: main thread is not in main loop
+2025-11-14 08:49:22,998 - Bioreactor - ERROR - Error initializing relay control window: main thread is not in main loop
+2025-11-14 08:49:23,525 - Bioreactor - ERROR - Error in read_sensors_and_plot: main thread is not in main loop
+2025-11-14 08:49:24,091 - Bioreactor - ERROR - Error initializing relay control window: main thread is not in main loop
+2025-11-14 08:49:25,178 - Bioreactor - ERROR - Error initializing relay control window: main thread is not in main loop
+2025-11-14 08:49:25,900 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-14 08:49:26,297 - Bioreactor - ERROR - Error initializing relay control window: main thread is not in main loop
+2025-11-14 08:49:26,592 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 08:49:26,592 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 08:49:26,592 - Bioreactor - INFO - Data file closed.
+2025-11-14 08:49:26,592 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 08:49:26,592 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 08:49:26,592 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 08:49:26,592 - Bioreactor - INFO - Data file closed.
+2025-11-14 08:49:26,592 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 08:49:27,391 - Bioreactor - ERROR - Error initializing relay control window: main thread is not in main loop
+2025-11-14 08:51:57,201 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-14 08:51:57,202 - Bioreactor - INFO - Initializing relays...
+2025-11-14 08:51:57,204 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-14 08:51:57,204 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-14 08:51:57,204 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-14 08:51:57,204 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-14 08:51:57,204 - Bioreactor - INFO - relays initialized successfully
+2025-11-14 08:51:57,204 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-14 08:51:58,215 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-14 08:51:58,215 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-14 08:51:58,215 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-14 08:51:58,221 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-14 08:51:58,221 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-14 08:51:58,221 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-14 08:51:58,435 - Bioreactor - INFO - Relay control window initialized
+2025-11-14 08:51:58,436 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-14 08:51:58,436 - Bioreactor - INFO - Waiting 300 seconds before CO2 injection...
+2025-11-14 08:51:58,437 - Bioreactor - INFO - Started 4 job threads.
+2025-11-14 08:51:59,437 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:51:59,554 - Bioreactor - ERROR - Error initializing plot: main thread is not in main loop
+2025-11-14 08:52:00,439 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:01,440 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:02,441 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:03,466 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:04,469 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:04,521 - Bioreactor - ERROR - Error initializing plot: main thread is not in main loop
+2025-11-14 08:52:05,471 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:06,474 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:07,475 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:08,455 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-14 08:52:08,481 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:09,491 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:09,492 - Bioreactor - ERROR - Error initializing plot: main thread is not in main loop
+2025-11-14 08:52:10,493 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:11,494 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:12,495 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:52:13,168 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 08:52:13,169 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 08:52:13,169 - Bioreactor - INFO - Data file closed.
+2025-11-14 08:52:13,169 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 08:52:13,169 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 08:52:13,169 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 08:52:13,169 - Bioreactor - INFO - Data file closed.
+2025-11-14 08:52:13,169 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 08:52:13,497 - Bioreactor - WARNING - Error refreshing relay control window: main thread is not in main loop
+2025-11-14 08:55:35,114 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-14 08:55:35,115 - Bioreactor - INFO - Initializing relays...
+2025-11-14 08:55:35,117 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-14 08:55:35,117 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-14 08:55:35,117 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-14 08:55:35,117 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-14 08:55:35,117 - Bioreactor - INFO - relays initialized successfully
+2025-11-14 08:55:35,117 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-14 08:55:36,128 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-14 08:55:36,128 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-14 08:55:36,128 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-14 08:55:36,132 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-14 08:55:36,132 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-14 08:55:36,132 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-14 08:55:36,133 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-14 08:55:36,134 - Bioreactor - INFO - Waiting 300 seconds before CO2 injection...
+2025-11-14 08:55:36,134 - Bioreactor - INFO - Started 3 job threads.
+2025-11-14 08:55:36,279 - Bioreactor - INFO - Plot initialized for sensor monitoring
+2025-11-14 08:55:37,883 - Bioreactor - INFO - CO2: 4810.0 ppm, O2: 20.9%
+2025-11-14 08:55:42,934 - Bioreactor - INFO - CO2: 4800.0 ppm, O2: 20.9%
+2025-11-14 08:55:46,134 - Bioreactor - INFO - pump_1 relay turned OFF (10s elapsed)
+2025-11-14 08:55:47,913 - Bioreactor - INFO - CO2: 4790.0 ppm, O2: 20.9%
+2025-11-14 08:55:52,972 - Bioreactor - INFO - CO2: 4780.0 ppm, O2: 20.9%
+2025-11-14 08:55:57,987 - Bioreactor - INFO - CO2: 4760.0 ppm, O2: 20.9%
+2025-11-14 08:56:02,881 - Bioreactor - INFO - CO2: 4730.0 ppm, O2: 20.9%
+2025-11-14 08:56:03,508 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 08:56:03,508 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 08:56:03,508 - Bioreactor - INFO - Data file closed.
+2025-11-14 08:56:03,508 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 08:56:03,508 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 08:56:03,508 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 08:56:03,508 - Bioreactor - INFO - Data file closed.
+2025-11-14 08:56:03,508 - Bioreactor - INFO - Bioreactor cleanup complete.
