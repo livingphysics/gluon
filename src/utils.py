@@ -362,6 +362,7 @@ def create_stabilize_co2_job(setpoint_ppm=1000, tolerance_ppm=2000, pressurize_d
     Otherwise runs full stabilization.
     
     Each job instance maintains its own independent pressurize_duration state.
+    Sets baseline CO2 duration to setpoint/100000 if setpoint exists, otherwise 0.5s.
     
     Args:
         setpoint_ppm: Target CO2 level in ppm (default: 1000)
@@ -379,6 +380,13 @@ def create_stabilize_co2_job(setpoint_ppm=1000, tolerance_ppm=2000, pressurize_d
     """
     # Store pressurize_duration in closure to maintain independent state
     _local_pressurize_duration = {'value': pressurize_duration}
+    
+    # Set baseline CO2 duration based on setpoint
+    global _co2_duration
+    if setpoint_ppm is not None:
+        _co2_duration = setpoint_ppm / 100000.0
+    else:
+        _co2_duration = 0.5
     
     def stabilize_co2_job(bioreactor, elapsed=None):
         stabilize_co2(bioreactor, setpoint_ppm=setpoint_ppm, tolerance_ppm=tolerance_ppm, 
