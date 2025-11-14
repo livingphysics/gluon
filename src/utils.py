@@ -355,11 +355,11 @@ def _update_co2_duration(text):
     global _co2_duration, _co2_duration_textbox
     try:
         new_value = float(text)
-        if new_value > 0:
+        if new_value >= 0:
             _co2_duration = new_value
             logger.info(f"CO2 duration updated to {_co2_duration}s")
         else:
-            logger.warning("CO2 duration must be positive")
+            logger.warning("CO2 duration must be non-negative")
             # Reset to previous value
             if _co2_duration_textbox:
                 _co2_duration_textbox.set_val(str(_co2_duration))
