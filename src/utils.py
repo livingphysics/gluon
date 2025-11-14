@@ -7,6 +7,7 @@ import time
 import logging
 from collections import deque
 import matplotlib.pyplot as plt
+from matplotlib.widgets import TextBox
 
 logger = logging.getLogger("Bioreactor.Utils")
 
@@ -19,6 +20,10 @@ _co2_data = deque(maxlen=1000)
 _o2_data = deque(maxlen=1000)
 _time_data = deque(maxlen=1000)
 _start_time = None
+
+# Global variable for CO2 duration (editable via text box)
+_co2_duration = 1.0  # Default 1 second
+_co2_duration_textbox = None  # Store text box reference
 
 
 def actuate_relay_timed(bioreactor, relay_name, duration_seconds, elapsed=None):
@@ -73,6 +78,81 @@ def actuate_pump1_relay(bioreactor, elapsed=None):
         elapsed: Time elapsed since job started (optional, provided by run())
     """
     actuate_relay_timed(bioreactor, 'pump_1', 10, elapsed)
+
+
+def pressurize_and_inject_co2(bioreactor, pressurize_duration=10, pause=30, co2_duration=None, elapsed=None):
+    """
+    Pressurize with pump1, wait, then inject CO2.
+    
+    Sequence:
+    1. Turn ON pump_1 relay for pressurize_duration seconds
+    2. Turn OFF pump_1 relay
+    3. Wait pause seconds
+    4. Turn ON co2_solenoid relay for co2_duration seconds (uses global _co2_duration if not provided)
+    5. Turn OFF co2_solenoid relay
+    
+    Args:
+        bioreactor: Bioreactor instance
+        pressurize_duration: Duration to run pump_1 (default: 10 seconds)
+        pause: Wait time between pump and CO2 injection (default: 30 seconds)
+        co2_duration: Duration for CO2 injection (default: uses global _co2_duration, typically 1 second)
+        elapsed: Time elapsed since job started (optional)
+    """
+    global _co2_duration
+    
+    if not bioreactor.is_component_initialized('relays'):
+        bioreactor.logger.warning("Relays not initialized")
+        return
+    
+    # Use global co2_duration if not provided
+    if co2_duration is None:
+        co2_duration = _co2_duration
+    
+    pump_relay = 'pump_1'
+    co2_relay = 'co2_solenoid'
+    
+    if pump_relay not in bioreactor.relays or co2_relay not in bioreactor.relays:
+        bioreactor.logger.warning("Required relays not found")
+        return
+    
+    try:
+        import lgpio
+        
+        pump_info = bioreactor.relays[pump_relay]
+        co2_info = bioreactor.relays[co2_relay]
+        gpio_chip = pump_info['chip']  # Both use same chip
+        pump_pin = pump_info['pin']
+        co2_pin = co2_info['pin']
+        
+        # Step 1: Turn ON pump_1 for pressurize_duration
+        bioreactor.logger.info(f"Pressurizing: pump_1 ON for {pressurize_duration}s")
+        lgpio.gpio_write(gpio_chip, pump_pin, 0)  # 0 = ON
+        time.sleep(pressurize_duration)
+        lgpio.gpio_write(gpio_chip, pump_pin, 1)  # 1 = OFF
+        bioreactor.logger.info("pump_1 turned OFF")
+        
+        # Step 2: Wait pause seconds
+        bioreactor.logger.info(f"Waiting {pause}s before CO2 injection...")
+        time.sleep(pause)
+        
+        # Step 3: Turn ON co2_solenoid for co2_duration
+        bioreactor.logger.info(f"Injecting CO2: co2_solenoid ON for {co2_duration}s")
+        lgpio.gpio_write(gpio_chip, co2_pin, 0)  # 0 = ON
+        time.sleep(co2_duration)
+        lgpio.gpio_write(gpio_chip, co2_pin, 1)  # 1 = OFF
+        bioreactor.logger.info("co2_solenoid turned OFF - Pressurize and inject complete")
+        
+    except Exception as e:
+        bioreactor.logger.error(f"Error in pressurize_and_inject_co2: {e}")
+        # Try to turn off both relays in case of error
+        try:
+            import lgpio
+            gpio_chip = bioreactor.relays[pump_relay]['chip']
+            lgpio.gpio_write(gpio_chip, pump_info['pin'], 1)  # Turn off pump
+            lgpio.gpio_write(gpio_chip, co2_info['pin'], 1)  # Turn off CO2
+            bioreactor.logger.info("Emergency: Both relays turned OFF")
+        except:
+            pass
 
 
 def create_inject_co2_job(delay_seconds, injection_duration_seconds):
@@ -263,17 +343,36 @@ def flush_tank(bioreactor, duration_seconds, elapsed=None):
             pass
 
 
+def _update_co2_duration(text):
+    """Handler for CO2 duration text box - updates global value in real time."""
+    global _co2_duration, _co2_duration_textbox
+    try:
+        new_value = float(text)
+        if new_value > 0:
+            _co2_duration = new_value
+            logger.info(f"CO2 duration updated to {_co2_duration}s")
+        else:
+            logger.warning("CO2 duration must be positive")
+            # Reset to previous value
+            if _co2_duration_textbox:
+                _co2_duration_textbox.set_val(str(_co2_duration))
+    except ValueError:
+        logger.warning(f"Invalid CO2 duration value: {text}")
+        # Reset to previous value
+        if _co2_duration_textbox:
+            _co2_duration_textbox.set_val(str(_co2_duration))
+
+
 def read_sensors_and_plot(bioreactor, elapsed=None):
     """
-    Read CO2 and O2 sensors and update live plot with interactive relay control buttons.
+    Read CO2 and O2 sensors and update live plot with editable CO2 duration control.
     Designed to run periodically (e.g., every 1-5 seconds).
     
     Args:
         bioreactor: Bioreactor instance
         elapsed: Time elapsed since job started (optional, provided by run())
     """
-    global _plot_initialized, _fig, _ax1, _ax2, _co2_data, _o2_data, _time_data, _start_time
-    global _bioreactor_ref, _relay_buttons
+    global _plot_initialized, _fig, _ax1, _ax2, _co2_data, _o2_data, _time_data, _start_time, _co2_duration, _co2_duration_textbox
     
     # Initialize plot on first call
     if not _plot_initialized:
@@ -294,13 +393,18 @@ def read_sensors_and_plot(bioreactor, elapsed=None):
             _ax2.set_ylim(15, 25)  # Fixed scale
             _ax2.grid(True, alpha=0.3)
             
-            # No buttons in plot window anymore - they're in separate window
+            # Add CO2 duration text box at the bottom
+            text_box_ax = plt.axes([0.15, 0.02, 0.2, 0.04])
+            _co2_duration_textbox = TextBox(text_box_ax, 'CO2 Duration (s): ', initial=str(_co2_duration))
+            _co2_duration_textbox.on_submit(_update_co2_duration)
+            
+            plt.subplots_adjust(bottom=0.1)  # Make room for text box
             plt.ion()  # Turn on interactive mode
             plt.show(block=False)
             
             _start_time = time.time()
             _plot_initialized = True
-            bioreactor.logger.info("Plot initialized for sensor monitoring")
+            bioreactor.logger.info("Plot initialized for sensor monitoring with CO2 duration control")
         except Exception as e:
             bioreactor.logger.error(f"Error initializing plot: {e}")
             return
