@@ -607,28 +607,31 @@ def pressurize_only(bioreactor, duration_seconds, elapsed=None):
             pass
 
 
-def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0, flush_multiplier=2.5e-4, inject_multiplier=2.5e-4, tolerance_ppm=1000):
+def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0, flush_multiplier=2.5e-4, inject_multiplier=2.5e-4, pause_tolerance_ppm=1000, resume_tolerance_ppm=2000):
     """
     Create a control_co2_setpoint function with a specific setpoint for use with bioreactor.run().
     
-    The job will pause (skip action) when CO2 average is within tolerance, allowing the stabilize job to take control.
+    The job uses hysteresis: pauses when average is within pause_tolerance_ppm, resumes when difference exceeds resume_tolerance_ppm.
+    This allows the stabilize job to take control when close to setpoint.
     
     Args:
         setpoint_ppm: Target CO2 level in ppm (default: 1000)
         initial_delay: Initial delay in seconds before first execution (default: 0)
         flush_multiplier: Multiplier for flush duration when CO2 is above setpoint (default: 2.5e-4)
         inject_multiplier: Multiplier for CO2 injection duration when CO2 is below setpoint (default: 2.5e-4)
-        tolerance_ppm: Tolerance around setpoint in ppm - job pauses when average is within this range (default: 1000)
+        pause_tolerance_ppm: Tolerance around setpoint in ppm - job pauses when average is within this range (default: 1000)
+        resume_tolerance_ppm: Tolerance around setpoint in ppm - job resumes when difference exceeds this (default: 2000)
         
     Returns:
         function: A function that can be used with bioreactor.run()
         
     Example:
         jobs = [
-            (create_control_co2_setpoint_job(1000, initial_delay=30, flush_multiplier=5e-4, tolerance_ppm=1000), 180, True),  # Control CO2 every 3 minutes, starting 30s after other jobs
+            (create_control_co2_setpoint_job(1000, initial_delay=30, flush_multiplier=5e-4, pause_tolerance_ppm=1000, resume_tolerance_ppm=2000), 180, True),  # Control CO2 every 3 minutes, starting 30s after other jobs
         ]
     """
     _first_call = {'value': True}
+    _is_paused = {'value': False}  # Track pause state for hysteresis
     
     def control_co2_setpoint_job(bioreactor, elapsed=None):
         # On first call, wait for initial_delay if specified
@@ -637,16 +640,17 @@ def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0, flush_mu
             time.sleep(initial_delay)
             _first_call['value'] = False
         control_co2_setpoint(bioreactor, setpoint_ppm=setpoint_ppm, flush_multiplier=flush_multiplier, 
-                           inject_multiplier=inject_multiplier, tolerance_ppm=tolerance_ppm, elapsed=elapsed)
+                           inject_multiplier=inject_multiplier, pause_tolerance_ppm=pause_tolerance_ppm,
+                           resume_tolerance_ppm=resume_tolerance_ppm, is_paused_ref=_is_paused, elapsed=elapsed)
     
     return control_co2_setpoint_job
 
 
-def control_co2_setpoint(bioreactor, setpoint_ppm=1000, flush_multiplier=2.5e-4, inject_multiplier=2.5e-4, tolerance_ppm=1000, elapsed=None):
+def control_co2_setpoint(bioreactor, setpoint_ppm=1000, flush_multiplier=2.5e-4, inject_multiplier=2.5e-4, pause_tolerance_ppm=1000, resume_tolerance_ppm=2000, is_paused_ref=None, elapsed=None):
     """
     Control CO2 level based on setpoint using average of last 15 measurements.
     
-    If CO2 average is within tolerance of setpoint, the job pauses (skips action) to allow stabilize job to take control.
+    Uses hysteresis: pauses when average is within pause_tolerance_ppm, resumes when difference exceeds resume_tolerance_ppm.
     If CO2 is below setpoint: inject CO2 for inject_multiplier * difference seconds
     If CO2 is above setpoint: flush tank for flush_multiplier * difference seconds, then pressurize for same duration
     
@@ -655,7 +659,9 @@ def control_co2_setpoint(bioreactor, setpoint_ppm=1000, flush_multiplier=2.5e-4,
         setpoint_ppm: Target CO2 level in ppm (default: 1000)
         flush_multiplier: Multiplier for flush duration when CO2 is above setpoint (default: 2.5e-4)
         inject_multiplier: Multiplier for CO2 injection duration when CO2 is below setpoint (default: 2.5e-4)
-        tolerance_ppm: Tolerance around setpoint in ppm - job pauses when average is within this range (default: 1000)
+        pause_tolerance_ppm: Tolerance around setpoint in ppm - job pauses when average is within this range (default: 1000)
+        resume_tolerance_ppm: Tolerance around setpoint in ppm - job resumes when difference exceeds this (default: 2000)
+        is_paused_ref: Reference to track pause state for hysteresis (optional)
         elapsed: Time elapsed since job started (optional)
     """
     global _co2_data
@@ -680,10 +686,30 @@ def control_co2_setpoint(bioreactor, setpoint_ppm=1000, flush_multiplier=2.5e-4,
     
     bioreactor.logger.info(f"CO2 setpoint control: average={avg_co2:.1f} ppm, setpoint={setpoint_ppm} ppm, difference={difference:.1f} ppm")
     
-    # Check if within tolerance - if so, pause the control job (let stabilize job take over)
-    if abs_difference <= tolerance_ppm:
-        bioreactor.logger.info(f"CO2 setpoint control paused: average ({avg_co2:.1f} ppm) is within {tolerance_ppm} ppm of setpoint ({setpoint_ppm} ppm), stabilize job is active")
-        return
+    # Hysteresis logic: pause when within pause_tolerance, resume when outside resume_tolerance
+    if is_paused_ref is not None:
+        is_paused = is_paused_ref['value']
+    else:
+        is_paused = False
+    
+    if is_paused:
+        # Currently paused - check if we should resume (difference > resume_tolerance)
+        if abs_difference > resume_tolerance_ppm:
+            is_paused = False
+            if is_paused_ref is not None:
+                is_paused_ref['value'] = False
+            bioreactor.logger.info(f"CO2 setpoint control resumed: average ({avg_co2:.1f} ppm) is {abs_difference:.1f} ppm away from setpoint, exceeds resume threshold ({resume_tolerance_ppm} ppm)")
+        else:
+            bioreactor.logger.info(f"CO2 setpoint control paused: average ({avg_co2:.1f} ppm) is {abs_difference:.1f} ppm away from setpoint, within resume threshold ({resume_tolerance_ppm} ppm), stabilize job is active")
+            return
+    else:
+        # Currently active - check if we should pause (difference <= pause_tolerance)
+        if abs_difference <= pause_tolerance_ppm:
+            is_paused = True
+            if is_paused_ref is not None:
+                is_paused_ref['value'] = True
+            bioreactor.logger.info(f"CO2 setpoint control paused: average ({avg_co2:.1f} ppm) is within {pause_tolerance_ppm} ppm of setpoint ({setpoint_ppm} ppm), stabilize job is active")
+            return
     
     if difference < 0:
         # Below setpoint: inject CO2
