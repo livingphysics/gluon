@@ -9,7 +9,7 @@ import queue
 from collections import deque
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from matplotlib.widgets import TextBox, Button
+from matplotlib.widgets import TextBox
 
 logger = logging.getLogger("Bioreactor.Utils")
 
@@ -30,11 +30,7 @@ _anim = None  # Animation object
 # Global variables for CO2 duration (editable via text box)
 _co2_duration = 1.0  # Default 1 second (for pressurize_and_inject_co2 job)
 _co2_duration_textbox = None  # Store text box reference
-
-# Global variables for CO2 inject (manual injection)
-_co2_inject_duration = 1.0  # Default 1 second (for manual injection)
-_co2_inject_textbox = None  # Store text box reference
-_bioreactor_ref = None  # Store bioreactor reference for button callbacks
+_bioreactor_ref = None  # Store bioreactor reference
 
 
 def actuate_relay_timed(bioreactor, relay_name, duration_seconds, elapsed=None):
@@ -374,49 +370,6 @@ def _update_co2_duration(text):
             _co2_duration_textbox.set_val(str(_co2_duration))
 
 
-def _update_co2_inject_duration(text):
-    """Handler for CO2 inject duration text box - updates global value in real time."""
-    global _co2_inject_duration, _co2_inject_textbox
-    try:
-        new_value = float(text)
-        if new_value > 0:
-            _co2_inject_duration = new_value
-            logger.info(f"CO2 inject duration updated to {_co2_inject_duration}s")
-        else:
-            logger.warning("CO2 inject duration must be positive")
-            # Reset to previous value
-            if _co2_inject_textbox:
-                _co2_inject_textbox.set_val(str(_co2_inject_duration))
-    except ValueError:
-        logger.warning(f"Invalid CO2 inject duration value: {text}")
-        # Reset to previous value
-        if _co2_inject_textbox:
-            _co2_inject_textbox.set_val(str(_co2_inject_duration))
-
-
-def _inject_co2_button_handler(event):
-    """Handler for Inject button - runs immediate CO2 injection in a separate thread."""
-    global _co2_inject_duration, _bioreactor_ref
-    if _bioreactor_ref is None:
-        logger.warning("Bioreactor reference not available for CO2 injection")
-        return
-    
-    if not _bioreactor_ref.is_component_initialized('relays'):
-        logger.warning("Relays not initialized - cannot inject CO2")
-        return
-    
-    duration = _co2_inject_duration
-    logger.info(f"Manual CO2 injection triggered: {duration}s")
-    
-    # Run inject_co2_delayed in a separate thread to avoid blocking the GUI
-    import threading
-    def run_injection():
-        inject_co2_delayed(_bioreactor_ref, delay_seconds=0, injection_duration_seconds=duration, elapsed=None)
-    
-    thread = threading.Thread(target=run_injection, daemon=True)
-    thread.start()
-
-
 def _animate(frame):
     """
     Animation function that runs in the main thread.
@@ -479,7 +432,7 @@ def init_plot_window(bioreactor):
     Args:
         bioreactor: Bioreactor instance
     """
-    global _plot_initialized, _fig, _ax1, _ax2, _co2_duration, _co2_duration_textbox, _co2_inject_duration, _co2_inject_textbox, _bioreactor_ref, _anim, _start_time
+    global _plot_initialized, _fig, _ax1, _ax2, _co2_duration, _co2_duration_textbox, _bioreactor_ref, _anim, _start_time
     
     if _plot_initialized:
         return  # Already initialized
@@ -511,16 +464,7 @@ def init_plot_window(bioreactor):
         _co2_duration_textbox = TextBox(text_box_ax, 'CO2 Duration (s): ', initial=str(_co2_duration))
         _co2_duration_textbox.on_submit(_update_co2_duration)
         
-        # Add CO2 inject text box and button (for manual injection)
-        inject_text_box_ax = plt.axes([0.45, 0.02, 0.15, 0.04])
-        _co2_inject_textbox = TextBox(inject_text_box_ax, 'CO2 Inject (s): ', initial=str(_co2_inject_duration))
-        _co2_inject_textbox.on_submit(_update_co2_inject_duration)
-        
-        inject_button_ax = plt.axes([0.62, 0.02, 0.1, 0.04])
-        inject_button = Button(inject_button_ax, 'Inject')
-        inject_button.on_clicked(_inject_co2_button_handler)
-        
-        plt.subplots_adjust(bottom=0.1)  # Make room for text boxes and button
+        plt.subplots_adjust(bottom=0.1)  # Make room for text box
         
         plt.ion()  # Turn on interactive mode
         plt.show(block=False)
@@ -535,7 +479,7 @@ def init_plot_window(bioreactor):
         
         _start_time = time.time()
         _plot_initialized = True
-        bioreactor.logger.info("Plot initialized for sensor monitoring with CO2 duration control and manual injection")
+        bioreactor.logger.info("Plot initialized for sensor monitoring with CO2 duration control")
     except Exception as e:
         bioreactor.logger.error(f"Error initializing plot: {e}")
         raise
