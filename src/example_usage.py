@@ -42,8 +42,8 @@ config.LOG_FILE = 'bioreactor.log'  # Also log to file
 # Set LOG_TO_TERMINAL = False to only log to file
 
 # Option 5: Control auto-flush on initialization
-config.AUTO_FLUSH_ON_INIT = False  # Automatically flush tank on startup (default: True)
-config.AUTO_FLUSH_DURATION = 30  # Duration in seconds for auto-flush (default: 30)
+config.AUTO_FLUSH_ON_INIT = True  # Automatically flush tank on startup (default: True)
+config.AUTO_FLUSH_DURATION = 15  # Duration in seconds for auto-flush (default: 30)
 # Set AUTO_FLUSH_ON_INIT = False to disable auto-flush
 
 # Initialize bioreactor

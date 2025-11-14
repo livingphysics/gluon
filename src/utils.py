@@ -615,7 +615,7 @@ def pressurize_only(bioreactor, duration_seconds, elapsed=None):
             pass
 
 
-def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0, flush_multiplier=2.5e-4, inject_multiplier=2.5e-4, pause_tolerance_ppm=1000, resume_tolerance_ppm=2000):
+def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0, flush_multiplier=2.5e-4, inject_multiplier=2.5e-5, pause_tolerance_ppm=1000, resume_tolerance_ppm=2000):
     """
     Create a control_co2_setpoint function with a specific setpoint for use with bioreactor.run().
     

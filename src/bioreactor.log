@@ -6397,3 +6397,1424 @@
 2025-11-14 15:12:25,322 - Bioreactor - INFO - Stop event set for all threads.
 2025-11-14 15:12:25,322 - Bioreactor - INFO - Data file closed.
 2025-11-14 15:12:25,322 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 15:34:18,992 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-14 15:34:18,993 - Bioreactor - INFO - Initializing relays...
+2025-11-14 15:34:18,994 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-14 15:34:18,995 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-14 15:34:18,995 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-14 15:34:18,995 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-14 15:34:18,995 - Bioreactor - INFO - relays initialized successfully
+2025-11-14 15:34:18,995 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-14 15:34:20,007 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-14 15:34:20,008 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-14 15:34:20,008 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-14 15:34:20,010 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-14 15:34:20,011 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-14 15:34:20,011 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-14 15:34:20,327 - Bioreactor - INFO - Plot initialized for sensor monitoring with CO2 duration control
+2025-11-14 15:34:20,328 - Bioreactor - WARNING - No CO2 data available, just pressurizing
+2025-11-14 15:34:20,328 - Bioreactor - INFO - Pressurizing: pump_1 ON for 10s
+2025-11-14 15:34:20,328 - Bioreactor - INFO - Waiting 12s before first CO2 setpoint control...
+2025-11-14 15:34:20,328 - Bioreactor - INFO - Started 3 job threads.
+2025-11-14 15:34:21,931 - Bioreactor - INFO - CO2: 8590.0 ppm, O2: 20.8%
+2025-11-14 15:34:26,932 - Bioreactor - INFO - CO2: 8550.0 ppm, O2: 20.9%
+2025-11-14 15:34:30,328 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 15:34:30,329 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 15:34:31,935 - Bioreactor - INFO - CO2: 8960.0 ppm, O2: 21.2%
+2025-11-14 15:34:32,329 - Bioreactor - INFO - CO2 setpoint control: average=8700.0 ppm, setpoint=10000 ppm, difference=-1300.0 ppm
+2025-11-14 15:34:32,329 - Bioreactor - INFO - CO2 below setpoint, injecting CO2 for 0.325 seconds (multiplier: 0.00025)
+2025-11-14 15:34:32,329 - Bioreactor - INFO - Waiting 0 seconds before CO2 injection...
+2025-11-14 15:34:32,329 - Bioreactor - INFO - Starting CO2 injection (0.325 seconds)...
+2025-11-14 15:34:32,329 - Bioreactor - INFO - co2_solenoid turned ON
+2025-11-14 15:34:32,654 - Bioreactor - INFO - co2_solenoid turned OFF - CO2 injection complete
+2025-11-14 15:34:36,935 - Bioreactor - INFO - CO2: 11780.0 ppm, O2: 21.0%
+2025-11-14 15:34:41,935 - Bioreactor - INFO - CO2: 14750.0 ppm, O2: 21.0%
+2025-11-14 15:34:46,939 - Bioreactor - INFO - CO2: 15690.0 ppm, O2: 20.9%
+2025-11-14 15:34:50,328 - Bioreactor - INFO - CO2 setpoint control: average=11386.7 ppm, setpoint=10000 ppm, difference=1386.7 ppm
+2025-11-14 15:34:50,328 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 0.693 seconds, then pressurizing for 0.693 seconds (flush multiplier: 0.0005)
+2025-11-14 15:34:50,329 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 0.693333333333333s
+2025-11-14 15:34:50,329 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:34:50,329 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:34:51,022 - Bioreactor - INFO - Valve open duration (0.693333333333333s) completed
+2025-11-14 15:34:51,023 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:34:51,026 - Bioreactor - INFO - Continuing pump for additional 0.693333333333333 seconds
+2025-11-14 15:34:51,728 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:34:51,728 - Bioreactor - INFO - Pressurizing: pump_1 ON for 0.693333333333333s
+2025-11-14 15:34:51,935 - Bioreactor - INFO - CO2: 16460.0 ppm, O2: 20.9%
+2025-11-14 15:34:52,422 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:34:56,936 - Bioreactor - INFO - CO2: 16530.0 ppm, O2: 20.9%
+2025-11-14 15:35:00,329 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 0s
+2025-11-14 15:35:00,329 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 15:35:01,936 - Bioreactor - INFO - CO2: 16750.0 ppm, O2: 20.9%
+2025-11-14 15:35:06,936 - Bioreactor - INFO - CO2: 16960.0 ppm, O2: 20.8%
+2025-11-14 15:35:11,936 - Bioreactor - INFO - CO2: 17100.0 ppm, O2: 20.8%
+2025-11-14 15:35:16,936 - Bioreactor - INFO - CO2: 17010.0 ppm, O2: 20.8%
+2025-11-14 15:35:20,328 - Bioreactor - INFO - CO2 setpoint control: average=14094.2 ppm, setpoint=10000 ppm, difference=4094.2 ppm
+2025-11-14 15:35:20,329 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.047 seconds, then pressurizing for 2.047 seconds (flush multiplier: 0.0005)
+2025-11-14 15:35:20,329 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.047083333333333s
+2025-11-14 15:35:20,329 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:35:20,329 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:35:21,944 - Bioreactor - INFO - CO2: 17040.0 ppm, O2: 20.8%
+2025-11-14 15:35:22,381 - Bioreactor - INFO - Valve open duration (2.047083333333333s) completed
+2025-11-14 15:35:22,382 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:35:22,382 - Bioreactor - INFO - Continuing pump for additional 2.047083333333333 seconds
+2025-11-14 15:35:24,430 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:35:24,430 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.047083333333333s
+2025-11-14 15:35:26,478 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:35:26,944 - Bioreactor - INFO - CO2: 17040.0 ppm, O2: 20.8%
+2025-11-14 15:35:31,949 - Bioreactor - INFO - CO2: 17100.0 ppm, O2: 20.8%
+2025-11-14 15:35:36,944 - Bioreactor - INFO - CO2: 17130.0 ppm, O2: 20.8%
+2025-11-14 15:35:41,950 - Bioreactor - INFO - CO2: 17220.0 ppm, O2: 20.8%
+2025-11-14 15:35:46,949 - Bioreactor - INFO - CO2: 17310.0 ppm, O2: 20.8%
+2025-11-14 15:35:50,329 - Bioreactor - INFO - CO2 setpoint control: average=16391.3 ppm, setpoint=10000 ppm, difference=6391.3 ppm
+2025-11-14 15:35:50,329 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 3.196 seconds, then pressurizing for 3.196 seconds (flush multiplier: 0.0005)
+2025-11-14 15:35:50,329 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 3.195666666666666s
+2025-11-14 15:35:50,329 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:35:50,329 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:35:51,951 - Bioreactor - INFO - CO2: 17540.0 ppm, O2: 20.8%
+2025-11-14 15:35:53,525 - Bioreactor - INFO - Valve open duration (3.195666666666666s) completed
+2025-11-14 15:35:53,525 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:35:53,525 - Bioreactor - INFO - Continuing pump for additional 3.195666666666666 seconds
+2025-11-14 15:35:56,721 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:35:56,721 - Bioreactor - INFO - Pressurizing: pump_1 ON for 3.195666666666666s
+2025-11-14 15:35:56,950 - Bioreactor - INFO - CO2: 17680.0 ppm, O2: 20.8%
+2025-11-14 15:35:59,917 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:36:01,949 - Bioreactor - INFO - CO2: 18060.0 ppm, O2: 20.8%
+2025-11-14 15:36:06,951 - Bioreactor - INFO - CO2: 18100.0 ppm, O2: 20.8%
+2025-11-14 15:36:11,951 - Bioreactor - INFO - CO2: 18220.0 ppm, O2: 20.8%
+2025-11-14 15:36:16,957 - Bioreactor - INFO - CO2: 18300.0 ppm, O2: 20.8%
+2025-11-14 15:36:20,329 - Bioreactor - INFO - CO2 setpoint control: average=17454.0 ppm, setpoint=10000 ppm, difference=7454.0 ppm
+2025-11-14 15:36:20,329 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 3.727 seconds, then pressurizing for 3.727 seconds (flush multiplier: 0.0005)
+2025-11-14 15:36:20,329 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 3.727s
+2025-11-14 15:36:20,329 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:36:20,329 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:36:21,951 - Bioreactor - INFO - CO2: 18360.0 ppm, O2: 20.8%
+2025-11-14 15:36:24,056 - Bioreactor - INFO - Valve open duration (3.727s) completed
+2025-11-14 15:36:24,056 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:36:24,056 - Bioreactor - INFO - Continuing pump for additional 3.727 seconds
+2025-11-14 15:36:26,953 - Bioreactor - INFO - CO2: 18420.0 ppm, O2: 20.8%
+2025-11-14 15:36:27,784 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:36:27,784 - Bioreactor - INFO - Pressurizing: pump_1 ON for 3.727s
+2025-11-14 15:36:31,511 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:36:31,956 - Bioreactor - INFO - CO2: 18380.0 ppm, O2: 20.8%
+2025-11-14 15:36:36,965 - Bioreactor - INFO - CO2: 18290.0 ppm, O2: 20.8%
+2025-11-14 15:36:41,956 - Bioreactor - INFO - CO2: 18190.0 ppm, O2: 20.8%
+2025-11-14 15:36:46,956 - Bioreactor - INFO - CO2: 18020.0 ppm, O2: 20.8%
+2025-11-14 15:36:50,329 - Bioreactor - INFO - CO2 setpoint control: average=17948.0 ppm, setpoint=10000 ppm, difference=7948.0 ppm
+2025-11-14 15:36:50,329 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 3.974 seconds, then pressurizing for 3.974 seconds (flush multiplier: 0.0005)
+2025-11-14 15:36:50,329 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 3.974s
+2025-11-14 15:36:50,329 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:36:50,329 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:36:51,956 - Bioreactor - INFO - CO2: 17890.0 ppm, O2: 20.8%
+2025-11-14 15:36:54,303 - Bioreactor - INFO - Valve open duration (3.974s) completed
+2025-11-14 15:36:54,303 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:36:54,303 - Bioreactor - INFO - Continuing pump for additional 3.974 seconds
+2025-11-14 15:36:56,958 - Bioreactor - INFO - CO2: 17400.0 ppm, O2: 20.8%
+2025-11-14 15:36:58,278 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:36:58,278 - Bioreactor - INFO - Pressurizing: pump_1 ON for 3.974s
+2025-11-14 15:37:01,961 - Bioreactor - INFO - CO2: 17100.0 ppm, O2: 20.8%
+2025-11-14 15:37:02,252 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:37:06,956 - Bioreactor - INFO - CO2: 16650.0 ppm, O2: 20.8%
+2025-11-14 15:37:11,995 - Bioreactor - INFO - CO2: 16290.0 ppm, O2: 20.8%
+2025-11-14 15:37:16,957 - Bioreactor - INFO - CO2: 15830.0 ppm, O2: 20.8%
+2025-11-14 15:37:20,328 - Bioreactor - INFO - Stabilization paused: CO2 (17696.0 ppm) is 7696.0 ppm above setpoint (10000 ppm), exceeds tolerance (1000 ppm), flush job will handle
+2025-11-14 15:37:20,329 - Bioreactor - INFO - CO2 setpoint control: average=17696.0 ppm, setpoint=10000 ppm, difference=7696.0 ppm
+2025-11-14 15:37:20,329 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 3.848 seconds, then pressurizing for 3.848 seconds (flush multiplier: 0.0005)
+2025-11-14 15:37:20,329 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 3.848s
+2025-11-14 15:37:20,329 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:37:20,329 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:37:21,957 - Bioreactor - INFO - CO2: 15680.0 ppm, O2: 20.8%
+2025-11-14 15:37:24,177 - Bioreactor - INFO - Valve open duration (3.848s) completed
+2025-11-14 15:37:24,177 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:37:24,178 - Bioreactor - INFO - Continuing pump for additional 3.848 seconds
+2025-11-14 15:37:26,957 - Bioreactor - INFO - CO2: 15630.0 ppm, O2: 20.8%
+2025-11-14 15:37:28,026 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:37:28,026 - Bioreactor - INFO - Pressurizing: pump_1 ON for 3.848s
+2025-11-14 15:37:31,874 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:37:31,959 - Bioreactor - INFO - CO2: 15600.0 ppm, O2: 20.8%
+2025-11-14 15:37:36,958 - Bioreactor - INFO - CO2: 15490.0 ppm, O2: 20.8%
+2025-11-14 15:37:41,960 - Bioreactor - INFO - CO2: 15340.0 ppm, O2: 20.8%
+2025-11-14 15:37:46,958 - Bioreactor - INFO - CO2: 15250.0 ppm, O2: 20.8%
+2025-11-14 15:37:50,329 - Bioreactor - INFO - CO2 setpoint control: average=16576.7 ppm, setpoint=10000 ppm, difference=6576.7 ppm
+2025-11-14 15:37:50,329 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 3.288 seconds, then pressurizing for 3.288 seconds (flush multiplier: 0.0005)
+2025-11-14 15:37:50,329 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 3.288333333333334s
+2025-11-14 15:37:50,329 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:37:50,329 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:37:51,958 - Bioreactor - INFO - CO2: 15220.0 ppm, O2: 20.8%
+2025-11-14 15:37:53,618 - Bioreactor - INFO - Valve open duration (3.288333333333334s) completed
+2025-11-14 15:37:53,618 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:37:53,619 - Bioreactor - INFO - Continuing pump for additional 3.288333333333334 seconds
+2025-11-14 15:37:56,910 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:37:56,911 - Bioreactor - INFO - Pressurizing: pump_1 ON for 3.288333333333334s
+2025-11-14 15:37:56,958 - Bioreactor - INFO - CO2: 15080.0 ppm, O2: 20.8%
+2025-11-14 15:38:00,199 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:38:01,958 - Bioreactor - INFO - CO2: 15010.0 ppm, O2: 20.8%
+2025-11-14 15:38:06,958 - Bioreactor - INFO - CO2: 14880.0 ppm, O2: 20.8%
+2025-11-14 15:38:11,959 - Bioreactor - INFO - CO2: 14730.0 ppm, O2: 20.8%
+2025-11-14 15:38:16,959 - Bioreactor - INFO - CO2: 14510.0 ppm, O2: 20.8%
+2025-11-14 15:38:20,329 - Bioreactor - INFO - CO2 setpoint control: average=15412.7 ppm, setpoint=10000 ppm, difference=5412.7 ppm
+2025-11-14 15:38:20,329 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.706 seconds, then pressurizing for 2.706 seconds (flush multiplier: 0.0005)
+2025-11-14 15:38:20,329 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.7063333333333333s
+2025-11-14 15:38:20,329 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:38:20,329 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:38:21,960 - Bioreactor - INFO - CO2: 14420.0 ppm, O2: 20.8%
+2025-11-14 15:38:23,036 - Bioreactor - INFO - Valve open duration (2.7063333333333333s) completed
+2025-11-14 15:38:23,036 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:38:23,036 - Bioreactor - INFO - Continuing pump for additional 2.7063333333333333 seconds
+2025-11-14 15:38:25,742 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:38:25,743 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.7063333333333333s
+2025-11-14 15:38:26,959 - Bioreactor - INFO - CO2: 14160.0 ppm, O2: 20.8%
+2025-11-14 15:38:28,449 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:38:31,959 - Bioreactor - INFO - CO2: 13990.0 ppm, O2: 20.8%
+2025-11-14 15:38:36,963 - Bioreactor - INFO - CO2: 13780.0 ppm, O2: 20.8%
+2025-11-14 15:38:41,963 - Bioreactor - INFO - CO2: 13710.0 ppm, O2: 20.8%
+2025-11-14 15:38:46,963 - Bioreactor - INFO - CO2: 13670.0 ppm, O2: 20.8%
+2025-11-14 15:38:50,329 - Bioreactor - INFO - CO2 setpoint control: average=14616.0 ppm, setpoint=10000 ppm, difference=4616.0 ppm
+2025-11-14 15:38:50,329 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.308 seconds, then pressurizing for 2.308 seconds (flush multiplier: 0.0005)
+2025-11-14 15:38:50,329 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.308s
+2025-11-14 15:38:50,329 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:38:50,329 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:38:51,964 - Bioreactor - INFO - CO2: 13580.0 ppm, O2: 20.8%
+2025-11-14 15:38:52,637 - Bioreactor - INFO - Valve open duration (2.308s) completed
+2025-11-14 15:38:52,638 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:38:52,638 - Bioreactor - INFO - Continuing pump for additional 2.308 seconds
+2025-11-14 15:38:54,946 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:38:54,946 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.308s
+2025-11-14 15:38:56,963 - Bioreactor - INFO - CO2: 13550.0 ppm, O2: 20.8%
+2025-11-14 15:38:57,254 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:39:01,963 - Bioreactor - INFO - CO2: 13440.0 ppm, O2: 20.8%
+2025-11-14 15:39:06,963 - Bioreactor - INFO - CO2: 13260.0 ppm, O2: 20.8%
+2025-11-14 15:39:11,967 - Bioreactor - INFO - CO2: 13170.0 ppm, O2: 20.8%
+2025-11-14 15:39:16,964 - Bioreactor - INFO - CO2: 13100.0 ppm, O2: 20.8%
+2025-11-14 15:39:20,333 - Bioreactor - INFO - CO2 setpoint control: average=13863.3 ppm, setpoint=10000 ppm, difference=3863.3 ppm
+2025-11-14 15:39:20,333 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.932 seconds, then pressurizing for 1.932 seconds (flush multiplier: 0.0005)
+2025-11-14 15:39:20,333 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.931666666666667s
+2025-11-14 15:39:20,333 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:39:20,333 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:39:21,964 - Bioreactor - INFO - CO2: 13050.0 ppm, O2: 20.8%
+2025-11-14 15:39:22,265 - Bioreactor - INFO - Valve open duration (1.931666666666667s) completed
+2025-11-14 15:39:22,265 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:39:22,265 - Bioreactor - INFO - Continuing pump for additional 1.931666666666667 seconds
+2025-11-14 15:39:24,199 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:39:24,199 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.931666666666667s
+2025-11-14 15:39:26,131 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:39:26,974 - Bioreactor - INFO - CO2: 12910.0 ppm, O2: 20.8%
+2025-11-14 15:39:31,964 - Bioreactor - INFO - CO2: 12810.0 ppm, O2: 20.8%
+2025-11-14 15:39:36,964 - Bioreactor - INFO - CO2: 12640.0 ppm, O2: 20.8%
+2025-11-14 15:39:41,964 - Bioreactor - INFO - CO2: 12550.0 ppm, O2: 20.8%
+2025-11-14 15:39:46,965 - Bioreactor - INFO - CO2: 12330.0 ppm, O2: 20.8%
+2025-11-14 15:39:50,332 - Bioreactor - INFO - CO2 setpoint control: average=13170.0 ppm, setpoint=10000 ppm, difference=3170.0 ppm
+2025-11-14 15:39:50,333 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.585 seconds, then pressurizing for 1.585 seconds (flush multiplier: 0.0005)
+2025-11-14 15:39:50,333 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.585s
+2025-11-14 15:39:50,333 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:39:50,333 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:39:51,918 - Bioreactor - INFO - Valve open duration (1.585s) completed
+2025-11-14 15:39:51,918 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:39:51,918 - Bioreactor - INFO - Continuing pump for additional 1.585 seconds
+2025-11-14 15:39:51,968 - Bioreactor - INFO - CO2: 12250.0 ppm, O2: 20.8%
+2025-11-14 15:39:53,503 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:39:53,503 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.585s
+2025-11-14 15:39:55,089 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:39:56,973 - Bioreactor - INFO - CO2: 12240.0 ppm, O2: 20.8%
+2025-11-14 15:40:01,973 - Bioreactor - INFO - CO2: 12170.0 ppm, O2: 20.8%
+2025-11-14 15:40:06,983 - Bioreactor - INFO - CO2: 12130.0 ppm, O2: 20.8%
+2025-11-14 15:40:11,973 - Bioreactor - INFO - CO2: 12110.0 ppm, O2: 20.8%
+2025-11-14 15:40:16,973 - Bioreactor - INFO - CO2: 12030.0 ppm, O2: 20.8%
+2025-11-14 15:40:20,328 - Bioreactor - INFO - Stabilization paused: CO2 (12583.3 ppm) is 2583.3 ppm above setpoint (10000 ppm), exceeds tolerance (1000 ppm), flush job will handle
+2025-11-14 15:40:20,332 - Bioreactor - INFO - CO2 setpoint control: average=12583.3 ppm, setpoint=10000 ppm, difference=2583.3 ppm
+2025-11-14 15:40:20,333 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.292 seconds, then pressurizing for 1.292 seconds (flush multiplier: 0.0005)
+2025-11-14 15:40:20,333 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.291666666666667s
+2025-11-14 15:40:20,333 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:40:20,333 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:40:21,624 - Bioreactor - INFO - Valve open duration (1.291666666666667s) completed
+2025-11-14 15:40:21,625 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:40:21,625 - Bioreactor - INFO - Continuing pump for additional 1.291666666666667 seconds
+2025-11-14 15:40:21,973 - Bioreactor - INFO - CO2: 11990.0 ppm, O2: 20.8%
+2025-11-14 15:40:22,917 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:40:22,917 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.291666666666667s
+2025-11-14 15:40:24,209 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:40:26,981 - Bioreactor - INFO - CO2: 11940.0 ppm, O2: 20.9%
+2025-11-14 15:40:31,973 - Bioreactor - INFO - CO2: 11920.0 ppm, O2: 20.9%
+2025-11-14 15:40:36,973 - Bioreactor - INFO - CO2: 11830.0 ppm, O2: 20.9%
+2025-11-14 15:40:41,975 - Bioreactor - INFO - CO2: 11770.0 ppm, O2: 20.9%
+2025-11-14 15:40:46,974 - Bioreactor - INFO - CO2: 11650.0 ppm, O2: 20.9%
+2025-11-14 15:40:50,333 - Bioreactor - INFO - CO2 setpoint control: average=12103.3 ppm, setpoint=10000 ppm, difference=2103.3 ppm
+2025-11-14 15:40:50,333 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.052 seconds, then pressurizing for 1.052 seconds (flush multiplier: 0.0005)
+2025-11-14 15:40:50,333 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.051666666666667s
+2025-11-14 15:40:50,333 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:40:50,333 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:40:51,385 - Bioreactor - INFO - Valve open duration (1.051666666666667s) completed
+2025-11-14 15:40:51,385 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:40:51,385 - Bioreactor - INFO - Continuing pump for additional 1.051666666666667 seconds
+2025-11-14 15:40:51,974 - Bioreactor - INFO - CO2: 11630.0 ppm, O2: 20.9%
+2025-11-14 15:40:52,437 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:40:52,437 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.051666666666667s
+2025-11-14 15:40:53,489 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:40:56,979 - Bioreactor - INFO - CO2: 11590.0 ppm, O2: 20.9%
+2025-11-14 15:41:01,976 - Bioreactor - INFO - CO2: 11550.0 ppm, O2: 20.9%
+2025-11-14 15:41:06,976 - Bioreactor - INFO - CO2: 11460.0 ppm, O2: 20.9%
+2025-11-14 15:41:11,976 - Bioreactor - INFO - CO2: 11410.0 ppm, O2: 20.9%
+2025-11-14 15:41:16,976 - Bioreactor - INFO - CO2: 11370.0 ppm, O2: 20.9%
+2025-11-14 15:41:20,333 - Bioreactor - INFO - CO2 setpoint control: average=11758.7 ppm, setpoint=10000 ppm, difference=1758.7 ppm
+2025-11-14 15:41:20,333 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 0.879 seconds, then pressurizing for 0.879 seconds (flush multiplier: 0.0005)
+2025-11-14 15:41:20,333 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 0.8793333333333331s
+2025-11-14 15:41:20,333 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:41:20,333 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:41:21,212 - Bioreactor - INFO - Valve open duration (0.8793333333333331s) completed
+2025-11-14 15:41:21,213 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:41:21,213 - Bioreactor - INFO - Continuing pump for additional 0.8793333333333331 seconds
+2025-11-14 15:41:21,976 - Bioreactor - INFO - CO2: 11360.0 ppm, O2: 20.8%
+2025-11-14 15:41:22,092 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:41:22,092 - Bioreactor - INFO - Pressurizing: pump_1 ON for 0.8793333333333331s
+2025-11-14 15:41:22,972 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:41:26,977 - Bioreactor - INFO - CO2: 11320.0 ppm, O2: 20.8%
+2025-11-14 15:41:31,976 - Bioreactor - INFO - CO2: 11240.0 ppm, O2: 20.9%
+2025-11-14 15:41:36,976 - Bioreactor - INFO - CO2: 11230.0 ppm, O2: 20.9%
+2025-11-14 15:41:41,979 - Bioreactor - INFO - CO2: 11180.0 ppm, O2: 20.9%
+2025-11-14 15:41:46,977 - Bioreactor - INFO - CO2: 11140.0 ppm, O2: 20.8%
+2025-11-14 15:41:50,333 - Bioreactor - INFO - CO2 setpoint control: average=11448.7 ppm, setpoint=10000 ppm, difference=1448.7 ppm
+2025-11-14 15:41:50,333 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 0.724 seconds, then pressurizing for 0.724 seconds (flush multiplier: 0.0005)
+2025-11-14 15:41:50,333 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 0.724333333333333s
+2025-11-14 15:41:50,333 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:41:50,333 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:41:51,058 - Bioreactor - INFO - Valve open duration (0.724333333333333s) completed
+2025-11-14 15:41:51,058 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:41:51,058 - Bioreactor - INFO - Continuing pump for additional 0.724333333333333 seconds
+2025-11-14 15:41:51,782 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:41:51,783 - Bioreactor - INFO - Pressurizing: pump_1 ON for 0.724333333333333s
+2025-11-14 15:41:51,977 - Bioreactor - INFO - CO2: 11100.0 ppm, O2: 20.8%
+2025-11-14 15:41:52,507 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:41:56,977 - Bioreactor - INFO - CO2: 11050.0 ppm, O2: 20.8%
+2025-11-14 15:42:01,977 - Bioreactor - INFO - CO2: 11010.0 ppm, O2: 20.9%
+2025-11-14 15:42:06,980 - Bioreactor - INFO - CO2: 11000.0 ppm, O2: 20.9%
+2025-11-14 15:42:11,977 - Bioreactor - INFO - CO2: 10970.0 ppm, O2: 20.9%
+2025-11-14 15:42:17,009 - Bioreactor - INFO - CO2: 10950.0 ppm, O2: 20.9%
+2025-11-14 15:42:20,333 - Bioreactor - INFO - CO2 setpoint control: average=11186.0 ppm, setpoint=10000 ppm, difference=1186.0 ppm
+2025-11-14 15:42:20,333 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 0.593 seconds, then pressurizing for 0.593 seconds (flush multiplier: 0.0005)
+2025-11-14 15:42:20,333 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 0.593s
+2025-11-14 15:42:20,333 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:42:20,333 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:42:20,926 - Bioreactor - INFO - Valve open duration (0.593s) completed
+2025-11-14 15:42:20,926 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:42:20,927 - Bioreactor - INFO - Continuing pump for additional 0.593 seconds
+2025-11-14 15:42:21,520 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:42:21,521 - Bioreactor - INFO - Pressurizing: pump_1 ON for 0.593s
+2025-11-14 15:42:21,977 - Bioreactor - INFO - CO2: 10880.0 ppm, O2: 20.9%
+2025-11-14 15:42:22,115 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:42:26,977 - Bioreactor - INFO - CO2: 10870.0 ppm, O2: 20.9%
+2025-11-14 15:42:31,983 - Bioreactor - INFO - CO2: 10800.0 ppm, O2: 20.9%
+2025-11-14 15:42:36,977 - Bioreactor - INFO - CO2: 10820.0 ppm, O2: 20.9%
+2025-11-14 15:42:41,977 - Bioreactor - INFO - CO2: 10780.0 ppm, O2: 20.9%
+2025-11-14 15:42:46,980 - Bioreactor - INFO - CO2: 10760.0 ppm, O2: 20.8%
+2025-11-14 15:42:50,333 - Bioreactor - INFO - CO2 setpoint control: average=10969.3 ppm, setpoint=10000 ppm, difference=969.3 ppm
+2025-11-14 15:42:50,333 - Bioreactor - INFO - CO2 setpoint control paused: average (10969.3 ppm) is within 1000 ppm of setpoint (10000 ppm), stabilize job is active
+2025-11-14 15:42:51,978 - Bioreactor - INFO - CO2: 10740.0 ppm, O2: 20.9%
+2025-11-14 15:42:56,983 - Bioreactor - INFO - CO2: 10730.0 ppm, O2: 20.9%
+2025-11-14 15:43:01,978 - Bioreactor - INFO - CO2: 10690.0 ppm, O2: 20.9%
+2025-11-14 15:43:06,978 - Bioreactor - INFO - CO2: 10660.0 ppm, O2: 20.9%
+2025-11-14 15:43:11,978 - Bioreactor - INFO - CO2: 10640.0 ppm, O2: 20.9%
+2025-11-14 15:43:16,979 - Bioreactor - INFO - CO2: 10620.0 ppm, O2: 20.9%
+2025-11-14 15:43:20,328 - Bioreactor - INFO - CO2 (10794.0 ppm) is 794.0 ppm above setpoint (10000 ppm), within tolerance, running full stabilization
+2025-11-14 15:43:20,328 - Bioreactor - INFO - Setpoint adjustment: 0.199s (will be added to CO2 injection if below setpoint)
+2025-11-14 15:43:20,329 - Bioreactor - INFO - CO2 slope: -14.23 ppm/s (from 70 points)
+2025-11-14 15:43:20,329 - Bioreactor - INFO - Adjusted CO2 duration to 1.142s (change: 0.142s)
+2025-11-14 15:43:20,329 - Bioreactor - INFO - CO2 above setpoint: increased pressurize duration by 0.794s (1e-3 * 794.0 ppm) to 10.794s
+2025-11-14 15:43:20,329 - Bioreactor - INFO - Pressurizing: pump_1 ON for 10.794s
+2025-11-14 15:43:20,333 - Bioreactor - INFO - CO2 setpoint control: average=10794.0 ppm, setpoint=10000 ppm, difference=794.0 ppm
+2025-11-14 15:43:20,333 - Bioreactor - INFO - CO2 setpoint control paused: average (10794.0 ppm) is 794.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:43:21,978 - Bioreactor - INFO - CO2: 10570.0 ppm, O2: 20.9%
+2025-11-14 15:43:26,978 - Bioreactor - INFO - CO2: 10590.0 ppm, O2: 20.9%
+2025-11-14 15:43:31,123 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 15:43:31,123 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 15:43:31,978 - Bioreactor - INFO - CO2: 10590.0 ppm, O2: 20.9%
+2025-11-14 15:43:36,978 - Bioreactor - INFO - CO2: 10570.0 ppm, O2: 20.9%
+2025-11-14 15:43:41,986 - Bioreactor - INFO - CO2: 10570.0 ppm, O2: 20.9%
+2025-11-14 15:43:46,978 - Bioreactor - INFO - CO2: 10530.0 ppm, O2: 20.9%
+2025-11-14 15:43:50,334 - Bioreactor - INFO - CO2 setpoint control: average=10657.3 ppm, setpoint=10000 ppm, difference=657.3 ppm
+2025-11-14 15:43:50,334 - Bioreactor - INFO - CO2 setpoint control paused: average (10657.3 ppm) is 657.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:43:51,979 - Bioreactor - INFO - CO2: 10480.0 ppm, O2: 20.9%
+2025-11-14 15:43:56,979 - Bioreactor - INFO - CO2: 10460.0 ppm, O2: 20.9%
+2025-11-14 15:44:01,123 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 1.1423396645032615s
+2025-11-14 15:44:01,979 - Bioreactor - INFO - CO2: 10430.0 ppm, O2: 20.9%
+2025-11-14 15:44:02,266 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 15:44:06,979 - Bioreactor - INFO - CO2: 10430.0 ppm, O2: 20.9%
+2025-11-14 15:44:11,979 - Bioreactor - INFO - CO2: 10380.0 ppm, O2: 20.9%
+2025-11-14 15:44:16,983 - Bioreactor - INFO - CO2: 10340.0 ppm, O2: 20.9%
+2025-11-14 15:44:20,334 - Bioreactor - INFO - CO2 setpoint control: average=10524.0 ppm, setpoint=10000 ppm, difference=524.0 ppm
+2025-11-14 15:44:20,334 - Bioreactor - INFO - CO2 setpoint control paused: average (10524.0 ppm) is 524.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:44:21,983 - Bioreactor - INFO - CO2: 10300.0 ppm, O2: 20.9%
+2025-11-14 15:44:26,984 - Bioreactor - INFO - CO2: 10280.0 ppm, O2: 20.9%
+2025-11-14 15:44:31,983 - Bioreactor - INFO - CO2: 10260.0 ppm, O2: 20.9%
+2025-11-14 15:44:36,984 - Bioreactor - INFO - CO2: 10250.0 ppm, O2: 20.9%
+2025-11-14 15:44:41,983 - Bioreactor - INFO - CO2: 10210.0 ppm, O2: 20.9%
+2025-11-14 15:44:46,988 - Bioreactor - INFO - CO2: 10170.0 ppm, O2: 20.9%
+2025-11-14 15:44:50,334 - Bioreactor - INFO - CO2 setpoint control: average=10377.3 ppm, setpoint=10000 ppm, difference=377.3 ppm
+2025-11-14 15:44:50,334 - Bioreactor - INFO - CO2 setpoint control paused: average (10377.3 ppm) is 377.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:44:51,983 - Bioreactor - INFO - CO2: 10140.0 ppm, O2: 20.9%
+2025-11-14 15:44:56,984 - Bioreactor - INFO - CO2: 10130.0 ppm, O2: 20.9%
+2025-11-14 15:45:01,984 - Bioreactor - INFO - CO2: 10090.0 ppm, O2: 20.9%
+2025-11-14 15:45:06,984 - Bioreactor - INFO - CO2: 10070.0 ppm, O2: 20.9%
+2025-11-14 15:45:11,985 - Bioreactor - INFO - CO2: 10030.0 ppm, O2: 20.9%
+2025-11-14 15:45:16,984 - Bioreactor - INFO - CO2: 10010.0 ppm, O2: 20.9%
+2025-11-14 15:45:20,334 - Bioreactor - INFO - CO2 setpoint control: average=10206.0 ppm, setpoint=10000 ppm, difference=206.0 ppm
+2025-11-14 15:45:20,334 - Bioreactor - INFO - CO2 setpoint control paused: average (10206.0 ppm) is 206.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:45:21,987 - Bioreactor - INFO - CO2: 9940.0 ppm, O2: 20.9%
+2025-11-14 15:45:26,987 - Bioreactor - INFO - CO2: 9910.0 ppm, O2: 20.9%
+2025-11-14 15:45:31,991 - Bioreactor - INFO - CO2: 9890.0 ppm, O2: 20.9%
+2025-11-14 15:45:36,988 - Bioreactor - INFO - CO2: 9900.0 ppm, O2: 20.9%
+2025-11-14 15:45:41,995 - Bioreactor - INFO - CO2: 9870.0 ppm, O2: 20.9%
+2025-11-14 15:45:46,995 - Bioreactor - INFO - CO2: 9870.0 ppm, O2: 20.9%
+2025-11-14 15:45:50,334 - Bioreactor - INFO - CO2 setpoint control: average=10032.0 ppm, setpoint=10000 ppm, difference=32.0 ppm
+2025-11-14 15:45:50,334 - Bioreactor - INFO - CO2 setpoint control paused: average (10032.0 ppm) is 32.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:45:51,997 - Bioreactor - INFO - CO2: 9830.0 ppm, O2: 20.9%
+2025-11-14 15:45:56,996 - Bioreactor - INFO - CO2: 9820.0 ppm, O2: 20.9%
+2025-11-14 15:46:01,998 - Bioreactor - INFO - CO2: 9810.0 ppm, O2: 20.9%
+2025-11-14 15:46:06,997 - Bioreactor - INFO - CO2: 9800.0 ppm, O2: 20.9%
+2025-11-14 15:46:11,997 - Bioreactor - INFO - CO2: 9770.0 ppm, O2: 20.9%
+2025-11-14 15:46:16,997 - Bioreactor - INFO - CO2: 9720.0 ppm, O2: 20.9%
+2025-11-14 15:46:20,335 - Bioreactor - INFO - CO2 (9882.7 ppm) is 117.3 ppm below setpoint (10000 ppm), running full stabilization
+2025-11-14 15:46:20,335 - Bioreactor - INFO - CO2 setpoint control: average=9882.7 ppm, setpoint=10000 ppm, difference=-117.3 ppm
+2025-11-14 15:46:20,338 - Bioreactor - INFO - Setpoint adjustment: -0.029s (will be added to CO2 injection if below setpoint)
+2025-11-14 15:46:20,339 - Bioreactor - INFO - CO2 setpoint control paused: average (9882.7 ppm) is 117.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:46:20,340 - Bioreactor - INFO - CO2 slope: -5.74 ppm/s (from 70 points)
+2025-11-14 15:46:20,341 - Bioreactor - INFO - Adjusted CO2 duration to 1.200s (change: 0.057s)
+2025-11-14 15:46:20,341 - Bioreactor - INFO - CO2 below setpoint: increased CO2 injection duration by 0.001s (1e-5 * 117.3 ppm) to 1.201s
+2025-11-14 15:46:20,341 - Bioreactor - INFO - Added setpoint adjustment (0.029s) to CO2 injection duration: 1.230s
+2025-11-14 15:46:20,341 - Bioreactor - INFO - Pressurizing: pump_1 ON for 10.794s
+2025-11-14 15:46:21,999 - Bioreactor - INFO - CO2: 9660.0 ppm, O2: 20.9%
+2025-11-14 15:46:26,997 - Bioreactor - INFO - CO2: 9650.0 ppm, O2: 20.9%
+2025-11-14 15:46:31,138 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 15:46:31,138 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 15:46:32,007 - Bioreactor - INFO - CO2: 9640.0 ppm, O2: 20.9%
+2025-11-14 15:46:36,997 - Bioreactor - INFO - CO2: 9620.0 ppm, O2: 20.9%
+2025-11-14 15:46:41,998 - Bioreactor - INFO - CO2: 9600.0 ppm, O2: 20.9%
+2025-11-14 15:46:46,998 - Bioreactor - INFO - CO2: 9600.0 ppm, O2: 20.9%
+2025-11-14 15:46:50,335 - Bioreactor - INFO - CO2 setpoint control: average=9744.0 ppm, setpoint=10000 ppm, difference=-256.0 ppm
+2025-11-14 15:46:50,335 - Bioreactor - INFO - CO2 setpoint control paused: average (9744.0 ppm) is 256.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:46:51,998 - Bioreactor - INFO - CO2: 9590.0 ppm, O2: 20.9%
+2025-11-14 15:46:56,998 - Bioreactor - INFO - CO2: 9570.0 ppm, O2: 20.9%
+2025-11-14 15:47:01,138 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 1.2302818007106913s
+2025-11-14 15:47:02,002 - Bioreactor - INFO - CO2: 9540.0 ppm, O2: 20.9%
+2025-11-14 15:47:02,369 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 15:47:06,999 - Bioreactor - INFO - CO2: 9520.0 ppm, O2: 20.9%
+2025-11-14 15:47:12,003 - Bioreactor - INFO - CO2: 9500.0 ppm, O2: 20.9%
+2025-11-14 15:47:17,000 - Bioreactor - INFO - CO2: 9440.0 ppm, O2: 20.9%
+2025-11-14 15:47:20,335 - Bioreactor - INFO - CO2 setpoint control: average=9614.7 ppm, setpoint=10000 ppm, difference=-385.3 ppm
+2025-11-14 15:47:20,335 - Bioreactor - INFO - CO2 setpoint control paused: average (9614.7 ppm) is 385.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:47:22,025 - Bioreactor - INFO - CO2: 9430.0 ppm, O2: 20.9%
+2025-11-14 15:47:27,000 - Bioreactor - INFO - CO2: 9390.0 ppm, O2: 20.9%
+2025-11-14 15:47:32,001 - Bioreactor - INFO - CO2: 9390.0 ppm, O2: 20.9%
+2025-11-14 15:47:37,000 - Bioreactor - INFO - CO2: 9390.0 ppm, O2: 20.9%
+2025-11-14 15:47:42,001 - Bioreactor - INFO - CO2: 9400.0 ppm, O2: 20.9%
+2025-11-14 15:47:47,003 - Bioreactor - INFO - CO2: 9370.0 ppm, O2: 20.9%
+2025-11-14 15:47:50,335 - Bioreactor - INFO - CO2 setpoint control: average=9490.0 ppm, setpoint=10000 ppm, difference=-510.0 ppm
+2025-11-14 15:47:50,335 - Bioreactor - INFO - CO2 setpoint control paused: average (9490.0 ppm) is 510.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:47:52,000 - Bioreactor - INFO - CO2: 9380.0 ppm, O2: 20.9%
+2025-11-14 15:47:57,000 - Bioreactor - INFO - CO2: 9390.0 ppm, O2: 20.9%
+2025-11-14 15:48:02,002 - Bioreactor - INFO - CO2: 9400.0 ppm, O2: 20.9%
+2025-11-14 15:48:07,002 - Bioreactor - INFO - CO2: 9460.0 ppm, O2: 20.9%
+2025-11-14 15:48:12,004 - Bioreactor - INFO - CO2: 9520.0 ppm, O2: 20.9%
+2025-11-14 15:48:17,002 - Bioreactor - INFO - CO2: 9640.0 ppm, O2: 20.9%
+2025-11-14 15:48:20,335 - Bioreactor - INFO - CO2 setpoint control: average=9441.3 ppm, setpoint=10000 ppm, difference=-558.7 ppm
+2025-11-14 15:48:20,335 - Bioreactor - INFO - CO2 setpoint control paused: average (9441.3 ppm) is 558.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:48:22,002 - Bioreactor - INFO - CO2: 9650.0 ppm, O2: 20.9%
+2025-11-14 15:48:27,003 - Bioreactor - INFO - CO2: 9720.0 ppm, O2: 20.9%
+2025-11-14 15:48:32,002 - Bioreactor - INFO - CO2: 9720.0 ppm, O2: 20.9%
+2025-11-14 15:48:37,003 - Bioreactor - INFO - CO2: 9770.0 ppm, O2: 20.9%
+2025-11-14 15:48:42,002 - Bioreactor - INFO - CO2: 9780.0 ppm, O2: 20.9%
+2025-11-14 15:48:47,004 - Bioreactor - INFO - CO2: 9820.0 ppm, O2: 20.9%
+2025-11-14 15:48:50,335 - Bioreactor - INFO - CO2 setpoint control: average=9560.7 ppm, setpoint=10000 ppm, difference=-439.3 ppm
+2025-11-14 15:48:50,336 - Bioreactor - INFO - CO2 setpoint control paused: average (9560.7 ppm) is 439.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:48:52,004 - Bioreactor - INFO - CO2: 9860.0 ppm, O2: 20.9%
+2025-11-14 15:48:57,011 - Bioreactor - INFO - CO2: 9910.0 ppm, O2: 20.9%
+2025-11-14 15:49:02,005 - Bioreactor - INFO - CO2: 9940.0 ppm, O2: 20.9%
+2025-11-14 15:49:07,005 - Bioreactor - INFO - CO2: 10000.0 ppm, O2: 20.9%
+2025-11-14 15:49:12,005 - Bioreactor - INFO - CO2: 9990.0 ppm, O2: 20.9%
+2025-11-14 15:49:17,012 - Bioreactor - INFO - CO2: 10010.0 ppm, O2: 20.9%
+2025-11-14 15:49:20,335 - Bioreactor - INFO - CO2 (9786.0 ppm) is 214.0 ppm below setpoint (10000 ppm), running full stabilization
+2025-11-14 15:49:20,335 - Bioreactor - INFO - Setpoint adjustment: -0.053s (will be added to CO2 injection if below setpoint)
+2025-11-14 15:49:20,335 - Bioreactor - INFO - CO2 slope: -2.56 ppm/s (from 70 points)
+2025-11-14 15:49:20,335 - Bioreactor - INFO - CO2 setpoint control: average=9786.0 ppm, setpoint=10000 ppm, difference=-214.0 ppm
+2025-11-14 15:49:20,335 - Bioreactor - INFO - Adjusted CO2 duration to 1.227s (change: 0.026s)
+2025-11-14 15:49:20,336 - Bioreactor - INFO - CO2 setpoint control paused: average (9786.0 ppm) is 214.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:49:20,336 - Bioreactor - INFO - CO2 below setpoint: increased CO2 injection duration by 0.002s (1e-5 * 214.0 ppm) to 1.229s
+2025-11-14 15:49:20,336 - Bioreactor - INFO - Added setpoint adjustment (0.053s) to CO2 injection duration: 1.282s
+2025-11-14 15:49:20,336 - Bioreactor - INFO - Pressurizing: pump_1 ON for 10.794s
+2025-11-14 15:49:22,006 - Bioreactor - INFO - CO2: 10010.0 ppm, O2: 20.9%
+2025-11-14 15:49:27,006 - Bioreactor - INFO - CO2: 10010.0 ppm, O2: 20.9%
+2025-11-14 15:49:31,130 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 15:49:31,130 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 15:49:32,008 - Bioreactor - INFO - CO2: 10060.0 ppm, O2: 20.9%
+2025-11-14 15:49:37,006 - Bioreactor - INFO - CO2: 10100.0 ppm, O2: 20.9%
+2025-11-14 15:49:42,008 - Bioreactor - INFO - CO2: 10090.0 ppm, O2: 20.9%
+2025-11-14 15:49:47,008 - Bioreactor - INFO - CO2: 10140.0 ppm, O2: 20.9%
+2025-11-14 15:49:50,336 - Bioreactor - INFO - CO2 setpoint control: average=9966.0 ppm, setpoint=10000 ppm, difference=-34.0 ppm
+2025-11-14 15:49:50,336 - Bioreactor - INFO - CO2 setpoint control paused: average (9966.0 ppm) is 34.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:49:52,008 - Bioreactor - INFO - CO2: 10190.0 ppm, O2: 20.9%
+2025-11-14 15:49:57,008 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 15:50:01,132 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 1.2822225191322791s
+2025-11-14 15:50:02,011 - Bioreactor - INFO - CO2: 10280.0 ppm, O2: 20.9%
+2025-11-14 15:50:02,415 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 15:50:07,010 - Bioreactor - INFO - CO2: 10280.0 ppm, O2: 20.9%
+2025-11-14 15:50:12,010 - Bioreactor - INFO - CO2: 10280.0 ppm, O2: 20.9%
+2025-11-14 15:50:17,010 - Bioreactor - INFO - CO2: 10290.0 ppm, O2: 20.9%
+2025-11-14 15:50:20,336 - Bioreactor - INFO - CO2 setpoint control: average=10130.7 ppm, setpoint=10000 ppm, difference=130.7 ppm
+2025-11-14 15:50:20,336 - Bioreactor - INFO - CO2 setpoint control paused: average (10130.7 ppm) is 130.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:50:22,012 - Bioreactor - INFO - CO2: 10310.0 ppm, O2: 20.9%
+2025-11-14 15:50:27,010 - Bioreactor - INFO - CO2: 10300.0 ppm, O2: 20.9%
+2025-11-14 15:50:32,011 - Bioreactor - INFO - CO2: 10360.0 ppm, O2: 20.9%
+2025-11-14 15:50:37,072 - Bioreactor - INFO - CO2: 10410.0 ppm, O2: 20.9%
+2025-11-14 15:50:42,011 - Bioreactor - INFO - CO2: 10410.0 ppm, O2: 20.9%
+2025-11-14 15:50:47,012 - Bioreactor - INFO - CO2: 10440.0 ppm, O2: 20.9%
+2025-11-14 15:50:50,336 - Bioreactor - INFO - CO2 setpoint control: average=10274.0 ppm, setpoint=10000 ppm, difference=274.0 ppm
+2025-11-14 15:50:50,337 - Bioreactor - INFO - CO2 setpoint control paused: average (10274.0 ppm) is 274.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:50:52,011 - Bioreactor - INFO - CO2: 10460.0 ppm, O2: 20.9%
+2025-11-14 15:50:57,014 - Bioreactor - INFO - CO2: 10480.0 ppm, O2: 20.8%
+2025-11-14 15:51:02,013 - Bioreactor - INFO - CO2: 10490.0 ppm, O2: 20.9%
+2025-11-14 15:51:07,016 - Bioreactor - INFO - CO2: 10530.0 ppm, O2: 20.9%
+2025-11-14 15:51:12,014 - Bioreactor - INFO - CO2: 10590.0 ppm, O2: 20.9%
+2025-11-14 15:51:17,014 - Bioreactor - INFO - CO2: 10740.0 ppm, O2: 20.9%
+2025-11-14 15:51:20,336 - Bioreactor - INFO - CO2 setpoint control: average=10424.7 ppm, setpoint=10000 ppm, difference=424.7 ppm
+2025-11-14 15:51:20,337 - Bioreactor - INFO - CO2 setpoint control paused: average (10424.7 ppm) is 424.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:51:22,014 - Bioreactor - INFO - CO2: 10850.0 ppm, O2: 20.9%
+2025-11-14 15:51:27,014 - Bioreactor - INFO - CO2: 10990.0 ppm, O2: 20.9%
+2025-11-14 15:51:32,018 - Bioreactor - INFO - CO2: 11150.0 ppm, O2: 20.8%
+2025-11-14 15:51:37,014 - Bioreactor - INFO - CO2: 11340.0 ppm, O2: 20.8%
+2025-11-14 15:51:42,014 - Bioreactor - INFO - CO2: 11580.0 ppm, O2: 20.8%
+2025-11-14 15:51:47,014 - Bioreactor - INFO - CO2: 11690.0 ppm, O2: 20.8%
+2025-11-14 15:51:50,336 - Bioreactor - INFO - CO2 setpoint control: average=10810.0 ppm, setpoint=10000 ppm, difference=810.0 ppm
+2025-11-14 15:51:50,337 - Bioreactor - INFO - CO2 setpoint control paused: average (10810.0 ppm) is 810.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:51:52,018 - Bioreactor - INFO - CO2: 11810.0 ppm, O2: 20.9%
+2025-11-14 15:51:57,014 - Bioreactor - INFO - CO2: 11830.0 ppm, O2: 20.8%
+2025-11-14 15:52:02,015 - Bioreactor - INFO - CO2: 11870.0 ppm, O2: 20.9%
+2025-11-14 15:52:07,015 - Bioreactor - INFO - CO2: 11940.0 ppm, O2: 20.9%
+2025-11-14 15:52:12,015 - Bioreactor - INFO - CO2: 12000.0 ppm, O2: 20.8%
+2025-11-14 15:52:17,015 - Bioreactor - INFO - CO2: 12030.0 ppm, O2: 20.8%
+2025-11-14 15:52:20,335 - Bioreactor - INFO - Stabilization paused: CO2 (11396.0 ppm) is 1396.0 ppm above setpoint (10000 ppm), exceeds tolerance (1000 ppm), flush job will handle
+2025-11-14 15:52:20,336 - Bioreactor - INFO - CO2 setpoint control: average=11396.0 ppm, setpoint=10000 ppm, difference=1396.0 ppm
+2025-11-14 15:52:20,337 - Bioreactor - INFO - CO2 setpoint control paused: average (11396.0 ppm) is 1396.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:52:22,015 - Bioreactor - INFO - CO2: 12010.0 ppm, O2: 20.8%
+2025-11-14 15:52:27,031 - Bioreactor - INFO - CO2: 12010.0 ppm, O2: 20.8%
+2025-11-14 15:52:32,019 - Bioreactor - INFO - CO2: 12020.0 ppm, O2: 20.8%
+2025-11-14 15:52:37,019 - Bioreactor - INFO - CO2: 12030.0 ppm, O2: 20.8%
+2025-11-14 15:52:42,016 - Bioreactor - INFO - CO2: 12080.0 ppm, O2: 20.8%
+2025-11-14 15:52:47,016 - Bioreactor - INFO - CO2: 12080.0 ppm, O2: 20.8%
+2025-11-14 15:52:50,337 - Bioreactor - INFO - CO2 setpoint control: average=11888.0 ppm, setpoint=10000 ppm, difference=1888.0 ppm
+2025-11-14 15:52:50,337 - Bioreactor - INFO - CO2 setpoint control paused: average (11888.0 ppm) is 1888.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 15:52:52,017 - Bioreactor - INFO - CO2: 12070.0 ppm, O2: 20.8%
+2025-11-14 15:52:57,017 - Bioreactor - INFO - CO2: 12070.0 ppm, O2: 20.8%
+2025-11-14 15:53:02,017 - Bioreactor - INFO - CO2: 12090.0 ppm, O2: 20.8%
+2025-11-14 15:53:07,019 - Bioreactor - INFO - CO2: 12100.0 ppm, O2: 20.8%
+2025-11-14 15:53:12,018 - Bioreactor - INFO - CO2: 12130.0 ppm, O2: 20.8%
+2025-11-14 15:53:17,019 - Bioreactor - INFO - CO2: 12120.0 ppm, O2: 20.8%
+2025-11-14 15:53:20,337 - Bioreactor - INFO - CO2 setpoint control: average=12052.0 ppm, setpoint=10000 ppm, difference=2052.0 ppm
+2025-11-14 15:53:20,337 - Bioreactor - INFO - CO2 setpoint control resumed: average (12052.0 ppm) is 2052.0 ppm away from setpoint, exceeds resume threshold (2000 ppm)
+2025-11-14 15:53:20,337 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.026 seconds, then pressurizing for 1.026 seconds (flush multiplier: 0.0005)
+2025-11-14 15:53:20,337 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.026s
+2025-11-14 15:53:20,337 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:53:20,337 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:53:21,363 - Bioreactor - INFO - Valve open duration (1.026s) completed
+2025-11-14 15:53:21,363 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:53:21,363 - Bioreactor - INFO - Continuing pump for additional 1.026 seconds
+2025-11-14 15:53:22,027 - Bioreactor - INFO - CO2: 12130.0 ppm, O2: 20.8%
+2025-11-14 15:53:22,390 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:53:22,390 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.026s
+2025-11-14 15:53:23,416 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:53:27,017 - Bioreactor - INFO - CO2: 12140.0 ppm, O2: 20.8%
+2025-11-14 15:53:32,017 - Bioreactor - INFO - CO2: 12140.0 ppm, O2: 20.9%
+2025-11-14 15:53:37,017 - Bioreactor - INFO - CO2: 12150.0 ppm, O2: 20.9%
+2025-11-14 15:53:42,018 - Bioreactor - INFO - CO2: 12170.0 ppm, O2: 20.8%
+2025-11-14 15:53:47,023 - Bioreactor - INFO - CO2: 12160.0 ppm, O2: 20.8%
+2025-11-14 15:53:50,337 - Bioreactor - INFO - CO2 setpoint control: average=12110.7 ppm, setpoint=10000 ppm, difference=2110.7 ppm
+2025-11-14 15:53:50,337 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.055 seconds, then pressurizing for 1.055 seconds (flush multiplier: 0.0005)
+2025-11-14 15:53:50,337 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.055333333333333s
+2025-11-14 15:53:50,337 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:53:50,337 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:53:51,393 - Bioreactor - INFO - Valve open duration (1.055333333333333s) completed
+2025-11-14 15:53:51,393 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:53:51,393 - Bioreactor - INFO - Continuing pump for additional 1.055333333333333 seconds
+2025-11-14 15:53:52,018 - Bioreactor - INFO - CO2: 12150.0 ppm, O2: 20.8%
+2025-11-14 15:53:52,448 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:53:52,449 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.055333333333333s
+2025-11-14 15:53:53,504 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:53:57,020 - Bioreactor - INFO - CO2: 12170.0 ppm, O2: 20.8%
+2025-11-14 15:54:02,019 - Bioreactor - INFO - CO2: 12220.0 ppm, O2: 20.9%
+2025-11-14 15:54:07,021 - Bioreactor - INFO - CO2: 12220.0 ppm, O2: 20.8%
+2025-11-14 15:54:12,019 - Bioreactor - INFO - CO2: 12240.0 ppm, O2: 20.8%
+2025-11-14 15:54:17,020 - Bioreactor - INFO - CO2: 12240.0 ppm, O2: 20.8%
+2025-11-14 15:54:20,337 - Bioreactor - INFO - CO2 setpoint control: average=12165.3 ppm, setpoint=10000 ppm, difference=2165.3 ppm
+2025-11-14 15:54:20,337 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.083 seconds, then pressurizing for 1.083 seconds (flush multiplier: 0.0005)
+2025-11-14 15:54:20,337 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.0826666666666669s
+2025-11-14 15:54:20,337 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:54:20,337 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:54:21,420 - Bioreactor - INFO - Valve open duration (1.0826666666666669s) completed
+2025-11-14 15:54:21,420 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:54:21,420 - Bioreactor - INFO - Continuing pump for additional 1.0826666666666669 seconds
+2025-11-14 15:54:22,020 - Bioreactor - INFO - CO2: 12260.0 ppm, O2: 20.8%
+2025-11-14 15:54:22,503 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:54:22,503 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.0826666666666669s
+2025-11-14 15:54:23,586 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:54:27,023 - Bioreactor - INFO - CO2: 12240.0 ppm, O2: 20.9%
+2025-11-14 15:54:32,020 - Bioreactor - INFO - CO2: 12230.0 ppm, O2: 20.9%
+2025-11-14 15:54:37,020 - Bioreactor - INFO - CO2: 12250.0 ppm, O2: 20.8%
+2025-11-14 15:54:42,020 - Bioreactor - INFO - CO2: 12260.0 ppm, O2: 20.8%
+2025-11-14 15:54:47,020 - Bioreactor - INFO - CO2: 12260.0 ppm, O2: 20.8%
+2025-11-14 15:54:50,337 - Bioreactor - INFO - CO2 setpoint control: average=12214.7 ppm, setpoint=10000 ppm, difference=2214.7 ppm
+2025-11-14 15:54:50,337 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.107 seconds, then pressurizing for 1.107 seconds (flush multiplier: 0.0005)
+2025-11-14 15:54:50,337 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.107333333333333s
+2025-11-14 15:54:50,337 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:54:50,337 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:54:51,445 - Bioreactor - INFO - Valve open duration (1.107333333333333s) completed
+2025-11-14 15:54:51,445 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:54:51,445 - Bioreactor - INFO - Continuing pump for additional 1.107333333333333 seconds
+2025-11-14 15:54:52,021 - Bioreactor - INFO - CO2: 12260.0 ppm, O2: 20.8%
+2025-11-14 15:54:52,552 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:54:52,553 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.107333333333333s
+2025-11-14 15:54:53,660 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:54:57,020 - Bioreactor - INFO - CO2: 12270.0 ppm, O2: 20.8%
+2025-11-14 15:55:02,021 - Bioreactor - INFO - CO2: 12360.0 ppm, O2: 20.8%
+2025-11-14 15:55:07,021 - Bioreactor - INFO - CO2: 12430.0 ppm, O2: 20.9%
+2025-11-14 15:55:12,026 - Bioreactor - INFO - CO2: 12620.0 ppm, O2: 20.8%
+2025-11-14 15:55:17,021 - Bioreactor - INFO - CO2: 12870.0 ppm, O2: 20.8%
+2025-11-14 15:55:20,335 - Bioreactor - INFO - Stabilization paused: CO2 (12334.0 ppm) is 2334.0 ppm above setpoint (10000 ppm), exceeds tolerance (1000 ppm), flush job will handle
+2025-11-14 15:55:20,337 - Bioreactor - INFO - CO2 setpoint control: average=12334.0 ppm, setpoint=10000 ppm, difference=2334.0 ppm
+2025-11-14 15:55:20,337 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.167 seconds, then pressurizing for 1.167 seconds (flush multiplier: 0.0005)
+2025-11-14 15:55:20,337 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.167s
+2025-11-14 15:55:20,337 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:55:20,337 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:55:21,506 - Bioreactor - INFO - Valve open duration (1.167s) completed
+2025-11-14 15:55:21,508 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 15:55:21,509 - Bioreactor - INFO - Continuing pump for additional 1.167 seconds
+2025-11-14 15:55:22,025 - Bioreactor - INFO - CO2: 13210.0 ppm, O2: 20.8%
+2025-11-14 15:55:22,677 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 15:55:22,677 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.167s
+2025-11-14 15:55:23,845 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 15:55:27,022 - Bioreactor - INFO - CO2: 13440.0 ppm, O2: 20.8%
+2025-11-14 15:55:32,026 - Bioreactor - INFO - CO2: 14080.0 ppm, O2: 20.8%
+2025-11-14 15:55:37,022 - Bioreactor - INFO - CO2: 14300.0 ppm, O2: 20.8%
+2025-11-14 15:55:42,023 - Bioreactor - INFO - CO2: 14600.0 ppm, O2: 20.8%
+2025-11-14 15:55:47,023 - Bioreactor - INFO - CO2: 14840.0 ppm, O2: 20.8%
+2025-11-14 15:55:50,337 - Bioreactor - INFO - CO2 setpoint control: average=13070.0 ppm, setpoint=10000 ppm, difference=3070.0 ppm
+2025-11-14 15:55:50,337 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.535 seconds, then pressurizing for 1.535 seconds (flush multiplier: 0.0005)
+2025-11-14 15:55:50,337 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.5350000000000001s
+2025-11-14 15:55:50,337 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 15:55:50,337 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 15:55:50,498 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 15:55:50,498 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 15:55:50,498 - Bioreactor - INFO - Data file closed.
+2025-11-14 15:55:50,498 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 15:55:50,498 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 15:55:50,498 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 15:55:50,498 - Bioreactor - INFO - Data file closed.
+2025-11-14 15:55:50,498 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 16:00:10,932 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-14 16:00:10,932 - Bioreactor - INFO - Initializing relays...
+2025-11-14 16:00:10,934 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-14 16:00:10,934 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-14 16:00:10,934 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-14 16:00:10,934 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-14 16:00:10,934 - Bioreactor - INFO - relays initialized successfully
+2025-11-14 16:00:10,934 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-14 16:00:11,947 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-14 16:00:11,947 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-14 16:00:11,947 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-14 16:00:11,950 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-14 16:00:11,950 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-14 16:00:11,951 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-14 16:00:11,951 - Bioreactor - INFO - Starting automatic tank flush (15s)...
+2025-11-14 16:00:11,951 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 15s
+2025-11-14 16:00:11,951 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:00:11,951 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:00:26,951 - Bioreactor - INFO - Valve open duration (15s) completed
+2025-11-14 16:00:26,951 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:00:26,951 - Bioreactor - INFO - Continuing pump for additional 15 seconds
+2025-11-14 16:00:41,951 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:00:41,951 - Bioreactor - INFO - Automatic tank flush completed.
+2025-11-14 16:00:42,262 - Bioreactor - INFO - Plot initialized for sensor monitoring with CO2 duration control
+2025-11-14 16:00:42,263 - Bioreactor - WARNING - No CO2 data available, just pressurizing
+2025-11-14 16:00:42,263 - Bioreactor - INFO - Waiting 12s before first CO2 setpoint control...
+2025-11-14 16:00:42,263 - Bioreactor - INFO - Started 3 job threads.
+2025-11-14 16:00:42,263 - Bioreactor - INFO - Pressurizing: pump_1 ON for 10s
+2025-11-14 16:00:43,867 - Bioreactor - INFO - CO2: 2650.0 ppm, O2: 21.0%
+2025-11-14 16:00:48,879 - Bioreactor - INFO - CO2: 2600.0 ppm, O2: 21.0%
+2025-11-14 16:00:52,264 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 16:00:52,264 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 16:00:53,866 - Bioreactor - INFO - CO2: 2540.0 ppm, O2: 21.0%
+2025-11-14 16:00:54,264 - Bioreactor - INFO - CO2 setpoint control: average=2596.7 ppm, setpoint=10000 ppm, difference=-7403.3 ppm
+2025-11-14 16:00:54,264 - Bioreactor - INFO - CO2 below setpoint, injecting CO2 for 1.851 seconds (multiplier: 0.00025)
+2025-11-14 16:00:54,264 - Bioreactor - INFO - Waiting 0 seconds before CO2 injection...
+2025-11-14 16:00:54,264 - Bioreactor - INFO - Starting CO2 injection (1.8508333333333336 seconds)...
+2025-11-14 16:00:54,264 - Bioreactor - INFO - co2_solenoid turned ON
+2025-11-14 16:00:56,117 - Bioreactor - INFO - co2_solenoid turned OFF - CO2 injection complete
+2025-11-14 16:00:58,872 - Bioreactor - INFO - CO2: 2490.0 ppm, O2: 21.0%
+2025-11-14 16:01:03,869 - Bioreactor - INFO - CO2: 2450.0 ppm, O2: 21.0%
+2025-11-14 16:01:08,871 - Bioreactor - INFO - CO2: 2420.0 ppm, O2: 21.0%
+2025-11-14 16:01:12,263 - Bioreactor - INFO - CO2 setpoint control: average=2525.0 ppm, setpoint=10000 ppm, difference=-7475.0 ppm
+2025-11-14 16:01:12,264 - Bioreactor - INFO - CO2 below setpoint, injecting CO2 for 1.869 seconds (multiplier: 0.00025)
+2025-11-14 16:01:12,264 - Bioreactor - INFO - Waiting 0 seconds before CO2 injection...
+2025-11-14 16:01:12,264 - Bioreactor - INFO - Starting CO2 injection (1.8687500000000001 seconds)...
+2025-11-14 16:01:12,264 - Bioreactor - INFO - co2_solenoid turned ON
+2025-11-14 16:01:13,869 - Bioreactor - INFO - CO2: 2370.0 ppm, O2: 21.0%
+2025-11-14 16:01:14,133 - Bioreactor - INFO - co2_solenoid turned OFF - CO2 injection complete
+2025-11-14 16:01:18,872 - Bioreactor - INFO - CO2: 2370.0 ppm, O2: 21.0%
+2025-11-14 16:01:22,264 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 0s
+2025-11-14 16:01:22,264 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 16:01:23,872 - Bioreactor - INFO - CO2: 2360.0 ppm, O2: 21.0%
+2025-11-14 16:01:28,882 - Bioreactor - INFO - CO2: 2340.0 ppm, O2: 21.0%
+2025-11-14 16:01:33,872 - Bioreactor - INFO - CO2: 2320.0 ppm, O2: 21.0%
+2025-11-14 16:01:38,886 - Bioreactor - INFO - CO2: 2320.0 ppm, O2: 21.0%
+2025-11-14 16:01:42,264 - Bioreactor - INFO - CO2 setpoint control: average=2435.8 ppm, setpoint=10000 ppm, difference=-7564.2 ppm
+2025-11-14 16:01:42,264 - Bioreactor - INFO - CO2 below setpoint, injecting CO2 for 1.891 seconds (multiplier: 0.00025)
+2025-11-14 16:01:42,264 - Bioreactor - INFO - Waiting 0 seconds before CO2 injection...
+2025-11-14 16:01:42,268 - Bioreactor - INFO - Starting CO2 injection (1.8910416666666665 seconds)...
+2025-11-14 16:01:42,269 - Bioreactor - INFO - co2_solenoid turned ON
+2025-11-14 16:01:43,873 - Bioreactor - INFO - CO2: 2330.0 ppm, O2: 21.0%
+2025-11-14 16:01:44,160 - Bioreactor - INFO - co2_solenoid turned OFF - CO2 injection complete
+2025-11-14 16:01:48,909 - Bioreactor - INFO - CO2: 2320.0 ppm, O2: 21.0%
+2025-11-14 16:01:53,873 - Bioreactor - INFO - CO2: 2320.0 ppm, O2: 21.0%
+2025-11-14 16:01:58,873 - Bioreactor - INFO - CO2: 2340.0 ppm, O2: 21.0%
+2025-11-14 16:01:59,327 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 16:01:59,327 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 16:01:59,327 - Bioreactor - INFO - Data file closed.
+2025-11-14 16:01:59,327 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 16:01:59,327 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 16:01:59,327 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 16:01:59,327 - Bioreactor - INFO - Data file closed.
+2025-11-14 16:01:59,327 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 16:04:33,561 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-14 16:04:33,561 - Bioreactor - INFO - Initializing relays...
+2025-11-14 16:04:33,563 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-14 16:04:33,563 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-14 16:04:33,563 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-14 16:04:33,563 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-14 16:04:33,563 - Bioreactor - INFO - relays initialized successfully
+2025-11-14 16:04:33,563 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-14 16:04:34,575 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-14 16:04:34,576 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-14 16:04:34,576 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-14 16:04:34,578 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-14 16:04:34,578 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-14 16:04:34,580 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-14 16:04:34,580 - Bioreactor - INFO - Starting automatic tank flush (15s)...
+2025-11-14 16:04:34,580 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 15s
+2025-11-14 16:04:34,580 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:04:34,580 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:04:49,581 - Bioreactor - INFO - Valve open duration (15s) completed
+2025-11-14 16:04:49,581 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:04:49,581 - Bioreactor - INFO - Continuing pump for additional 15 seconds
+2025-11-14 16:05:04,581 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:05:04,581 - Bioreactor - INFO - Automatic tank flush completed.
+2025-11-14 16:05:04,922 - Bioreactor - INFO - Plot initialized for sensor monitoring with CO2 duration control
+2025-11-14 16:05:04,923 - Bioreactor - WARNING - No CO2 data available, just pressurizing
+2025-11-14 16:05:04,923 - Bioreactor - INFO - Waiting 12s before first CO2 setpoint control...
+2025-11-14 16:05:04,923 - Bioreactor - INFO - Pressurizing: pump_1 ON for 10s
+2025-11-14 16:05:04,923 - Bioreactor - INFO - Started 3 job threads.
+2025-11-14 16:05:06,526 - Bioreactor - INFO - CO2: 4910.0 ppm, O2: 21.0%
+2025-11-14 16:05:11,528 - Bioreactor - INFO - CO2: 4920.0 ppm, O2: 21.0%
+2025-11-14 16:05:14,923 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 16:05:14,924 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 16:05:16,526 - Bioreactor - INFO - CO2: 4960.0 ppm, O2: 20.9%
+2025-11-14 16:05:16,923 - Bioreactor - INFO - CO2 setpoint control: average=4930.0 ppm, setpoint=10000 ppm, difference=-5070.0 ppm
+2025-11-14 16:05:16,924 - Bioreactor - INFO - CO2 below setpoint, injecting CO2 for 0.127 seconds (multiplier: 2.5e-05)
+2025-11-14 16:05:16,924 - Bioreactor - INFO - Waiting 0 seconds before CO2 injection...
+2025-11-14 16:05:16,924 - Bioreactor - INFO - Starting CO2 injection (0.12675 seconds)...
+2025-11-14 16:05:16,927 - Bioreactor - INFO - co2_solenoid turned ON
+2025-11-14 16:05:17,054 - Bioreactor - INFO - co2_solenoid turned OFF - CO2 injection complete
+2025-11-14 16:05:21,526 - Bioreactor - INFO - CO2: 5440.0 ppm, O2: 20.9%
+2025-11-14 16:05:26,526 - Bioreactor - INFO - CO2: 7540.0 ppm, O2: 20.9%
+2025-11-14 16:05:31,532 - Bioreactor - INFO - CO2: 8440.0 ppm, O2: 20.9%
+2025-11-14 16:05:34,923 - Bioreactor - INFO - CO2 setpoint control: average=6035.0 ppm, setpoint=10000 ppm, difference=-3965.0 ppm
+2025-11-14 16:05:34,923 - Bioreactor - INFO - CO2 below setpoint, injecting CO2 for 0.099 seconds (multiplier: 2.5e-05)
+2025-11-14 16:05:34,923 - Bioreactor - INFO - Waiting 0 seconds before CO2 injection...
+2025-11-14 16:05:34,923 - Bioreactor - INFO - Starting CO2 injection (0.099125 seconds)...
+2025-11-14 16:05:34,924 - Bioreactor - INFO - co2_solenoid turned ON
+2025-11-14 16:05:35,023 - Bioreactor - INFO - co2_solenoid turned OFF - CO2 injection complete
+2025-11-14 16:05:36,527 - Bioreactor - INFO - CO2: 9370.0 ppm, O2: 20.9%
+2025-11-14 16:05:41,526 - Bioreactor - INFO - CO2: 9380.0 ppm, O2: 20.9%
+2025-11-14 16:05:44,924 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 0s
+2025-11-14 16:05:44,924 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 16:05:46,527 - Bioreactor - INFO - CO2: 9330.0 ppm, O2: 20.9%
+2025-11-14 16:05:51,527 - Bioreactor - INFO - CO2: 9300.0 ppm, O2: 20.9%
+2025-11-14 16:05:56,531 - Bioreactor - INFO - CO2: 9190.0 ppm, O2: 20.9%
+2025-11-14 16:06:01,527 - Bioreactor - INFO - CO2: 9140.0 ppm, O2: 20.9%
+2025-11-14 16:06:04,924 - Bioreactor - INFO - CO2 setpoint control: average=7660.0 ppm, setpoint=10000 ppm, difference=-2340.0 ppm
+2025-11-14 16:06:04,926 - Bioreactor - INFO - CO2 below setpoint, injecting CO2 for 0.059 seconds (multiplier: 2.5e-05)
+2025-11-14 16:06:04,926 - Bioreactor - INFO - Waiting 0 seconds before CO2 injection...
+2025-11-14 16:06:04,926 - Bioreactor - INFO - Starting CO2 injection (0.0585 seconds)...
+2025-11-14 16:06:04,927 - Bioreactor - INFO - co2_solenoid turned ON
+2025-11-14 16:06:04,988 - Bioreactor - INFO - co2_solenoid turned OFF - CO2 injection complete
+2025-11-14 16:06:06,527 - Bioreactor - INFO - CO2: 9020.0 ppm, O2: 20.9%
+2025-11-14 16:06:11,527 - Bioreactor - INFO - CO2: 8970.0 ppm, O2: 20.9%
+2025-11-14 16:06:16,532 - Bioreactor - INFO - CO2: 8980.0 ppm, O2: 20.9%
+2025-11-14 16:06:21,619 - Bioreactor - INFO - CO2: 9000.0 ppm, O2: 20.9%
+2025-11-14 16:06:26,529 - Bioreactor - INFO - CO2: 9150.0 ppm, O2: 20.9%
+2025-11-14 16:06:31,528 - Bioreactor - INFO - CO2: 9340.0 ppm, O2: 20.9%
+2025-11-14 16:06:34,923 - Bioreactor - INFO - CO2 setpoint control: average=8772.7 ppm, setpoint=10000 ppm, difference=-1227.3 ppm
+2025-11-14 16:06:34,924 - Bioreactor - INFO - CO2 below setpoint, injecting CO2 for 0.031 seconds (multiplier: 2.5e-05)
+2025-11-14 16:06:34,924 - Bioreactor - INFO - Waiting 0 seconds before CO2 injection...
+2025-11-14 16:06:34,924 - Bioreactor - INFO - Starting CO2 injection (0.03068333333333335 seconds)...
+2025-11-14 16:06:34,924 - Bioreactor - INFO - co2_solenoid turned ON
+2025-11-14 16:06:34,955 - Bioreactor - INFO - co2_solenoid turned OFF - CO2 injection complete
+2025-11-14 16:06:36,529 - Bioreactor - INFO - CO2: 9890.0 ppm, O2: 20.9%
+2025-11-14 16:06:41,529 - Bioreactor - INFO - CO2: 10380.0 ppm, O2: 20.9%
+2025-11-14 16:06:46,529 - Bioreactor - INFO - CO2: 10850.0 ppm, O2: 20.9%
+2025-11-14 16:06:51,556 - Bioreactor - INFO - CO2: 11210.0 ppm, O2: 20.9%
+2025-11-14 16:06:56,532 - Bioreactor - INFO - CO2: 11970.0 ppm, O2: 20.9%
+2025-11-14 16:07:01,539 - Bioreactor - INFO - CO2: 12350.0 ppm, O2: 20.9%
+2025-11-14 16:07:04,923 - Bioreactor - INFO - CO2 setpoint control: average=9916.0 ppm, setpoint=10000 ppm, difference=-84.0 ppm
+2025-11-14 16:07:04,924 - Bioreactor - INFO - CO2 setpoint control paused: average (9916.0 ppm) is within 1000 ppm of setpoint (10000 ppm), stabilize job is active
+2025-11-14 16:07:06,532 - Bioreactor - INFO - CO2: 12600.0 ppm, O2: 20.8%
+2025-11-14 16:07:11,535 - Bioreactor - INFO - CO2: 12760.0 ppm, O2: 20.8%
+2025-11-14 16:07:16,534 - Bioreactor - INFO - CO2: 12870.0 ppm, O2: 20.8%
+2025-11-14 16:07:21,537 - Bioreactor - INFO - CO2: 12860.0 ppm, O2: 20.8%
+2025-11-14 16:07:26,534 - Bioreactor - INFO - CO2: 13090.0 ppm, O2: 20.8%
+2025-11-14 16:07:31,535 - Bioreactor - INFO - CO2: 13230.0 ppm, O2: 20.8%
+2025-11-14 16:07:34,923 - Bioreactor - INFO - CO2 setpoint control: average=11436.7 ppm, setpoint=10000 ppm, difference=1436.7 ppm
+2025-11-14 16:07:34,924 - Bioreactor - INFO - CO2 setpoint control paused: average (11436.7 ppm) is 1436.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:07:36,535 - Bioreactor - INFO - CO2: 13500.0 ppm, O2: 20.8%
+2025-11-14 16:07:41,538 - Bioreactor - INFO - CO2: 13720.0 ppm, O2: 20.8%
+2025-11-14 16:07:46,535 - Bioreactor - INFO - CO2: 13880.0 ppm, O2: 20.8%
+2025-11-14 16:07:51,536 - Bioreactor - INFO - CO2: 14030.0 ppm, O2: 20.8%
+2025-11-14 16:07:56,536 - Bioreactor - INFO - CO2: 14180.0 ppm, O2: 20.8%
+2025-11-14 16:08:01,536 - Bioreactor - INFO - CO2: 14280.0 ppm, O2: 20.8%
+2025-11-14 16:08:04,923 - Bioreactor - INFO - Stabilization paused: CO2 (13102.0 ppm) is 3102.0 ppm above setpoint (10000 ppm), exceeds tolerance (1000 ppm), flush job will handle
+2025-11-14 16:08:04,923 - Bioreactor - INFO - CO2 setpoint control: average=13102.0 ppm, setpoint=10000 ppm, difference=3102.0 ppm
+2025-11-14 16:08:04,924 - Bioreactor - INFO - CO2 setpoint control resumed: average (13102.0 ppm) is 3102.0 ppm away from setpoint, exceeds resume threshold (2000 ppm)
+2025-11-14 16:08:04,924 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.551 seconds, then pressurizing for 1.551 seconds (flush multiplier: 0.0005)
+2025-11-14 16:08:04,924 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.551s
+2025-11-14 16:08:04,924 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:08:04,924 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:08:06,475 - Bioreactor - INFO - Valve open duration (1.551s) completed
+2025-11-14 16:08:06,475 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:08:06,475 - Bioreactor - INFO - Continuing pump for additional 1.551 seconds
+2025-11-14 16:08:06,536 - Bioreactor - INFO - CO2: 14450.0 ppm, O2: 20.8%
+2025-11-14 16:08:08,026 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:08:08,026 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.551s
+2025-11-14 16:08:09,578 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:08:11,536 - Bioreactor - INFO - CO2: 14510.0 ppm, O2: 20.8%
+2025-11-14 16:08:16,536 - Bioreactor - INFO - CO2: 14780.0 ppm, O2: 20.8%
+2025-11-14 16:08:21,540 - Bioreactor - INFO - CO2: 14660.0 ppm, O2: 20.8%
+2025-11-14 16:08:26,536 - Bioreactor - INFO - CO2: 14690.0 ppm, O2: 20.8%
+2025-11-14 16:08:31,539 - Bioreactor - INFO - CO2: 14720.0 ppm, O2: 20.8%
+2025-11-14 16:08:34,924 - Bioreactor - INFO - CO2 setpoint control: average=14038.7 ppm, setpoint=10000 ppm, difference=4038.7 ppm
+2025-11-14 16:08:34,924 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.019 seconds, then pressurizing for 2.019 seconds (flush multiplier: 0.0005)
+2025-11-14 16:08:34,924 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.019333333333333s
+2025-11-14 16:08:34,924 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:08:34,924 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:08:36,539 - Bioreactor - INFO - CO2: 14740.0 ppm, O2: 20.8%
+2025-11-14 16:08:36,944 - Bioreactor - INFO - Valve open duration (2.019333333333333s) completed
+2025-11-14 16:08:36,944 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:08:36,944 - Bioreactor - INFO - Continuing pump for additional 2.019333333333333 seconds
+2025-11-14 16:08:38,963 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:08:38,963 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.019333333333333s
+2025-11-14 16:08:40,983 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:08:41,539 - Bioreactor - INFO - CO2: 14790.0 ppm, O2: 20.8%
+2025-11-14 16:08:46,539 - Bioreactor - INFO - CO2: 14850.0 ppm, O2: 20.8%
+2025-11-14 16:08:51,541 - Bioreactor - INFO - CO2: 14850.0 ppm, O2: 20.8%
+2025-11-14 16:08:56,540 - Bioreactor - INFO - CO2: 14900.0 ppm, O2: 20.8%
+2025-11-14 16:09:01,544 - Bioreactor - INFO - CO2: 15000.0 ppm, O2: 20.8%
+2025-11-14 16:09:04,924 - Bioreactor - INFO - CO2 setpoint control: average=14628.7 ppm, setpoint=10000 ppm, difference=4628.7 ppm
+2025-11-14 16:09:04,927 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.314 seconds, then pressurizing for 2.314 seconds (flush multiplier: 0.0005)
+2025-11-14 16:09:04,927 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.314333333333333s
+2025-11-14 16:09:04,927 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:09:04,927 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:09:06,549 - Bioreactor - INFO - CO2: 15080.0 ppm, O2: 20.8%
+2025-11-14 16:09:07,241 - Bioreactor - INFO - Valve open duration (2.314333333333333s) completed
+2025-11-14 16:09:07,242 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:09:07,242 - Bioreactor - INFO - Continuing pump for additional 2.314333333333333 seconds
+2025-11-14 16:09:09,556 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:09:09,556 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.314333333333333s
+2025-11-14 16:09:11,544 - Bioreactor - INFO - CO2: 15180.0 ppm, O2: 20.8%
+2025-11-14 16:09:11,872 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:09:16,544 - Bioreactor - INFO - CO2: 15240.0 ppm, O2: 20.8%
+2025-11-14 16:09:21,544 - Bioreactor - INFO - CO2: 15260.0 ppm, O2: 20.8%
+2025-11-14 16:09:26,548 - Bioreactor - INFO - CO2: 15310.0 ppm, O2: 20.8%
+2025-11-14 16:09:31,544 - Bioreactor - INFO - CO2: 15420.0 ppm, O2: 20.8%
+2025-11-14 16:09:34,924 - Bioreactor - INFO - CO2 setpoint control: average=14979.3 ppm, setpoint=10000 ppm, difference=4979.3 ppm
+2025-11-14 16:09:34,924 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.490 seconds, then pressurizing for 2.490 seconds (flush multiplier: 0.0005)
+2025-11-14 16:09:34,924 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.489666666666667s
+2025-11-14 16:09:34,924 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:09:34,924 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:09:36,544 - Bioreactor - INFO - CO2: 15490.0 ppm, O2: 20.8%
+2025-11-14 16:09:37,414 - Bioreactor - INFO - Valve open duration (2.489666666666667s) completed
+2025-11-14 16:09:37,414 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:09:37,415 - Bioreactor - INFO - Continuing pump for additional 2.489666666666667 seconds
+2025-11-14 16:09:39,908 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:09:39,908 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.489666666666667s
+2025-11-14 16:09:41,544 - Bioreactor - INFO - CO2: 15590.0 ppm, O2: 20.8%
+2025-11-14 16:09:42,398 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:09:46,546 - Bioreactor - INFO - CO2: 15720.0 ppm, O2: 20.8%
+2025-11-14 16:09:51,548 - Bioreactor - INFO - CO2: 15840.0 ppm, O2: 20.8%
+2025-11-14 16:09:56,545 - Bioreactor - INFO - CO2: 15930.0 ppm, O2: 20.8%
+2025-11-14 16:10:01,546 - Bioreactor - INFO - CO2: 16030.0 ppm, O2: 20.8%
+2025-11-14 16:10:04,924 - Bioreactor - INFO - CO2 setpoint control: average=15389.3 ppm, setpoint=10000 ppm, difference=5389.3 ppm
+2025-11-14 16:10:04,924 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.695 seconds, then pressurizing for 2.695 seconds (flush multiplier: 0.0005)
+2025-11-14 16:10:04,924 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.694666666666667s
+2025-11-14 16:10:04,924 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:10:04,924 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:10:06,562 - Bioreactor - INFO - CO2: 16110.0 ppm, O2: 20.8%
+2025-11-14 16:10:07,619 - Bioreactor - INFO - Valve open duration (2.694666666666667s) completed
+2025-11-14 16:10:07,619 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:10:07,619 - Bioreactor - INFO - Continuing pump for additional 2.694666666666667 seconds
+2025-11-14 16:10:10,315 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:10:10,315 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.694666666666667s
+2025-11-14 16:10:11,547 - Bioreactor - INFO - CO2: 16240.0 ppm, O2: 20.8%
+2025-11-14 16:10:13,010 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:10:16,546 - Bioreactor - INFO - CO2: 16260.0 ppm, O2: 20.8%
+2025-11-14 16:10:21,546 - Bioreactor - INFO - CO2: 16350.0 ppm, O2: 20.8%
+2025-11-14 16:10:26,546 - Bioreactor - INFO - CO2: 16380.0 ppm, O2: 20.8%
+2025-11-14 16:10:31,546 - Bioreactor - INFO - CO2: 16420.0 ppm, O2: 20.8%
+2025-11-14 16:10:34,924 - Bioreactor - INFO - CO2 setpoint control: average=15890.0 ppm, setpoint=10000 ppm, difference=5890.0 ppm
+2025-11-14 16:10:34,924 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.945 seconds, then pressurizing for 2.945 seconds (flush multiplier: 0.0005)
+2025-11-14 16:10:34,924 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.945s
+2025-11-14 16:10:34,924 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:10:34,924 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:10:36,547 - Bioreactor - INFO - CO2: 16400.0 ppm, O2: 20.8%
+2025-11-14 16:10:37,869 - Bioreactor - INFO - Valve open duration (2.945s) completed
+2025-11-14 16:10:37,870 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:10:37,870 - Bioreactor - INFO - Continuing pump for additional 2.945 seconds
+2025-11-14 16:10:40,815 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:10:40,815 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.945s
+2025-11-14 16:10:41,546 - Bioreactor - INFO - CO2: 16420.0 ppm, O2: 20.8%
+2025-11-14 16:10:43,761 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:10:46,551 - Bioreactor - INFO - CO2: 16430.0 ppm, O2: 20.8%
+2025-11-14 16:10:51,551 - Bioreactor - INFO - CO2: 16350.0 ppm, O2: 20.8%
+2025-11-14 16:10:56,565 - Bioreactor - INFO - CO2: 16280.0 ppm, O2: 20.8%
+2025-11-14 16:11:01,551 - Bioreactor - INFO - CO2: 16210.0 ppm, O2: 20.8%
+2025-11-14 16:11:04,923 - Bioreactor - INFO - Stabilization paused: CO2 (16243.3 ppm) is 6243.3 ppm above setpoint (10000 ppm), exceeds tolerance (1000 ppm), flush job will handle
+2025-11-14 16:11:04,924 - Bioreactor - INFO - CO2 setpoint control: average=16243.3 ppm, setpoint=10000 ppm, difference=6243.3 ppm
+2025-11-14 16:11:04,924 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 3.122 seconds, then pressurizing for 3.122 seconds (flush multiplier: 0.0005)
+2025-11-14 16:11:04,924 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 3.121666666666667s
+2025-11-14 16:11:04,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:11:04,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:11:06,551 - Bioreactor - INFO - CO2: 16210.0 ppm, O2: 20.8%
+2025-11-14 16:11:08,050 - Bioreactor - INFO - Valve open duration (3.121666666666667s) completed
+2025-11-14 16:11:08,050 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:11:08,050 - Bioreactor - INFO - Continuing pump for additional 3.121666666666667 seconds
+2025-11-14 16:11:11,172 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:11:11,172 - Bioreactor - INFO - Pressurizing: pump_1 ON for 3.121666666666667s
+2025-11-14 16:11:11,551 - Bioreactor - INFO - CO2: 16160.0 ppm, O2: 20.8%
+2025-11-14 16:11:14,294 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:11:16,551 - Bioreactor - INFO - CO2: 16100.0 ppm, O2: 20.8%
+2025-11-14 16:11:21,551 - Bioreactor - INFO - CO2: 15930.0 ppm, O2: 20.8%
+2025-11-14 16:11:26,551 - Bioreactor - INFO - CO2: 15850.0 ppm, O2: 20.8%
+2025-11-14 16:11:31,551 - Bioreactor - INFO - CO2: 15820.0 ppm, O2: 20.8%
+2025-11-14 16:11:34,924 - Bioreactor - INFO - CO2 setpoint control: average=16220.7 ppm, setpoint=10000 ppm, difference=6220.7 ppm
+2025-11-14 16:11:34,924 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 3.110 seconds, then pressurizing for 3.110 seconds (flush multiplier: 0.0005)
+2025-11-14 16:11:34,924 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 3.110333333333333s
+2025-11-14 16:11:34,924 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:11:34,924 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:11:36,551 - Bioreactor - INFO - CO2: 15780.0 ppm, O2: 20.8%
+2025-11-14 16:11:38,035 - Bioreactor - INFO - Valve open duration (3.110333333333333s) completed
+2025-11-14 16:11:38,035 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:11:38,035 - Bioreactor - INFO - Continuing pump for additional 3.110333333333333 seconds
+2025-11-14 16:11:41,146 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:11:41,146 - Bioreactor - INFO - Pressurizing: pump_1 ON for 3.110333333333333s
+2025-11-14 16:11:41,551 - Bioreactor - INFO - CO2: 15740.0 ppm, O2: 20.8%
+2025-11-14 16:11:44,256 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:11:46,552 - Bioreactor - INFO - CO2: 15610.0 ppm, O2: 20.8%
+2025-11-14 16:11:51,552 - Bioreactor - INFO - CO2: 15570.0 ppm, O2: 20.8%
+2025-11-14 16:11:56,560 - Bioreactor - INFO - CO2: 15520.0 ppm, O2: 20.8%
+2025-11-14 16:12:01,556 - Bioreactor - INFO - CO2: 15480.0 ppm, O2: 20.8%
+2025-11-14 16:12:04,924 - Bioreactor - INFO - CO2 setpoint control: average=15907.3 ppm, setpoint=10000 ppm, difference=5907.3 ppm
+2025-11-14 16:12:04,924 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.954 seconds, then pressurizing for 2.954 seconds (flush multiplier: 0.0005)
+2025-11-14 16:12:04,925 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.953666666666667s
+2025-11-14 16:12:04,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:12:04,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:12:06,561 - Bioreactor - INFO - CO2: 15360.0 ppm, O2: 20.8%
+2025-11-14 16:12:07,878 - Bioreactor - INFO - Valve open duration (2.953666666666667s) completed
+2025-11-14 16:12:07,879 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:12:07,879 - Bioreactor - INFO - Continuing pump for additional 2.953666666666667 seconds
+2025-11-14 16:12:10,832 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:12:10,833 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.953666666666667s
+2025-11-14 16:12:11,557 - Bioreactor - INFO - CO2: 15230.0 ppm, O2: 20.8%
+2025-11-14 16:12:13,786 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:12:16,557 - Bioreactor - INFO - CO2: 15110.0 ppm, O2: 20.8%
+2025-11-14 16:12:21,557 - Bioreactor - INFO - CO2: 15000.0 ppm, O2: 20.8%
+2025-11-14 16:12:26,557 - Bioreactor - INFO - CO2: 14850.0 ppm, O2: 20.8%
+2025-11-14 16:12:31,559 - Bioreactor - INFO - CO2: 14730.0 ppm, O2: 20.8%
+2025-11-14 16:12:34,924 - Bioreactor - INFO - CO2 setpoint control: average=15438.7 ppm, setpoint=10000 ppm, difference=5438.7 ppm
+2025-11-14 16:12:34,924 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.719 seconds, then pressurizing for 2.719 seconds (flush multiplier: 0.0005)
+2025-11-14 16:12:34,924 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.719333333333333s
+2025-11-14 16:12:34,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:12:34,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:12:36,563 - Bioreactor - INFO - CO2: 14620.0 ppm, O2: 20.8%
+2025-11-14 16:12:37,644 - Bioreactor - INFO - Valve open duration (2.719333333333333s) completed
+2025-11-14 16:12:37,644 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:12:37,644 - Bioreactor - INFO - Continuing pump for additional 2.719333333333333 seconds
+2025-11-14 16:12:40,364 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:12:40,364 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.719333333333333s
+2025-11-14 16:12:41,557 - Bioreactor - INFO - CO2: 14460.0 ppm, O2: 20.8%
+2025-11-14 16:12:43,084 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:12:46,558 - Bioreactor - INFO - CO2: 14200.0 ppm, O2: 20.8%
+2025-11-14 16:12:51,558 - Bioreactor - INFO - CO2: 13930.0 ppm, O2: 20.8%
+2025-11-14 16:12:56,558 - Bioreactor - INFO - CO2: 13840.0 ppm, O2: 20.8%
+2025-11-14 16:13:01,558 - Bioreactor - INFO - CO2: 13810.0 ppm, O2: 20.8%
+2025-11-14 16:13:04,924 - Bioreactor - INFO - CO2 setpoint control: average=14780.7 ppm, setpoint=10000 ppm, difference=4780.7 ppm
+2025-11-14 16:13:04,925 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 2.390 seconds, then pressurizing for 2.390 seconds (flush multiplier: 0.0005)
+2025-11-14 16:13:04,925 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 2.390333333333333s
+2025-11-14 16:13:04,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:13:04,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:13:06,558 - Bioreactor - INFO - CO2: 13810.0 ppm, O2: 20.8%
+2025-11-14 16:13:07,315 - Bioreactor - INFO - Valve open duration (2.390333333333333s) completed
+2025-11-14 16:13:07,315 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:13:07,315 - Bioreactor - INFO - Continuing pump for additional 2.390333333333333 seconds
+2025-11-14 16:13:09,706 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:13:09,706 - Bioreactor - INFO - Pressurizing: pump_1 ON for 2.390333333333333s
+2025-11-14 16:13:11,561 - Bioreactor - INFO - CO2: 13590.0 ppm, O2: 20.8%
+2025-11-14 16:13:12,100 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:13:16,559 - Bioreactor - INFO - CO2: 13400.0 ppm, O2: 20.8%
+2025-11-14 16:13:21,567 - Bioreactor - INFO - CO2: 13200.0 ppm, O2: 20.8%
+2025-11-14 16:13:26,559 - Bioreactor - INFO - CO2: 13140.0 ppm, O2: 20.8%
+2025-11-14 16:13:31,560 - Bioreactor - INFO - CO2: 13000.0 ppm, O2: 20.8%
+2025-11-14 16:13:34,924 - Bioreactor - INFO - CO2 setpoint control: average=13972.0 ppm, setpoint=10000 ppm, difference=3972.0 ppm
+2025-11-14 16:13:34,925 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.986 seconds, then pressurizing for 1.986 seconds (flush multiplier: 0.0005)
+2025-11-14 16:13:34,925 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.986s
+2025-11-14 16:13:34,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:13:34,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:13:36,560 - Bioreactor - INFO - CO2: 12910.0 ppm, O2: 20.8%
+2025-11-14 16:13:36,911 - Bioreactor - INFO - Valve open duration (1.986s) completed
+2025-11-14 16:13:36,911 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:13:36,911 - Bioreactor - INFO - Continuing pump for additional 1.986 seconds
+2025-11-14 16:13:38,897 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:13:38,897 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.986s
+2025-11-14 16:13:40,884 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:13:41,560 - Bioreactor - INFO - CO2: 12880.0 ppm, O2: 20.8%
+2025-11-14 16:13:46,561 - Bioreactor - INFO - CO2: 12830.0 ppm, O2: 20.8%
+2025-11-14 16:13:51,562 - Bioreactor - INFO - CO2: 12700.0 ppm, O2: 20.8%
+2025-11-14 16:13:56,562 - Bioreactor - INFO - CO2: 12660.0 ppm, O2: 20.8%
+2025-11-14 16:14:01,562 - Bioreactor - INFO - CO2: 12610.0 ppm, O2: 20.8%
+2025-11-14 16:14:04,923 - Bioreactor - INFO - Stabilization paused: CO2 (13220.7 ppm) is 3220.7 ppm above setpoint (10000 ppm), exceeds tolerance (1000 ppm), flush job will handle
+2025-11-14 16:14:04,924 - Bioreactor - INFO - CO2 setpoint control: average=13220.7 ppm, setpoint=10000 ppm, difference=3220.7 ppm
+2025-11-14 16:14:04,925 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.610 seconds, then pressurizing for 1.610 seconds (flush multiplier: 0.0005)
+2025-11-14 16:14:04,925 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.6103333333333332s
+2025-11-14 16:14:04,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:14:04,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:14:06,536 - Bioreactor - INFO - Valve open duration (1.6103333333333332s) completed
+2025-11-14 16:14:06,536 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:14:06,537 - Bioreactor - INFO - Continuing pump for additional 1.6103333333333332 seconds
+2025-11-14 16:14:06,564 - Bioreactor - INFO - CO2: 12570.0 ppm, O2: 20.8%
+2025-11-14 16:14:08,147 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:14:08,147 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.6103333333333332s
+2025-11-14 16:14:09,758 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:14:11,627 - Bioreactor - INFO - CO2: 12510.0 ppm, O2: 20.8%
+2025-11-14 16:14:16,566 - Bioreactor - INFO - CO2: 12480.0 ppm, O2: 20.8%
+2025-11-14 16:14:21,566 - Bioreactor - INFO - CO2: 12380.0 ppm, O2: 20.8%
+2025-11-14 16:14:26,576 - Bioreactor - INFO - CO2: 12230.0 ppm, O2: 20.8%
+2025-11-14 16:14:31,567 - Bioreactor - INFO - CO2: 12190.0 ppm, O2: 20.8%
+2025-11-14 16:14:34,925 - Bioreactor - INFO - CO2 setpoint control: average=12686.0 ppm, setpoint=10000 ppm, difference=2686.0 ppm
+2025-11-14 16:14:34,925 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.343 seconds, then pressurizing for 1.343 seconds (flush multiplier: 0.0005)
+2025-11-14 16:14:34,925 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.343s
+2025-11-14 16:14:34,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:14:34,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:14:36,268 - Bioreactor - INFO - Valve open duration (1.343s) completed
+2025-11-14 16:14:36,268 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:14:36,268 - Bioreactor - INFO - Continuing pump for additional 1.343 seconds
+2025-11-14 16:14:36,567 - Bioreactor - INFO - CO2: 12160.0 ppm, O2: 20.8%
+2025-11-14 16:14:37,612 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:14:37,612 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.343s
+2025-11-14 16:14:38,956 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:14:41,567 - Bioreactor - INFO - CO2: 12100.0 ppm, O2: 20.9%
+2025-11-14 16:14:46,567 - Bioreactor - INFO - CO2: 11990.0 ppm, O2: 20.8%
+2025-11-14 16:14:51,567 - Bioreactor - INFO - CO2: 11960.0 ppm, O2: 20.8%
+2025-11-14 16:14:56,567 - Bioreactor - INFO - CO2: 11880.0 ppm, O2: 20.8%
+2025-11-14 16:15:01,568 - Bioreactor - INFO - CO2: 11840.0 ppm, O2: 20.8%
+2025-11-14 16:15:04,925 - Bioreactor - INFO - CO2 setpoint control: average=12284.0 ppm, setpoint=10000 ppm, difference=2284.0 ppm
+2025-11-14 16:15:04,925 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 1.142 seconds, then pressurizing for 1.142 seconds (flush multiplier: 0.0005)
+2025-11-14 16:15:04,925 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 1.1420000000000001s
+2025-11-14 16:15:04,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:15:04,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:15:06,067 - Bioreactor - INFO - Valve open duration (1.1420000000000001s) completed
+2025-11-14 16:15:06,067 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:15:06,067 - Bioreactor - INFO - Continuing pump for additional 1.1420000000000001 seconds
+2025-11-14 16:15:06,660 - Bioreactor - INFO - CO2: 11810.0 ppm, O2: 20.8%
+2025-11-14 16:15:07,210 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:15:07,210 - Bioreactor - INFO - Pressurizing: pump_1 ON for 1.1420000000000001s
+2025-11-14 16:15:08,353 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:15:11,585 - Bioreactor - INFO - CO2: 11780.0 ppm, O2: 20.8%
+2025-11-14 16:15:16,568 - Bioreactor - INFO - CO2: 11740.0 ppm, O2: 20.8%
+2025-11-14 16:15:21,570 - Bioreactor - INFO - CO2: 11720.0 ppm, O2: 20.8%
+2025-11-14 16:15:26,570 - Bioreactor - INFO - CO2: 11640.0 ppm, O2: 20.8%
+2025-11-14 16:15:31,575 - Bioreactor - INFO - CO2: 11630.0 ppm, O2: 20.8%
+2025-11-14 16:15:34,925 - Bioreactor - INFO - CO2 setpoint control: average=11936.7 ppm, setpoint=10000 ppm, difference=1936.7 ppm
+2025-11-14 16:15:34,925 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 0.968 seconds, then pressurizing for 0.968 seconds (flush multiplier: 0.0005)
+2025-11-14 16:15:34,925 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 0.968333333333333s
+2025-11-14 16:15:34,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:15:34,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:15:35,894 - Bioreactor - INFO - Valve open duration (0.968333333333333s) completed
+2025-11-14 16:15:35,894 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:15:35,894 - Bioreactor - INFO - Continuing pump for additional 0.968333333333333 seconds
+2025-11-14 16:15:36,570 - Bioreactor - INFO - CO2: 11600.0 ppm, O2: 20.8%
+2025-11-14 16:15:36,862 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:15:36,863 - Bioreactor - INFO - Pressurizing: pump_1 ON for 0.968333333333333s
+2025-11-14 16:15:37,832 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:15:41,573 - Bioreactor - INFO - CO2: 11560.0 ppm, O2: 20.8%
+2025-11-14 16:15:46,571 - Bioreactor - INFO - CO2: 11490.0 ppm, O2: 20.8%
+2025-11-14 16:15:51,574 - Bioreactor - INFO - CO2: 11470.0 ppm, O2: 20.8%
+2025-11-14 16:15:56,571 - Bioreactor - INFO - CO2: 11430.0 ppm, O2: 20.9%
+2025-11-14 16:16:01,571 - Bioreactor - INFO - CO2: 11400.0 ppm, O2: 20.8%
+2025-11-14 16:16:04,925 - Bioreactor - INFO - CO2 setpoint control: average=11663.3 ppm, setpoint=10000 ppm, difference=1663.3 ppm
+2025-11-14 16:16:04,925 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 0.832 seconds, then pressurizing for 0.832 seconds (flush multiplier: 0.0005)
+2025-11-14 16:16:04,925 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 0.831666666666667s
+2025-11-14 16:16:04,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:16:04,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:16:05,757 - Bioreactor - INFO - Valve open duration (0.831666666666667s) completed
+2025-11-14 16:16:05,757 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:16:05,757 - Bioreactor - INFO - Continuing pump for additional 0.831666666666667 seconds
+2025-11-14 16:16:06,571 - Bioreactor - INFO - CO2: 11380.0 ppm, O2: 20.8%
+2025-11-14 16:16:06,589 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:16:06,589 - Bioreactor - INFO - Pressurizing: pump_1 ON for 0.831666666666667s
+2025-11-14 16:16:07,421 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:16:11,571 - Bioreactor - INFO - CO2: 11340.0 ppm, O2: 20.8%
+2025-11-14 16:16:16,573 - Bioreactor - INFO - CO2: 11260.0 ppm, O2: 20.8%
+2025-11-14 16:16:21,571 - Bioreactor - INFO - CO2: 11240.0 ppm, O2: 20.8%
+2025-11-14 16:16:26,580 - Bioreactor - INFO - CO2: 11220.0 ppm, O2: 20.8%
+2025-11-14 16:16:31,573 - Bioreactor - INFO - CO2: 11210.0 ppm, O2: 20.8%
+2025-11-14 16:16:34,925 - Bioreactor - INFO - CO2 setpoint control: average=11439.3 ppm, setpoint=10000 ppm, difference=1439.3 ppm
+2025-11-14 16:16:34,925 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 0.720 seconds, then pressurizing for 0.720 seconds (flush multiplier: 0.0005)
+2025-11-14 16:16:34,925 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 0.719666666666667s
+2025-11-14 16:16:34,925 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:16:34,925 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:16:35,645 - Bioreactor - INFO - Valve open duration (0.719666666666667s) completed
+2025-11-14 16:16:35,645 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:16:35,645 - Bioreactor - INFO - Continuing pump for additional 0.719666666666667 seconds
+2025-11-14 16:16:36,365 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:16:36,365 - Bioreactor - INFO - Pressurizing: pump_1 ON for 0.719666666666667s
+2025-11-14 16:16:36,576 - Bioreactor - INFO - CO2: 11120.0 ppm, O2: 20.9%
+2025-11-14 16:16:37,085 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:16:41,573 - Bioreactor - INFO - CO2: 11080.0 ppm, O2: 20.9%
+2025-11-14 16:16:46,574 - Bioreactor - INFO - CO2: 11060.0 ppm, O2: 20.9%
+2025-11-14 16:16:51,573 - Bioreactor - INFO - CO2: 11050.0 ppm, O2: 20.8%
+2025-11-14 16:16:56,576 - Bioreactor - INFO - CO2: 11020.0 ppm, O2: 20.8%
+2025-11-14 16:17:01,574 - Bioreactor - INFO - CO2: 10990.0 ppm, O2: 20.8%
+2025-11-14 16:17:04,923 - Bioreactor - INFO - Stabilization paused: CO2 (11218.0 ppm) is 1218.0 ppm above setpoint (10000 ppm), exceeds tolerance (1000 ppm), flush job will handle
+2025-11-14 16:17:04,926 - Bioreactor - INFO - CO2 setpoint control: average=11218.0 ppm, setpoint=10000 ppm, difference=1218.0 ppm
+2025-11-14 16:17:04,930 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 0.609 seconds, then pressurizing for 0.609 seconds (flush multiplier: 0.0005)
+2025-11-14 16:17:04,930 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 0.609s
+2025-11-14 16:17:04,931 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:17:04,931 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:17:05,540 - Bioreactor - INFO - Valve open duration (0.609s) completed
+2025-11-14 16:17:05,540 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:17:05,540 - Bioreactor - INFO - Continuing pump for additional 0.609 seconds
+2025-11-14 16:17:06,150 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:17:06,150 - Bioreactor - INFO - Pressurizing: pump_1 ON for 0.609s
+2025-11-14 16:17:06,578 - Bioreactor - INFO - CO2: 10990.0 ppm, O2: 20.8%
+2025-11-14 16:17:06,759 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:17:11,575 - Bioreactor - INFO - CO2: 10960.0 ppm, O2: 20.8%
+2025-11-14 16:17:16,582 - Bioreactor - INFO - CO2: 10920.0 ppm, O2: 20.9%
+2025-11-14 16:17:21,575 - Bioreactor - INFO - CO2: 10890.0 ppm, O2: 20.9%
+2025-11-14 16:17:26,576 - Bioreactor - INFO - CO2: 10870.0 ppm, O2: 20.9%
+2025-11-14 16:17:31,576 - Bioreactor - INFO - CO2: 10850.0 ppm, O2: 20.9%
+2025-11-14 16:17:34,926 - Bioreactor - INFO - CO2 setpoint control: average=11031.3 ppm, setpoint=10000 ppm, difference=1031.3 ppm
+2025-11-14 16:17:34,926 - Bioreactor - INFO - CO2 above setpoint, flushing tank for 0.516 seconds, then pressurizing for 0.516 seconds (flush multiplier: 0.0005)
+2025-11-14 16:17:34,927 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 0.5156666666666669s
+2025-11-14 16:17:34,927 - Bioreactor - INFO - pump_1 turned ON
+2025-11-14 16:17:34,927 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-14 16:17:35,446 - Bioreactor - INFO - Valve open duration (0.5156666666666669s) completed
+2025-11-14 16:17:35,450 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-14 16:17:35,452 - Bioreactor - INFO - Continuing pump for additional 0.5156666666666669 seconds
+2025-11-14 16:17:35,976 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-14 16:17:35,976 - Bioreactor - INFO - Pressurizing: pump_1 ON for 0.5156666666666669s
+2025-11-14 16:17:36,494 - Bioreactor - INFO - pump_1 turned OFF - Pressurization complete
+2025-11-14 16:17:36,579 - Bioreactor - INFO - CO2: 10850.0 ppm, O2: 20.8%
+2025-11-14 16:17:41,576 - Bioreactor - INFO - CO2: 10820.0 ppm, O2: 20.8%
+2025-11-14 16:17:46,578 - Bioreactor - INFO - CO2: 10730.0 ppm, O2: 20.9%
+2025-11-14 16:17:51,578 - Bioreactor - INFO - CO2: 10690.0 ppm, O2: 20.9%
+2025-11-14 16:17:56,581 - Bioreactor - INFO - CO2: 10640.0 ppm, O2: 20.9%
+2025-11-14 16:18:01,579 - Bioreactor - INFO - CO2: 10640.0 ppm, O2: 20.9%
+2025-11-14 16:18:04,927 - Bioreactor - INFO - CO2 setpoint control: average=10860.7 ppm, setpoint=10000 ppm, difference=860.7 ppm
+2025-11-14 16:18:04,928 - Bioreactor - INFO - CO2 setpoint control paused: average (10860.7 ppm) is within 1000 ppm of setpoint (10000 ppm), stabilize job is active
+2025-11-14 16:18:06,583 - Bioreactor - INFO - CO2: 10630.0 ppm, O2: 20.9%
+2025-11-14 16:18:11,580 - Bioreactor - INFO - CO2: 10620.0 ppm, O2: 20.8%
+2025-11-14 16:18:16,581 - Bioreactor - INFO - CO2: 10600.0 ppm, O2: 20.9%
+2025-11-14 16:18:21,580 - Bioreactor - INFO - CO2: 10600.0 ppm, O2: 20.9%
+2025-11-14 16:18:26,581 - Bioreactor - INFO - CO2: 10580.0 ppm, O2: 20.9%
+2025-11-14 16:18:31,581 - Bioreactor - INFO - CO2: 10560.0 ppm, O2: 20.9%
+2025-11-14 16:18:34,927 - Bioreactor - INFO - CO2 setpoint control: average=10704.7 ppm, setpoint=10000 ppm, difference=704.7 ppm
+2025-11-14 16:18:34,927 - Bioreactor - INFO - CO2 setpoint control paused: average (10704.7 ppm) is 704.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:18:36,584 - Bioreactor - INFO - CO2: 10550.0 ppm, O2: 20.9%
+2025-11-14 16:18:41,581 - Bioreactor - INFO - CO2: 10540.0 ppm, O2: 20.9%
+2025-11-14 16:18:46,585 - Bioreactor - INFO - CO2: 10540.0 ppm, O2: 20.9%
+2025-11-14 16:18:51,584 - Bioreactor - INFO - CO2: 10520.0 ppm, O2: 20.9%
+2025-11-14 16:18:56,586 - Bioreactor - INFO - CO2: 10480.0 ppm, O2: 20.9%
+2025-11-14 16:19:01,584 - Bioreactor - INFO - CO2: 10480.0 ppm, O2: 20.9%
+2025-11-14 16:19:04,928 - Bioreactor - INFO - CO2 setpoint control: average=10578.0 ppm, setpoint=10000 ppm, difference=578.0 ppm
+2025-11-14 16:19:04,929 - Bioreactor - INFO - CO2 setpoint control paused: average (10578.0 ppm) is 578.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:19:06,585 - Bioreactor - INFO - CO2: 10460.0 ppm, O2: 20.9%
+2025-11-14 16:19:11,585 - Bioreactor - INFO - CO2: 10430.0 ppm, O2: 20.9%
+2025-11-14 16:19:16,589 - Bioreactor - INFO - CO2: 10420.0 ppm, O2: 20.9%
+2025-11-14 16:19:21,585 - Bioreactor - INFO - CO2: 10410.0 ppm, O2: 20.9%
+2025-11-14 16:19:26,586 - Bioreactor - INFO - CO2: 10390.0 ppm, O2: 20.9%
+2025-11-14 16:19:31,586 - Bioreactor - INFO - CO2: 10370.0 ppm, O2: 20.9%
+2025-11-14 16:19:34,928 - Bioreactor - INFO - CO2 setpoint control: average=10488.7 ppm, setpoint=10000 ppm, difference=488.7 ppm
+2025-11-14 16:19:34,929 - Bioreactor - INFO - CO2 setpoint control paused: average (10488.7 ppm) is 488.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:19:36,596 - Bioreactor - INFO - CO2: 10350.0 ppm, O2: 20.9%
+2025-11-14 16:19:41,586 - Bioreactor - INFO - CO2: 10350.0 ppm, O2: 20.8%
+2025-11-14 16:19:46,587 - Bioreactor - INFO - CO2: 10370.0 ppm, O2: 20.9%
+2025-11-14 16:19:51,587 - Bioreactor - INFO - CO2: 10320.0 ppm, O2: 20.9%
+2025-11-14 16:19:56,591 - Bioreactor - INFO - CO2: 10300.0 ppm, O2: 20.9%
+2025-11-14 16:20:01,587 - Bioreactor - INFO - CO2: 10280.0 ppm, O2: 20.9%
+2025-11-14 16:20:04,923 - Bioreactor - INFO - CO2 (10395.3 ppm) is 395.3 ppm above setpoint (10000 ppm), within tolerance, running full stabilization
+2025-11-14 16:20:04,924 - Bioreactor - INFO - Setpoint adjustment: 0.099s (will be added to CO2 injection if below setpoint)
+2025-11-14 16:20:04,925 - Bioreactor - INFO - CO2 slope: -5.83 ppm/s (from 70 points)
+2025-11-14 16:20:04,925 - Bioreactor - INFO - Adjusted CO2 duration to 0.158s (change: 0.058s)
+2025-11-14 16:20:04,925 - Bioreactor - INFO - CO2 above setpoint: increased pressurize duration by 0.395s (1e-3 * 395.3 ppm) to 10.395s
+2025-11-14 16:20:04,926 - Bioreactor - INFO - Pressurizing: pump_1 ON for 10.395333333333333s
+2025-11-14 16:20:04,929 - Bioreactor - INFO - CO2 setpoint control: average=10395.3 ppm, setpoint=10000 ppm, difference=395.3 ppm
+2025-11-14 16:20:04,929 - Bioreactor - INFO - CO2 setpoint control paused: average (10395.3 ppm) is 395.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:20:06,588 - Bioreactor - INFO - CO2: 10300.0 ppm, O2: 20.9%
+2025-11-14 16:20:11,587 - Bioreactor - INFO - CO2: 10300.0 ppm, O2: 20.9%
+2025-11-14 16:20:15,321 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 16:20:15,321 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 16:20:16,604 - Bioreactor - INFO - CO2: 10290.0 ppm, O2: 20.9%
+2025-11-14 16:20:21,588 - Bioreactor - INFO - CO2: 10270.0 ppm, O2: 20.9%
+2025-11-14 16:20:26,588 - Bioreactor - INFO - CO2: 10250.0 ppm, O2: 20.9%
+2025-11-14 16:20:31,588 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:20:34,929 - Bioreactor - INFO - CO2 setpoint control: average=10318.7 ppm, setpoint=10000 ppm, difference=318.7 ppm
+2025-11-14 16:20:34,929 - Bioreactor - INFO - CO2 setpoint control paused: average (10318.7 ppm) is 318.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:20:36,588 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:20:41,591 - Bioreactor - INFO - CO2: 10240.0 ppm, O2: 20.9%
+2025-11-14 16:20:45,321 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 0.15828457606954638s
+2025-11-14 16:20:45,480 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 16:20:46,588 - Bioreactor - INFO - CO2: 10250.0 ppm, O2: 20.9%
+2025-11-14 16:20:51,588 - Bioreactor - INFO - CO2: 10240.0 ppm, O2: 20.9%
+2025-11-14 16:20:56,588 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:21:01,588 - Bioreactor - INFO - CO2: 10220.0 ppm, O2: 20.9%
+2025-11-14 16:21:04,929 - Bioreactor - INFO - CO2 setpoint control: average=10263.3 ppm, setpoint=10000 ppm, difference=263.3 ppm
+2025-11-14 16:21:04,929 - Bioreactor - INFO - CO2 setpoint control paused: average (10263.3 ppm) is 263.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:21:06,589 - Bioreactor - INFO - CO2: 10220.0 ppm, O2: 20.9%
+2025-11-14 16:21:11,588 - Bioreactor - INFO - CO2: 10220.0 ppm, O2: 20.9%
+2025-11-14 16:21:16,589 - Bioreactor - INFO - CO2: 10220.0 ppm, O2: 20.9%
+2025-11-14 16:21:21,589 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:21:26,590 - Bioreactor - INFO - CO2: 10240.0 ppm, O2: 20.9%
+2025-11-14 16:21:31,590 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:21:34,929 - Bioreactor - INFO - CO2 setpoint control: average=10234.7 ppm, setpoint=10000 ppm, difference=234.7 ppm
+2025-11-14 16:21:34,929 - Bioreactor - INFO - CO2 setpoint control paused: average (10234.7 ppm) is 234.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:21:36,589 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:21:41,593 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:21:46,590 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:21:51,592 - Bioreactor - INFO - CO2: 10240.0 ppm, O2: 20.9%
+2025-11-14 16:21:56,596 - Bioreactor - INFO - CO2: 10250.0 ppm, O2: 20.9%
+2025-11-14 16:22:01,590 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:22:04,929 - Bioreactor - INFO - CO2 setpoint control: average=10230.7 ppm, setpoint=10000 ppm, difference=230.7 ppm
+2025-11-14 16:22:04,929 - Bioreactor - INFO - CO2 setpoint control paused: average (10230.7 ppm) is 230.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:22:06,595 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:22:11,595 - Bioreactor - INFO - CO2: 10220.0 ppm, O2: 20.9%
+2025-11-14 16:22:16,594 - Bioreactor - INFO - CO2: 10210.0 ppm, O2: 20.9%
+2025-11-14 16:22:21,593 - Bioreactor - INFO - CO2: 10190.0 ppm, O2: 20.9%
+2025-11-14 16:22:26,593 - Bioreactor - INFO - CO2: 10180.0 ppm, O2: 20.9%
+2025-11-14 16:22:31,593 - Bioreactor - INFO - CO2: 10150.0 ppm, O2: 20.9%
+2025-11-14 16:22:34,929 - Bioreactor - INFO - CO2 setpoint control: average=10219.3 ppm, setpoint=10000 ppm, difference=219.3 ppm
+2025-11-14 16:22:34,929 - Bioreactor - INFO - CO2 setpoint control paused: average (10219.3 ppm) is 219.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:22:36,593 - Bioreactor - INFO - CO2: 10140.0 ppm, O2: 20.9%
+2025-11-14 16:22:41,595 - Bioreactor - INFO - CO2: 10090.0 ppm, O2: 20.9%
+2025-11-14 16:22:46,593 - Bioreactor - INFO - CO2: 9990.0 ppm, O2: 20.9%
+2025-11-14 16:22:51,595 - Bioreactor - INFO - CO2: 9920.0 ppm, O2: 20.9%
+2025-11-14 16:22:56,594 - Bioreactor - INFO - CO2: 9850.0 ppm, O2: 20.9%
+2025-11-14 16:23:01,595 - Bioreactor - INFO - CO2: 9780.0 ppm, O2: 20.9%
+2025-11-14 16:23:04,924 - Bioreactor - INFO - CO2 (10111.3 ppm) is 111.3 ppm above setpoint (10000 ppm), within tolerance, running full stabilization
+2025-11-14 16:23:04,924 - Bioreactor - INFO - Setpoint adjustment: 0.028s (will be added to CO2 injection if below setpoint)
+2025-11-14 16:23:04,924 - Bioreactor - INFO - CO2 slope: -2.23 ppm/s (from 70 points)
+2025-11-14 16:23:04,924 - Bioreactor - INFO - Adjusted CO2 duration to 0.181s (change: 0.022s)
+2025-11-14 16:23:04,924 - Bioreactor - INFO - CO2 above setpoint: increased pressurize duration by 0.111s (1e-3 * 111.3 ppm) to 10.507s
+2025-11-14 16:23:04,924 - Bioreactor - INFO - Pressurizing: pump_1 ON for 10.506666666666668s
+2025-11-14 16:23:04,929 - Bioreactor - INFO - CO2 setpoint control: average=10111.3 ppm, setpoint=10000 ppm, difference=111.3 ppm
+2025-11-14 16:23:04,929 - Bioreactor - INFO - CO2 setpoint control paused: average (10111.3 ppm) is 111.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:23:06,594 - Bioreactor - INFO - CO2: 9780.0 ppm, O2: 20.9%
+2025-11-14 16:23:11,594 - Bioreactor - INFO - CO2: 9770.0 ppm, O2: 20.9%
+2025-11-14 16:23:15,431 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 16:23:15,431 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 16:23:16,594 - Bioreactor - INFO - CO2: 9760.0 ppm, O2: 20.9%
+2025-11-14 16:23:21,594 - Bioreactor - INFO - CO2: 9770.0 ppm, O2: 20.9%
+2025-11-14 16:23:26,599 - Bioreactor - INFO - CO2: 9770.0 ppm, O2: 20.9%
+2025-11-14 16:23:31,594 - Bioreactor - INFO - CO2: 9770.0 ppm, O2: 20.9%
+2025-11-14 16:23:34,930 - Bioreactor - INFO - CO2 setpoint control: average=9927.3 ppm, setpoint=10000 ppm, difference=-72.7 ppm
+2025-11-14 16:23:34,930 - Bioreactor - INFO - CO2 setpoint control paused: average (9927.3 ppm) is 72.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:23:36,600 - Bioreactor - INFO - CO2: 9750.0 ppm, O2: 20.9%
+2025-11-14 16:23:41,597 - Bioreactor - INFO - CO2: 9730.0 ppm, O2: 20.9%
+2025-11-14 16:23:45,432 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 0.18060388083872594s
+2025-11-14 16:23:45,616 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 16:23:46,600 - Bioreactor - INFO - CO2: 9730.0 ppm, O2: 20.9%
+2025-11-14 16:23:51,597 - Bioreactor - INFO - CO2: 9730.0 ppm, O2: 20.9%
+2025-11-14 16:23:56,597 - Bioreactor - INFO - CO2: 9730.0 ppm, O2: 20.9%
+2025-11-14 16:24:01,602 - Bioreactor - INFO - CO2: 9710.0 ppm, O2: 20.9%
+2025-11-14 16:24:04,930 - Bioreactor - INFO - CO2 setpoint control: average=9770.0 ppm, setpoint=10000 ppm, difference=-230.0 ppm
+2025-11-14 16:24:04,930 - Bioreactor - INFO - CO2 setpoint control paused: average (9770.0 ppm) is 230.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:24:06,598 - Bioreactor - INFO - CO2: 9710.0 ppm, O2: 20.9%
+2025-11-14 16:24:11,606 - Bioreactor - INFO - CO2: 9680.0 ppm, O2: 20.9%
+2025-11-14 16:24:16,598 - Bioreactor - INFO - CO2: 9710.0 ppm, O2: 20.9%
+2025-11-14 16:24:21,598 - Bioreactor - INFO - CO2: 9700.0 ppm, O2: 20.9%
+2025-11-14 16:24:26,598 - Bioreactor - INFO - CO2: 9690.0 ppm, O2: 20.9%
+2025-11-14 16:24:31,598 - Bioreactor - INFO - CO2: 9680.0 ppm, O2: 20.9%
+2025-11-14 16:24:34,930 - Bioreactor - INFO - CO2 setpoint control: average=9724.0 ppm, setpoint=10000 ppm, difference=-276.0 ppm
+2025-11-14 16:24:34,930 - Bioreactor - INFO - CO2 setpoint control paused: average (9724.0 ppm) is 276.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:24:36,601 - Bioreactor - INFO - CO2: 9660.0 ppm, O2: 20.9%
+2025-11-14 16:24:41,598 - Bioreactor - INFO - CO2: 9650.0 ppm, O2: 20.9%
+2025-11-14 16:24:46,599 - Bioreactor - INFO - CO2: 9650.0 ppm, O2: 20.8%
+2025-11-14 16:24:51,599 - Bioreactor - INFO - CO2: 9660.0 ppm, O2: 20.9%
+2025-11-14 16:24:56,599 - Bioreactor - INFO - CO2: 9660.0 ppm, O2: 20.9%
+2025-11-14 16:25:01,599 - Bioreactor - INFO - CO2: 9670.0 ppm, O2: 20.9%
+2025-11-14 16:25:04,930 - Bioreactor - INFO - CO2 setpoint control: average=9686.0 ppm, setpoint=10000 ppm, difference=-314.0 ppm
+2025-11-14 16:25:04,930 - Bioreactor - INFO - CO2 setpoint control paused: average (9686.0 ppm) is 314.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:25:06,599 - Bioreactor - INFO - CO2: 9690.0 ppm, O2: 20.9%
+2025-11-14 16:25:11,601 - Bioreactor - INFO - CO2: 9700.0 ppm, O2: 20.9%
+2025-11-14 16:25:16,600 - Bioreactor - INFO - CO2: 9710.0 ppm, O2: 20.9%
+2025-11-14 16:25:21,615 - Bioreactor - INFO - CO2: 9720.0 ppm, O2: 20.9%
+2025-11-14 16:25:26,600 - Bioreactor - INFO - CO2: 9730.0 ppm, O2: 20.9%
+2025-11-14 16:25:31,601 - Bioreactor - INFO - CO2: 9730.0 ppm, O2: 20.9%
+2025-11-14 16:25:34,930 - Bioreactor - INFO - CO2 setpoint control: average=9686.7 ppm, setpoint=10000 ppm, difference=-313.3 ppm
+2025-11-14 16:25:34,930 - Bioreactor - INFO - CO2 setpoint control paused: average (9686.7 ppm) is 313.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:25:36,600 - Bioreactor - INFO - CO2: 9730.0 ppm, O2: 20.9%
+2025-11-14 16:25:41,604 - Bioreactor - INFO - CO2: 9720.0 ppm, O2: 20.9%
+2025-11-14 16:25:46,601 - Bioreactor - INFO - CO2: 9730.0 ppm, O2: 20.9%
+2025-11-14 16:25:51,601 - Bioreactor - INFO - CO2: 9740.0 ppm, O2: 20.9%
+2025-11-14 16:25:56,601 - Bioreactor - INFO - CO2: 9760.0 ppm, O2: 20.9%
+2025-11-14 16:26:01,604 - Bioreactor - INFO - CO2: 9790.0 ppm, O2: 20.9%
+2025-11-14 16:26:04,924 - Bioreactor - INFO - CO2 (9716.0 ppm) is 284.0 ppm below setpoint (10000 ppm), running full stabilization
+2025-11-14 16:26:04,924 - Bioreactor - INFO - Setpoint adjustment: -0.071s (will be added to CO2 injection if below setpoint)
+2025-11-14 16:26:04,924 - Bioreactor - INFO - CO2 slope: -2.20 ppm/s (from 70 points)
+2025-11-14 16:26:04,924 - Bioreactor - INFO - Adjusted CO2 duration to 0.203s (change: 0.022s)
+2025-11-14 16:26:04,924 - Bioreactor - INFO - CO2 below setpoint: increased CO2 injection duration by 0.003s (1e-5 * 284.0 ppm) to 0.205s
+2025-11-14 16:26:04,924 - Bioreactor - INFO - Added setpoint adjustment (0.071s) to CO2 injection duration: 0.276s
+2025-11-14 16:26:04,924 - Bioreactor - INFO - Pressurizing: pump_1 ON for 10.506666666666668s
+2025-11-14 16:26:04,930 - Bioreactor - INFO - CO2 setpoint control: average=9716.0 ppm, setpoint=10000 ppm, difference=-284.0 ppm
+2025-11-14 16:26:04,930 - Bioreactor - INFO - CO2 setpoint control paused: average (9716.0 ppm) is 284.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:26:06,601 - Bioreactor - INFO - CO2: 9820.0 ppm, O2: 20.9%
+2025-11-14 16:26:11,601 - Bioreactor - INFO - CO2: 9840.0 ppm, O2: 20.9%
+2025-11-14 16:26:15,431 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 16:26:15,431 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 16:26:16,601 - Bioreactor - INFO - CO2: 9850.0 ppm, O2: 20.9%
+2025-11-14 16:26:21,602 - Bioreactor - INFO - CO2: 9870.0 ppm, O2: 20.9%
+2025-11-14 16:26:26,603 - Bioreactor - INFO - CO2: 9870.0 ppm, O2: 20.9%
+2025-11-14 16:26:31,601 - Bioreactor - INFO - CO2: 9870.0 ppm, O2: 20.9%
+2025-11-14 16:26:34,930 - Bioreactor - INFO - CO2 setpoint control: average=9784.7 ppm, setpoint=10000 ppm, difference=-215.3 ppm
+2025-11-14 16:26:34,930 - Bioreactor - INFO - CO2 setpoint control paused: average (9784.7 ppm) is 215.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:26:36,613 - Bioreactor - INFO - CO2: 9890.0 ppm, O2: 20.9%
+2025-11-14 16:26:41,612 - Bioreactor - INFO - CO2: 9890.0 ppm, O2: 20.9%
+2025-11-14 16:26:45,432 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 0.2764581727105825s
+2025-11-14 16:26:45,709 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 16:26:46,613 - Bioreactor - INFO - CO2: 9910.0 ppm, O2: 20.9%
+2025-11-14 16:26:51,612 - Bioreactor - INFO - CO2: 9910.0 ppm, O2: 20.9%
+2025-11-14 16:26:56,616 - Bioreactor - INFO - CO2: 9910.0 ppm, O2: 20.9%
+2025-11-14 16:27:01,616 - Bioreactor - INFO - CO2: 9910.0 ppm, O2: 20.9%
+2025-11-14 16:27:04,930 - Bioreactor - INFO - CO2 setpoint control: average=9855.3 ppm, setpoint=10000 ppm, difference=-144.7 ppm
+2025-11-14 16:27:04,930 - Bioreactor - INFO - CO2 setpoint control paused: average (9855.3 ppm) is 144.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:27:06,620 - Bioreactor - INFO - CO2: 9930.0 ppm, O2: 20.9%
+2025-11-14 16:27:11,619 - Bioreactor - INFO - CO2: 9910.0 ppm, O2: 20.9%
+2025-11-14 16:27:16,616 - Bioreactor - INFO - CO2: 9910.0 ppm, O2: 20.9%
+2025-11-14 16:27:21,617 - Bioreactor - INFO - CO2: 9890.0 ppm, O2: 20.9%
+2025-11-14 16:27:26,617 - Bioreactor - INFO - CO2: 9890.0 ppm, O2: 20.9%
+2025-11-14 16:27:31,621 - Bioreactor - INFO - CO2: 9910.0 ppm, O2: 20.9%
+2025-11-14 16:27:34,933 - Bioreactor - INFO - CO2 setpoint control: average=9898.0 ppm, setpoint=10000 ppm, difference=-102.0 ppm
+2025-11-14 16:27:34,933 - Bioreactor - INFO - CO2 setpoint control paused: average (9898.0 ppm) is 102.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:27:36,617 - Bioreactor - INFO - CO2: 9910.0 ppm, O2: 20.9%
+2025-11-14 16:27:41,617 - Bioreactor - INFO - CO2: 9930.0 ppm, O2: 20.9%
+2025-11-14 16:27:46,620 - Bioreactor - INFO - CO2: 9930.0 ppm, O2: 20.9%
+2025-11-14 16:27:51,617 - Bioreactor - INFO - CO2: 9930.0 ppm, O2: 20.9%
+2025-11-14 16:27:56,619 - Bioreactor - INFO - CO2: 9930.0 ppm, O2: 20.9%
+2025-11-14 16:28:01,617 - Bioreactor - INFO - CO2: 9940.0 ppm, O2: 20.9%
+2025-11-14 16:28:04,933 - Bioreactor - INFO - CO2 setpoint control: average=9916.0 ppm, setpoint=10000 ppm, difference=-84.0 ppm
+2025-11-14 16:28:04,933 - Bioreactor - INFO - CO2 setpoint control paused: average (9916.0 ppm) is 84.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:28:06,618 - Bioreactor - INFO - CO2: 9960.0 ppm, O2: 20.9%
+2025-11-14 16:28:11,617 - Bioreactor - INFO - CO2: 9970.0 ppm, O2: 20.9%
+2025-11-14 16:28:16,620 - Bioreactor - INFO - CO2: 9980.0 ppm, O2: 20.9%
+2025-11-14 16:28:21,620 - Bioreactor - INFO - CO2: 9990.0 ppm, O2: 20.9%
+2025-11-14 16:28:26,622 - Bioreactor - INFO - CO2: 10010.0 ppm, O2: 20.9%
+2025-11-14 16:28:31,620 - Bioreactor - INFO - CO2: 10020.0 ppm, O2: 20.9%
+2025-11-14 16:28:34,933 - Bioreactor - INFO - CO2 setpoint control: average=9946.0 ppm, setpoint=10000 ppm, difference=-54.0 ppm
+2025-11-14 16:28:34,933 - Bioreactor - INFO - CO2 setpoint control paused: average (9946.0 ppm) is 54.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:28:36,621 - Bioreactor - INFO - CO2: 10050.0 ppm, O2: 20.9%
+2025-11-14 16:28:41,620 - Bioreactor - INFO - CO2: 10070.0 ppm, O2: 20.9%
+2025-11-14 16:28:46,625 - Bioreactor - INFO - CO2: 10100.0 ppm, O2: 20.9%
+2025-11-14 16:28:51,620 - Bioreactor - INFO - CO2: 10120.0 ppm, O2: 20.9%
+2025-11-14 16:28:56,626 - Bioreactor - INFO - CO2: 10180.0 ppm, O2: 20.9%
+2025-11-14 16:29:01,626 - Bioreactor - INFO - CO2: 10190.0 ppm, O2: 20.9%
+2025-11-14 16:29:04,924 - Bioreactor - INFO - CO2 (10029.3 ppm) is 29.3 ppm above setpoint (10000 ppm), within tolerance, running full stabilization
+2025-11-14 16:29:04,924 - Bioreactor - INFO - Setpoint adjustment: 0.007s (will be added to CO2 injection if below setpoint)
+2025-11-14 16:29:04,924 - Bioreactor - INFO - CO2 slope: 1.20 ppm/s (from 70 points)
+2025-11-14 16:29:04,924 - Bioreactor - INFO - Adjusted CO2 duration to 0.193s (change: -0.012s)
+2025-11-14 16:29:04,924 - Bioreactor - INFO - CO2 above setpoint: increased pressurize duration by 0.029s (1e-3 * 29.3 ppm) to 10.536s
+2025-11-14 16:29:04,924 - Bioreactor - INFO - Pressurizing: pump_1 ON for 10.536000000000001s
+2025-11-14 16:29:04,933 - Bioreactor - INFO - CO2 setpoint control: average=10029.3 ppm, setpoint=10000 ppm, difference=29.3 ppm
+2025-11-14 16:29:04,933 - Bioreactor - INFO - CO2 setpoint control paused: average (10029.3 ppm) is 29.3 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:29:06,629 - Bioreactor - INFO - CO2: 10210.0 ppm, O2: 20.9%
+2025-11-14 16:29:11,626 - Bioreactor - INFO - CO2: 10230.0 ppm, O2: 20.9%
+2025-11-14 16:29:15,461 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 16:29:15,461 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 16:29:16,627 - Bioreactor - INFO - CO2: 10220.0 ppm, O2: 20.9%
+2025-11-14 16:29:21,627 - Bioreactor - INFO - CO2: 10250.0 ppm, O2: 20.9%
+2025-11-14 16:29:26,628 - Bioreactor - INFO - CO2: 10260.0 ppm, O2: 20.9%
+2025-11-14 16:29:31,627 - Bioreactor - INFO - CO2: 10260.0 ppm, O2: 20.9%
+2025-11-14 16:29:34,933 - Bioreactor - INFO - CO2 setpoint control: average=10144.0 ppm, setpoint=10000 ppm, difference=144.0 ppm
+2025-11-14 16:29:34,933 - Bioreactor - INFO - CO2 setpoint control paused: average (10144.0 ppm) is 144.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:29:36,630 - Bioreactor - INFO - CO2: 10270.0 ppm, O2: 20.9%
+2025-11-14 16:29:41,627 - Bioreactor - INFO - CO2: 10300.0 ppm, O2: 20.9%
+2025-11-14 16:29:45,461 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 0.19344026009213608s
+2025-11-14 16:29:45,655 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 16:29:46,633 - Bioreactor - INFO - CO2: 10300.0 ppm, O2: 20.9%
+2025-11-14 16:29:51,627 - Bioreactor - INFO - CO2: 10290.0 ppm, O2: 20.9%
+2025-11-14 16:29:56,629 - Bioreactor - INFO - CO2: 10310.0 ppm, O2: 20.9%
+2025-11-14 16:30:01,628 - Bioreactor - INFO - CO2: 10360.0 ppm, O2: 20.9%
+2025-11-14 16:30:04,933 - Bioreactor - INFO - CO2 setpoint control: average=10250.0 ppm, setpoint=10000 ppm, difference=250.0 ppm
+2025-11-14 16:30:04,933 - Bioreactor - INFO - CO2 setpoint control paused: average (10250.0 ppm) is 250.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:30:06,628 - Bioreactor - INFO - CO2: 10340.0 ppm, O2: 20.9%
+2025-11-14 16:30:11,700 - Bioreactor - INFO - CO2: 10330.0 ppm, O2: 20.9%
+2025-11-14 16:30:16,628 - Bioreactor - INFO - CO2: 10330.0 ppm, O2: 20.9%
+2025-11-14 16:30:21,628 - Bioreactor - INFO - CO2: 10320.0 ppm, O2: 20.9%
+2025-11-14 16:30:26,645 - Bioreactor - INFO - CO2: 10330.0 ppm, O2: 20.8%
+2025-11-14 16:30:31,629 - Bioreactor - INFO - CO2: 10340.0 ppm, O2: 20.9%
+2025-11-14 16:30:34,939 - Bioreactor - INFO - CO2 setpoint control: average=10306.0 ppm, setpoint=10000 ppm, difference=306.0 ppm
+2025-11-14 16:30:34,939 - Bioreactor - INFO - CO2 setpoint control paused: average (10306.0 ppm) is 306.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:30:36,675 - Bioreactor - INFO - CO2: 10340.0 ppm, O2: 20.9%
+2025-11-14 16:30:41,629 - Bioreactor - INFO - CO2: 10350.0 ppm, O2: 20.9%
+2025-11-14 16:30:46,636 - Bioreactor - INFO - CO2: 10350.0 ppm, O2: 20.9%
+2025-11-14 16:30:51,629 - Bioreactor - INFO - CO2: 10350.0 ppm, O2: 20.9%
+2025-11-14 16:30:56,630 - Bioreactor - INFO - CO2: 10350.0 ppm, O2: 20.9%
+2025-11-14 16:31:01,630 - Bioreactor - INFO - CO2: 10360.0 ppm, O2: 20.9%
+2025-11-14 16:31:04,939 - Bioreactor - INFO - CO2 setpoint control: average=10336.7 ppm, setpoint=10000 ppm, difference=336.7 ppm
+2025-11-14 16:31:04,940 - Bioreactor - INFO - CO2 setpoint control paused: average (10336.7 ppm) is 336.7 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:31:06,631 - Bioreactor - INFO - CO2: 10380.0 ppm, O2: 20.9%
+2025-11-14 16:31:11,630 - Bioreactor - INFO - CO2: 10420.0 ppm, O2: 20.9%
+2025-11-14 16:31:16,634 - Bioreactor - INFO - CO2: 10420.0 ppm, O2: 20.9%
+2025-11-14 16:31:21,633 - Bioreactor - INFO - CO2: 10440.0 ppm, O2: 20.9%
+2025-11-14 16:31:26,633 - Bioreactor - INFO - CO2: 10460.0 ppm, O2: 20.9%
+2025-11-14 16:31:31,633 - Bioreactor - INFO - CO2: 10460.0 ppm, O2: 20.9%
+2025-11-14 16:31:34,940 - Bioreactor - INFO - CO2 setpoint control: average=10378.0 ppm, setpoint=10000 ppm, difference=378.0 ppm
+2025-11-14 16:31:34,940 - Bioreactor - INFO - CO2 setpoint control paused: average (10378.0 ppm) is 378.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:31:36,634 - Bioreactor - INFO - CO2: 10500.0 ppm, O2: 20.9%
+2025-11-14 16:31:41,634 - Bioreactor - INFO - CO2: 10550.0 ppm, O2: 20.9%
+2025-11-14 16:31:46,634 - Bioreactor - INFO - CO2: 10590.0 ppm, O2: 20.8%
+2025-11-14 16:31:51,634 - Bioreactor - INFO - CO2: 10640.0 ppm, O2: 20.9%
+2025-11-14 16:31:56,634 - Bioreactor - INFO - CO2: 10630.0 ppm, O2: 20.9%
+2025-11-14 16:32:01,635 - Bioreactor - INFO - CO2: 10650.0 ppm, O2: 20.9%
+2025-11-14 16:32:04,924 - Bioreactor - INFO - CO2 (10480.0 ppm) is 480.0 ppm above setpoint (10000 ppm), within tolerance, running full stabilization
+2025-11-14 16:32:04,924 - Bioreactor - INFO - Setpoint adjustment: 0.120s (will be added to CO2 injection if below setpoint)
+2025-11-14 16:32:04,924 - Bioreactor - INFO - CO2 slope: 2.25 ppm/s (from 70 points)
+2025-11-14 16:32:04,924 - Bioreactor - INFO - Adjusted CO2 duration to 0.171s (change: -0.023s)
+2025-11-14 16:32:04,924 - Bioreactor - INFO - CO2 above setpoint: increased pressurize duration by 0.480s (1e-3 * 480.0 ppm) to 11.016s
+2025-11-14 16:32:04,924 - Bioreactor - INFO - Pressurizing: pump_1 ON for 11.016000000000002s
+2025-11-14 16:32:04,939 - Bioreactor - INFO - CO2 setpoint control: average=10480.0 ppm, setpoint=10000 ppm, difference=480.0 ppm
+2025-11-14 16:32:04,940 - Bioreactor - INFO - CO2 setpoint control paused: average (10480.0 ppm) is 480.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:32:06,634 - Bioreactor - INFO - CO2: 10680.0 ppm, O2: 20.9%
+2025-11-14 16:32:11,634 - Bioreactor - INFO - CO2: 10690.0 ppm, O2: 20.9%
+2025-11-14 16:32:15,941 - Bioreactor - INFO - pump_1 turned OFF
+2025-11-14 16:32:15,941 - Bioreactor - INFO - Waiting 30s before CO2 injection...
+2025-11-14 16:32:16,634 - Bioreactor - INFO - CO2: 10710.0 ppm, O2: 20.9%
+2025-11-14 16:32:21,635 - Bioreactor - INFO - CO2: 10740.0 ppm, O2: 20.8%
+2025-11-14 16:32:26,634 - Bioreactor - INFO - CO2: 10740.0 ppm, O2: 20.8%
+2025-11-14 16:32:31,636 - Bioreactor - INFO - CO2: 10760.0 ppm, O2: 20.8%
+2025-11-14 16:32:34,940 - Bioreactor - INFO - CO2 setpoint control: average=10616.0 ppm, setpoint=10000 ppm, difference=616.0 ppm
+2025-11-14 16:32:34,940 - Bioreactor - INFO - CO2 setpoint control paused: average (10616.0 ppm) is 616.0 ppm away from setpoint, within resume threshold (2000 ppm), stabilize job is active
+2025-11-14 16:32:36,636 - Bioreactor - INFO - CO2: 10780.0 ppm, O2: 20.9%
+2025-11-14 16:32:41,639 - Bioreactor - INFO - CO2: 10800.0 ppm, O2: 20.9%
+2025-11-14 16:32:45,941 - Bioreactor - INFO - Injecting CO2: co2_solenoid ON for 0.17093720045634705s
+2025-11-14 16:32:46,112 - Bioreactor - INFO - co2_solenoid turned OFF - Pressurize and inject complete
+2025-11-14 16:32:46,636 - Bioreactor - INFO - CO2: 10820.0 ppm, O2: 20.9%
+2025-11-14 16:32:49,597 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 16:32:49,597 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 16:32:49,598 - Bioreactor - INFO - Data file closed.
+2025-11-14 16:32:49,598 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-14 16:32:49,598 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-14 16:32:49,598 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-14 16:32:49,598 - Bioreactor - INFO - Data file closed.
+2025-11-14 16:32:49,598 - Bioreactor - INFO - Bioreactor cleanup complete.
