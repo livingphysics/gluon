@@ -7,6 +7,7 @@ import time
 import logging
 import queue
 from collections import deque
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib.widgets import TextBox
@@ -31,6 +32,9 @@ _anim = None  # Animation object
 _co2_duration = 1.0  # Default 1 second (for pressurize_and_inject_co2 job)
 _co2_duration_textbox = None  # Store text box reference
 _bioreactor_ref = None  # Store bioreactor reference
+
+# Global variable for pressurize duration (used by stabilize_co2)
+_pressurize_duration = 10.0  # Default 10 seconds
 
 
 def actuate_relay_timed(bioreactor, relay_name, duration_seconds, elapsed=None):
@@ -348,6 +352,108 @@ def flush_tank(bioreactor, duration_seconds, elapsed=None):
             bioreactor.logger.info("Emergency: Both relays turned OFF")
         except:
             pass
+
+
+def stabilize_co2(bioreactor, pressurize_duration=10, pause=30, co2_duration=None, elapsed=None):
+    """
+    Stabilize CO2 by adjusting injection duration based on CO2 trend.
+    
+    Does a linear fit on the last 70 CO2 measurements (or all if fewer exist),
+    calculates the slope, and adjusts CO2 injection duration accordingly.
+    If CO2 duration goes to zero, increases pressurize_duration instead.
+    
+    Sequence:
+    1. Calculate linear fit slope from recent CO2 data
+    2. Adjust CO2 duration by -slope/100 if slope != 0
+    3. If CO2 duration hits zero, increase pressurize_duration by slope/100
+    4. Run pressurize_and_inject_co2 with adjusted parameters
+    
+    Args:
+        bioreactor: Bioreactor instance
+        pressurize_duration: Initial duration to run pump_1 (default: 10 seconds, may be adjusted)
+        pause: Wait time between pump and CO2 injection (default: 30 seconds)
+        co2_duration: Initial CO2 injection duration (default: uses global _co2_duration, may be adjusted)
+        elapsed: Time elapsed since job started (optional)
+    """
+    global _co2_duration, _co2_data, _time_data, _start_time, _pressurize_duration
+    
+    if not bioreactor.is_component_initialized('relays'):
+        bioreactor.logger.warning("Relays not initialized")
+        return
+    
+    # Use global co2_duration if not provided
+    if co2_duration is None:
+        co2_duration = _co2_duration
+    
+    # Use global pressurize_duration
+    current_pressurize_duration = _pressurize_duration
+    
+    # Get CO2 data for linear fit (last 70 points or all if fewer)
+    if len(_co2_data) < 2:
+        bioreactor.logger.warning("Not enough CO2 data for stabilization (need at least 2 points)")
+        # Run with default parameters if no data
+        pressurize_and_inject_co2(bioreactor, pressurize_duration, pause, co2_duration, elapsed)
+        return
+    
+    # Get the last 70 points (or all if fewer)
+    n_points = min(70, len(_co2_data))
+    co2_values = np.array(list(_co2_data)[-n_points:])
+    
+    # Get corresponding time points (relative to start)
+    # Note: time_data and co2_data should be aligned, but we'll use indices to be safe
+    if _start_time is None:
+        time_values = np.arange(len(co2_values))
+    else:
+        # Get time values corresponding to the CO2 data points
+        # Since both are appended together, they should be aligned
+        time_list = list(_time_data)
+        if len(time_list) >= n_points:
+            time_values = np.array([(t - _start_time) for t in time_list[-n_points:]])
+        else:
+            # Fallback: use indices if time data is shorter
+            time_values = np.arange(len(co2_values))
+    
+    # Perform linear regression: y = slope * x + intercept
+    # Using numpy's polyfit for linear fit (degree 1)
+    if len(time_values) > 1 and len(co2_values) > 1 and len(time_values) == len(co2_values):
+        
+        # Linear fit: [slope, intercept]
+        coeffs = np.polyfit(time_values, co2_values, 1)
+        slope = coeffs[0]  # ppm per second
+        
+        bioreactor.logger.info(f"CO2 slope: {slope:.2f} ppm/s (from {min_len} points)")
+        
+        # Adjust CO2 duration based on slope
+        if abs(slope) < 1e-6:  # Essentially zero (avoid floating point issues)
+            # Slope is zero, don't change duration
+            bioreactor.logger.info("CO2 slope is zero, keeping current durations")
+        else:
+            # Calculate adjustment: -slope/100 seconds
+            adjustment = -slope / 100.0
+            
+            # Apply adjustment to CO2 duration
+            new_co2_duration = co2_duration + adjustment
+            
+            # If CO2 duration would go to zero or negative, increase pressurize_duration instead
+            if new_co2_duration <= 0:
+                # Increase pressurize_duration by slope/100
+                pressurize_adjustment = slope / 100.0
+                current_pressurize_duration = max(0, current_pressurize_duration + pressurize_adjustment)
+                _pressurize_duration = current_pressurize_duration
+                # Keep CO2 duration at zero
+                co2_duration = 0.0
+                _co2_duration = 0.0
+                bioreactor.logger.info(f"CO2 duration at zero, increased pressurize_duration to {current_pressurize_duration:.2f}s")
+            else:
+                # Update CO2 duration
+                co2_duration = new_co2_duration
+                _co2_duration = co2_duration
+                bioreactor.logger.info(f"Adjusted CO2 duration to {co2_duration:.3f}s (change: {adjustment:.3f}s)")
+    else:
+        bioreactor.logger.warning("Insufficient data for linear fit")
+    
+    # Run pressurize_and_inject_co2 with adjusted parameters
+    pressurize_and_inject_co2(bioreactor, current_pressurize_duration, pause, co2_duration, elapsed)
 
 
 def _update_co2_duration(text):
