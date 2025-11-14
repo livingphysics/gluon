@@ -5,8 +5,10 @@ These functions are designed to be used with bioreactor.run() for scheduled task
 
 import time
 import logging
+import queue
 from collections import deque
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 from matplotlib.widgets import TextBox, Button
 
 logger = logging.getLogger("Bioreactor.Utils")
@@ -16,10 +18,14 @@ _plot_initialized = False
 _fig = None
 _ax1 = None
 _ax2 = None
+_co2_line = None  # Line object for CO2 plot
+_o2_line = None  # Line object for O2 plot
 _co2_data = deque(maxlen=1000)
 _o2_data = deque(maxlen=1000)
 _time_data = deque(maxlen=1000)
 _start_time = None
+_sensor_queue = queue.Queue()  # Thread-safe queue for sensor data
+_anim = None  # Animation object
 
 # Global variables for CO2 duration (editable via text box)
 _co2_duration = 1.0  # Default 1 second (for pressurize_and_inject_co2 job)
@@ -411,63 +417,142 @@ def _inject_co2_button_handler(event):
     thread.start()
 
 
+def _animate(frame):
+    """
+    Animation function that runs in the main thread.
+    Reads sensor data from queue and updates plot lines.
+    """
+    global _co2_data, _o2_data, _time_data, _start_time, _ax1, _ax2, _co2_line, _o2_line
+    
+    # Process all available sensor readings from queue (non-blocking)
+    while True:
+        try:
+            data = _sensor_queue.get_nowait()
+            co2_value, o2_value, current_time = data
+            
+            if _start_time is None:
+                _start_time = current_time
+            
+            if co2_value is not None:
+                _co2_data.append(co2_value)
+            if o2_value is not None:
+                _o2_data.append(o2_value)
+            _time_data.append(current_time)
+        except queue.Empty:
+            break
+    
+    # Update plots if we have data
+    if len(_time_data) > 0 and _ax1 is not None and _ax2 is not None:
+        # Convert time to relative seconds
+        time_relative = [(t - _start_time) for t in _time_data]
+        
+        # Update CO2 plot line (don't clear, just update data)
+        if len(_co2_data) > 0:
+            co2_time = time_relative[-len(_co2_data):]
+            if _co2_line is None:
+                _co2_line, = _ax1.plot(co2_time, list(_co2_data), 'b-', linewidth=2, label='CO2')
+                _ax1.legend()
+            else:
+                _co2_line.set_data(co2_time, list(_co2_data))
+                # Keep fixed y-limits instead of autoscaling
+                _ax1.set_xlim(max(0, min(co2_time) - 10), max(co2_time) + 10)
+        
+        # Update O2 plot line (don't clear, just update data)
+        if len(_o2_data) > 0:
+            o2_time = time_relative[-len(_o2_data):]
+            if _o2_line is None:
+                _o2_line, = _ax2.plot(o2_time, list(_o2_data), 'r-', linewidth=2, label='O2')
+                _ax2.legend()
+            else:
+                _o2_line.set_data(o2_time, list(_o2_data))
+                # Keep fixed y-limits instead of autoscaling
+                _ax2.set_xlim(max(0, min(o2_time) - 10), max(o2_time) + 10)
+    
+    return _co2_line, _o2_line
+
+
+def init_plot_window(bioreactor):
+    """
+    Initialize the plot window in the main thread.
+    This MUST be called from the main thread before starting jobs.
+    
+    Args:
+        bioreactor: Bioreactor instance
+    """
+    global _plot_initialized, _fig, _ax1, _ax2, _co2_duration, _co2_duration_textbox, _co2_inject_duration, _co2_inject_textbox, _bioreactor_ref, _anim, _start_time
+    
+    if _plot_initialized:
+        return  # Already initialized
+    
+    try:
+        _fig, (_ax1, _ax2) = plt.subplots(2, 1, figsize=(12, 8))
+        _fig.suptitle('Live CO2 and O2 Monitoring')
+        
+        # CO2 subplot (top)
+        _ax1.set_title('CO2 Concentration')
+        _ax1.set_ylabel('CO2 (ppm)')
+        _ax1.set_ylim(300, 100000)  # Fixed scale
+        _ax1.grid(True, alpha=0.3)
+        _ax1.legend()
+        
+        # O2 subplot (bottom)
+        _ax2.set_title('O2 Concentration')
+        _ax2.set_ylabel('O2 (%)')
+        _ax2.set_xlabel('Time (seconds)')
+        _ax2.set_ylim(15, 25)  # Fixed scale
+        _ax2.grid(True, alpha=0.3)
+        _ax2.legend()
+        
+        # Store bioreactor reference for button callbacks
+        _bioreactor_ref = bioreactor
+        
+        # Add CO2 duration text box at the bottom (for pressurize_and_inject_co2 job)
+        text_box_ax = plt.axes([0.15, 0.02, 0.2, 0.04])
+        _co2_duration_textbox = TextBox(text_box_ax, 'CO2 Duration (s): ', initial=str(_co2_duration))
+        _co2_duration_textbox.on_submit(_update_co2_duration)
+        
+        # Add CO2 inject text box and button (for manual injection)
+        inject_text_box_ax = plt.axes([0.45, 0.02, 0.15, 0.04])
+        _co2_inject_textbox = TextBox(inject_text_box_ax, 'CO2 Inject (s): ', initial=str(_co2_inject_duration))
+        _co2_inject_textbox.on_submit(_update_co2_inject_duration)
+        
+        inject_button_ax = plt.axes([0.62, 0.02, 0.1, 0.04])
+        inject_button = Button(inject_button_ax, 'Inject')
+        inject_button.on_clicked(_inject_co2_button_handler)
+        
+        plt.subplots_adjust(bottom=0.1)  # Make room for text boxes and button
+        
+        # Start animation (runs in main thread)
+        _anim = animation.FuncAnimation(_fig, _animate, interval=100, blit=False, cache_frame_data=False)
+        
+        plt.ion()  # Turn on interactive mode
+        plt.show(block=False)
+        
+        _start_time = time.time()
+        _plot_initialized = True
+        bioreactor.logger.info("Plot initialized for sensor monitoring with CO2 duration control and manual injection")
+    except Exception as e:
+        bioreactor.logger.error(f"Error initializing plot: {e}")
+        raise
+
+
 def read_sensors_and_plot(bioreactor, elapsed=None):
     """
-    Read CO2 and O2 sensors and update live plot with editable CO2 duration control.
+    Read CO2 and O2 sensors and put data in queue for plot updates.
+    Plot updates happen in main thread via animation framework.
     Designed to run periodically (e.g., every 1-5 seconds).
     
     Args:
         bioreactor: Bioreactor instance
         elapsed: Time elapsed since job started (optional, provided by run())
     """
-    global _plot_initialized, _fig, _ax1, _ax2, _co2_data, _o2_data, _time_data, _start_time, _co2_duration, _co2_duration_textbox, _co2_inject_duration, _co2_inject_textbox, _bioreactor_ref
+    global _plot_initialized
     
-    # Initialize plot on first call
+    # Plot should be initialized via init_plot_window() from main thread
+    # If not initialized, log warning but continue (plot will just not update)
     if not _plot_initialized:
-        try:
-            _fig, (_ax1, _ax2) = plt.subplots(2, 1, figsize=(12, 8))
-            _fig.suptitle('Live CO2 and O2 Monitoring')
-            
-            # CO2 subplot (top)
-            _ax1.set_title('CO2 Concentration')
-            _ax1.set_ylabel('CO2 (ppm)')
-            _ax1.set_ylim(300, 100000)  # Fixed scale
-            _ax1.grid(True, alpha=0.3)
-            
-            # O2 subplot (bottom)
-            _ax2.set_title('O2 Concentration')
-            _ax2.set_ylabel('O2 (%)')
-            _ax2.set_xlabel('Time (seconds)')
-            _ax2.set_ylim(15, 25)  # Fixed scale
-            _ax2.grid(True, alpha=0.3)
-            
-            # Store bioreactor reference for button callbacks
-            _bioreactor_ref = bioreactor
-            
-            # Add CO2 duration text box at the bottom (for pressurize_and_inject_co2 job)
-            text_box_ax = plt.axes([0.15, 0.02, 0.2, 0.04])
-            _co2_duration_textbox = TextBox(text_box_ax, 'CO2 Duration (s): ', initial=str(_co2_duration))
-            _co2_duration_textbox.on_submit(_update_co2_duration)
-            
-            # Add CO2 inject text box and button (for manual injection)
-            inject_text_box_ax = plt.axes([0.45, 0.02, 0.15, 0.04])
-            _co2_inject_textbox = TextBox(inject_text_box_ax, 'CO2 Inject (s): ', initial=str(_co2_inject_duration))
-            _co2_inject_textbox.on_submit(_update_co2_inject_duration)
-            
-            inject_button_ax = plt.axes([0.62, 0.02, 0.1, 0.04])
-            inject_button = Button(inject_button_ax, 'Inject')
-            inject_button.on_clicked(_inject_co2_button_handler)
-            
-            plt.subplots_adjust(bottom=0.1)  # Make room for text boxes and button
-            plt.ion()  # Turn on interactive mode
-            plt.show(block=False)
-            
-            _start_time = time.time()
-            _plot_initialized = True
-            bioreactor.logger.info("Plot initialized for sensor monitoring with CO2 duration control and manual injection")
-        except Exception as e:
-            bioreactor.logger.error(f"Error initializing plot: {e}")
-            return
+        bioreactor.logger.warning("Plot not initialized. Call init_plot_window(bioreactor) from main thread before starting jobs.")
+        return
     
     try:
         co2_value = None
@@ -496,46 +581,12 @@ def read_sensors_and_plot(bioreactor, elapsed=None):
             except Exception as e:
                 bioreactor.logger.warning(f"Error reading CO2 sensor: {e}")
         
-        # Add data to arrays
+        # Put sensor data in queue (non-blocking, thread-safe)
         current_time = time.time()
-        if _start_time is None:
-            _start_time = current_time
-        
-        if co2_value is not None:
-            _co2_data.append(co2_value)
-        if o2_value is not None:
-            _o2_data.append(o2_value)
-        _time_data.append(current_time)
-        
-        # Update plots if we have data
-        if len(_time_data) > 1:
-            # Convert time to relative seconds
-            time_relative = [(t - _start_time) for t in _time_data]
-            
-            # Update CO2 plot
-            _ax1.clear()
-            _ax1.set_title('CO2 Concentration')
-            _ax1.set_ylabel('CO2 (ppm)')
-            _ax1.set_ylim(300, 100000)
-            _ax1.grid(True, alpha=0.3)
-            if len(_co2_data) > 0:
-                _ax1.plot(time_relative[-len(_co2_data):], list(_co2_data), 'b-', linewidth=2, label='CO2')
-            _ax1.legend()
-            
-            # Update O2 plot
-            _ax2.clear()
-            _ax2.set_title('O2 Concentration')
-            _ax2.set_ylabel('O2 (%)')
-            _ax2.set_xlabel('Time (seconds)')
-            _ax2.set_ylim(15, 25)
-            _ax2.grid(True, alpha=0.3)
-            if len(_o2_data) > 0:
-                _ax2.plot(time_relative[-len(_o2_data):], list(_o2_data), 'r-', linewidth=2, label='O2')
-            _ax2.legend()
-            
-            # Refresh plot
-            plt.draw()
-            plt.pause(0.01)
+        try:
+            _sensor_queue.put_nowait((co2_value, o2_value, current_time))
+        except queue.Full:
+            bioreactor.logger.warning("Sensor queue full, dropping reading")
         
         # Log readings
         readings = []
