@@ -30,8 +30,10 @@ _anim = None  # Animation object
 
 # Global variables for CO2 duration (editable via text box)
 _co2_duration = 1.0  # Default 1 second (for pressurize_and_inject_co2 job)
-_co2_duration_textbox = None  # Store text box reference
+_co2_setpoint = 10000.0  # Default CO2 setpoint in ppm (editable via text box)
+_co2_setpoint_textbox = None  # Store text box reference
 _bioreactor_ref = None  # Store bioreactor reference
+_setpoint_ref = None  # Reference to setpoint for control job
 
 # Global variable for pressurize duration (used by stabilize_co2)
 _pressurize_duration = 10.0  # Default 10 seconds
@@ -631,9 +633,10 @@ def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0, flush_mu
     
     The job uses hysteresis: pauses when average is within pause_tolerance_ppm, resumes when difference exceeds resume_tolerance_ppm.
     This allows the stabilize job to take control when close to setpoint.
+    The setpoint can be updated via the text box in the plot window.
     
     Args:
-        setpoint_ppm: Target CO2 level in ppm (default: 1000)
+        setpoint_ppm: Initial target CO2 level in ppm (default: 1000, can be updated via text box)
         initial_delay: Initial delay in seconds before first execution (default: 0)
         flush_multiplier: Multiplier for flush duration when CO2 is above setpoint (default: 2.5e-4)
         inject_multiplier: Multiplier for CO2 injection duration when CO2 is below setpoint (default: 2.5e-4)
@@ -648,8 +651,11 @@ def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0, flush_mu
             (create_control_co2_setpoint_job(1000, initial_delay=30, flush_multiplier=5e-4, pause_tolerance_ppm=1000, resume_tolerance_ppm=2000), 180, True),  # Control CO2 every 3 minutes, starting 30s after other jobs
         ]
     """
+    global _setpoint_ref, _co2_setpoint
     _first_call = {'value': True}
     _is_paused = {'value': False}  # Track pause state for hysteresis
+    _setpoint_ref = {'value': setpoint_ppm}  # Store setpoint reference for text box updates
+    _co2_setpoint = setpoint_ppm  # Update global setpoint for text box initialization
     
     def control_co2_setpoint_job(bioreactor, elapsed=None):
         # On first call, wait for initial_delay if specified
@@ -657,7 +663,9 @@ def create_control_co2_setpoint_job(setpoint_ppm=1000, initial_delay=0, flush_mu
             bioreactor.logger.info(f"Waiting {initial_delay}s before first CO2 setpoint control...")
             time.sleep(initial_delay)
             _first_call['value'] = False
-        control_co2_setpoint(bioreactor, setpoint_ppm=setpoint_ppm, flush_multiplier=flush_multiplier, 
+        # Use setpoint from reference (can be updated via text box)
+        current_setpoint = _setpoint_ref['value']
+        control_co2_setpoint(bioreactor, setpoint_ppm=current_setpoint, flush_multiplier=flush_multiplier, 
                            inject_multiplier=inject_multiplier, pause_tolerance_ppm=pause_tolerance_ppm,
                            resume_tolerance_ppm=resume_tolerance_ppm, is_paused_ref=_is_paused, elapsed=elapsed)
     
@@ -745,24 +753,27 @@ def control_co2_setpoint(bioreactor, setpoint_ppm=1000, flush_multiplier=2.5e-4,
         bioreactor.logger.info("CO2 at setpoint, no action needed")
 
 
-def _update_co2_duration(text):
-    """Handler for CO2 duration text box - updates global value in real time."""
-    global _co2_duration, _co2_duration_textbox
+def _update_co2_setpoint(text):
+    """Handler for CO2 setpoint text box - updates global value in real time."""
+    global _co2_setpoint, _co2_setpoint_textbox, _setpoint_ref
     try:
         new_value = float(text)
-        if new_value >= 0:
-            _co2_duration = new_value
-            logger.info(f"CO2 duration updated to {_co2_duration}s")
+        if new_value > 0:
+            _co2_setpoint = new_value
+            # Update the reference if it exists (for control job)
+            if _setpoint_ref is not None:
+                _setpoint_ref['value'] = new_value
+            logger.info(f"CO2 setpoint updated to {_co2_setpoint} ppm")
         else:
-            logger.warning("CO2 duration must be non-negative")
+            logger.warning("CO2 setpoint must be positive")
             # Reset to previous value
-            if _co2_duration_textbox:
-                _co2_duration_textbox.set_val(str(_co2_duration))
+            if _co2_setpoint_textbox:
+                _co2_setpoint_textbox.set_val(str(_co2_setpoint))
     except ValueError:
-        logger.warning(f"Invalid CO2 duration value: {text}")
+        logger.warning(f"Invalid CO2 setpoint value: {text}")
         # Reset to previous value
-        if _co2_duration_textbox:
-            _co2_duration_textbox.set_val(str(_co2_duration))
+        if _co2_setpoint_textbox:
+            _co2_setpoint_textbox.set_val(str(_co2_setpoint))
 
 
 def _animate(frame):
@@ -827,7 +838,7 @@ def init_plot_window(bioreactor):
     Args:
         bioreactor: Bioreactor instance
     """
-    global _plot_initialized, _fig, _ax1, _ax2, _co2_duration, _co2_duration_textbox, _bioreactor_ref, _anim, _start_time
+    global _plot_initialized, _fig, _ax1, _ax2, _co2_duration, _co2_setpoint, _co2_setpoint_textbox, _bioreactor_ref, _anim, _start_time
     
     if _plot_initialized:
         return  # Already initialized
@@ -854,10 +865,11 @@ def init_plot_window(bioreactor):
         # Store bioreactor reference for button callbacks
         _bioreactor_ref = bioreactor
         
-        # Add CO2 duration text box at the bottom (for pressurize_and_inject_co2 job)
+        # Add CO2 setpoint text box at the bottom (for CO2 control job)
+        global _co2_setpoint, _co2_setpoint_textbox
         text_box_ax = plt.axes([0.15, 0.02, 0.2, 0.04])
-        _co2_duration_textbox = TextBox(text_box_ax, 'CO2 Duration (s): ', initial=str(_co2_duration))
-        _co2_duration_textbox.on_submit(_update_co2_duration)
+        _co2_setpoint_textbox = TextBox(text_box_ax, 'CO2 Setpoint (ppm): ', initial=str(_co2_setpoint))
+        _co2_setpoint_textbox.on_submit(_update_co2_setpoint)
         
         plt.subplots_adjust(bottom=0.1)  # Make room for text box
         
@@ -874,7 +886,7 @@ def init_plot_window(bioreactor):
         
         _start_time = time.time()
         _plot_initialized = True
-        bioreactor.logger.info("Plot initialized for sensor monitoring with CO2 duration control")
+        bioreactor.logger.info("Plot initialized for sensor monitoring with CO2 setpoint control")
     except Exception as e:
         bioreactor.logger.error(f"Error initializing plot: {e}")
         raise
