@@ -61,18 +61,19 @@ def actuate_relay_timed(bioreactor, relay_name, duration_seconds, elapsed=None):
         bioreactor.logger.error(f"Error actuating {relay_name} relay: {e}")
 
 
-def actuate_pump1_relay(bioreactor, elapsed=None):
+def actuate_pump1_relay(bioreactor, duration_seconds=10, elapsed=None):
     """
-    Actuate pump1 relay ON for 10 seconds.
+    Actuate pump1 relay ON for specified duration.
     Designed to run every 5 minutes (300 seconds).
     
     Uses the general actuate_relay_timed function.
     
     Args:
         bioreactor: Bioreactor instance
+        duration_seconds: Duration to keep pump1 relay ON (default: 10 seconds)
         elapsed: Time elapsed since job started (optional, provided by run())
     """
-    actuate_relay_timed(bioreactor, 'pump_1', 10, elapsed)
+    actuate_relay_timed(bioreactor, 'pump_1', duration_seconds, elapsed)
 
 
 def create_inject_co2_job(delay_seconds, injection_duration_seconds):
