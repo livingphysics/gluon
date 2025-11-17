@@ -2598,3 +2598,381 @@
 2025-11-17 14:44:02,954 - Bioreactor - INFO - Stop event set for all threads.
 2025-11-17 14:44:02,954 - Bioreactor - INFO - Data file closed.
 2025-11-17 14:44:02,954 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-17 14:50:21,732 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-17 14:50:21,732 - Bioreactor - INFO - Initializing relays...
+2025-11-17 14:50:21,737 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-17 14:50:21,737 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-17 14:50:21,737 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-17 14:50:21,737 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-17 14:50:21,737 - Bioreactor - INFO - relays initialized successfully
+2025-11-17 14:50:21,737 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-17 14:50:22,748 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-17 14:50:22,748 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-17 14:50:22,748 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-17 14:50:22,752 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-17 14:50:22,752 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-17 14:50:22,753 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-17 14:50:22,753 - Bioreactor - INFO - Starting automatic tank flush (15s)...
+2025-11-17 14:50:22,753 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 15s
+2025-11-17 14:50:22,753 - Bioreactor - INFO - pump_1 turned ON
+2025-11-17 14:50:22,753 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-17 14:50:37,753 - Bioreactor - INFO - Valve open duration (15s) completed
+2025-11-17 14:50:37,753 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-17 14:50:37,753 - Bioreactor - INFO - Continuing pump for additional 20 seconds
+2025-11-17 14:50:57,753 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-17 14:50:57,754 - Bioreactor - INFO - Automatic tank flush completed.
+2025-11-17 14:50:57,758 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 14:50:57,760 - Bioreactor - INFO - Started 2 job threads.
+2025-11-17 14:50:57,950 - Bioreactor - INFO - Plot initialized for sensor monitoring
+2025-11-17 14:50:59,553 - Bioreactor - INFO - CO2: 5660.0 ppm, O2: 21.0%
+2025-11-17 14:51:00,760 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 14:51:04,573 - Bioreactor - INFO - CO2: 5550.0 ppm, O2: 21.0%
+2025-11-17 14:51:09,550 - Bioreactor - INFO - CO2: 5350.0 ppm, O2: 21.0%
+2025-11-17 14:51:14,581 - Bioreactor - INFO - CO2: 5060.0 ppm, O2: 21.0%
+2025-11-17 14:51:19,601 - Bioreactor - INFO - CO2: 4650.0 ppm, O2: 21.0%
+2025-11-17 14:51:24,527 - Bioreactor - INFO - CO2: 4460.0 ppm, O2: 21.0%
+2025-11-17 14:51:27,666 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-17 14:51:27,667 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-17 14:51:27,667 - Bioreactor - INFO - Data file closed.
+2025-11-17 14:51:27,667 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-17 14:51:27,667 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-17 14:51:27,667 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-17 14:51:27,667 - Bioreactor - INFO - Data file closed.
+2025-11-17 14:51:27,667 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-17 14:54:23,749 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-17 14:54:23,749 - Bioreactor - INFO - Initializing relays...
+2025-11-17 14:54:23,751 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-17 14:54:23,752 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-17 14:54:23,752 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-17 14:54:23,752 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-17 14:54:23,752 - Bioreactor - INFO - relays initialized successfully
+2025-11-17 14:54:23,752 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-17 14:54:24,762 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-17 14:54:24,763 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-17 14:54:24,763 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-17 14:54:24,768 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-17 14:54:24,768 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-17 14:54:24,768 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-17 14:54:24,768 - Bioreactor - INFO - Starting automatic tank flush (15s)...
+2025-11-17 14:54:24,768 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 15s
+2025-11-17 14:54:24,768 - Bioreactor - INFO - pump_1 turned ON
+2025-11-17 14:54:24,768 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-17 14:54:39,769 - Bioreactor - INFO - Valve open duration (15s) completed
+2025-11-17 14:54:39,769 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-17 14:54:39,769 - Bioreactor - INFO - Continuing pump for additional 20 seconds
+2025-11-17 14:55:53,272 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-17 14:55:53,273 - Bioreactor - INFO - Initializing relays...
+2025-11-17 14:55:53,275 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-17 14:55:53,275 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-17 14:55:53,275 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-17 14:55:53,275 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-17 14:55:53,275 - Bioreactor - INFO - relays initialized successfully
+2025-11-17 14:55:53,275 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-17 14:55:54,286 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-17 14:55:54,286 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-17 14:55:54,286 - Bioreactor - INFO - Initializing co2_sensor_2...
+2025-11-17 14:55:55,300 - Bioreactor.Components - INFO - CO2 sensor 2 initialized on /dev/ttyUSB1 at 9600 baud
+2025-11-17 14:55:55,300 - Bioreactor - INFO - co2_sensor_2 initialized successfully
+2025-11-17 14:55:55,300 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-17 14:55:55,304 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-17 14:55:55,304 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-17 14:55:55,304 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-17 14:55:55,305 - Bioreactor - INFO - Starting automatic tank flush (15s)...
+2025-11-17 14:55:55,305 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 15s
+2025-11-17 14:55:55,305 - Bioreactor - INFO - pump_1 turned ON
+2025-11-17 14:55:55,305 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-17 14:56:10,305 - Bioreactor - INFO - Valve open duration (15s) completed
+2025-11-17 14:56:10,305 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-17 14:56:10,305 - Bioreactor - INFO - Continuing pump for additional 20 seconds
+2025-11-17 14:56:30,305 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-17 14:56:30,305 - Bioreactor - INFO - Automatic tank flush completed.
+2025-11-17 14:56:30,306 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 14:56:30,307 - Bioreactor - INFO - Started 2 job threads.
+2025-11-17 14:56:30,466 - Bioreactor - INFO - Plot initialized for sensor monitoring
+2025-11-17 14:56:32,173 - Bioreactor - INFO - CO2: 2190.0 ppm, CO2_2: 1040.0 ppm, O2: 21.0%
+2025-11-17 14:56:33,306 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 14:56:37,226 - Bioreactor - INFO - CO2: 2200.0 ppm, CO2_2: 990.0 ppm, O2: 21.0%
+2025-11-17 14:56:42,232 - Bioreactor - INFO - CO2: 2140.0 ppm, CO2_2: 960.0 ppm, O2: 21.0%
+2025-11-17 14:56:47,263 - Bioreactor - INFO - CO2: 2130.0 ppm, CO2_2: 920.0 ppm, O2: 21.0%
+2025-11-17 14:56:52,264 - Bioreactor - INFO - CO2: 2100.0 ppm, CO2_2: 910.0 ppm, O2: 21.0%
+2025-11-17 14:56:57,191 - Bioreactor - INFO - CO2: 2070.0 ppm, CO2_2: 880.0 ppm, O2: 21.0%
+2025-11-17 14:57:02,220 - Bioreactor - INFO - CO2: 2060.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:57:07,209 - Bioreactor - INFO - CO2: 2050.0 ppm, CO2_2: 850.0 ppm, O2: 21.0%
+2025-11-17 14:57:12,188 - Bioreactor - INFO - CO2: 2050.0 ppm, CO2_2: 840.0 ppm, O2: 21.0%
+2025-11-17 14:57:17,171 - Bioreactor - INFO - CO2: 2060.0 ppm, CO2_2: 810.0 ppm, O2: 21.0%
+2025-11-17 14:57:22,246 - Bioreactor - INFO - CO2: 2070.0 ppm, CO2_2: 800.0 ppm, O2: 21.0%
+2025-11-17 14:57:27,173 - Bioreactor - INFO - CO2: 2090.0 ppm, CO2_2: 800.0 ppm, O2: 21.0%
+2025-11-17 14:57:30,306 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 14:57:32,170 - Bioreactor - INFO - CO2: 2130.0 ppm, CO2_2: 800.0 ppm, O2: 21.0%
+2025-11-17 14:57:33,306 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 14:57:37,244 - Bioreactor - INFO - CO2: 2140.0 ppm, CO2_2: 820.0 ppm, O2: 21.0%
+2025-11-17 14:57:42,191 - Bioreactor - INFO - CO2: 2150.0 ppm, CO2_2: 830.0 ppm, O2: 21.0%
+2025-11-17 14:57:47,211 - Bioreactor - INFO - CO2: 2140.0 ppm, CO2_2: 840.0 ppm, O2: 21.0%
+2025-11-17 14:57:52,185 - Bioreactor - INFO - CO2: 2130.0 ppm, CO2_2: 850.0 ppm, O2: 21.0%
+2025-11-17 14:57:57,172 - Bioreactor - INFO - CO2: 2140.0 ppm, CO2_2: 860.0 ppm, O2: 21.0%
+2025-11-17 14:58:02,208 - Bioreactor - INFO - CO2: 2150.0 ppm, CO2_2: 860.0 ppm, O2: 21.0%
+2025-11-17 14:58:07,169 - Bioreactor - INFO - CO2: 2150.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:58:12,184 - Bioreactor - INFO - CO2: 2150.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:58:17,191 - Bioreactor - INFO - CO2: 2150.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:58:22,163 - Bioreactor - INFO - CO2: 2150.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:58:27,167 - Bioreactor - INFO - CO2: 2170.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:58:30,306 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 14:58:32,208 - Bioreactor - INFO - CO2: 2160.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:58:33,306 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 14:58:37,186 - Bioreactor - INFO - CO2: 2160.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:58:42,175 - Bioreactor - INFO - CO2: 2180.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:58:47,195 - Bioreactor - INFO - CO2: 2190.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:58:52,193 - Bioreactor - INFO - CO2: 2170.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:58:57,180 - Bioreactor - INFO - CO2: 2180.0 ppm, CO2_2: 870.0 ppm, O2: 21.0%
+2025-11-17 14:59:02,181 - Bioreactor - INFO - CO2: 2190.0 ppm, CO2_2: 860.0 ppm, O2: 21.0%
+2025-11-17 14:59:07,267 - Bioreactor - INFO - CO2: 2180.0 ppm, CO2_2: 860.0 ppm, O2: 21.0%
+2025-11-17 14:59:12,182 - Bioreactor - INFO - CO2: 2170.0 ppm, CO2_2: 860.0 ppm, O2: 21.0%
+2025-11-17 14:59:17,173 - Bioreactor - INFO - CO2: 2150.0 ppm, CO2_2: 850.0 ppm, O2: 21.0%
+2025-11-17 14:59:22,202 - Bioreactor - INFO - CO2: 2150.0 ppm, CO2_2: 850.0 ppm, O2: 21.0%
+2025-11-17 14:59:27,223 - Bioreactor - INFO - CO2: 2140.0 ppm, CO2_2: 840.0 ppm, O2: 21.0%
+2025-11-17 14:59:30,306 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 14:59:32,189 - Bioreactor - INFO - CO2: 2140.0 ppm, CO2_2: 840.0 ppm, O2: 21.0%
+2025-11-17 14:59:33,306 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 14:59:37,275 - Bioreactor - INFO - CO2: 2140.0 ppm, CO2_2: 830.0 ppm, O2: 21.0%
+2025-11-17 14:59:42,180 - Bioreactor - INFO - CO2: 2130.0 ppm, CO2_2: 830.0 ppm, O2: 21.0%
+2025-11-17 14:59:47,201 - Bioreactor - INFO - CO2: 2120.0 ppm, CO2_2: 830.0 ppm, O2: 21.0%
+2025-11-17 14:59:52,191 - Bioreactor - INFO - CO2: 2120.0 ppm, CO2_2: 830.0 ppm, O2: 21.0%
+2025-11-17 14:59:57,163 - Bioreactor - INFO - CO2: 2130.0 ppm, CO2_2: 830.0 ppm, O2: 21.0%
+2025-11-17 15:00:02,183 - Bioreactor - INFO - CO2: 2140.0 ppm, CO2_2: 820.0 ppm, O2: 21.0%
+2025-11-17 15:00:07,197 - Bioreactor - INFO - CO2: 2130.0 ppm, CO2_2: 810.0 ppm, O2: 21.0%
+2025-11-17 15:00:12,172 - Bioreactor - INFO - CO2: 2130.0 ppm, CO2_2: 810.0 ppm, O2: 21.0%
+2025-11-17 15:00:17,167 - Bioreactor - INFO - CO2: 2110.0 ppm, CO2_2: 800.0 ppm, O2: 21.0%
+2025-11-17 15:00:22,195 - Bioreactor - INFO - CO2: 2100.0 ppm, CO2_2: 790.0 ppm, O2: 21.0%
+2025-11-17 15:00:27,166 - Bioreactor - INFO - CO2: 2090.0 ppm, CO2_2: 780.0 ppm, O2: 21.0%
+2025-11-17 15:00:30,306 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:00:32,201 - Bioreactor - INFO - CO2: 2090.0 ppm, CO2_2: 770.0 ppm, O2: 21.0%
+2025-11-17 15:00:33,306 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:00:37,246 - Bioreactor - INFO - CO2: 2070.0 ppm, CO2_2: 770.0 ppm, O2: 21.1%
+2025-11-17 15:00:42,167 - Bioreactor - INFO - CO2: 2060.0 ppm, CO2_2: 760.0 ppm, O2: 21.0%
+2025-11-17 15:00:47,197 - Bioreactor - INFO - CO2: 2050.0 ppm, CO2_2: 760.0 ppm, O2: 21.0%
+2025-11-17 15:00:52,167 - Bioreactor - INFO - CO2: 2040.0 ppm, CO2_2: 760.0 ppm, O2: 21.0%
+2025-11-17 15:00:57,186 - Bioreactor - INFO - CO2: 2040.0 ppm, CO2_2: 760.0 ppm, O2: 21.0%
+2025-11-17 15:01:02,183 - Bioreactor - INFO - CO2: 2030.0 ppm, CO2_2: 740.0 ppm, O2: 21.0%
+2025-11-17 15:01:07,171 - Bioreactor - INFO - CO2: 2030.0 ppm, CO2_2: 730.0 ppm, O2: 21.0%
+2025-11-17 15:01:12,175 - Bioreactor - INFO - CO2: 2030.0 ppm, CO2_2: 700.0 ppm, O2: 21.0%
+2025-11-17 15:01:17,201 - Bioreactor - INFO - CO2: 2020.0 ppm, CO2_2: 670.0 ppm, O2: 21.0%
+2025-11-17 15:01:22,174 - Bioreactor - INFO - CO2: 2020.0 ppm, CO2_2: 640.0 ppm, O2: 21.0%
+2025-11-17 15:01:27,185 - Bioreactor - INFO - CO2: 2010.0 ppm, CO2_2: 610.0 ppm, O2: 21.0%
+2025-11-17 15:01:30,306 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:01:32,198 - Bioreactor - INFO - CO2: 2010.0 ppm, CO2_2: 560.0 ppm, O2: 21.0%
+2025-11-17 15:01:33,307 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:01:37,171 - Bioreactor - INFO - CO2: 2000.0 ppm, CO2_2: 560.0 ppm, O2: 21.1%
+2025-11-17 15:01:42,198 - Bioreactor - INFO - CO2: 1990.0 ppm, CO2_2: 570.0 ppm, O2: 21.0%
+2025-11-17 15:01:47,183 - Bioreactor - INFO - CO2: 1990.0 ppm, CO2_2: 580.0 ppm, O2: 21.0%
+2025-11-17 15:01:52,175 - Bioreactor - INFO - CO2: 1980.0 ppm, CO2_2: 600.0 ppm, O2: 21.0%
+2025-11-17 15:01:57,203 - Bioreactor - INFO - CO2: 1970.0 ppm, CO2_2: 610.0 ppm, O2: 21.0%
+2025-11-17 15:02:02,194 - Bioreactor - INFO - CO2: 1970.0 ppm, CO2_2: 630.0 ppm, O2: 21.0%
+2025-11-17 15:02:07,243 - Bioreactor - INFO - CO2: 1960.0 ppm, CO2_2: 630.0 ppm, O2: 21.0%
+2025-11-17 15:02:12,170 - Bioreactor - INFO - CO2: 1950.0 ppm, CO2_2: 610.0 ppm, O2: 21.0%
+2025-11-17 15:02:17,207 - Bioreactor - INFO - CO2: 1940.0 ppm, CO2_2: 490.0 ppm, O2: 21.0%
+2025-11-17 15:02:22,182 - Bioreactor - INFO - CO2: 1930.0 ppm, CO2_2: 300.0 ppm, O2: 21.1%
+2025-11-17 15:02:27,173 - Bioreactor - INFO - CO2: 1940.0 ppm, CO2_2: 180.0 ppm, O2: 21.1%
+2025-11-17 15:02:30,306 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:02:32,208 - Bioreactor - INFO - CO2: 1940.0 ppm, CO2_2: 30.0 ppm, O2: 21.0%
+2025-11-17 15:02:33,307 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:02:37,194 - Bioreactor - INFO - CO2: 1930.0 ppm, CO2_2: 655310.0 ppm, O2: 21.2%
+2025-11-17 15:02:42,199 - Bioreactor - INFO - CO2: 1920.0 ppm, CO2_2: 655200.0 ppm, O2: 21.1%
+2025-11-17 15:02:47,185 - Bioreactor - INFO - CO2: 1900.0 ppm, CO2_2: 655140.0 ppm, O2: 21.0%
+2025-11-17 15:02:52,207 - Bioreactor - INFO - CO2: 1890.0 ppm, CO2_2: 655070.0 ppm, O2: 21.0%
+2025-11-17 15:02:57,211 - Bioreactor - INFO - CO2: 1880.0 ppm, CO2_2: 655040.0 ppm, O2: 21.0%
+2025-11-17 15:03:02,183 - Bioreactor - INFO - CO2: 1870.0 ppm, CO2_2: 654990.0 ppm, O2: 21.0%
+2025-11-17 15:03:07,211 - Bioreactor - INFO - CO2: 1860.0 ppm, CO2_2: 654960.0 ppm, O2: 21.0%
+2025-11-17 15:03:12,207 - Bioreactor - INFO - CO2: 1870.0 ppm, CO2_2: 654930.0 ppm, O2: 21.0%
+2025-11-17 15:03:17,191 - Bioreactor - INFO - CO2: 1880.0 ppm, CO2_2: 654900.0 ppm, O2: 21.0%
+2025-11-17 15:03:22,176 - Bioreactor - INFO - CO2: 1880.0 ppm, CO2_2: 654870.0 ppm, O2: 21.0%
+2025-11-17 15:03:27,202 - Bioreactor - INFO - CO2: 1880.0 ppm, CO2_2: 654860.0 ppm, O2: 21.0%
+2025-11-17 15:03:30,306 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:03:32,245 - Bioreactor - INFO - CO2: 1870.0 ppm, CO2_2: 654850.0 ppm, O2: 21.0%
+2025-11-17 15:03:33,307 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:03:37,188 - Bioreactor - INFO - CO2: 1860.0 ppm, CO2_2: 654850.0 ppm, O2: 21.2%
+2025-11-17 15:03:42,183 - Bioreactor - INFO - CO2: 1840.0 ppm, CO2_2: 654850.0 ppm, O2: 21.1%
+2025-11-17 15:03:47,185 - Bioreactor - INFO - CO2: 1810.0 ppm, CO2_2: 654850.0 ppm, O2: 21.0%
+2025-11-17 15:03:52,167 - Bioreactor - INFO - CO2: 1800.0 ppm, CO2_2: 654850.0 ppm, O2: 21.0%
+2025-11-17 15:03:57,169 - Bioreactor - INFO - CO2: 1800.0 ppm, CO2_2: 654850.0 ppm, O2: 21.0%
+2025-11-17 15:04:02,194 - Bioreactor - INFO - CO2: 1800.0 ppm, CO2_2: 654850.0 ppm, O2: 21.0%
+2025-11-17 15:04:07,179 - Bioreactor - INFO - CO2: 1790.0 ppm, CO2_2: 654850.0 ppm, O2: 21.0%
+2025-11-17 15:04:12,177 - Bioreactor - INFO - CO2: 1780.0 ppm, CO2_2: 654850.0 ppm, O2: 20.9%
+2025-11-17 15:04:17,202 - Bioreactor - INFO - CO2: 1760.0 ppm, CO2_2: 654850.0 ppm, O2: 20.9%
+2025-11-17 15:04:22,207 - Bioreactor - INFO - CO2: 1770.0 ppm, CO2_2: 654850.0 ppm, O2: 20.9%
+2025-11-17 15:04:27,203 - Bioreactor - INFO - CO2: 1780.0 ppm, CO2_2: 655040.0 ppm, O2: 21.0%
+2025-11-17 15:04:30,306 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:04:32,264 - Bioreactor - INFO - CO2: 1790.0 ppm, CO2_2: 655210.0 ppm, O2: 21.0%
+2025-11-17 15:04:33,307 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:04:37,212 - Bioreactor - INFO - CO2: 1790.0 ppm, CO2_2: 60.0 ppm, O2: 21.0%
+2025-11-17 15:04:37,911 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-17 15:04:37,911 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-17 15:04:37,911 - Bioreactor - INFO - Data file closed.
+2025-11-17 15:04:37,911 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-17 15:04:37,911 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-17 15:04:37,911 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-17 15:04:37,911 - Bioreactor - INFO - Data file closed.
+2025-11-17 15:04:37,911 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-17 15:05:04,906 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-17 15:05:04,906 - Bioreactor - INFO - Initializing relays...
+2025-11-17 15:05:04,908 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-17 15:05:04,908 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-17 15:05:04,908 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-17 15:05:04,908 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-17 15:05:04,908 - Bioreactor - INFO - relays initialized successfully
+2025-11-17 15:05:04,908 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-17 15:05:08,997 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-17 15:05:08,997 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-17 15:05:08,997 - Bioreactor - INFO - Initializing co2_sensor_2...
+2025-11-17 15:05:10,010 - Bioreactor.Components - INFO - CO2 sensor 2 initialized on /dev/ttyUSB1 at 9600 baud
+2025-11-17 15:05:10,010 - Bioreactor - INFO - co2_sensor_2 initialized successfully
+2025-11-17 15:05:10,010 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-17 15:05:10,014 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-17 15:05:10,014 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-17 15:05:10,015 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-17 15:05:10,015 - Bioreactor - INFO - Starting automatic tank flush (15s)...
+2025-11-17 15:05:10,015 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 15s
+2025-11-17 15:05:10,015 - Bioreactor - INFO - pump_1 turned ON
+2025-11-17 15:05:10,015 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-17 15:05:25,015 - Bioreactor - INFO - Valve open duration (15s) completed
+2025-11-17 15:05:25,015 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-17 15:05:25,015 - Bioreactor - INFO - Continuing pump for additional 20 seconds
+2025-11-17 15:05:45,015 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-17 15:05:45,016 - Bioreactor - INFO - Automatic tank flush completed.
+2025-11-17 15:05:45,016 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:05:45,017 - Bioreactor - INFO - Started 2 job threads.
+2025-11-17 15:05:45,165 - Bioreactor - INFO - Plot initialized for sensor monitoring
+2025-11-17 15:05:46,869 - Bioreactor - INFO - CO2: 1610.0 ppm, CO2_2: 400.0 ppm, O2: 21.0%
+2025-11-17 15:05:48,018 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:05:51,933 - Bioreactor - INFO - CO2: 1610.0 ppm, CO2_2: 400.0 ppm, O2: 21.0%
+2025-11-17 15:05:56,916 - Bioreactor - INFO - CO2: 1590.0 ppm, CO2_2: 380.0 ppm, O2: 21.0%
+2025-11-17 15:06:01,970 - Bioreactor - INFO - CO2: 1560.0 ppm, CO2_2: 370.0 ppm, O2: 21.0%
+2025-11-17 15:06:06,943 - Bioreactor - INFO - CO2: 1550.0 ppm, CO2_2: 350.0 ppm, O2: 21.0%
+2025-11-17 15:06:11,933 - Bioreactor - INFO - CO2: 1550.0 ppm, CO2_2: 340.0 ppm, O2: 21.0%
+2025-11-17 15:06:16,905 - Bioreactor - INFO - CO2: 1520.0 ppm, CO2_2: 310.0 ppm, O2: 21.2%
+2025-11-17 15:06:21,896 - Bioreactor - INFO - CO2: 1510.0 ppm, CO2_2: 210.0 ppm, O2: 20.9%
+2025-11-17 15:06:26,931 - Bioreactor - INFO - CO2: 1480.0 ppm, CO2_2: 40.0 ppm, O2: 21.4%
+2025-11-17 15:06:31,895 - Bioreactor - INFO - CO2: 1460.0 ppm, CO2_2: 655300.0 ppm, O2: 21.2%
+2025-11-17 15:06:36,928 - Bioreactor - INFO - CO2: 1420.0 ppm, CO2_2: 655190.0 ppm, O2: 21.5%
+2025-11-17 15:06:41,913 - Bioreactor - INFO - CO2: 1420.0 ppm, CO2_2: 655120.0 ppm, O2: 21.1%
+2025-11-17 15:06:45,016 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:06:46,899 - Bioreactor - INFO - CO2: 1410.0 ppm, CO2_2: 655050.0 ppm, O2: 20.9%
+2025-11-17 15:06:48,016 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:06:51,966 - Bioreactor - INFO - CO2: 1400.0 ppm, CO2_2: 655020.0 ppm, O2: 21.3%
+2025-11-17 15:06:56,898 - Bioreactor - INFO - CO2: 1360.0 ppm, CO2_2: 654970.0 ppm, O2: 21.2%
+2025-11-17 15:07:00,166 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-17 15:07:00,166 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-17 15:07:00,166 - Bioreactor - INFO - Data file closed.
+2025-11-17 15:07:00,166 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-17 15:07:00,166 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-17 15:07:00,166 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-17 15:07:00,166 - Bioreactor - INFO - Data file closed.
+2025-11-17 15:07:00,167 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-17 15:07:10,081 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-17 15:07:10,081 - Bioreactor - INFO - Initializing relays...
+2025-11-17 15:07:10,083 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-17 15:07:10,083 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-17 15:07:10,083 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-17 15:07:10,083 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-17 15:07:10,083 - Bioreactor - INFO - relays initialized successfully
+2025-11-17 15:07:10,084 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-17 15:07:16,139 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-17 15:07:16,139 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-17 15:07:16,139 - Bioreactor - INFO - Initializing co2_sensor_2...
+2025-11-17 15:07:17,153 - Bioreactor.Components - INFO - CO2 sensor 2 initialized on /dev/ttyUSB1 at 9600 baud
+2025-11-17 15:07:17,153 - Bioreactor - INFO - co2_sensor_2 initialized successfully
+2025-11-17 15:07:17,153 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-17 15:07:17,157 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-17 15:07:17,157 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-17 15:07:17,157 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-17 15:07:17,157 - Bioreactor - INFO - Starting automatic tank flush (15s)...
+2025-11-17 15:07:17,157 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 15s
+2025-11-17 15:07:17,157 - Bioreactor - INFO - pump_1 turned ON
+2025-11-17 15:07:17,157 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-17 15:07:32,158 - Bioreactor - INFO - Valve open duration (15s) completed
+2025-11-17 15:07:32,158 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-17 15:07:32,158 - Bioreactor - INFO - Continuing pump for additional 20 seconds
+2025-11-17 15:07:52,158 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-17 15:07:52,158 - Bioreactor - INFO - Automatic tank flush completed.
+2025-11-17 15:07:52,159 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:07:52,160 - Bioreactor - INFO - Started 2 job threads.
+2025-11-17 15:07:52,312 - Bioreactor - INFO - Plot initialized for sensor monitoring
+2025-11-17 15:07:54,016 - Bioreactor - INFO - CO2: 1340.0 ppm, CO2_2: 654850.0 ppm, O2: 21.1%
+2025-11-17 15:07:55,160 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:07:59,081 - Bioreactor - INFO - CO2: 1320.0 ppm, CO2_2: 654850.0 ppm, O2: 21.1%
+2025-11-17 15:08:04,074 - Bioreactor - INFO - CO2: 1310.0 ppm, CO2_2: 654850.0 ppm, O2: 21.0%
+2025-11-17 15:08:09,083 - Bioreactor - INFO - CO2: 1310.0 ppm, CO2_2: 654850.0 ppm, O2: 20.9%
+2025-11-17 15:08:14,131 - Bioreactor - INFO - CO2: 1300.0 ppm, CO2_2: 654850.0 ppm, O2: 20.9%
+2025-11-17 15:08:19,044 - Bioreactor - INFO - CO2: 1300.0 ppm, CO2_2: 654850.0 ppm, O2: 20.9%
+2025-11-17 15:08:24,021 - Bioreactor - INFO - CO2: 1300.0 ppm, CO2_2: 654850.0 ppm, O2: 20.9%
+2025-11-17 15:08:29,023 - Bioreactor - INFO - CO2: 1290.0 ppm, CO2_2: 654850.0 ppm, O2: 21.0%
+2025-11-17 15:08:34,059 - Bioreactor - INFO - CO2: 1280.0 ppm, CO2_2: 654850.0 ppm, O2: 20.9%
+2025-11-17 15:08:39,054 - Bioreactor - INFO - CO2: 1280.0 ppm, CO2_2: 654850.0 ppm, O2: 20.4%
+2025-11-17 15:08:44,016 - Bioreactor - INFO - CO2: 1280.0 ppm, CO2_2: 654910.0 ppm, O2: 20.7%
+2025-11-17 15:08:49,115 - Bioreactor - INFO - CO2: 1270.0 ppm, CO2_2: 655050.0 ppm, O2: 20.8%
+2025-11-17 15:08:52,159 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:08:54,021 - Bioreactor - INFO - CO2: 1260.0 ppm, CO2_2: 655210.0 ppm, O2: 20.8%
+2025-11-17 15:08:55,159 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:08:59,087 - Bioreactor - INFO - CO2: 1260.0 ppm, CO2_2: 655280.0 ppm, O2: 21.0%
+2025-11-17 15:09:04,026 - Bioreactor - INFO - CO2: 1250.0 ppm, CO2_2: 655330.0 ppm, O2: 20.9%
+2025-11-17 15:09:09,087 - Bioreactor - INFO - CO2: 1230.0 ppm, CO2_2: 655350.0 ppm, O2: 20.9%
+2025-11-17 15:09:13,709 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-17 15:09:13,709 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-17 15:09:13,709 - Bioreactor - INFO - Data file closed.
+2025-11-17 15:09:13,710 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-17 15:09:13,710 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-17 15:09:13,710 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-17 15:09:13,710 - Bioreactor - INFO - Data file closed.
+2025-11-17 15:09:13,710 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-17 15:09:14,036 - Bioreactor - INFO - CO2: 1220.0 ppm, CO2_2: 0.0 ppm, O2: 20.9%
+2025-11-17 15:09:14,037 - Bioreactor - WARNING - Error writing to CSV: I/O operation on closed file.
+2025-11-17 15:11:04,397 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-17 15:11:04,397 - Bioreactor - INFO - Initializing relays...
+2025-11-17 15:11:04,400 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-17 15:11:04,400 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-17 15:11:04,400 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-17 15:11:04,400 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-17 15:11:04,400 - Bioreactor - INFO - relays initialized successfully
+2025-11-17 15:11:04,400 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-17 15:11:05,411 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-17 15:11:05,411 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-17 15:11:05,411 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-17 15:11:05,416 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-17 15:11:05,417 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-17 15:11:05,417 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-17 15:11:05,417 - Bioreactor - INFO - Starting automatic tank flush (15s)...
+2025-11-17 15:11:05,417 - Bioreactor - INFO - Starting tank flush: pump ON, valve opening for 15s
+2025-11-17 15:11:05,417 - Bioreactor - INFO - pump_1 turned ON
+2025-11-17 15:11:05,417 - Bioreactor - INFO - dump_valve turned ON (valve open)
+2025-11-17 15:11:20,417 - Bioreactor - INFO - Valve open duration (15s) completed
+2025-11-17 15:11:20,418 - Bioreactor - INFO - dump_valve turned OFF (valve closed)
+2025-11-17 15:11:20,418 - Bioreactor - INFO - Continuing pump for additional 20 seconds
+2025-11-17 15:11:40,418 - Bioreactor - INFO - pump_1 turned OFF - Tank flush complete
+2025-11-17 15:11:40,418 - Bioreactor - INFO - Automatic tank flush completed.
+2025-11-17 15:11:40,418 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:11:40,420 - Bioreactor - INFO - Started 2 job threads.
+2025-11-17 15:11:40,609 - Bioreactor - INFO - Plot initialized for sensor monitoring
+2025-11-17 15:11:42,213 - Bioreactor - INFO - CO2: 1090.0 ppm, O2: 21.0%
+2025-11-17 15:11:43,422 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:11:47,231 - Bioreactor - INFO - CO2: 1070.0 ppm, O2: 21.0%
+2025-11-17 15:11:52,246 - Bioreactor - INFO - CO2: 1070.0 ppm, O2: 21.0%
+2025-11-17 15:11:57,238 - Bioreactor - INFO - CO2: 1090.0 ppm, O2: 21.0%
+2025-11-17 15:12:02,251 - Bioreactor - INFO - CO2: 1090.0 ppm, O2: 21.0%
+2025-11-17 15:12:07,231 - Bioreactor - INFO - CO2: 1080.0 ppm, O2: 21.0%
+2025-11-17 15:12:12,205 - Bioreactor - INFO - CO2: 1110.0 ppm, O2: 21.0%
+2025-11-17 15:12:17,234 - Bioreactor - INFO - CO2: 1100.0 ppm, O2: 21.0%
+2025-11-17 15:12:22,206 - Bioreactor - INFO - CO2: 1080.0 ppm, O2: 21.0%
+2025-11-17 15:12:27,197 - Bioreactor - INFO - CO2: 1050.0 ppm, O2: 21.0%
+2025-11-17 15:12:32,174 - Bioreactor - INFO - CO2: 1050.0 ppm, O2: 21.0%
+2025-11-17 15:12:37,091 - Bioreactor - INFO - CO2: 1040.0 ppm, O2: 21.0%
+2025-11-17 15:12:40,419 - Bioreactor - INFO - pump_1 relay turned ON
+2025-11-17 15:12:42,209 - Bioreactor - INFO - CO2: 1040.0 ppm, O2: 21.0%
+2025-11-17 15:12:43,419 - Bioreactor - INFO - pump_1 relay turned OFF (3s elapsed)
+2025-11-17 15:12:47,261 - Bioreactor - INFO - CO2: 1040.0 ppm, O2: 21.0%
+2025-11-17 15:12:50,600 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-17 15:12:50,600 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-17 15:12:50,601 - Bioreactor - INFO - Data file closed.
+2025-11-17 15:12:50,601 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-17 15:12:50,601 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-17 15:12:50,601 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-17 15:12:50,601 - Bioreactor - INFO - Data file closed.
+2025-11-17 15:12:50,601 - Bioreactor - INFO - Bioreactor cleanup complete.
