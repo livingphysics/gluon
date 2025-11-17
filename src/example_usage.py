@@ -25,7 +25,7 @@ config = Config()
 config.INIT_COMPONENTS = {
     'relays': True,
     'co2_sensor': True,
-    'co2_sensor_2': False,  # Enable second CO2 sensor on /dev/ttyUSB1
+    'co2_sensor_2': True,  # Enable second CO2 sensor on /dev/ttyUSB1
     'o2_sensor': True,  # Enable O2 sensor for plotting
     'i2c': False,
 }
@@ -64,7 +64,7 @@ with Bioreactor(config) as reactor:
     # duration: how long to run in seconds, or True for indefinite
     jobs = [
         # Run pump_1 every 3 minutes for 15 seconds (pass duration argument)
-        (lambda reactor, elapsed=None: actuate_pump1_relay(reactor, duration_seconds=3, elapsed=elapsed), 60, True),
+        (lambda reactor, elapsed=None: actuate_pump1_relay(reactor, duration_seconds=5, elapsed=elapsed), 60, True),
         (read_sensors_and_plot, 5, True),  # Read sensors and update plot every 5 seconds
         # (create_flush_tank_job(30), 3600, True),  # Flush tank every hour (30s valve open)
         (create_inject_co2_job(300, 10), True, 310),  # Wait 5 min (300s), inject CO2 for 10s, then end (total: 310s)
