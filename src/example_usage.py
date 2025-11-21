@@ -28,6 +28,7 @@ config.INIT_COMPONENTS = {
     'co2_sensor_2': True,  # Enable second CO2 sensor on /dev/ttyUSB1
     'o2_sensor': True,  # Enable O2 sensor for plotting
     'i2c': False,
+    'temp_sensor': True  # DS18B20 temperature sensor
 }
 
 # Option 3: Customize component settings
