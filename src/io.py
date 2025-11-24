@@ -32,7 +32,7 @@ def get_temperature(bioreactor, sensor_index=0):
             return float('nan')
 
 def get_relay_state(bioreactor, relay_name: str) -> bool:
-        """Change the state of a specific relay.
+        """Get the state of a specific relay.
         
         Args:
             relay_name (str): Name of the relay (e.g., 'relay_1', 'relay_2', etc.)
