@@ -49,6 +49,7 @@ def get_relay_state(bioreactor, relay_name: str) -> bool:
         try:
             import lgpio
             state = lgpio.gpio_read(gpio_chip, pin)
+            bioreactor.logger.info(f"Relay {relay_name} state: {'ON' if not state else 'OFF'}")
             return bool(state)
         except Exception as e:
             bioreactor.logger.error(f"Error reading relay {relay_name} state: {e}")
