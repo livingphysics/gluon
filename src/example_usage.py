@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src import Bioreactor, Config
 from src.utils import *
+from src.io import *
 
 # Load default config
 config = Config()
@@ -67,8 +68,13 @@ with Bioreactor(config) as reactor:
         # (read_sensors_and_plot, 5, True),  # Read sensors and update plot every 5 seconds
 
     ]
-    from src.io import get_temperature
-    print(get_temperature(reactor, 0))
+    print(f"Temperature: {get_temperature(reactor, 0)}")
+    change_all_relays(reactor, True)
+    print(f"Relay states: {get_all_relay_states(reactor)}")
+    time.sleep(2)
+    change_all_relays(reactor, False)
+    print(f"Relay states: {get_all_relay_states(reactor)}") 
+
     # You can also call functions directly (not as scheduled jobs):
     # flush_tank(reactor, 30)  # Flush tank once with 30s valve open
     # inject_co2_delayed(reactor, 300, 30)  # Wait 5 min (300s), inject CO2 for 30s (one-time)
