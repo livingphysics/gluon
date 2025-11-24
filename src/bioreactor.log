@@ -4056,3 +4056,32 @@
 2025-11-24 15:55:53,191 - Bioreactor - INFO - Stop event set for all threads.
 2025-11-24 15:55:53,191 - Bioreactor - INFO - Data file closed.
 2025-11-24 15:55:53,191 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-24 16:23:52,314 - Bioreactor - INFO - Initializing Bioreactor...
+2025-11-24 16:23:52,315 - Bioreactor - INFO - Initializing relays...
+2025-11-24 16:23:52,316 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-11-24 16:23:52,317 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-11-24 16:23:52,317 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-11-24 16:23:52,317 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-11-24 16:23:52,317 - Bioreactor - INFO - relays initialized successfully
+2025-11-24 16:23:52,317 - Bioreactor - INFO - Initializing co2_sensor...
+2025-11-24 16:23:53,333 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-11-24 16:23:53,333 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-11-24 16:23:53,333 - Bioreactor - INFO - Initializing co2_sensor_2...
+2025-11-24 16:23:54,337 - Bioreactor.Components - INFO - CO2 sensor 2 initialized on /dev/ttyUSB1 at 9600 baud
+2025-11-24 16:23:54,337 - Bioreactor - INFO - co2_sensor_2 initialized successfully
+2025-11-24 16:23:54,337 - Bioreactor - INFO - Initializing o2_sensor...
+2025-11-24 16:23:54,341 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-11-24 16:23:54,341 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-11-24 16:23:54,341 - Bioreactor - INFO - Initializing temp_sensor...
+2025-11-24 16:23:54,346 - Bioreactor.Components - INFO - DS18B20 temperature sensors initialized (1 sensors)
+2025-11-24 16:23:54,346 - Bioreactor - INFO - temp_sensor initialized successfully
+2025-11-24 16:23:54,356 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-11-24 16:23:55,167 - Bioreactor - INFO - Started 0 job threads.
+2025-11-24 16:23:59,956 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-24 16:23:59,957 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-24 16:23:59,957 - Bioreactor - INFO - Data file closed.
+2025-11-24 16:23:59,957 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-11-24 16:23:59,957 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-11-24 16:23:59,957 - Bioreactor - INFO - Stop event set for all threads.
+2025-11-24 16:23:59,957 - Bioreactor - INFO - Data file closed.
+2025-11-24 16:23:59,957 - Bioreactor - INFO - Bioreactor cleanup complete.
