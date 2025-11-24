@@ -40,10 +40,7 @@ class Config:
     CO2_SERIAL_BAUDRATE_2: int = 9600
     # O2 sensor uses I2C (Atlas Scientific)
     O2_SENSOR_ADDRESS: int = 108
-    
-    # Temperature Sensor Configuration
-    # DS18B20 sensor order (optional, uses all sensors in order if None)
-    TEMP_SENSOR_ORDER: list[int] = None  # e.g., [0, 1, 2, 3] to reorder sensors
+
     
     # Sensor Labels for CSV output
     SENSOR_LABELS: dict = {
