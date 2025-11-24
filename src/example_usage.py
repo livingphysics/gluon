@@ -28,6 +28,7 @@ config.INIT_COMPONENTS = {
     'co2_sensor_2': True,  # Enable second CO2 sensor on /dev/ttyUSB1
     'o2_sensor': True,  # Enable O2 sensor for plotting
     'i2c': False,
+    'temp_sensor': True,
 }
 
 # Option 3: Customize component settings
@@ -58,6 +59,10 @@ with Bioreactor(config) as reactor:
         print("CO2 sensor is ready!")
         # Use sensor via reactor.co2_sensor
     
+    if reactor.is_component_initialized('temp_sensor'):
+        print("Temperature sensors are ready!")
+        # Use sensors via reactor.temp_sensors array
+
     # Start scheduled jobs
     # Format: (function, frequency_seconds, duration)
     # frequency: time between calls in seconds, or True for continuous
@@ -67,7 +72,8 @@ with Bioreactor(config) as reactor:
         # (read_sensors_and_plot, 5, True),  # Read sensors and update plot every 5 seconds
 
     ]
-    
+    from .io import get_temperature
+    print(get_temperature(reactor, 0))
     # You can also call functions directly (not as scheduled jobs):
     # flush_tank(reactor, 30)  # Flush tank once with 30s valve open
     # inject_co2_delayed(reactor, 300, 30)  # Wait 5 min (300s), inject CO2 for 30s (one-time)
