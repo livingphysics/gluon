@@ -69,12 +69,7 @@ with Bioreactor(config) as reactor:
 
     ]
     print(f"Temperature: {get_temperature(reactor, 0)}")
-    change_all_relays(reactor, True)
-    print(f"Relay states: {get_all_relay_states(reactor)}")
-    time.sleep(2)
-    change_all_relays(reactor, False)
-    print(f"Relay states: {get_all_relay_states(reactor)}") 
-
+    print(f"Relay state: {get_relay_state(reactor, 'pump_1')}")
     # You can also call functions directly (not as scheduled jobs):
     # flush_tank(reactor, 30)  # Flush tank once with 30s valve open
     # inject_co2_delayed(reactor, 300, 30)  # Wait 5 min (300s), inject CO2 for 30s (one-time)
