@@ -72,7 +72,7 @@ with Bioreactor(config) as reactor:
         # (read_sensors_and_plot, 5, True),  # Read sensors and update plot every 5 seconds
 
     ]
-    from .io import get_temperature
+    from src.io import get_temperature
     print(get_temperature(reactor, 0))
     # You can also call functions directly (not as scheduled jobs):
     # flush_tank(reactor, 30)  # Flush tank once with 30s valve open
