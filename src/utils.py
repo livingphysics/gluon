@@ -27,7 +27,14 @@ def set_peltier_power(bioreactor, duty_cycle: Union[int, float], forward: Union[
         return False
 
     if isinstance(forward, str):
-        forward_bool = forward.lower() in ('forward', 'heat', 'warm', 'hot')
+        fwd = forward.lower()
+        if fwd in ('forward', 'cool', 'cold'):
+            forward_bool = True
+        elif fwd in ('reverse', 'heat', 'warm', 'hot'):
+            forward_bool = False
+        else:
+            # Fallback: interpret truthy string as True
+            forward_bool = fwd in ('true', '1', 'on')
     else:
         forward_bool = bool(forward)
 
