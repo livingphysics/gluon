@@ -30,6 +30,7 @@ config.INIT_COMPONENTS = {
     'o2_sensor': True,  # Enable O2 sensor for plotting
     'i2c': False,
     'temp_sensor': True,
+    'peltier_driver': True,
 }
 
 config.RELAY_PINS = [6, 13, 19, 26]
@@ -75,6 +76,11 @@ with Bioreactor(config) as reactor:
         # reactor.relay_controller.off('pump_1')     # Turn relay OFF
         # reactor.relay_controller.all_on()          # Turn all relays ON
         # reactor.relay_controller.get_all_states()   # Get all relay states
+    
+    if reactor.is_component_initialized('peltier_driver'):
+        set_peltier_power(reactor, 25, 'heat')
+        print("Peltier set to 25% duty (heat direction)")
+        stop_peltier(reactor)
     
     # You can also call functions directly (not as scheduled jobs):
     # flush_tank(reactor, 30)  # Flush tank once with 30s valve open

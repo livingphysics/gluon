@@ -140,6 +140,66 @@ class RelayController:
         """
         return list(self._relays.keys())
 
+
+class PeltierDriver:
+    """PWM/DIR controller for the peltier module using lgpio."""
+
+    def __init__(self, bioreactor, gpio_chip, pwm_pin: int, dir_pin: int, frequency: int):
+        self.bioreactor = bioreactor
+        self._gpio_chip = gpio_chip
+        self._pwm_pin = pwm_pin
+        self._dir_pin = dir_pin
+        self._frequency = frequency
+        self._last_duty = 0.0
+        self._last_forward = True
+
+    def set(self, duty_cycle: float, forward: bool = True) -> bool:
+        """
+        Set the PWM duty cycle and direction.
+
+        Args:
+            duty_cycle: Target duty cycle (0-100)
+            forward: Direction flag (True=forward/heat, False=reverse/cool)
+        """
+        try:
+            import lgpio
+        except Exception as e:
+            self.bioreactor.logger.error(f"Peltier driver requires lgpio: {e}")
+            return False
+
+        try:
+            duty = max(0.0, min(100.0, float(duty_cycle)))
+        except (TypeError, ValueError):
+            raise ValueError("Duty cycle must be numeric between 0 and 100") from None
+
+        try:
+            lgpio.gpio_write(self._gpio_chip, self._dir_pin, 1 if forward else 0)
+            lgpio.tx_pwm(self._gpio_chip, self._pwm_pin, self._frequency, duty)
+        except Exception as e:
+            self.bioreactor.logger.error(f"Failed to update peltier PWM: {e}")
+            return False
+
+        self._last_duty = duty
+        self._last_forward = forward
+        self.bioreactor.logger.info(
+            f"Peltier set to {duty:.1f}% duty, direction {'forward' if forward else 'reverse'}"
+        )
+        return True
+
+    def stop(self) -> None:
+        """Stop PWM output."""
+        try:
+            import lgpio
+            lgpio.tx_pwm(self._gpio_chip, self._pwm_pin, self._frequency, 0)
+            self._last_duty = 0.0
+            self.bioreactor.logger.info("Peltier PWM stopped.")
+        except Exception as e:
+            self.bioreactor.logger.error(f"Failed to stop peltier PWM: {e}")
+
+    @property
+    def is_active(self) -> bool:
+        return self._last_duty > 0.0
+
 def get_temperature(bioreactor, sensor_index=0):
         """Get temperature from DS18B20 sensor(s).
         

@@ -224,6 +224,14 @@ class Bioreactor():
             except Exception as e:
                 self.logger.error(f"Error closing data file: {e}")
 
+        # Stop Peltier PWM if active
+        driver = getattr(self, 'peltier_driver', None)
+        if driver:
+            try:
+                driver.stop()
+            except Exception as e:
+                self.logger.error(f"Failed to stop peltier driver: {e}")
+
         self.logger.info("Bioreactor cleanup complete.")
 
     def __enter__(self):

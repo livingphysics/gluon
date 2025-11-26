@@ -26,6 +26,7 @@ class Config:
         'o2_sensor': True,
         'i2c': False,  # Only needed if other I2C components are used
         'temp_sensor': True,
+        'peltier_driver': True,  # Enable PWM peltier driver (uses lgpio)
     }
     
     # Relay Configuration
@@ -49,3 +50,8 @@ class Config:
         'o2': 'O2_percent',
         'temperature': 'temperature_C',
     }
+
+    # Peltier Driver Configuration (Raspberry Pi 5 GPIO via lgpio)
+    PELTIER_PWM_PIN: int = 12  # BCM pin for PWM output
+    PELTIER_DIR_PIN: int = 16  # BCM pin for direction control
+    PELTIER_PWM_FREQ: int = 1000  # PWM frequency in Hz
