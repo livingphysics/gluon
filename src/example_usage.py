@@ -66,7 +66,15 @@ with Bioreactor(config) as reactor:
 
     ]
     print(f"Temperature: {get_temperature(reactor, 0)}")
-    print(f"pump_1: {'on' if not get_relay_state(reactor, 'pump_1') else 'off'}")
+    
+    # Use RelayController for clean API (recommended)
+    if reactor.is_component_initialized('relays'):
+        print(f"pump_1: {'on' if reactor.relay_controller.get_state('pump_1') else 'off'}")
+        # Other examples:
+        # reactor.relay_controller.on('pump_1')      # Turn relay ON
+        # reactor.relay_controller.off('pump_1')     # Turn relay OFF
+        # reactor.relay_controller.all_on()          # Turn all relays ON
+        # reactor.relay_controller.get_all_states()   # Get all relay states
     
     # You can also call functions directly (not as scheduled jobs):
     # flush_tank(reactor, 30)  # Flush tank once with 30s valve open

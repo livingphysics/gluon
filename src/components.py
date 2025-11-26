@@ -40,6 +40,15 @@ def init_relays(bioreactor, config):
         bioreactor.gpio_chip = gpio_chip
         bioreactor.relays = relays
         
+        # Create RelayController for clean API (import here to avoid circular dependency)
+        try:
+            from .io import RelayController
+            bioreactor.relay_controller = RelayController(bioreactor, relays, gpio_chip)
+        except ImportError:
+            # Fallback if RelayController not available
+            bioreactor.relay_controller = None
+            logger.warning("RelayController not available")
+        
         return {'relays': relays, 'gpio_chip': gpio_chip, 'initialized': True}
     except Exception as e:
         logger.error(f"Relay initialization failed: {e}")
