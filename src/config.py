@@ -58,6 +58,6 @@ class Config:
     PELTIER_PWM_FREQ: int = 1000  # PWM frequency in Hz
 
     # Stirrer Configuration (PWM only)
-    STIRRER_PWM_PIN: int = 25  # BCM pin for stirrer PWM output
+    STIRRER_PWM_PIN: int = 21  # BCM pin for stirrer PWM output
     STIRRER_PWM_FREQ: int = 1000  # PWM frequency in Hz
     STIRRER_DEFAULT_DUTY: float = 0.0  # Default duty cycle (0-100)
