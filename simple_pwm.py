@@ -2,8 +2,15 @@ import lgpio
 import time
 import board
 import busio
+import adafruit_ads1x15.ads1115 as ADS
+from adafruit_ads1x15.analog_in import AnalogIn
 
 i2c = busio.I2C(board.SCL, board.SDA)
+
+# Initialize ADS1115 ADC
+ads = ADS.ADS1115(i2c)
+# Create single-ended input on channel 0
+adc_channel = AnalogIn(ads, ADS.P0)
 
 pwm_pin = 16
 frequency = 50
@@ -14,6 +21,10 @@ lgpio.gpio_claim_output(gpio_chip, pwm_pin, 0)
 lgpio.tx_pwm(gpio_chip, pwm_pin, frequency, 0)
 for duty in [10, 20, 30, 40, 50]:
 	lgpio.tx_pwm(gpio_chip, pwm_pin, frequency, duty)
+	# Read ADC value
+	adc_value = adc_channel.value
+	adc_voltage = adc_channel.voltage
+	print(f"PWM Duty: {duty}%, ADC Raw: {adc_value}, ADC Voltage: {adc_voltage:.3f}V")
 	time.sleep(5)
 lgpio.tx_pwm(gpio_chip, pwm_pin, frequency, 0)
 
