@@ -34,8 +34,12 @@ config.INIT_COMPONENTS = {
     'stirrer': True,
 }
 
-config.RELAY_PINS = [6, 13, 19, 26]
-config.RELAY_NAMES = ['pump_1', 'co2_solenoid', 'dump_valve', 'relay_4']
+config.RELAY_PINS = {
+    'pump_1': 6,
+    'co2_solenoid': 13,
+    'dump_valve': 19,
+    'relay_4': 26,
+}
 
 config.LOG_TO_TERMINAL = True  # Print logs to terminal (default: True)
 config.LOG_FILE = 'bioreactor.log'  # Also log to file
