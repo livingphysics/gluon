@@ -251,14 +251,15 @@ def temperature_pid_controller(
     setpoint: float,
     current_temp: Optional[float] = None,
     kp: float = 5.0,
-    ki: float = 0.5,
-    kd: float = 0.0,
+    ki: float = 0.3,
+    kd: float = 2.0,
     dt: Optional[float] = None,
     elapsed: Optional[float] = None,
     sensor_index: int = 0,
-    max_duty: float = 80.0,
-    deadband: float = 0.5,
-    integral_max: float = 50.0
+    max_duty: float = 70.0,
+    deadband: float = 0.3,
+    integral_max: float = 30.0,
+    derivative_alpha: float = 0.7
 ) -> None:
     """
     PID controller to maintain bioreactor temperature at setpoint by modulating peltier power.
@@ -273,14 +274,15 @@ def temperature_pid_controller(
         setpoint: Desired temperature (°C)
         current_temp: Measured temperature (°C). If None, reads from temperature sensor.
         kp: Proportional gain (default: 5.0, reduced from 10.0 to prevent overshoot)
-        ki: Integral gain (default: 0.5, reduced from 1.0 to prevent overshoot)
-        kd: Derivative gain (default: 0.0)
+        ki: Integral gain (default: 0.3, reduced to minimize ringing)
+        kd: Derivative gain (default: 2.0, helps reduce oscillation and overshoot)
         dt: Time elapsed since last call (s). If None, uses elapsed parameter or estimates.
         elapsed: Elapsed time since start (s). Used to estimate dt if dt is None.
         sensor_index: Index of temperature sensor to read (default: 0)
-        max_duty: Maximum duty cycle percentage (default: 80.0, prevents excessive power)
-        deadband: Temperature deadband in °C (default: 0.5, prevents oscillation near setpoint)
-        integral_max: Maximum integral term value (default: 50.0, prevents integral windup)
+        max_duty: Maximum duty cycle percentage (default: 70.0, reduced to prevent overshoot)
+        deadband: Temperature deadband in °C (default: 0.3, tighter to reduce oscillation)
+        integral_max: Maximum integral term value (default: 30.0, reduced to prevent windup)
+        derivative_alpha: Derivative filter coefficient (default: 0.7, 0-1, higher = less filtering)
         
     Note:
         PID state (_temp_integral, _temp_last_error, _temp_last_time) is stored on bioreactor instance.
@@ -308,6 +310,8 @@ def temperature_pid_controller(
         bioreactor._temp_last_error = 0.0
     if not hasattr(bioreactor, '_temp_last_time'):
         bioreactor._temp_last_time = None
+    if not hasattr(bioreactor, '_temp_last_derivative'):
+        bioreactor._temp_last_derivative = 0.0
     
     # Get current temperature if not provided
     if current_temp is None:
@@ -336,12 +340,17 @@ def temperature_pid_controller(
             error = 0.0
         
         # Update integral term with windup protection
-        bioreactor._temp_integral += error * dt
+        # Only accumulate integral when error is significant (outside deadband)
+        if abs(error) >= deadband:
+            bioreactor._temp_integral += error * dt
         # Clamp integral term to prevent windup
         bioreactor._temp_integral = max(-integral_max, min(integral_max, bioreactor._temp_integral))
         
-        # Calculate derivative term
-        derivative = (error - bioreactor._temp_last_error) / dt if dt > 0 else 0.0
+        # Calculate derivative term with low-pass filtering to reduce noise sensitivity
+        raw_derivative = (error - bioreactor._temp_last_error) / dt if dt > 0 else 0.0
+        # Apply exponential moving average filter to derivative
+        derivative = derivative_alpha * bioreactor._temp_last_derivative + (1 - derivative_alpha) * raw_derivative
+        bioreactor._temp_last_derivative = derivative
         
         # Calculate PID output
         output = kp * error + ki * bioreactor._temp_integral + kd * derivative
