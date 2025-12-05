@@ -77,8 +77,8 @@ with Bioreactor(config) as reactor:
     #     print(f"Temperature: {get_temperature(reactor, 0)}")
     
     # Use RelayController for clean API (recommended)
-    if reactor.is_component_initialized('relays'):
-        print(f"pump_1: {'on' if reactor.relay_controller.get_state('pump_1') else 'off'}")
+    # if reactor.is_component_initialized('relays'):
+    #     print(f"pump_1: {'on' if reactor.relay_controller.get_state('pump_1') else 'off'}")
         # Other examples:
         # reactor.relay_controller.on('pump_1')      # Turn relay ON
         # reactor.relay_controller.off('pump_1')     # Turn relay OFF
