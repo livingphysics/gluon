@@ -14,7 +14,7 @@ def init_relays(bioreactor, config):
     
     Args:
         bioreactor: Bioreactor instance
-        config: Configuration object with RELAY_PINS and RELAY_NAMES
+        config: Configuration object with RELAY_PINS dict mapping names to pins
         
     Returns:
         dict: {'relays': dict mapping relay names to pins, 'initialized': bool}
@@ -29,13 +29,22 @@ def init_relays(bioreactor, config):
             gpio_chip = lgpio.gpiochip_open(0)  # Fallback for older Pi
         
         relays = {}
-        relay_pins = getattr(config, 'RELAY_PINS', [])
-        relay_names = getattr(config, 'RELAY_NAMES', [f'relay_{i+1}' for i in range(len(relay_pins))])
+        relay_pins = getattr(config, 'RELAY_PINS', {})
         
-        for pin, name in zip(relay_pins, relay_names):
-            lgpio.gpio_claim_output(gpio_chip, pin, 1)  # Initialize to OFF (1 = OFF with inverted logic)
-            relays[name] = {'pin': pin, 'chip': gpio_chip}
-            logger.info(f"Relay {name} initialized on pin {pin}")
+        # Handle both dict format (new) and list format (legacy compatibility)
+        if isinstance(relay_pins, dict):
+            # New dict format: {'relay_name': pin_number}
+            for name, pin in relay_pins.items():
+                lgpio.gpio_claim_output(gpio_chip, pin, 1)  # Initialize to OFF (1 = OFF with inverted logic)
+                relays[name] = {'pin': pin, 'chip': gpio_chip}
+                logger.info(f"Relay {name} initialized on pin {pin}")
+        else:
+            # Legacy list format: [pin1, pin2, ...] with separate RELAY_NAMES
+            relay_names = getattr(config, 'RELAY_NAMES', [f'relay_{i+1}' for i in range(len(relay_pins))])
+            for pin, name in zip(relay_pins, relay_names):
+                lgpio.gpio_claim_output(gpio_chip, pin, 1)  # Initialize to OFF (1 = OFF with inverted logic)
+                relays[name] = {'pin': pin, 'chip': gpio_chip}
+                logger.info(f"Relay {name} initialized on pin {pin}")
         
         bioreactor.gpio_chip = gpio_chip
         bioreactor.relays = relays

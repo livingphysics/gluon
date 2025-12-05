@@ -31,8 +31,12 @@ class Config:
     }
     
     # Relay Configuration
-    RELAY_PINS: list[int] = [6, 13, 19, 26]  # GPIO pins for relays
-    RELAY_NAMES: list[str] = ['relay_1', 'relay_2', 'relay_3', 'relay_4']  # Names for each relay
+    RELAY_PINS: dict[str, int] = {
+        'relay_1': 6,
+        'relay_2': 13,
+        'relay_3': 19,
+        'relay_4': 26,
+    }  # Dictionary mapping relay names to GPIO pins
     
     # Sensor Configuration
     # CO2 sensor uses serial interface
@@ -58,6 +62,6 @@ class Config:
     PELTIER_PWM_FREQ: int = 1000  # PWM frequency in Hz
 
     # Stirrer Configuration (PWM only)
-    STIRRER_PWM_PIN: int = 25  # BCM pin for stirrer PWM output
+    STIRRER_PWM_PIN: int = 21  # BCM pin for stirrer PWM output
     STIRRER_PWM_FREQ: int = 1000  # PWM frequency in Hz
-    STIRRER_DEFAULT_DUTY: float = 0.0  # Default duty cycle (0-100)
+    STIRRER_DEFAULT_DUTY: float = 20.0  # Default duty cycle (0-100)

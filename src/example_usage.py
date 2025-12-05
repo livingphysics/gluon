@@ -24,18 +24,22 @@ config = Config()
 
 # Override some settings in the configuration
 config.INIT_COMPONENTS = {
-    'relays': False,
-    'co2_sensor': False,
-    'co2_sensor_2': False,  # Enable second CO2 sensor on /dev/ttyUSB1
-    'o2_sensor': False,  # Enable O2 sensor for plotting
-    'i2c': False,
-    'temp_sensor': False,
+    'relays': True,
+    'co2_sensor': True,
+    'co2_sensor_2': True,  # Enable second CO2 sensor on /dev/ttyUSB1
+    'o2_sensor': True,  # Enable O2 sensor for plotting
+    'i2c': True,
+    'temp_sensor': True,
     'peltier_driver': True,
     'stirrer': True,
 }
 
-config.RELAY_PINS = [6, 13, 19, 26]
-config.RELAY_NAMES = ['pump_1', 'co2_solenoid', 'dump_valve', 'relay_4']
+config.RELAY_PINS = {
+    'pump_1': 6,
+    'co2_solenoid': 13,
+    'dump_valve': 19,
+    'relay_4': 26,
+}
 
 config.LOG_TO_TERMINAL = True  # Print logs to terminal (default: True)
 config.LOG_FILE = 'bioreactor.log'  # Also log to file
