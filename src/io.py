@@ -511,6 +511,34 @@ def read_co2(bioreactor) -> Optional[float]:
     return None
 
 
+def read_co2_2(bioreactor) -> Optional[float]:
+    """Read CO2 value from second serial sensor.
+    
+    Args:
+        bioreactor: Bioreactor instance
+        
+    Returns:
+        Optional[float]: CO2 concentration in ppm, or None if sensor not available or error
+    """
+    if not bioreactor.is_component_initialized('co2_sensor_2'):
+        return None
+    
+    try:
+        sensor = bioreactor.co2_sensor_2
+        sensor.flushInput()
+        sensor.write(b"\xFE\x44\x00\x08\x02\x9F\x25")
+        time.sleep(0.1)  # Reduced wait time
+        resp = sensor.read(7)
+        if len(resp) >= 5:
+            high = resp[3]
+            low = resp[4]
+            co2_value = 10 * ((high * 256) + low)
+            return float(co2_value)
+    except Exception as e:
+        bioreactor.logger.warning(f"Error reading CO2 sensor 2: {e}")
+    return None
+
+
 def read_o2(bioreactor) -> Optional[float]:
     """Read O2 value from I2C sensor (Atlas Scientific).
     

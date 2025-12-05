@@ -17,6 +17,7 @@ logger = logging.getLogger("Bioreactor.Utils")
 _plot_data = {
     'time': deque(maxlen=1000),
     'co2': deque(maxlen=1000),
+    'co2_2': deque(maxlen=1000),
     'o2': deque(maxlen=1000),
     'temperature': deque(maxlen=1000),
     'od_trx': deque(maxlen=1000),
@@ -36,7 +37,7 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None):
     1. Reads all sensor values
     2. Writes data to CSV file
     3. Updates live plots in 3 subplots:
-       - Subplot 1: CO2
+       - Subplot 1: CO2 and CO2_2 (both sensors)
        - Subplot 2: O2 and Temperature
        - Subplot 3: OD voltages (Trx and Sct)
     
@@ -50,7 +51,7 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None):
     global _plot_fig, _plot_axes
     
     # Import IO functions
-    from .io import get_temperature, read_voltage, measure_od, read_co2, read_o2
+    from .io import get_temperature, read_voltage, measure_od, read_co2, read_co2_2, read_o2
     
     # Get elapsed time
     if elapsed is None:
@@ -61,7 +62,7 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None):
     # Read sensors
     sensor_data = {'time': elapsed}
     
-    # Read CO2
+    # Read CO2 (first sensor)
     co2_value = read_co2(bioreactor)
     if co2_value is not None:
         sensor_data['co2'] = co2_value
@@ -69,6 +70,15 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None):
     else:
         sensor_data['co2'] = float('nan')
         _plot_data['co2'].append(float('nan'))
+    
+    # Read CO2 (second sensor)
+    co2_2_value = read_co2_2(bioreactor)
+    if co2_2_value is not None:
+        sensor_data['co2_2'] = co2_2_value
+        _plot_data['co2_2'].append(co2_2_value)
+    else:
+        sensor_data['co2_2'] = float('nan')
+        _plot_data['co2_2'].append(float('nan'))
     
     # Read O2
     o2_value = read_o2(bioreactor)
@@ -141,6 +151,7 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None):
             csv_row = {
                 'time': elapsed,
                 config.SENSOR_LABELS.get('co2', 'CO2_ppm'): sensor_data['co2'],
+                config.SENSOR_LABELS.get('co2_2', 'CO2_2_ppm'): sensor_data.get('co2_2', float('nan')),
                 config.SENSOR_LABELS.get('o2', 'O2_percent'): sensor_data['o2'],
                 config.SENSOR_LABELS.get('temperature', 'temperature_C'): sensor_data['temperature'],
             }
@@ -173,7 +184,7 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None):
             plt.ion()  # Turn on interactive mode
             plt.show(block=False)
         
-        # Subplot 1: CO2
+        # Subplot 1: CO2 (both sensors)
         ax1 = _plot_axes[0]
         ax1.clear()
         ax1.set_title('CO2 Concentration')
@@ -181,6 +192,8 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None):
         ax1.grid(True, alpha=0.3)
         if len(_plot_data['co2']) > 0:
             ax1.plot(list(_plot_data['time']), list(_plot_data['co2']), 'b-', linewidth=2, label='CO2')
+        if len(_plot_data['co2_2']) > 0:
+            ax1.plot(list(_plot_data['time']), list(_plot_data['co2_2']), 'r--', linewidth=2, label='CO2_2')
         ax1.legend()
         
         # Subplot 2: O2 and Temperature
@@ -217,6 +230,7 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None):
     
     bioreactor.logger.info(
         f"Sensor readings - CO2: {sensor_data.get('co2', 'N/A'):.1f} ppm, "
+        f"CO2_2: {sensor_data.get('co2_2', 'N/A'):.1f} ppm, "
         f"O2: {sensor_data.get('o2', 'N/A'):.2f}%, "
         f"Temp: {sensor_data.get('temperature', 'N/A'):.2f}°C, "
         f"OD Trx: {sensor_data.get('od_trx', 'N/A'):.4f}V, "
