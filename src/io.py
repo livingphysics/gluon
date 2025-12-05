@@ -457,26 +457,107 @@ def measure_od(bioreactor, led_power: float, averaging_duration: float, channel_
 
 
 def get_temperature(bioreactor, sensor_index=0):
-        """Get temperature from DS18B20 sensor(s).
+    """Get temperature from DS18B20 sensor(s).
+    
+    Args:
+        sensor_index (int): Index of sensor to read (default: 0 for first sensor)
         
-        Args:
-            sensor_index (int): Index of sensor to read (default: 0 for first sensor)
-            
-        Returns:
-            float: Temperature in Celsius, or NaN if sensor not available
-        """
-        if not bioreactor.is_component_initialized('temp_sensor'):
+    Returns:
+        float: Temperature in Celsius, or NaN if sensor not available
+    """
+    if not bioreactor.is_component_initialized('temp_sensor'):
+        return float('nan')
+    
+    try:
+        if hasattr(bioreactor, 'temp_sensors') and len(bioreactor.temp_sensors) > sensor_index:
+            bioreactor.logger.info(f"Reading temperature from sensor {sensor_index}")
+            temperature = bioreactor.temp_sensors[sensor_index].get_temperature()
+            bioreactor.logger.info(f"Temperature: {temperature}")
+            return temperature
+        else:
+            bioreactor.logger.warning(f"Temperature sensor index {sensor_index} not available")
             return float('nan')
+    except Exception as e:
+        bioreactor.logger.error(f"Error reading temperature sensor {sensor_index}: {e}")
+        return float('nan')
+
+
+def set_peltier_power(bioreactor, duty_cycle: Union[int, float], forward: Union[bool, str] = True) -> bool:
+    """
+    Set the PWM duty cycle and direction for the peltier driver.
+    
+    Args:
+        bioreactor: Bioreactor instance
+        duty_cycle: Target duty percentage (0-100)
+        forward: Direction flag or descriptive string ('heat', 'cool', etc.)
         
-        try:
-            if hasattr(bioreactor, 'temp_sensors') and len(bioreactor.temp_sensors) > sensor_index:
-                bioreactor.logger.info(f"Reading temperature from sensor {sensor_index}")
-                temperature = bioreactor.temp_sensors[sensor_index].get_temperature()
-                bioreactor.logger.info(f"Temperature: {temperature}")
-                return temperature
-            else:
-                bioreactor.logger.warning(f"Temperature sensor index {sensor_index} not available")
-                return float('nan')
-        except Exception as e:
-            bioreactor.logger.error(f"Error reading temperature sensor {sensor_index}: {e}")
-            return float('nan')
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    driver = getattr(bioreactor, 'peltier_driver', None)
+    if not bioreactor.is_component_initialized('peltier_driver') or driver is None:
+        bioreactor.logger.warning("Peltier driver not initialized; skipping command.")
+        return False
+
+    if isinstance(forward, str):
+        fwd = forward.lower()
+        if fwd in ('forward', 'cool', 'cold'):
+            forward_bool = True
+        elif fwd in ('reverse', 'heat', 'warm', 'hot'):
+            forward_bool = False
+        else:
+            # Fallback: interpret truthy string as True
+            forward_bool = fwd in ('true', '1', 'on')
+    else:
+        forward_bool = bool(forward)
+
+    return driver.set(duty_cycle, forward=forward_bool)
+
+
+def stop_peltier(bioreactor) -> None:
+    """
+    Stop PWM output on the peltier driver, if available.
+    
+    Args:
+        bioreactor: Bioreactor instance
+    """
+    driver = getattr(bioreactor, 'peltier_driver', None)
+    if not driver:
+        return
+    try:
+        driver.stop()
+    except Exception as e:
+        bioreactor.logger.error(f"Failed to stop peltier driver: {e}")
+
+
+def set_stirrer_speed(bioreactor, duty_cycle: Union[int, float]) -> bool:
+    """
+    Set stirrer PWM duty cycle.
+    
+    Args:
+        bioreactor: Bioreactor instance
+        duty_cycle: Target duty (0-100)
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    driver = getattr(bioreactor, 'stirrer_driver', None)
+    if not bioreactor.is_component_initialized('stirrer') or driver is None:
+        bioreactor.logger.warning("Stirrer driver not initialized; skipping command.")
+        return False
+    return driver.set_speed(duty_cycle)
+
+
+def stop_stirrer(bioreactor) -> None:
+    """Stop stirrer PWM output.
+    
+    Args:
+        bioreactor: Bioreactor instance
+    """
+    driver = getattr(bioreactor, 'stirrer_driver', None)
+    if not driver:
+        return
+    try:
+        driver.stop()
+    except Exception as e:
+        bioreactor.logger.error(f"Failed to stop stirrer: {e}")
