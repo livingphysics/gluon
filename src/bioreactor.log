@@ -4367,3 +4367,254 @@
 2025-11-26 09:46:08,647 - Bioreactor - INFO - Data file closed.
 2025-11-26 09:46:08,647 - Bioreactor - INFO - Peltier PWM stopped.
 2025-11-26 09:46:08,647 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:14:21,847 - Bioreactor - INFO - Initializing Bioreactor...
+2025-12-05 10:14:21,847 - Bioreactor - INFO - Initializing peltier_driver...
+2025-12-05 10:14:21,849 - Bioreactor.Components - INFO - Peltier driver initialized (PWM pin 12, DIR pin 16, 1000 Hz)
+2025-12-05 10:14:21,850 - Bioreactor - INFO - peltier_driver initialized successfully
+2025-12-05 10:14:21,850 - Bioreactor - INFO - Initializing stirrer...
+2025-12-05 10:14:21,850 - Bioreactor.Components - INFO - Stirrer driver initialized (PWM pin 21, 1000 Hz)
+2025-12-05 10:14:21,850 - Bioreactor - INFO - stirrer initialized successfully
+2025-12-05 10:14:21,850 - Bioreactor - INFO - Data logging to: bioreactor_data/bioreactor_data.csv
+2025-12-05 10:14:21,850 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-12-05 10:14:21,850 - Bioreactor - INFO - Peltier set to 25.0% duty, direction reverse
+2025-12-05 10:14:31,850 - Bioreactor - INFO - Peltier set to 25.0% duty, direction forward
+2025-12-05 10:14:41,851 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:14:41,851 - Bioreactor - INFO - Stirrer duty set to 50.0%
+2025-12-05 10:14:46,851 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:14:46,851 - Bioreactor - INFO - Started 0 job threads.
+2025-12-05 10:15:44,441 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:15:44,441 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:15:44,441 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:15:44,441 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:15:44,441 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:15:44,441 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:15:44,441 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:15:44,442 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:15:44,442 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:15:44,442 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:15:44,442 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:15:44,442 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:15:48,891 - Bioreactor - INFO - Initializing Bioreactor...
+2025-12-05 10:15:48,891 - Bioreactor - INFO - Initializing relays...
+2025-12-05 10:15:48,893 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-12-05 10:15:48,893 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-12-05 10:15:48,893 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-12-05 10:15:48,893 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-12-05 10:15:48,893 - Bioreactor - INFO - relays initialized successfully
+2025-12-05 10:15:48,893 - Bioreactor - INFO - Initializing temp_sensor...
+2025-12-05 10:15:48,897 - Bioreactor.Components - INFO - DS18B20 temperature sensors initialized (0 sensors)
+2025-12-05 10:15:48,897 - Bioreactor - INFO - temp_sensor initialized successfully
+2025-12-05 10:15:48,897 - Bioreactor - INFO - Initializing peltier_driver...
+2025-12-05 10:15:48,897 - Bioreactor.Components - INFO - Peltier driver initialized (PWM pin 12, DIR pin 16, 1000 Hz)
+2025-12-05 10:15:48,898 - Bioreactor - INFO - peltier_driver initialized successfully
+2025-12-05 10:15:48,898 - Bioreactor - INFO - Initializing stirrer...
+2025-12-05 10:15:48,898 - Bioreactor.Components - INFO - Stirrer driver initialized (PWM pin 21, 1000 Hz)
+2025-12-05 10:15:48,898 - Bioreactor - INFO - stirrer initialized successfully
+2025-12-05 10:15:48,898 - Bioreactor - INFO - Data logging to: bioreactor_data/bioreactor_data.csv
+2025-12-05 10:15:48,898 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-12-05 10:15:48,898 - Bioreactor - WARNING - Temperature sensor index 0 not available
+2025-12-05 10:15:48,898 - Bioreactor - INFO - Peltier set to 25.0% duty, direction reverse
+2025-12-05 10:15:58,898 - Bioreactor - INFO - Peltier set to 25.0% duty, direction forward
+2025-12-05 10:16:08,899 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:16:08,899 - Bioreactor - INFO - Stirrer duty set to 50.0%
+2025-12-05 10:16:13,899 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:16:13,899 - Bioreactor - INFO - Started 0 job threads.
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:16:19,750 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:19:58,539 - Bioreactor - INFO - Initializing Bioreactor...
+2025-12-05 10:19:58,539 - Bioreactor - INFO - Initializing relays...
+2025-12-05 10:19:58,541 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-12-05 10:19:58,541 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-12-05 10:19:58,541 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-12-05 10:19:58,541 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-12-05 10:19:58,541 - Bioreactor - INFO - relays initialized successfully
+2025-12-05 10:19:58,541 - Bioreactor - INFO - Initializing co2_sensor...
+2025-12-05 10:19:59,566 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-12-05 10:19:59,567 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-12-05 10:19:59,567 - Bioreactor - INFO - Initializing co2_sensor_2...
+2025-12-05 10:20:00,576 - Bioreactor.Components - INFO - CO2 sensor 2 initialized on /dev/ttyUSB1 at 9600 baud
+2025-12-05 10:20:00,576 - Bioreactor - INFO - co2_sensor_2 initialized successfully
+2025-12-05 10:20:00,576 - Bioreactor - INFO - Initializing o2_sensor...
+2025-12-05 10:20:00,584 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-12-05 10:20:00,584 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-12-05 10:20:00,584 - Bioreactor - INFO - Initializing i2c...
+2025-12-05 10:20:00,595 - Bioreactor.Components - INFO - I2C bus initialized
+2025-12-05 10:20:00,595 - Bioreactor - INFO - i2c initialized successfully
+2025-12-05 10:20:00,595 - Bioreactor - INFO - Initializing temp_sensor...
+2025-12-05 10:20:00,596 - Bioreactor.Components - INFO - DS18B20 temperature sensors initialized (0 sensors)
+2025-12-05 10:20:00,596 - Bioreactor - INFO - temp_sensor initialized successfully
+2025-12-05 10:20:00,596 - Bioreactor - INFO - Initializing peltier_driver...
+2025-12-05 10:20:00,597 - Bioreactor.Components - INFO - Peltier driver initialized (PWM pin 12, DIR pin 16, 1000 Hz)
+2025-12-05 10:20:00,597 - Bioreactor - INFO - peltier_driver initialized successfully
+2025-12-05 10:20:00,597 - Bioreactor - INFO - Initializing stirrer...
+2025-12-05 10:20:00,597 - Bioreactor.Components - INFO - Stirrer driver initialized (PWM pin 21, 1000 Hz)
+2025-12-05 10:20:00,597 - Bioreactor - INFO - stirrer initialized successfully
+2025-12-05 10:20:00,597 - Bioreactor - INFO - Data logging to: bioreactor_data/bioreactor_data.csv
+2025-12-05 10:20:00,597 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-12-05 10:20:00,597 - Bioreactor - WARNING - Temperature sensor index 0 not available
+2025-12-05 10:20:00,597 - Bioreactor - INFO - Peltier set to 25.0% duty, direction reverse
+2025-12-05 10:20:10,598 - Bioreactor - INFO - Peltier set to 25.0% duty, direction forward
+2025-12-05 10:20:20,598 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:20:20,598 - Bioreactor - INFO - Stirrer duty set to 50.0%
+2025-12-05 10:20:25,598 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:20:25,599 - Bioreactor - INFO - Started 0 job threads.
+2025-12-05 10:20:30,530 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:20:30,530 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:20:30,531 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:20:30,531 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:20:30,531 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:20:30,531 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:20:30,531 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:20:30,531 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:20:30,531 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:20:30,531 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:20:30,531 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:20:30,531 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:24:09,034 - Bioreactor - INFO - Initializing Bioreactor...
+2025-12-05 10:24:09,034 - Bioreactor - INFO - Initializing relays...
+2025-12-05 10:24:09,036 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-12-05 10:24:09,036 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-12-05 10:24:09,036 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-12-05 10:24:09,037 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-12-05 10:24:09,037 - Bioreactor - INFO - relays initialized successfully
+2025-12-05 10:24:09,037 - Bioreactor - INFO - Initializing co2_sensor...
+2025-12-05 10:24:10,052 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-12-05 10:24:10,052 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-12-05 10:24:10,052 - Bioreactor - INFO - Initializing co2_sensor_2...
+2025-12-05 10:24:11,061 - Bioreactor.Components - INFO - CO2 sensor 2 initialized on /dev/ttyUSB1 at 9600 baud
+2025-12-05 10:24:11,062 - Bioreactor - INFO - co2_sensor_2 initialized successfully
+2025-12-05 10:24:11,062 - Bioreactor - INFO - Initializing o2_sensor...
+2025-12-05 10:24:11,067 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-12-05 10:24:11,067 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-12-05 10:24:11,067 - Bioreactor - INFO - Initializing i2c...
+2025-12-05 10:24:11,083 - Bioreactor.Components - INFO - I2C bus initialized
+2025-12-05 10:24:11,083 - Bioreactor - INFO - i2c initialized successfully
+2025-12-05 10:24:11,083 - Bioreactor - INFO - Initializing temp_sensor...
+2025-12-05 10:24:11,092 - Bioreactor.Components - INFO - DS18B20 temperature sensors initialized (1 sensors)
+2025-12-05 10:24:11,093 - Bioreactor - INFO - temp_sensor initialized successfully
+2025-12-05 10:24:11,093 - Bioreactor - INFO - Initializing peltier_driver...
+2025-12-05 10:24:11,093 - Bioreactor.Components - INFO - Peltier driver initialized (PWM pin 12, DIR pin 16, 1000 Hz)
+2025-12-05 10:24:11,093 - Bioreactor - INFO - peltier_driver initialized successfully
+2025-12-05 10:24:11,093 - Bioreactor - INFO - Initializing stirrer...
+2025-12-05 10:24:11,093 - Bioreactor.Components - INFO - Stirrer driver initialized (PWM pin 21, 1000 Hz)
+2025-12-05 10:24:11,093 - Bioreactor - INFO - stirrer initialized successfully
+2025-12-05 10:24:11,093 - Bioreactor - INFO - Data logging to: bioreactor_data/bioreactor_data.csv
+2025-12-05 10:24:11,093 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-12-05 10:24:11,094 - Bioreactor - INFO - Reading temperature from sensor 0
+2025-12-05 10:24:11,896 - Bioreactor - INFO - Temperature: 24.562
+2025-12-05 10:24:11,896 - Bioreactor - INFO - Peltier set to 25.0% duty, direction reverse
+2025-12-05 10:24:21,897 - Bioreactor - INFO - Peltier set to 25.0% duty, direction forward
+2025-12-05 10:24:31,897 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:24:31,897 - Bioreactor - INFO - Stirrer duty set to 50.0%
+2025-12-05 10:24:36,897 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:24:36,898 - Bioreactor - INFO - Started 0 job threads.
+2025-12-05 10:24:41,907 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:24:41,907 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:24:41,908 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:24:41,908 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:24:41,908 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:24:41,908 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:24:41,908 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:24:41,908 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:24:41,908 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:24:41,908 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:24:41,908 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:24:41,908 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:25:20,506 - Bioreactor - INFO - Initializing Bioreactor...
+2025-12-05 10:25:20,506 - Bioreactor - INFO - Initializing relays...
+2025-12-05 10:25:20,508 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-12-05 10:25:20,508 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-12-05 10:25:20,508 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-12-05 10:25:20,508 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-12-05 10:25:20,509 - Bioreactor - INFO - relays initialized successfully
+2025-12-05 10:25:20,509 - Bioreactor - INFO - Initializing co2_sensor...
+2025-12-05 10:25:21,523 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-12-05 10:25:21,524 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-12-05 10:25:21,524 - Bioreactor - INFO - Initializing co2_sensor_2...
+2025-12-05 10:25:22,536 - Bioreactor.Components - INFO - CO2 sensor 2 initialized on /dev/ttyUSB1 at 9600 baud
+2025-12-05 10:25:22,536 - Bioreactor - INFO - co2_sensor_2 initialized successfully
+2025-12-05 10:25:22,536 - Bioreactor - INFO - Initializing o2_sensor...
+2025-12-05 10:25:22,541 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-12-05 10:25:22,541 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-12-05 10:25:22,541 - Bioreactor - INFO - Initializing i2c...
+2025-12-05 10:25:22,553 - Bioreactor.Components - INFO - I2C bus initialized
+2025-12-05 10:25:22,553 - Bioreactor - INFO - i2c initialized successfully
+2025-12-05 10:25:22,553 - Bioreactor - INFO - Initializing temp_sensor...
+2025-12-05 10:25:22,558 - Bioreactor.Components - INFO - DS18B20 temperature sensors initialized (1 sensors)
+2025-12-05 10:25:22,558 - Bioreactor - INFO - temp_sensor initialized successfully
+2025-12-05 10:25:22,558 - Bioreactor - INFO - Initializing peltier_driver...
+2025-12-05 10:25:22,559 - Bioreactor.Components - INFO - Peltier driver initialized (PWM pin 12, DIR pin 16, 1000 Hz)
+2025-12-05 10:25:22,559 - Bioreactor - INFO - peltier_driver initialized successfully
+2025-12-05 10:25:22,559 - Bioreactor - INFO - Initializing stirrer...
+2025-12-05 10:25:22,559 - Bioreactor.Components - INFO - Stirrer driver initialized (PWM pin 21, 1000 Hz)
+2025-12-05 10:25:22,559 - Bioreactor - INFO - Stirrer duty set to 10.0%
+2025-12-05 10:25:22,559 - Bioreactor - INFO - stirrer initialized successfully
+2025-12-05 10:25:22,559 - Bioreactor - INFO - Data logging to: bioreactor_data/bioreactor_data.csv
+2025-12-05 10:25:22,559 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-12-05 10:25:22,559 - Bioreactor - INFO - Reading temperature from sensor 0
+2025-12-05 10:25:23,360 - Bioreactor - INFO - Temperature: 22.687
+2025-12-05 10:25:23,360 - Bioreactor - INFO - Peltier set to 25.0% duty, direction reverse
+2025-12-05 10:25:33,361 - Bioreactor - INFO - Peltier set to 25.0% duty, direction forward
+2025-12-05 10:25:43,361 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:25:43,361 - Bioreactor - INFO - Stirrer duty set to 50.0%
+2025-12-05 10:25:48,361 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:25:48,361 - Bioreactor - INFO - Started 0 job threads.
+2025-12-05 10:25:55,878 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:25:55,879 - Bioreactor - INFO - Bioreactor cleanup complete.
+2025-12-05 10:28:04,483 - Bioreactor - INFO - Initializing Bioreactor...
+2025-12-05 10:28:04,483 - Bioreactor - INFO - Initializing relays...
+2025-12-05 10:28:04,486 - Bioreactor.Components - INFO - Relay pump_1 initialized on pin 6
+2025-12-05 10:28:04,486 - Bioreactor.Components - INFO - Relay co2_solenoid initialized on pin 13
+2025-12-05 10:28:04,486 - Bioreactor.Components - INFO - Relay dump_valve initialized on pin 19
+2025-12-05 10:28:04,486 - Bioreactor.Components - INFO - Relay relay_4 initialized on pin 26
+2025-12-05 10:28:04,486 - Bioreactor - INFO - relays initialized successfully
+2025-12-05 10:28:04,486 - Bioreactor - INFO - Initializing co2_sensor...
+2025-12-05 10:28:05,501 - Bioreactor.Components - INFO - CO2 sensor initialized on /dev/ttyUSB0 at 9600 baud
+2025-12-05 10:28:05,501 - Bioreactor - INFO - co2_sensor initialized successfully
+2025-12-05 10:28:05,501 - Bioreactor - INFO - Initializing co2_sensor_2...
+2025-12-05 10:28:06,510 - Bioreactor.Components - INFO - CO2 sensor 2 initialized on /dev/ttyUSB1 at 9600 baud
+2025-12-05 10:28:06,510 - Bioreactor - INFO - co2_sensor_2 initialized successfully
+2025-12-05 10:28:06,510 - Bioreactor - INFO - Initializing o2_sensor...
+2025-12-05 10:28:06,514 - Bioreactor.Components - INFO - O2 sensor initialized at address 108
+2025-12-05 10:28:06,514 - Bioreactor - INFO - o2_sensor initialized successfully
+2025-12-05 10:28:06,514 - Bioreactor - INFO - Initializing i2c...
+2025-12-05 10:28:06,524 - Bioreactor.Components - INFO - I2C bus initialized
+2025-12-05 10:28:06,524 - Bioreactor - INFO - i2c initialized successfully
+2025-12-05 10:28:06,524 - Bioreactor - INFO - Initializing temp_sensor...
+2025-12-05 10:28:06,531 - Bioreactor.Components - INFO - DS18B20 temperature sensors initialized (1 sensors)
+2025-12-05 10:28:06,531 - Bioreactor - INFO - temp_sensor initialized successfully
+2025-12-05 10:28:06,531 - Bioreactor - INFO - Initializing peltier_driver...
+2025-12-05 10:28:06,531 - Bioreactor.Components - INFO - Peltier driver initialized (PWM pin 12, DIR pin 16, 1000 Hz)
+2025-12-05 10:28:06,531 - Bioreactor - INFO - peltier_driver initialized successfully
+2025-12-05 10:28:06,531 - Bioreactor - INFO - Initializing stirrer...
+2025-12-05 10:28:06,532 - Bioreactor.Components - INFO - Stirrer driver initialized (PWM pin 21, 1000 Hz)
+2025-12-05 10:28:06,532 - Bioreactor - INFO - Stirrer duty set to 20.0%
+2025-12-05 10:28:06,532 - Bioreactor - INFO - stirrer initialized successfully
+2025-12-05 10:28:06,532 - Bioreactor - INFO - Data logging to: bioreactor_data/bioreactor_data.csv
+2025-12-05 10:28:06,532 - Bioreactor - INFO - Bioreactor initialization complete.
+2025-12-05 10:28:06,532 - Bioreactor - INFO - Cleaning up Bioreactor...
+2025-12-05 10:28:06,532 - Bioreactor - INFO - Stop event set for all threads.
+2025-12-05 10:28:06,532 - Bioreactor - INFO - Data file closed.
+2025-12-05 10:28:06,533 - Bioreactor - INFO - Peltier PWM stopped.
+2025-12-05 10:28:06,533 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2025-12-05 10:28:06,533 - Bioreactor - INFO - Bioreactor cleanup complete.
