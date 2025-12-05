@@ -103,13 +103,13 @@ with Bioreactor(config) as reactor:
     if reactor.is_component_initialized('led') and reactor.is_component_initialized('optical_density'):
         print("Taking OD measurement...")
         # Measure OD with LED at 50% power, averaging for 2 seconds on single channel
-        od_voltage = measure_od(reactor, led_power=50.0, averaging_duration=2.0, channel_name='Trx')
+        od_voltage = measure_od(reactor, led_power=30.0, averaging_duration=2.0, channel_name='Trx')
         if od_voltage is not None:
             print(f"OD measurement (Trx channel): {od_voltage:.4f}V")
         
         # Example: Measure all channels at once
         print("Taking OD measurement on all channels...")
-        all_od_results = measure_od(reactor, led_power=50.0, averaging_duration=2.0, channel_name='all')
+        all_od_results = measure_od(reactor, led_power=30.0, averaging_duration=2.0, channel_name='all')
         if all_od_results is not None:
             print("OD measurements (all channels):")
             for channel, voltage in all_od_results.items():
