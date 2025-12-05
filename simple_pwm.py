@@ -11,9 +11,9 @@ ads = ADS1115(i2c)
 # Create single-ended inputs on channels A0, A1, and A2
 adc_channels = {}
 adc_pin_map = {
-	'A0': ads1x15.Pin.A0,
-	'A1': ads1x15.Pin.A1,
-	'A2': ads1x15.Pin.A2,
+	'Trx': ads1x15.Pin.A0,
+	'Ref': ads1x15.Pin.A1,
+	'Sct': ads1x15.Pin.A2,
 }
 for channel_name, pin in adc_pin_map.items():
 	adc_channels[channel_name] = AnalogIn(ads, pin)
