@@ -56,6 +56,8 @@ class Config:
         'co2_2': 'CO2_2_ppm',
         'o2': 'O2_percent',
         'temperature': 'temperature_C',
+        'od_trx': 'OD_Trx_V',
+        'od_sct': 'OD_Sct_V',
     }
 
     # Peltier Driver Configuration (Raspberry Pi 5 GPIO via lgpio)

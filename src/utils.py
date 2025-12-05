@@ -1,16 +1,227 @@
 """
-Utility functions for bioreactor operations. These are not intended to be used directly by the user, but rather to be used by the bioreactor class.
+Composite utility functions for bioreactor operations.
+These functions combine multiple operations or provide higher-level convenience wrappers.
 These functions are designed to be used with bioreactor.run() for scheduled tasks.
 """
 
 import time
 import logging
-from typing import Union
+from typing import Union, Optional
 from collections import deque
 import matplotlib.pyplot as plt
+import numpy as np
 
 logger = logging.getLogger("Bioreactor.Utils")
 
+# Global storage for plotting data
+_plot_data = {
+    'time': deque(maxlen=1000),
+    'co2': deque(maxlen=1000),
+    'o2': deque(maxlen=1000),
+    'temperature': deque(maxlen=1000),
+    'od_trx': deque(maxlen=1000),
+    'od_sct': deque(maxlen=1000),
+}
+
+# Global figure and axes for plotting
+_plot_fig = None
+_plot_axes = None
 
 
+def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None):
+    """
+    Measure, record, and plot sensor data from OD (Trx, Sct), Temperature, CO2, and O2.
+    
+    This composite function:
+    1. Reads all sensor values
+    2. Writes data to CSV file
+    3. Updates live plots in 3 subplots:
+       - Subplot 1: CO2
+       - Subplot 2: O2 and Temperature
+       - Subplot 3: OD voltages (Trx and Sct)
+    
+    Args:
+        bioreactor: Bioreactor instance
+        elapsed: Elapsed time in seconds (if None, uses time since start)
+        
+    Returns:
+        dict: Dictionary with all sensor readings
+    """
+    global _plot_fig, _plot_axes
+    
+    # Import IO functions
+    from .io import get_temperature, read_voltage, measure_od, read_co2, read_o2
+    
+    # Get elapsed time
+    if elapsed is None:
+        if not hasattr(bioreactor, '_start_time'):
+            bioreactor._start_time = time.time()
+        elapsed = time.time() - bioreactor._start_time
+    
+    # Read sensors
+    sensor_data = {'time': elapsed}
+    
+    # Read CO2
+    co2_value = read_co2(bioreactor)
+    if co2_value is not None:
+        sensor_data['co2'] = co2_value
+        _plot_data['co2'].append(co2_value)
+    else:
+        sensor_data['co2'] = float('nan')
+        _plot_data['co2'].append(float('nan'))
+    
+    # Read O2
+    o2_value = read_o2(bioreactor)
+    if o2_value is not None:
+        sensor_data['o2'] = o2_value
+        _plot_data['o2'].append(o2_value)
+    else:
+        sensor_data['o2'] = float('nan')
+        _plot_data['o2'].append(float('nan'))
+    
+    # Read Temperature
+    temp_value = get_temperature(bioreactor, sensor_index=0)
+    if not np.isnan(temp_value):
+        sensor_data['temperature'] = temp_value
+        _plot_data['temperature'].append(temp_value)
+    else:
+        sensor_data['temperature'] = float('nan')
+        _plot_data['temperature'].append(float('nan'))
+    
+    # Read OD channels (Trx and Sct)
+    if bioreactor.is_component_initialized('led') and bioreactor.is_component_initialized('optical_density'):
+        # Measure OD with LED on
+        od_results = measure_od(bioreactor, led_power=30.0, averaging_duration=0.5, channel_name='all')
+        if od_results:
+            trx_voltage = od_results.get('Trx', None)
+            sct_voltage = od_results.get('Sct', None)
+            
+            if trx_voltage is not None:
+                sensor_data['od_trx'] = trx_voltage
+                _plot_data['od_trx'].append(trx_voltage)
+            else:
+                sensor_data['od_trx'] = float('nan')
+                _plot_data['od_trx'].append(float('nan'))
+            
+            if sct_voltage is not None:
+                sensor_data['od_sct'] = sct_voltage
+                _plot_data['od_sct'].append(sct_voltage)
+            else:
+                sensor_data['od_sct'] = float('nan')
+                _plot_data['od_sct'].append(float('nan'))
+        else:
+            sensor_data['od_trx'] = float('nan')
+            sensor_data['od_sct'] = float('nan')
+            _plot_data['od_trx'].append(float('nan'))
+            _plot_data['od_sct'].append(float('nan'))
+    else:
+        # Try reading without LED if OD sensor is available but LED is not
+        if bioreactor.is_component_initialized('optical_density'):
+            trx_voltage = read_voltage(bioreactor, 'Trx')
+            sct_voltage = read_voltage(bioreactor, 'Sct')
+            
+            sensor_data['od_trx'] = trx_voltage if trx_voltage is not None else float('nan')
+            sensor_data['od_sct'] = sct_voltage if sct_voltage is not None else float('nan')
+            _plot_data['od_trx'].append(sensor_data['od_trx'])
+            _plot_data['od_sct'].append(sensor_data['od_sct'])
+        else:
+            sensor_data['od_trx'] = float('nan')
+            sensor_data['od_sct'] = float('nan')
+            _plot_data['od_trx'].append(float('nan'))
+            _plot_data['od_sct'].append(float('nan'))
+    
+    # Add time to plot data
+    _plot_data['time'].append(elapsed)
+    
+    # Write to CSV
+    if hasattr(bioreactor, 'writer') and bioreactor.writer:
+        # Map to config labels if available
+        config = getattr(bioreactor, 'cfg', None)
+        if config and hasattr(config, 'SENSOR_LABELS'):
+            csv_row = {
+                'time': elapsed,
+                config.SENSOR_LABELS.get('co2', 'CO2_ppm'): sensor_data['co2'],
+                config.SENSOR_LABELS.get('o2', 'O2_percent'): sensor_data['o2'],
+                config.SENSOR_LABELS.get('temperature', 'temperature_C'): sensor_data['temperature'],
+            }
+            # Add OD data using config labels
+            if 'od_trx' in sensor_data:
+                csv_row[config.SENSOR_LABELS.get('od_trx', 'OD_Trx_V')] = sensor_data['od_trx']
+            if 'od_sct' in sensor_data:
+                csv_row[config.SENSOR_LABELS.get('od_sct', 'OD_Sct_V')] = sensor_data['od_sct']
+        else:
+            csv_row = sensor_data
+        
+        try:
+            # Only write fields that exist in fieldnames to avoid errors
+            if hasattr(bioreactor, 'fieldnames'):
+                filtered_row = {k: v for k, v in csv_row.items() if k in bioreactor.fieldnames}
+                bioreactor.writer.writerow(filtered_row)
+            else:
+                bioreactor.writer.writerow(csv_row)
+            if hasattr(bioreactor, 'out_file'):
+                bioreactor.out_file.flush()
+        except Exception as e:
+            bioreactor.logger.error(f"Error writing to CSV: {e}")
+    
+    # Update plots
+    if len(_plot_data['time']) > 1:
+        # Initialize figure if needed
+        if _plot_fig is None:
+            _plot_fig, _plot_axes = plt.subplots(3, 1, figsize=(12, 10))
+            _plot_fig.suptitle('Live Sensor Monitoring', fontsize=14)
+            plt.ion()  # Turn on interactive mode
+            plt.show(block=False)
+        
+        # Subplot 1: CO2
+        ax1 = _plot_axes[0]
+        ax1.clear()
+        ax1.set_title('CO2 Concentration')
+        ax1.set_ylabel('CO2 (ppm)')
+        ax1.grid(True, alpha=0.3)
+        if len(_plot_data['co2']) > 0:
+            ax1.plot(list(_plot_data['time']), list(_plot_data['co2']), 'b-', linewidth=2, label='CO2')
+        ax1.legend()
+        
+        # Subplot 2: O2 and Temperature
+        ax2 = _plot_axes[1]
+        ax2.clear()
+        ax2.set_title('O2 and Temperature')
+        ax2.set_ylabel('O2 (%) / Temp (°C)')
+        ax2.grid(True, alpha=0.3)
+        if len(_plot_data['o2']) > 0:
+            ax2.plot(list(_plot_data['time']), list(_plot_data['o2']), 'r-', linewidth=2, label='O2')
+        if len(_plot_data['temperature']) > 0:
+            ax2_twin = ax2.twinx()
+            ax2_twin.plot(list(_plot_data['time']), list(_plot_data['temperature']), 'g-', linewidth=2, label='Temperature')
+            ax2_twin.set_ylabel('Temperature (°C)')
+            ax2_twin.legend(loc='upper right')
+        ax2.legend(loc='upper left')
+        
+        # Subplot 3: OD voltages
+        ax3 = _plot_axes[2]
+        ax3.clear()
+        ax3.set_title('Optical Density Voltages')
+        ax3.set_xlabel('Time (seconds)')
+        ax3.set_ylabel('Voltage (V)')
+        ax3.grid(True, alpha=0.3)
+        if len(_plot_data['od_trx']) > 0:
+            ax3.plot(list(_plot_data['time']), list(_plot_data['od_trx']), 'm-', linewidth=2, label='Trx')
+        if len(_plot_data['od_sct']) > 0:
+            ax3.plot(list(_plot_data['time']), list(_plot_data['od_sct']), 'c-', linewidth=2, label='Sct')
+        ax3.legend()
+        
+        plt.tight_layout()
+        plt.draw()
+        plt.pause(0.01)  # Small pause to update display
+    
+    bioreactor.logger.info(
+        f"Sensor readings - CO2: {sensor_data.get('co2', 'N/A'):.1f} ppm, "
+        f"O2: {sensor_data.get('o2', 'N/A'):.2f}%, "
+        f"Temp: {sensor_data.get('temperature', 'N/A'):.2f}°C, "
+        f"OD Trx: {sensor_data.get('od_trx', 'N/A'):.4f}V, "
+        f"OD Sct: {sensor_data.get('od_sct', 'N/A'):.4f}V"
+    )
+    
+    return sensor_data
 

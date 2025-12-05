@@ -14,6 +14,7 @@ class Bioreactor():
     """Class to manage all sensors and operations for the bioreactor"""
     
     def __init__(self, config=None) -> None:
+        self.cfg = config  # Store config for access in utility functions
         """Initialize bioreactor framework without specific hardware components."""
         
         # Configuration
