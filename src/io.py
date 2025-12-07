@@ -4,6 +4,7 @@ These are not intended to be used directly by the user, but rather to be used by
 """
 
 import logging
+import math
 import time
 from typing import Optional, Dict, Union
 
@@ -473,6 +474,15 @@ def get_temperature(bioreactor, sensor_index=0):
         if hasattr(bioreactor, 'temp_sensors') and len(bioreactor.temp_sensors) > sensor_index:
             bioreactor.logger.info(f"Reading temperature from sensor {sensor_index}")
             temperature = bioreactor.temp_sensors[sensor_index].get_temperature()
+            
+            # Check if temperature is within valid bounds (0-100°C)
+            if not math.isnan(temperature):
+                if temperature < 0.0 or temperature > 100.0:
+                    bioreactor.logger.warning(
+                        f"Temperature reading {temperature:.2f}°C is outside valid bounds (0-100°C), returning NaN"
+                    )
+                    return float('nan')
+            
             bioreactor.logger.info(f"Temperature: {temperature}")
             return temperature
         else:
