@@ -258,7 +258,7 @@ def temperature_pid_controller(
     sensor_index: int = 0,
     max_duty: float = 70.0,
     deadband: float = 0.3,
-    integral_max: float = 30.0,
+    integral_max: float = 60.0,
     derivative_alpha: float = 0.7
 ) -> None:
     """
