@@ -48,7 +48,7 @@ config.LOG_TO_TERMINAL = True  # Print logs to terminal (default: True)
 config.LOG_FILE = 'bioreactor.log'  # Also log to file
 # Set LOG_TO_TERMINAL = False to only log to file
 
-config.USE_TIMESTAMPED_FILENAME: bool = False 
+config.USE_TIMESTAMPED_FILENAME: bool = True 
 
 # Initialize bioreactor
 with Bioreactor(config) as reactor:
@@ -71,7 +71,7 @@ with Bioreactor(config) as reactor:
     # duration: how long to run in seconds, or True for indefinite
     jobs = [
         # Measure, record, and plot sensors every 5 seconds
-        (partial(measure_and_plot_sensors, led_power=20.0), 5, True),  # Read sensors and update plot every 5 seconds
+        (partial(measure_and_plot_sensors, led_power=15.0), 5, True),  # Read sensors and update plot every 5 seconds
         
         # Temperature PID controller - maintains temperature at 37.0°C
         # Run PID controller every 1 second
@@ -83,7 +83,7 @@ with Bioreactor(config) as reactor:
     
     # Run immediate CO2 injection before starting scheduled jobs
     print("Running immediate CO2 injection...")
-    inject_co2_delayed(reactor, delay_seconds=0.0, injection_duration_seconds=10.0)
+    inject_co2_delayed(reactor, delay_seconds=0.0, injection_duration_seconds=5.0)
     
     reactor.run(jobs)
     print("Started scheduled jobs. Press Ctrl+C to stop.")
