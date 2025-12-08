@@ -77,8 +77,8 @@ with Bioreactor(config) as reactor:
         # Run PID controller every 1 second
         (partial(temperature_pid_controller, setpoint=37.0, kp=12.0, ki=0.015, kd=0.0), 5, True),
         
-        # Pressurize chamber (no CO2 injection)
-        (partial(pressurize_and_inject_co2, pressurize_duration=10.0, co2_duration=0.0), 60, True),  # Pressurize every 3 minutes
+        # Stabilize CO2 - pressurizes and injects CO2, adjusting duration based on slope
+        (partial(stabilize_co2, pressurize_duration=10.0, pause=30.0), 60, True),  # Stabilize CO2 every 60 seconds
         
         # Delayed CO2 injection - wait 120s, then inject for 10s (one-time job)
         (partial(inject_co2_delayed, delay_seconds=100.0, injection_duration_seconds=10.0), 120, 120),  # One-time injection after 120s delay
