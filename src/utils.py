@@ -100,13 +100,14 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
         sensor_data['temperature'] = float('nan')
         _plot_data['temperature'].append(float('nan'))
     
-    # Read OD channels (Trx and Sct)
+    # Read OD channels (Trx, Sct, and Ref)
     if bioreactor.is_component_initialized('led') and bioreactor.is_component_initialized('optical_density'):
         # Measure OD with LED on
         od_results = measure_od(bioreactor, led_power=led_power, averaging_duration=averaging_duration, channel_name='all')
         if od_results:
             trx_voltage = od_results.get('Trx', None)
             sct_voltage = od_results.get('Sct', None)
+            ref_voltage = od_results.get('Ref', None)
             
             if trx_voltage is not None:
                 sensor_data['od_trx'] = trx_voltage
@@ -121,9 +122,16 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
             else:
                 sensor_data['od_sct'] = float('nan')
                 _plot_data['od_sct'].append(float('nan'))
+            
+            # Record Ref voltage in CSV but don't plot it
+            if ref_voltage is not None:
+                sensor_data['od_ref'] = ref_voltage
+            else:
+                sensor_data['od_ref'] = float('nan')
         else:
             sensor_data['od_trx'] = float('nan')
             sensor_data['od_sct'] = float('nan')
+            sensor_data['od_ref'] = float('nan')
             _plot_data['od_trx'].append(float('nan'))
             _plot_data['od_sct'].append(float('nan'))
     else:
@@ -131,14 +139,17 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
         if bioreactor.is_component_initialized('optical_density'):
             trx_voltage = read_voltage(bioreactor, 'Trx')
             sct_voltage = read_voltage(bioreactor, 'Sct')
+            ref_voltage = read_voltage(bioreactor, 'Ref')
             
             sensor_data['od_trx'] = trx_voltage if trx_voltage is not None else float('nan')
             sensor_data['od_sct'] = sct_voltage if sct_voltage is not None else float('nan')
+            sensor_data['od_ref'] = ref_voltage if ref_voltage is not None else float('nan')
             _plot_data['od_trx'].append(sensor_data['od_trx'])
             _plot_data['od_sct'].append(sensor_data['od_sct'])
         else:
             sensor_data['od_trx'] = float('nan')
             sensor_data['od_sct'] = float('nan')
+            sensor_data['od_ref'] = float('nan')
             _plot_data['od_trx'].append(float('nan'))
             _plot_data['od_sct'].append(float('nan'))
     
@@ -162,6 +173,8 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
                 csv_row[config.SENSOR_LABELS.get('od_trx', 'OD_Trx_V')] = sensor_data['od_trx']
             if 'od_sct' in sensor_data:
                 csv_row[config.SENSOR_LABELS.get('od_sct', 'OD_Sct_V')] = sensor_data['od_sct']
+            if 'od_ref' in sensor_data:
+                csv_row[config.SENSOR_LABELS.get('od_ref', 'OD_Ref_V')] = sensor_data['od_ref']
         else:
             csv_row = sensor_data
         
