@@ -384,3 +384,59 @@ def temperature_pid_controller(
             f"setpoint={setpoint:.2f}°C, current_temp={current_temp}"
         )
 
+
+def pressurize_and_inject_co2(
+    bioreactor,
+    pressurize_duration: float = 10.0,
+    pause: float = 30.0,
+    co2_duration: float = 1.0,
+    elapsed: Optional[float] = None
+) -> None:
+    """
+    Pressurize with pump_1, wait, then inject CO2.
+    
+    Sequence:
+    1. Turn ON pump_1 relay for pressurize_duration seconds
+    2. Turn OFF pump_1 relay
+    3. Wait pause seconds
+    4. Turn ON co2_solenoid relay for co2_duration seconds
+    5. Turn OFF co2_solenoid relay
+    
+    Args:
+        bioreactor: Bioreactor instance
+        pressurize_duration: Duration to run pump_1 (default: 10.0 seconds)
+        pause: Wait time between pump and CO2 injection (default: 30.0 seconds)
+        co2_duration: Duration for CO2 injection (default: 1.0 seconds)
+        elapsed: Time elapsed since job started (optional)
+    """
+    if not bioreactor.is_component_initialized('relays') or not hasattr(bioreactor, 'relay_controller') or bioreactor.relay_controller is None:
+        bioreactor.logger.warning("Relays not initialized or RelayController not available")
+        return
+    
+    try:
+        # Pressurize
+        bioreactor.logger.info(f"Pressurizing: pump_1 ON for {pressurize_duration}s")
+        bioreactor.relay_controller.on('pump_1')
+        time.sleep(pressurize_duration)
+        bioreactor.relay_controller.off('pump_1')
+        
+        # Wait before CO2 injection
+        bioreactor.logger.info(f"Waiting {pause}s before CO2 injection...")
+        time.sleep(pause)
+        
+        # Inject CO2
+        bioreactor.logger.info(f"Injecting CO2: co2_solenoid ON for {co2_duration}s")
+        bioreactor.relay_controller.on('co2_solenoid')
+        time.sleep(co2_duration)
+        bioreactor.relay_controller.off('co2_solenoid')
+        bioreactor.logger.info("Pressurize and inject complete")
+        
+    except Exception as e:
+        bioreactor.logger.error(f"Error in pressurize_and_inject_co2: {e}")
+        # Emergency shutdown
+        try:
+            bioreactor.relay_controller.off('pump_1')
+            bioreactor.relay_controller.off('co2_solenoid')
+        except:
+            pass
+
