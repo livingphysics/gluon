@@ -4,6 +4,8 @@ These are not intended to be used directly by the user, but rather to be used by
 """
 
 import logging
+import math
+import time
 from typing import Optional, Dict, Union
 
 logger = logging.getLogger("Bioreactor.IO")
@@ -472,6 +474,15 @@ def get_temperature(bioreactor, sensor_index=0):
         if hasattr(bioreactor, 'temp_sensors') and len(bioreactor.temp_sensors) > sensor_index:
             bioreactor.logger.info(f"Reading temperature from sensor {sensor_index}")
             temperature = bioreactor.temp_sensors[sensor_index].get_temperature()
+            
+            # Check if temperature is within valid bounds (0-100°C)
+            if not math.isnan(temperature):
+                if temperature < 0.0 or temperature > 100.0:
+                    bioreactor.logger.warning(
+                        f"Temperature reading {temperature:.2f}°C is outside valid bounds (0-100°C), returning NaN"
+                    )
+                    return float('nan')
+            
             bioreactor.logger.info(f"Temperature: {temperature}")
             return temperature
         else:
@@ -480,6 +491,85 @@ def get_temperature(bioreactor, sensor_index=0):
     except Exception as e:
         bioreactor.logger.error(f"Error reading temperature sensor {sensor_index}: {e}")
         return float('nan')
+
+
+def read_co2(bioreactor) -> Optional[float]:
+    """Read CO2 value from serial sensor.
+    
+    Args:
+        bioreactor: Bioreactor instance
+        
+    Returns:
+        Optional[float]: CO2 concentration in ppm, or None if sensor not available or error
+    """
+    if not bioreactor.is_component_initialized('co2_sensor'):
+        return None
+    
+    try:
+        sensor = bioreactor.co2_sensor
+        sensor.flushInput()
+        sensor.write(b"\xFE\x44\x00\x08\x02\x9F\x25")
+        time.sleep(0.1)  # Reduced wait time
+        resp = sensor.read(7)
+        if len(resp) >= 5:
+            high = resp[3]
+            low = resp[4]
+            co2_value = 10 * ((high * 256) + low)
+            return float(co2_value)
+    except Exception as e:
+        bioreactor.logger.warning(f"Error reading CO2 sensor: {e}")
+    return None
+
+
+def read_co2_2(bioreactor) -> Optional[float]:
+    """Read CO2 value from second serial sensor.
+    
+    Args:
+        bioreactor: Bioreactor instance
+        
+    Returns:
+        Optional[float]: CO2 concentration in ppm, or None if sensor not available or error
+    """
+    if not bioreactor.is_component_initialized('co2_sensor_2'):
+        return None
+    
+    try:
+        sensor = bioreactor.co2_sensor_2
+        sensor.flushInput()
+        sensor.write(b"\xFE\x44\x00\x08\x02\x9F\x25")
+        time.sleep(0.1)  # Reduced wait time
+        resp = sensor.read(7)
+        if len(resp) >= 5:
+            high = resp[3]
+            low = resp[4]
+            co2_value = 10 * ((high * 256) + low)
+            return float(co2_value)
+    except Exception as e:
+        bioreactor.logger.warning(f"Error reading CO2 sensor 2: {e}")
+    return None
+
+
+def read_o2(bioreactor) -> Optional[float]:
+    """Read O2 value from I2C sensor (Atlas Scientific).
+    
+    Args:
+        bioreactor: Bioreactor instance
+        
+    Returns:
+        Optional[float]: O2 concentration in percent, or None if sensor not available or error
+    """
+    if not bioreactor.is_component_initialized('o2_sensor'):
+        return None
+    
+    try:
+        from atlas_i2c import commands
+        sensor = bioreactor.o2_sensor
+        reading = sensor.query(commands.READ)
+        o2_value = float(reading.data.decode().replace('%', '').strip())
+        return o2_value
+    except Exception as e:
+        bioreactor.logger.warning(f"Error reading O2 sensor: {e}")
+    return None
 
 
 def set_peltier_power(bioreactor, duty_cycle: Union[int, float], forward: Union[bool, str] = True) -> bool:

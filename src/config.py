@@ -56,6 +56,9 @@ class Config:
         'co2_2': 'CO2_2_ppm',
         'o2': 'O2_percent',
         'temperature': 'temperature_C',
+        'od_trx': 'OD_Trx_V',
+        'od_sct': 'OD_Sct_V',
+        'od_ref': 'OD_Ref_V',
     }
 
     # Peltier Driver Configuration (Raspberry Pi 5 GPIO via lgpio)
@@ -78,3 +81,9 @@ class Config:
         'Ref': 'A1',
         'Sct': 'A2',
     }  # Dictionary mapping channel names to ADS1115 pins (A0-A3)
+    
+    # Auto-pressurize on initialization
+    AUTO_PRESSURIZE_ON_INIT: bool = False  # Automatically pressurize chamber on startup
+    AUTO_PRESSURIZE_DURATION: float = 10.0  # Duration in seconds for pressurization
+    AUTO_PRESSURIZE_PAUSE: float = 0.0  # Wait time between pressurization and CO2 injection (if CO2 duration > 0)
+    AUTO_PRESSURIZE_CO2_DURATION: float = 0.0  # Duration in seconds for CO2 injection (0 = no CO2 injection)

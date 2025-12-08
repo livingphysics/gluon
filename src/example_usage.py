@@ -11,6 +11,7 @@ This shows how to:
 import time
 import sys
 import os
+from functools import partial
 
 # Add parent directory to path to allow imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -69,63 +70,20 @@ with Bioreactor(config) as reactor:
     # frequency: time between calls in seconds, or True for continuous
     # duration: how long to run in seconds, or True for indefinite
     jobs = [
-        # Run pump_1 every 3 minutes for 15 seconds (pass duration argument)
-        # (read_sensors_and_plot, 5, True),  # Read sensors and update plot every 5 seconds
+        # Measure, record, and plot sensors every 5 seconds
+        (partial(measure_and_plot_sensors, led_power=80.0), 5, True),  # Read sensors and update plot every 5 seconds
+        
+        # Temperature PID controller - maintains temperature at 37.0°C
+        # Run PID controller every 1 second
+        (partial(temperature_pid_controller, setpoint=37.0, kp=12.0, ki=0.015, kd=0.0), 5, True),
+        
+        # Pressurize chamber (no CO2 injection)
+        (partial(pressurize_and_inject_co2, pressurize_duration=10.0, co2_duration=0.0), 60, True),  # Pressurize every 3 minutes
+        
+        # Delayed CO2 injection - wait 120s, then inject for 10s (one-time job)
+        (partial(inject_co2_delayed, delay_seconds=100.0, injection_duration_seconds=10.0), 120, 120),  # One-time injection after 120s delay
 
     ]
-    if reactor.is_component_initialized('temp_sensor'):
-        print(f"Temperature: {get_temperature(reactor, 0)}")
-    
-    # Use RelayController for clean API (recommended)
-    if reactor.is_component_initialized('relays'):
-        print(f"pump_1: {'on' if reactor.relay_controller.get_state('pump_1') else 'off'}")
-        # Other examples:
-        # reactor.relay_controller.on('pump_1')      # Turn relay ON
-        # reactor.relay_controller.off('pump_1')     # Turn relay OFF
-        # reactor.relay_controller.all_on()          # Turn all relays ON
-        # reactor.relay_controller.get_all_states()   # Get all relay states
-    
-    if reactor.is_component_initialized('peltier_driver'):
-        set_peltier_power(reactor, 25, 'heat')
-        time.sleep(10)
-        set_peltier_power(reactor, 25, 'cool')
-        time.sleep(10)
-        print("Peltier set to 25% duty (heat direction)")
-        stop_peltier(reactor)
-    
-    if reactor.is_component_initialized('stirrer'):
-        set_stirrer_speed(reactor, 50)
-        print("Stirrer running at 50% duty")
-        time.sleep(5)
-        stop_stirrer(reactor)
-    
-    # Optical density measurement example
-    if reactor.is_component_initialized('led') and reactor.is_component_initialized('optical_density'):
-        print("Taking OD measurement...")
-        # Measure OD with LED at 50% power, averaging for 2 seconds on single channel
-        od_voltage = measure_od(reactor, led_power=30.0, averaging_duration=2.0, channel_name='Trx')
-        if od_voltage is not None:
-            print(f"OD measurement (Trx channel): {od_voltage:.4f}V")
-        
-        # Example: Measure all channels at once
-        print("Taking OD measurement on all channels...")
-        all_od_results = measure_od(reactor, led_power=30.0, averaging_duration=2.0, channel_name='all')
-        if all_od_results is not None:
-            print("OD measurements (all channels):")
-            for channel, voltage in all_od_results.items():
-                print(f"  {channel}: {voltage:.4f}V")
-        
-        # Example: Read voltage from channels without LED (baseline)
-        ref_voltage = read_voltage(reactor, 'Ref')
-        sct_voltage = read_voltage(reactor, 'Sct')
-        if ref_voltage is not None:
-            print(f"Reference channel voltage (LED off): {ref_voltage:.4f}V")
-        if sct_voltage is not None:
-            print(f"Scatter channel voltage (LED off): {sct_voltage:.4f}V")
-    
-    # You can also call functions directly (not as scheduled jobs):
-    # flush_tank(reactor, 30)  # Flush tank once with 30s valve open
-    # inject_co2_delayed(reactor, 300, 30)  # Wait 5 min (300s), inject CO2 for 30s (one-time)
     
     reactor.run(jobs)
     print("Started scheduled jobs. Press Ctrl+C to stop.")
