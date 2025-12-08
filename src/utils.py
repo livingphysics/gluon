@@ -670,9 +670,26 @@ def stabilize_co2(
         bioreactor.logger.warning("Not enough CO2_2 data from measure_and_plot_sensors (need at least 2 points)")
         return
     
-    n_points = min(70, len(_plot_data['co2_2']))
-    co2_values = np.array(list(_plot_data['co2_2'])[-n_points:])
-    time_values = np.array(list(_plot_data['time'])[-n_points:])
+    # Ensure co2_2 and time arrays have the same length
+    co2_list = list(_plot_data['co2_2'])
+    time_list = list(_plot_data['time'])
+    min_len = min(len(co2_list), len(time_list))
+    
+    if min_len < 2:
+        bioreactor.logger.warning("Not enough data points (need at least 2 points)")
+        return
+    
+    # Take the last n_points from both arrays, ensuring they're aligned
+    n_points = min(70, min_len)
+    co2_values = np.array(co2_list[-n_points:])
+    time_values = np.array(time_list[-n_points:])
+    
+    # Ensure arrays have the same length
+    if len(co2_values) != len(time_values):
+        # Take the minimum length to ensure alignment
+        min_array_len = min(len(co2_values), len(time_values))
+        co2_values = co2_values[-min_array_len:]
+        time_values = time_values[-min_array_len:]
     
     # Filter out NaN values
     valid_mask = ~np.isnan(co2_values)
@@ -680,6 +697,7 @@ def stabilize_co2(
         bioreactor.logger.warning("Not enough valid CO2_2 data points (need at least 2 non-NaN values)")
         return
     
+    # Apply mask to both arrays (they should be the same length now)
     co2_values = co2_values[valid_mask]
     time_values = time_values[valid_mask]
     
