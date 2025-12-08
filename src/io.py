@@ -515,7 +515,16 @@ def read_co2(bioreactor) -> Optional[float]:
             high = resp[3]
             low = resp[4]
             co2_value = 10 * ((high * 256) + low)
-            return float(co2_value)
+            co2_value = float(co2_value)
+            
+            # Check bounds: 0 to 100,000 ppm
+            if co2_value < 0.0 or co2_value > 100000.0:
+                bioreactor.logger.warning(
+                    f"CO2 reading {co2_value:.1f} ppm is outside valid bounds (0-100000 ppm), returning NaN"
+                )
+                return float('nan')
+            
+            return co2_value
     except Exception as e:
         bioreactor.logger.warning(f"Error reading CO2 sensor: {e}")
     return None
@@ -543,7 +552,16 @@ def read_co2_2(bioreactor) -> Optional[float]:
             high = resp[3]
             low = resp[4]
             co2_value = 10 * ((high * 256) + low)
-            return float(co2_value)
+            co2_value = float(co2_value)
+            
+            # Check bounds: 0 to 100,000 ppm
+            if co2_value < 0.0 or co2_value > 100000.0:
+                bioreactor.logger.warning(
+                    f"CO2_2 reading {co2_value:.1f} ppm is outside valid bounds (0-100000 ppm), returning NaN"
+                )
+                return float('nan')
+            
+            return co2_value
     except Exception as e:
         bioreactor.logger.warning(f"Error reading CO2 sensor 2: {e}")
     return None
