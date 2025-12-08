@@ -84,8 +84,8 @@ class Config:
     }  # Dictionary mapping channel names to ADS1115 pins (A0-A3)
     
     # Auto-flush on initialization
-    AUTO_FLUSH_ON_INIT: bool = False  # Automatically flush tank on startup
-    AUTO_FLUSH_DURATION: float = 10.0  # Duration in seconds for tank flush
+    AUTO_FLUSH_ON_INIT: bool = True  # Automatically flush tank on startup
+    AUTO_FLUSH_DURATION: float = 30.0  # Duration in seconds for tank flush
     
     # Auto-pressurize on initialization
     AUTO_PRESSURIZE_ON_INIT: bool = True  # Automatically pressurize chamber on startup

@@ -685,7 +685,7 @@ def pid_co2_controller(
     new_co2_duration = control_output
     
     # Clamp duration to reasonable bounds (0 to 5 seconds)
-    new_co2_duration = max(0.0, min(new_co2_duration, 5.0))
+    new_co2_duration = max(0.0, min(new_co2_duration, 2.0))
     
     # Update global duration
     _co2_duration = new_co2_duration
