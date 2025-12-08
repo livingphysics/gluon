@@ -676,7 +676,7 @@ def pid_co2_controller(
     
     # Calculate PID control output
     control_output = kp * error + ki * bioreactor._co2_integral + kd * derivative
-    bioreactor.logger.info(f"error: {error:.1f} ppm, integral: {bioreactor._co2_integral:.6f}")
+    bioreactor.logger.info(f"CO2 PID: error: {error:.1f} ppm, integral: {bioreactor._co2_integral:.6f}")
     # Set injection duration directly as a function of the error (PID output)
     # Duration is directly calculated from PID output: duration = f(error)
     # Positive error (too low) -> longer injection duration
