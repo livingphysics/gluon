@@ -83,11 +83,11 @@ class Config:
     }  # Dictionary mapping channel names to ADS1115 pins (A0-A3)
     
     # Auto-flush on initialization
-    AUTO_FLUSH_ON_INIT: bool = False  # Automatically flush tank on startup
-    AUTO_FLUSH_DURATION: float = 30.0  # Duration in seconds for tank flush
+    AUTO_FLUSH_ON_INIT: bool = True  # Automatically flush tank on startup
+    AUTO_FLUSH_DURATION: float = 20.0  # Duration in seconds for tank flush
     
     # Auto-pressurize on initialization
-    AUTO_PRESSURIZE_ON_INIT: bool = False  # Automatically pressurize chamber on startup
+    AUTO_PRESSURIZE_ON_INIT: bool = True  # Automatically pressurize chamber on startup
     AUTO_PRESSURIZE_DURATION: float = 10.0  # Duration in seconds for pressurization
     AUTO_PRESSURIZE_PAUSE: float = 0.0  # Wait time between pressurization and CO2 injection (if CO2 duration > 0)
     AUTO_PRESSURIZE_CO2_DURATION: float = 0.0  # Duration in seconds for CO2 injection (0 = no CO2 injection)
