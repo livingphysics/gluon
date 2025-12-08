@@ -671,18 +671,26 @@ def stabilize_co2(
     # Always pressurize and inject with current CO2 duration
     pressurize_and_inject_co2(bioreactor, pressurize_duration, pause, co2_duration, elapsed)
     
-    # Read and track CO2_2 reading
-    from .io import read_co2_2
-    co2_2_value = read_co2_2(bioreactor)
-    current_time = time.time()
-    
-    if co2_2_value is not None and not np.isnan(co2_2_value):
-        _co2_stabilize_data.append(co2_2_value)
-        _co2_stabilize_time.append(current_time)
-        bioreactor.logger.info(f"CO2_2 reading: {co2_2_value:.1f} ppm")
-    else:
-        bioreactor.logger.warning("CO2_2 reading unavailable, skipping stabilization adjustment")
+    # Use CO2_2 data from measure_and_plot_sensors (stored in _plot_data)
+    # This avoids duplicate readings and uses the same data that's being logged
+    if len(_plot_data['co2_2']) == 0:
+        bioreactor.logger.warning("No CO2_2 data available from measure_and_plot_sensors, skipping stabilization adjustment")
         return
+    
+    # Get the most recent CO2_2 reading and time from plot data
+    co2_2_value = _plot_data['co2_2'][-1]
+    plot_time = _plot_data['time'][-1] if len(_plot_data['time']) > 0 else None
+    
+    # Only use valid (non-NaN) readings
+    if np.isnan(co2_2_value) or plot_time is None:
+        bioreactor.logger.warning("CO2_2 reading unavailable or invalid, skipping stabilization adjustment")
+        return
+    
+    # Track the reading for slope calculation
+    # Use plot_time for consistency with logged data
+    _co2_stabilize_data.append(co2_2_value)
+    _co2_stabilize_time.append(plot_time)
+    bioreactor.logger.info(f"CO2_2 reading: {co2_2_value:.1f} ppm (from measure_and_plot_sensors)")
     
     # Update CO2 duration with slope adjustment if sufficient data
     if len(_co2_stabilize_data) >= 2:
@@ -691,9 +699,11 @@ def stabilize_co2(
         co2_values = np.array(list(_co2_stabilize_data)[-n_points:])
         
         # Get corresponding time points (relative to start)
+        # Note: _co2_stabilize_time now uses elapsed time from plot_data, not absolute time
         time_list = list(_co2_stabilize_time)
         if len(time_list) >= n_points:
-            time_values = np.array([(t - _co2_stabilize_start_time) for t in time_list[-n_points:]])
+            # Time values are already elapsed time from plot_data, use directly
+            time_values = np.array(time_list[-n_points:])
         else:
             # Fallback: use indices if time data is shorter
             time_values = np.arange(len(co2_values))
