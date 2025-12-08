@@ -680,28 +680,36 @@ def smith_predictor_co2(
                 # Smooth adaptation (exponential moving average)
                 model_gain = 0.9 * model_gain + 0.1 * estimated_gain
     
-    # Predict CO2 level using model (without delay)
-    # Smith predictor: predict what CO2 will be after accounting for system delay
+    # Predict CO2 level using model (without delay) - Smith predictor core
+    # The Smith predictor uses a model to predict what CO2 will be after applying control
+    # This allows control based on predicted (no-delay) response rather than delayed measurement
+    
+    # Initialize prediction if needed
     if _co2_predicted is None:
         _co2_predicted = current_co2
     
-    # Update prediction based on past injections (accounting for delay)
-    # The model predicts CO2 change from injections that occurred 'delay_seconds' ago
-    if len(_co2_model_history) > 0:
-        # Sum up predicted changes from recent injections (within delay window)
-        # This gives us the predicted CO2 level without delay
-        predicted_change = 0.0
-        for injection_duration, observed_change in _co2_model_history[-5:]:  # Last 5 injections
-            # Use model to predict change from this injection
-            predicted_change += model_gain * injection_duration
-        
-        # Predicted CO2 = current measured + predicted changes from past injections
-        # This accounts for the delay - we're predicting what CO2 should be now
-        # based on injections that happened in the past
-        _co2_predicted = current_co2 + predicted_change
+    # Smith predictor prediction:
+    # The current measurement reflects past injections with delay
+    # We predict what CO2 will be after we apply the current control action (without delay)
+    # This prediction is used for control, then we inject and measure later
+    
+    # Use the current injection duration (before adjustment) to predict future CO2
+    if co2_duration is None:
+        current_injection_duration = _co2_duration if _co2_duration > 0 else 0.5
     else:
-        # No history yet, use current measurement as prediction
-        _co2_predicted = current_co2
+        current_injection_duration = co2_duration
+    
+    # Predict what CO2 will be after applying current injection duration
+    # Model: CO2_change = model_gain * injection_duration (immediate effect, no delay)
+    # Note: model_gain should be in ppm per second of injection
+    predicted_change_from_model = model_gain * current_injection_duration
+    
+    # Log prediction calculation for debugging
+    bioreactor.logger.debug(f"Smith predictor prediction: model_gain={model_gain:.2f}, current_injection_duration={current_injection_duration:.3f}s, predicted_change={predicted_change_from_model:.2f} ppm")
+    
+    # Predicted CO2 = current measured + predicted change from model (without delay)
+    # This is what CO2 should be if the injection had immediate effect
+    _co2_predicted = current_co2 + predicted_change_from_model
     
     # Calculate predicted error (setpoint - predicted CO2)
     predicted_error = setpoint_ppm - _co2_predicted
