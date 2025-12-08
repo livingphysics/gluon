@@ -28,10 +28,8 @@ _plot_data = {
 _plot_fig = None
 _plot_axes = None
 
-# Global storage for CO2 Smith predictor controller
-_co2_duration = 0.5  # Global CO2 injection duration (updated by smith_predictor_co2)
-_co2_predicted = None  # Predicted CO2 level from model
-_co2_model_history = deque(maxlen=100)  # History of (injection_duration, co2_change) for model adaptation
+# Global storage for CO2 PID controller
+_co2_duration = 0.5  # Global CO2 injection duration (updated by pid_co2_controller)
 
 
 def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_power: float = 30.0, averaging_duration: float = 0.5):
@@ -594,7 +592,7 @@ def flush_tank(
             pass
 
 
-def smith_predictor_co2(
+def pid_co2_controller(
     bioreactor,
     setpoint_ppm: float,
     pressurize_duration: float = 10.0,
@@ -602,23 +600,20 @@ def smith_predictor_co2(
     co2_duration: Optional[float] = None,
     kp: float = 0.0001,
     ki: float = 0.00001,
-    model_gain: float = 100000.0,  # ppm per second of injection (model: CO2_change = model_gain * injection_duration)
-    delay_seconds: float = 60.0,  # Estimated delay between injection and measurement
+    kd: float = 0.0,
     elapsed: Optional[float] = None
 ) -> None:
     """
-    Smith predictor controller for CO2 feedback control.
+    Simple PID controller for CO2 feedback control.
     
-    Uses a model to predict CO2 level without delay, compares to setpoint,
-    and adjusts injection duration accordingly. Accounts for system delay.
+    Directly adjusts CO2 injection duration based on error (setpoint - current CO2).
     
     Sequence:
     1. Read current CO2_2 measurement
-    2. Update process model based on historical data
-    3. Predict CO2 level using model (without delay)
-    4. Calculate control action based on predicted error (setpoint - predicted)
-    5. Apply control action (adjust injection duration)
-    6. Pressurize and inject with adjusted duration
+    2. Calculate error (setpoint - current)
+    3. Calculate PID control output
+    4. Adjust injection duration based on control output
+    5. Pressurize and inject with adjusted duration
     
     Args:
         bioreactor: Bioreactor instance
@@ -628,11 +623,10 @@ def smith_predictor_co2(
         co2_duration: Initial CO2 injection duration (default: uses global _co2_duration or 0.5s)
         kp: Proportional gain for controller (default: 0.0001)
         ki: Integral gain for controller (default: 0.00001)
-        model_gain: Model gain (ppm per second of injection) (default: 100000.0)
-        delay_seconds: Estimated delay between injection and measurement (default: 60.0s)
+        kd: Derivative gain for controller (default: 0.0)
         elapsed: Time elapsed since job started (optional)
     """
-    global _co2_duration, _co2_predicted, _co2_model_history
+    global _co2_duration
     
     if not bioreactor.is_component_initialized('relays') or not hasattr(bioreactor, 'relay_controller') or bioreactor.relay_controller is None:
         bioreactor.logger.warning("Relays not initialized or RelayController not available")
@@ -641,6 +635,8 @@ def smith_predictor_co2(
     # Initialize controller state
     if not hasattr(bioreactor, '_co2_integral'):
         bioreactor._co2_integral = 0.0
+    if not hasattr(bioreactor, '_co2_last_error'):
+        bioreactor._co2_last_error = 0.0
     if not hasattr(bioreactor, '_co2_last_time'):
         bioreactor._co2_last_time = time.time()
     
@@ -664,61 +660,18 @@ def smith_predictor_co2(
         bioreactor.logger.warning("Invalid CO2 reading or time delta")
         return
     
-    # Update process model based on historical data (simple adaptation)
-    # Model: CO2_change = model_gain * injection_duration
-    # Adapt model_gain based on observed CO2 changes vs injection durations
-    if len(_co2_model_history) >= 2:
-        # Use recent history to adapt model gain
-        recent_history = list(_co2_model_history)[-10:]  # Last 10 data points
-        if len(recent_history) >= 2:
-            # Simple linear regression to estimate model gain
-            durations = np.array([h[0] for h in recent_history])
-            co2_changes = np.array([h[1] for h in recent_history])
-            if len(durations) > 1 and np.std(durations) > 1e-6:
-                # Estimate gain: CO2_change / injection_duration
-                estimated_gain = np.mean(co2_changes / durations) if np.mean(durations) > 0 else model_gain
-                # Smooth adaptation (exponential moving average)
-                model_gain = 0.9 * model_gain + 0.1 * estimated_gain
-    
-    # Predict CO2 level using model (without delay) - Smith predictor core
-    # The Smith predictor uses a model to predict what CO2 will be after applying control
-    # This allows control based on predicted (no-delay) response rather than delayed measurement
-    
-    # Initialize prediction if needed
-    if _co2_predicted is None:
-        _co2_predicted = current_co2
-    
-    # Smith predictor prediction:
-    # The current measurement reflects past injections with delay
-    # We predict what CO2 will be after we apply the current control action (without delay)
-    # This prediction is used for control, then we inject and measure later
-    
-    # Use the current injection duration (before adjustment) to predict future CO2
-    if co2_duration is None:
-        current_injection_duration = _co2_duration if _co2_duration > 0 else 0.5
-    else:
-        current_injection_duration = co2_duration
-    
-    # Predict what CO2 will be after applying current injection duration
-    # Model: CO2_change = model_gain * injection_duration (immediate effect, no delay)
-    # Note: model_gain should be in ppm per second of injection
-    predicted_change_from_model = model_gain * current_injection_duration
-    
-    # Log prediction calculation for debugging
-    bioreactor.logger.debug(f"Smith predictor prediction: model_gain={model_gain:.2f}, current_injection_duration={current_injection_duration:.3f}s, predicted_change={predicted_change_from_model:.2f} ppm")
-    
-    # Predicted CO2 = current measured + predicted change from model (without delay)
-    # This is what CO2 should be if the injection had immediate effect
-    _co2_predicted = current_co2 + predicted_change_from_model
-    
-    # Calculate predicted error (setpoint - predicted CO2)
-    predicted_error = setpoint_ppm - _co2_predicted
+    # Calculate error (setpoint - current)
+    error = setpoint_ppm - current_co2
     
     # Update integral term
-    bioreactor._co2_integral += predicted_error * dt
+    bioreactor._co2_integral += error * dt
     
-    # Calculate control action (PI controller on predicted error)
-    control_output = kp * predicted_error + ki * bioreactor._co2_integral
+    # Calculate derivative term
+    derivative = (error - bioreactor._co2_last_error) / dt if dt > 0 else 0.0
+    bioreactor._co2_last_error = error
+    
+    # Calculate PID control output
+    control_output = kp * error + ki * bioreactor._co2_integral + kd * derivative
     
     # Convert control output to injection duration adjustment
     # Positive error (too low) -> increase injection
@@ -739,18 +692,10 @@ def smith_predictor_co2(
     _co2_duration = new_co2_duration
     
     # Log control output and duration adjustment separately
-    bioreactor.logger.info(f"Smith predictor control output: {control_output:.6f}")
-    bioreactor.logger.info(f"Smith predictor duration adjustment: {duration_adjustment:.6f}")
+    bioreactor.logger.info(f"CO2 PID control output: {control_output:.6f}")
+    bioreactor.logger.info(f"CO2 PID duration adjustment: {duration_adjustment:.6f}")
     
     # Pressurize and inject with adjusted duration
-    bioreactor.logger.info(f"Smith predictor: setpoint={setpoint_ppm:.1f} ppm, current={current_co2:.1f} ppm, predicted={_co2_predicted:.1f} ppm, error={predicted_error:.1f} ppm, duration={_co2_duration:.3f}s")
+    bioreactor.logger.info(f"CO2 PID: setpoint={setpoint_ppm:.1f} ppm, current={current_co2:.1f} ppm, error={error:.1f} ppm, duration={_co2_duration:.3f}s")
     pressurize_and_inject_co2(bioreactor, pressurize_duration, pause, _co2_duration, elapsed)
-    
-    # Store injection and observed CO2 change for model adaptation
-    # We'll update this after next measurement
-    co2_2_list = list(_plot_data['co2_2'])
-    if len(co2_2_list) >= 2:
-        prev_co2 = co2_2_list[-2]
-        co2_change = current_co2 - prev_co2
-        _co2_model_history.append((_co2_duration, co2_change))
 
