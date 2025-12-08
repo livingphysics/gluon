@@ -58,6 +58,7 @@ class Config:
         'temperature': 'temperature_C',
         'od_trx': 'OD_Trx_V',
         'od_sct': 'OD_Sct_V',
+        'od_ref': 'OD_Ref_V',
     }
 
     # Peltier Driver Configuration (Raspberry Pi 5 GPIO via lgpio)
