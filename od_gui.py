@@ -96,6 +96,16 @@ class ODManualReadingGUI:
                                       font=("Arial", 12, "bold"), padx=10, pady=10)
         results_frame.pack(pady=20, padx=20, fill="both", expand=True)
         
+        # Last reading info label
+        last_reading_frame = tk.Frame(results_frame)
+        last_reading_frame.pack(fill="x", pady=5)
+        
+        self.last_reading_label = tk.Label(last_reading_frame, 
+                                          text="Last Reading: ---", 
+                                          font=("Arial", 10, "italic"), 
+                                          fg="gray")
+        self.last_reading_label.pack(anchor='w', padx=10)
+        
         # Results labels
         self.result_labels = {}
         channels = ['Trx', 'Sct', 'Ref']
@@ -214,6 +224,24 @@ class ODManualReadingGUI:
     
     def update_results(self, od_results):
         """Update the GUI with OD reading results"""
+        # Get LED power used for this reading
+        try:
+            led_power = float(self.led_power_var.get())
+        except (ValueError, AttributeError):
+            led_power = None
+        
+        # Update last reading label
+        if led_power is not None:
+            self.last_reading_label.config(
+                text=f"Last Reading: LED Power = {led_power:.0f}%",
+                fg="blue"
+            )
+        else:
+            self.last_reading_label.config(
+                text="Last Reading: LED Power = ---",
+                fg="gray"
+            )
+        
         for channel, value in od_results.items():
             if channel in self.result_labels:
                 if value is not None:
@@ -305,6 +333,14 @@ class ODManualReadingGUI:
         """Update GUI with results from the last sweep measurement"""
         if led_powers:
             last_idx = len(led_powers) - 1
+            last_led_power = led_powers[last_idx]
+            
+            # Update last reading label
+            self.last_reading_label.config(
+                text=f"Last Reading: LED Power = {last_led_power:.0f}% (from sweep)",
+                fg="blue"
+            )
+            
             if trx_values[last_idx] is not None:
                 self.result_labels['Trx'].config(text=f"{trx_values[last_idx]:.4f} V", fg="green")
             if sct_values[last_idx] is not None:
