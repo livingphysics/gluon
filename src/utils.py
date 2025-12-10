@@ -68,20 +68,28 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
     # Read sensors
     sensor_data = {'time': elapsed}
     
-    # Read CO2 (first sensor)
-    co2_value = read_co2(bioreactor)
-    if co2_value is not None:
-        sensor_data['co2'] = co2_value
-        _plot_data['co2'].append(co2_value)
+    # Read CO2 (first sensor) only if initialized
+    if bioreactor.is_component_initialized('co2_sensor'):
+        co2_value = read_co2(bioreactor)
+        if co2_value is not None:
+            sensor_data['co2'] = co2_value
+            _plot_data['co2'].append(co2_value)
+        else:
+            sensor_data['co2'] = float('nan')
+            _plot_data['co2'].append(float('nan'))
     else:
         sensor_data['co2'] = float('nan')
         _plot_data['co2'].append(float('nan'))
     
-    # Read CO2 (second sensor)
-    co2_2_value = read_co2_2(bioreactor)
-    if co2_2_value is not None:
-        sensor_data['co2_2'] = co2_2_value
-        _plot_data['co2_2'].append(co2_2_value)
+    # Read CO2 (second sensor) only if initialized
+    if bioreactor.is_component_initialized('co2_sensor_2'):
+        co2_2_value = read_co2_2(bioreactor)
+        if co2_2_value is not None:
+            sensor_data['co2_2'] = co2_2_value
+            _plot_data['co2_2'].append(co2_2_value)
+        else:
+            sensor_data['co2_2'] = float('nan')
+            _plot_data['co2_2'].append(float('nan'))
     else:
         sensor_data['co2_2'] = float('nan')
         _plot_data['co2_2'].append(float('nan'))
