@@ -247,14 +247,33 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
         plt.draw()
         plt.pause(0.01)  # Small pause to update display
     
-    bioreactor.logger.info(
-        f"Sensor readings - CO2: {sensor_data.get('co2', 'N/A'):.1f} ppm, "
-        f"CO2_2: {sensor_data.get('co2_2', 'N/A'):.1f} ppm, "
-        f"O2: {sensor_data.get('o2', 'N/A'):.2f}%, "
-        f"Temp: {sensor_data.get('temperature', 'N/A'):.2f}°C, "
-        f"OD Trx: {sensor_data.get('od_trx', 'N/A'):.4f}V, "
-        f"OD Sct: {sensor_data.get('od_sct', 'N/A'):.4f}V"
-    )
+    # Safe formatter to avoid errors when values are strings/None/NaN
+    def _fmt(val, fmt="{:.3f}", default="N/A"):
+        try:
+            if val is None:
+                return default
+            if isinstance(val, (float, int)):
+                if np.isnan(val):
+                    return "nan"
+                return fmt.format(val)
+            return str(val)
+        except Exception:
+            return default
+
+    # Build dynamic OD parts (handles renamed channels)
+    od_parts = []
+    for key in sorted(k for k in sensor_data.keys() if k.startswith('od_')):
+        label = key[3:].upper()
+        od_parts.append(f"{label}: {_fmt(sensor_data.get(key), '{:.4f}')}V")
+
+    msg_parts = [
+        f"CO2: {_fmt(sensor_data.get('co2'), '{:.1f}')} ppm",
+        f"CO2_2: {_fmt(sensor_data.get('co2_2'), '{:.1f}')} ppm",
+        f"O2: {_fmt(sensor_data.get('o2'), '{:.2f}')}%",
+        f"Temp: {_fmt(sensor_data.get('temperature'), '{:.2f}')}°C",
+    ] + od_parts
+
+    bioreactor.logger.info("Sensor readings - " + ", ".join(msg_parts))
     
     return sensor_data
 
