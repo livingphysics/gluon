@@ -13,15 +13,18 @@ import numpy as np
 
 logger = logging.getLogger("Bioreactor.Utils")
 
+# Maximum length for all plotting data deques
+PLOT_DATA_MAXLEN = 2000
+
 # Global storage for plotting data
 _plot_data = {
-    'time': deque(maxlen=20000),
-    'co2': deque(maxlen=20000),
-    'co2_2': deque(maxlen=20000),
-    'o2': deque(maxlen=20000),
-    'temperature': deque(maxlen=20000),
-    'od_trx': deque(maxlen=20000),
-    'od_sct': deque(maxlen=20000),
+    'time': deque(maxlen=PLOT_DATA_MAXLEN),
+    'co2': deque(maxlen=PLOT_DATA_MAXLEN),
+    'co2_2': deque(maxlen=PLOT_DATA_MAXLEN),
+    'o2': deque(maxlen=PLOT_DATA_MAXLEN),
+    'temperature': deque(maxlen=PLOT_DATA_MAXLEN),
+    'od_trx': deque(maxlen=PLOT_DATA_MAXLEN),
+    'od_sct': deque(maxlen=PLOT_DATA_MAXLEN),
 }
 
 # Global figure and axes for plotting
