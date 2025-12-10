@@ -8,6 +8,64 @@ import logging
 logger = logging.getLogger("Bioreactor.Components")
 
 
+def _reset_gpio_pin(gpio_chip, pin):
+    """
+    Reset a GPIO pin by freeing it if it's busy, then claiming it.
+    
+    Args:
+        gpio_chip: GPIO chip handle
+        pin: GPIO pin number
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    try:
+        import lgpio
+        # Try to free the pin first (in case it's already claimed)
+        try:
+            lgpio.gpio_free(gpio_chip, pin)
+        except:
+            # Pin might not be claimed, that's okay
+            pass
+        
+        return True
+    except Exception as e:
+        logger.warning(f"Could not reset GPIO pin {pin}: {e}")
+        return False
+
+
+def _safe_gpio_claim_output(gpio_chip, pin, initial_value):
+    """
+    Safely claim a GPIO pin as output, resetting it first if busy.
+    
+    Args:
+        gpio_chip: GPIO chip handle
+        pin: GPIO pin number
+        initial_value: Initial output value (0 or 1)
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    try:
+        import lgpio
+        # Try to reset the pin first
+        _reset_gpio_pin(gpio_chip, pin)
+        
+        # Now claim it
+        lgpio.gpio_claim_output(gpio_chip, pin, initial_value)
+        return True
+    except Exception as e:
+        logger.error(f"Failed to claim GPIO pin {pin}: {e}")
+        # Try one more time after freeing
+        try:
+            _reset_gpio_pin(gpio_chip, pin)
+            lgpio.gpio_claim_output(gpio_chip, pin, initial_value)
+            return True
+        except Exception as e2:
+            logger.error(f"Failed to claim GPIO pin {pin} after reset: {e2}")
+            return False
+
+
 def init_relays(bioreactor, config):
     """
     Initialize relay components.
@@ -35,16 +93,20 @@ def init_relays(bioreactor, config):
         if isinstance(relay_pins, dict):
             # New dict format: {'relay_name': pin_number}
             for name, pin in relay_pins.items():
-                lgpio.gpio_claim_output(gpio_chip, pin, 1)  # Initialize to OFF (1 = OFF with inverted logic)
-                relays[name] = {'pin': pin, 'chip': gpio_chip}
-                logger.info(f"Relay {name} initialized on pin {pin}")
+                if _safe_gpio_claim_output(gpio_chip, pin, 1):  # Initialize to OFF (1 = OFF with inverted logic)
+                    relays[name] = {'pin': pin, 'chip': gpio_chip}
+                    logger.info(f"Relay {name} initialized on pin {pin}")
+                else:
+                    logger.error(f"Failed to initialize relay {name} on pin {pin}")
         else:
             # Legacy list format: [pin1, pin2, ...] with separate RELAY_NAMES
             relay_names = getattr(config, 'RELAY_NAMES', [f'relay_{i+1}' for i in range(len(relay_pins))])
             for pin, name in zip(relay_pins, relay_names):
-                lgpio.gpio_claim_output(gpio_chip, pin, 1)  # Initialize to OFF (1 = OFF with inverted logic)
-                relays[name] = {'pin': pin, 'chip': gpio_chip}
-                logger.info(f"Relay {name} initialized on pin {pin}")
+                if _safe_gpio_claim_output(gpio_chip, pin, 1):  # Initialize to OFF (1 = OFF with inverted logic)
+                    relays[name] = {'pin': pin, 'chip': gpio_chip}
+                    logger.info(f"Relay {name} initialized on pin {pin}")
+                else:
+                    logger.error(f"Failed to initialize relay {name} on pin {pin}")
         
         bioreactor.gpio_chip = gpio_chip
         bioreactor.relays = relays
@@ -246,8 +308,10 @@ def init_peltier_driver(bioreactor, config):
         bioreactor.gpio_chip = gpio_chip
     
     try:
-        lgpio.gpio_claim_output(gpio_chip, dir_pin, 0)
-        lgpio.gpio_claim_output(gpio_chip, pwm_pin, 0)
+        if not _safe_gpio_claim_output(gpio_chip, dir_pin, 0):
+            return {'initialized': False, 'error': f"Failed to claim DIR pin {dir_pin}"}
+        if not _safe_gpio_claim_output(gpio_chip, pwm_pin, 0):
+            return {'initialized': False, 'error': f"Failed to claim PWM pin {pwm_pin}"}
         lgpio.tx_pwm(gpio_chip, pwm_pin, frequency, 0)
     except Exception as e:
         logger.error(f"Peltier driver GPIO setup failed: {e}")
@@ -288,7 +352,8 @@ def init_stirrer(bioreactor, config):
         bioreactor.gpio_chip = gpio_chip
 
     try:
-        lgpio.gpio_claim_output(gpio_chip, pwm_pin, 0)
+        if not _safe_gpio_claim_output(gpio_chip, pwm_pin, 0):
+            return {'initialized': False, 'error': f"Failed to claim PWM pin {pwm_pin}"}
         lgpio.tx_pwm(gpio_chip, pwm_pin, frequency, 0)
     except Exception as e:
         logger.error(f"Stirrer GPIO setup failed: {e}")
@@ -338,7 +403,8 @@ def init_led(bioreactor, config):
         bioreactor.gpio_chip = gpio_chip
     
     try:
-        lgpio.gpio_claim_output(gpio_chip, pwm_pin, 0)
+        if not _safe_gpio_claim_output(gpio_chip, pwm_pin, 0):
+            return {'initialized': False, 'error': f"Failed to claim PWM pin {pwm_pin}"}
         lgpio.tx_pwm(gpio_chip, pwm_pin, frequency, 0)
     except Exception as e:
         logger.error(f"LED GPIO setup failed: {e}")
