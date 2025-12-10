@@ -36,7 +36,7 @@ class ODManualReadingGUI:
         self.initialized = False
         
         # Store last readings
-        self.last_readings = {'90': None, '135': None, 'Ref': None}
+        self.last_readings = {'Trx': None, 'Sct': None, 'Ref': None}
         
         # Create widgets
         self.create_widgets()
