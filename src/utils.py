@@ -264,6 +264,18 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
     return sensor_data
 
 
+# Temperature PID base rate lookup table: setpoint (°C) -> base duty cycle (%)
+_TEMP_BASE_RATE_LOOKUP = {
+    37.0: 15.0,  # Base rate for 37°C setpoint
+    # Add more entries as needed: setpoint: base_rate
+}
+
+# CO2 PID base rate lookup table: setpoint (ppm) -> base injection duration (seconds)
+_CO2_BASE_RATE_LOOKUP = {
+    50000.0: 0.017,  # Base rate for 50,000 ppm setpoint
+    # Add more entries as needed: setpoint: base_duration
+}
+
 def temperature_pid_controller(
     bioreactor,
     setpoint: float,
@@ -275,15 +287,19 @@ def temperature_pid_controller(
     elapsed: Optional[float] = None,
     sensor_index: int = 0,
     max_duty: float = 70.0,
-    derivative_alpha: float = 0.7
+    derivative_alpha: float = 0.7,
+    warmup_time: float = 120.0  # Wait 2 minutes (120 seconds) before starting feedback control
 ) -> None:
     """
-    Pure PID controller to maintain bioreactor temperature at setpoint by modulating peltier power.
+    PID controller with base rate lookup table to maintain bioreactor temperature at setpoint.
     
     This composite function:
     1. Reads current temperature (or uses provided value)
-    2. Calculates PID output based on error (setpoint - current_temp)
-    3. Modulates peltier power and direction based on PID output
+    2. Waits warmup_time seconds before starting feedback control
+    3. Gets base rate from lookup table based on setpoint
+    4. Calculates PID output based on error (setpoint - current_temp)
+    5. Output = PID + BaseRate
+    6. Modulates peltier power and direction based on combined output
     
     Args:
         bioreactor: Bioreactor instance
@@ -326,10 +342,36 @@ def temperature_pid_controller(
         bioreactor._temp_last_time = None
     if not hasattr(bioreactor, '_temp_last_derivative'):
         bioreactor._temp_last_derivative = 0.0
+    if not hasattr(bioreactor, '_temp_start_time'):
+        bioreactor._temp_start_time = time.time()
     
     # Get current temperature if not provided
     if current_temp is None:
         current_temp = get_temperature(bioreactor, sensor_index=sensor_index)
+    
+    # Check if warmup period has elapsed
+    elapsed_time = time.time() - bioreactor._temp_start_time
+    if elapsed_time < warmup_time:
+        # During warmup, use base rate only (no PID feedback)
+        base_rate = _TEMP_BASE_RATE_LOOKUP.get(setpoint, 0.0)
+        duty = max(0, min(max_duty, base_rate))
+        direction = 'heat'  # Assume heating during warmup
+        
+        if bioreactor.is_component_initialized('peltier_driver'):
+            if duty > 0:
+                set_peltier_power(bioreactor, duty, forward=direction)
+            else:
+                from .io import stop_peltier
+                stop_peltier(bioreactor)
+        
+        bioreactor.logger.info(
+            f"Temperature PID (warmup): setpoint={setpoint:.2f}°C, "
+            f"current={current_temp:.2f}°C, "
+            f"base_rate={base_rate:.1f}%, "
+            f"duty={duty:.1f}%, "
+            f"time_remaining={warmup_time - elapsed_time:.1f}s"
+        )
+        return
     
     # Calculate error
     error = setpoint - current_temp
@@ -359,16 +401,23 @@ def temperature_pid_controller(
         bioreactor._temp_last_derivative = derivative
         
         # Calculate PID output (pure PID formula)
-        output = kp * error + ki * bioreactor._temp_integral + kd * derivative
+        pid_output = kp * error + ki * bioreactor._temp_integral + kd * derivative
+        
+        # Get base rate from lookup table
+        base_rate = _TEMP_BASE_RATE_LOOKUP.get(setpoint, 0.0)
+        
+        # Combined output = PID + BaseRate
+        # Base rate is always positive (heating), PID can be positive (heat) or negative (cool)
+        combined_output = pid_output + base_rate
         
         # Convert output to duty cycle (0-100) and clamp to max_duty (hardware safety limit)
-        duty = max(0, min(max_duty, abs(output)))
+        duty = max(0, min(max_duty, abs(combined_output)))
         
-        # Determine direction based on PID output:
+        # Determine direction based on combined output:
         # error = setpoint - current_temp
-        # If error > 0 (too cold), output > 0, we need to HEAT
-        # If error < 0 (too hot), output < 0, we need to COOL
-        direction = 'heat' if output > 0 else 'cool'
+        # If combined_output > 0, we need to HEAT
+        # If combined_output < 0, we need to COOL
+        direction = 'heat' if combined_output > 0 else 'cool'
         
         # Apply peltier control
         if bioreactor.is_component_initialized('peltier_driver'):
@@ -383,7 +432,9 @@ def temperature_pid_controller(
                 f"Temperature PID: setpoint={setpoint:.2f}°C, "
                 f"current={current_temp:.2f}°C, "
                 f"error={error:.2f}°C, "
-                f"output={output:.2f}, "
+                f"pid_output={pid_output:.2f}, "
+                f"base_rate={base_rate:.1f}%, "
+                f"combined_output={combined_output:.2f}, "
                 f"duty={duty:.1f}%, "
                 f"direction={direction}, "
                 f"integral={bioreactor._temp_integral:.2f}"
@@ -604,16 +655,18 @@ def pid_co2_controller(
     elapsed: Optional[float] = None
 ) -> None:
     """
-    Simple PID controller for CO2 feedback control.
+    PID controller with base rate lookup table for CO2 feedback control.
     
-    Directly adjusts CO2 injection duration based on error (setpoint - current CO2).
+    Adjusts CO2 injection duration based on error (setpoint - current CO2) plus base rate.
+    Output = PID + BaseRate
     
     Sequence:
     1. Read current CO2_2 measurement
     2. Calculate error (setpoint - current)
     3. Calculate PID control output
-    4. Adjust injection duration based on control output
-    5. Pressurize and inject with adjusted duration
+    4. Get base rate from lookup table
+    5. Duration = PID output + BaseRate
+    6. Pressurize and inject with combined duration
     
     Args:
         bioreactor: Bioreactor instance
@@ -675,25 +728,26 @@ def pid_co2_controller(
     bioreactor._co2_last_error = error
     
     # Calculate PID control output
-    control_output = kp * error + ki * bioreactor._co2_integral + kd * derivative
-    bioreactor.logger.info(f"CO2 PID: error: {error:.1f} ppm, integral: {bioreactor._co2_integral:.6f}")
-    # Set injection duration directly as a function of the error (PID output)
-    # Duration is directly calculated from PID output: duration = f(error)
+    pid_output = kp * error + ki * bioreactor._co2_integral + kd * derivative
+    
+    # Get base rate from lookup table
+    base_rate = _CO2_BASE_RATE_LOOKUP.get(setpoint_ppm, 0.0)
+    
+    # Combined duration = PID output + BaseRate
     # Positive error (too low) -> longer injection duration
     # Negative error (too high) -> shorter injection duration (clamped to 0)
-    # Duration is purely a function of error, no base offset
-    new_co2_duration = control_output
+    combined_duration = pid_output + base_rate
     
-    # Clamp duration to reasonable bounds (0 to 5 seconds)
-    new_co2_duration = max(0.0, min(new_co2_duration, 2.0))
+    # Clamp duration to reasonable bounds (0 to 2 seconds)
+    new_co2_duration = max(0.0, min(combined_duration, 2.0))
     
     # Update global duration
     _co2_duration = new_co2_duration
     
     # Log control output
-    bioreactor.logger.info(f"CO2 PID control output: {control_output:.6f}")
+    bioreactor.logger.info(f"CO2 PID: error: {error:.1f} ppm, integral: {bioreactor._co2_integral:.6f}, pid_output: {pid_output:.6f}, base_rate: {base_rate:.6f}")
     
-    # Pressurize and inject with duration set directly from error
-    bioreactor.logger.info(f"CO2 PID: setpoint={setpoint_ppm:.1f} ppm, current={current_co2:.1f} ppm, error={error:.1f} ppm, duration={_co2_duration:.3f}s")
+    # Pressurize and inject with duration set from PID + base rate
+    bioreactor.logger.info(f"CO2 PID: setpoint={setpoint_ppm:.1f} ppm, current={current_co2:.1f} ppm, error={error:.1f} ppm, pid_output={pid_output:.6f}, base_rate={base_rate:.6f}, duration={_co2_duration:.3f}s")
     pressurize_and_inject_co2(bioreactor, pressurize_duration, pause, _co2_duration, elapsed)
 
