@@ -35,8 +35,8 @@ class ODManualReadingGUI:
         self.bioreactor = None
         self.initialized = False
         
-        # Store last readings
-        self.last_readings = {'Trx': None, 'Sct': None, 'Ref': None}
+        # Store last readings (will be initialized after channels are known)
+        self.last_readings = {}
         
         # Create widgets
         self.create_widgets()
@@ -109,10 +109,21 @@ class ODManualReadingGUI:
                                           fg="gray")
         self.last_reading_label.pack(anchor='w', padx=10)
         
-        # Results labels
+        # Get channel names from config
+        try:
+            config = Config()
+            od_channels = getattr(config, 'OD_ADC_CHANNELS', {})
+            self.channels = list(od_channels.keys()) if od_channels else ['Trx', 'Sct', 'Ref']
+        except:
+            # Fallback to default channels
+            self.channels = ['Trx', 'Sct', 'Ref']
+        
+        # Initialize last readings dictionary
+        self.last_readings = {ch: None for ch in self.channels}
+        
+        # Initialize result labels dictionaries
         self.result_labels = {}
         self.last_result_labels = {}
-        channels = ['Trx', 'Sct', 'Ref']
         
         # Header row
         header_frame = tk.Frame(results_frame)
@@ -124,7 +135,8 @@ class ODManualReadingGUI:
         tk.Label(header_frame, text="Last", width=15, anchor='w',
                 font=("Arial", 10, "bold")).pack(side='left', padx=10)
         
-        for i, channel in enumerate(channels):
+        # Create channel rows
+        for channel in self.channels:
             frame = tk.Frame(results_frame)
             frame.pack(fill="x", pady=5)
             
