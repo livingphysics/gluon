@@ -401,7 +401,7 @@ def measure_od(bioreactor, led_power: float, averaging_duration: float, channel_
             return None
         
         # Wait 1 second for LED to stabilize
-        time.sleep(1.0)
+        time.sleep(0.1)
         
         # Collect readings for the specified duration
         # Use dictionary to store readings for each channel

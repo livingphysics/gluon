@@ -37,6 +37,9 @@ class ODManualReadingGUI:
         
         # Store last readings (will be initialized after channels are known)
         self.last_readings = {}
+        # Two-phase sweep state
+        self.first_sweep_data = None
+        self.awaiting_second_sweep = False
         
         # Create widgets
         self.create_widgets()
@@ -93,6 +96,15 @@ class ODManualReadingGUI:
                                       width=20, height=2,
                                       state="disabled")
         self.sweep_button.pack(pady=5)
+        
+        # Two-sweep (swap vials) button
+        self.swap_sweep_button = tk.Button(button_frame, text="Two-sweep (swap vials)", 
+                                           command=self.start_two_phase_sweep,
+                                           font=("Arial", 11, "bold"),
+                                           bg="#9C27B0", fg="white",
+                                           width=20, height=2,
+                                           state="disabled")
+        self.swap_sweep_button.pack(pady=5)
         
         # Results frame
         results_frame = tk.LabelFrame(self.root, text="OD Voltage Readings", 
@@ -199,6 +211,7 @@ class ODManualReadingGUI:
         self.status_label.config(text="Ready", fg="green")
         self.read_button.config(state="normal")
         self.sweep_button.config(state="normal")
+        self.swap_sweep_button.config(state="normal")
     
     def update_status_error(self, error_msg):
         """Update UI when initialization fails"""
@@ -309,6 +322,36 @@ class ODManualReadingGUI:
         """Re-enable the read button"""
         self.read_button.config(state="normal", text="Take OD Reading")
         self.sweep_button.config(state="normal")
+        self.swap_sweep_button.config(state="normal", text="Two-sweep (swap vials)")
+    
+    def _perform_led_sweep(self, led_range=range(0, 21)):
+        """Perform an LED sweep and return collected data."""
+        # Turn on stirrer to 15% before starting sweep
+        if self.bioreactor.is_component_initialized('stirrer'):
+            set_stirrer_speed(self.bioreactor, 15.0)
+        
+        led_powers = []
+        channel_values = {ch: [] for ch in self.channels}
+        
+        for led_power in led_range:
+            self.root.after(0, lambda p=led_power: self.status_label.config(
+                text=f"Sweeping... LED Power: {p}%", fg="orange"))
+            
+            od_results = measure_od(
+                self.bioreactor,
+                led_power=float(led_power),
+                averaging_duration=0.5,
+                channel_name='all'
+            )
+            
+            if od_results:
+                led_powers.append(led_power)
+                for ch in self.channels:
+                    channel_values[ch].append(od_results.get(ch, None))
+            
+            time.sleep(0.2)
+        
+        return led_powers, channel_values
     
     def run_led_sweep(self):
         """Run LED power sweep from 0% to 20% in 1% increments"""
@@ -328,32 +371,7 @@ class ODManualReadingGUI:
         # Run sweep in separate thread
         def sweep_thread():
             try:
-                # Turn on stirrer to 15% before starting sweep
-                if self.bioreactor.is_component_initialized('stirrer'):
-                    set_stirrer_speed(self.bioreactor, 15.0)
-                
-                # Storage for results
-                led_powers = []
-                channel_values = {ch: [] for ch in self.channels}
-                
-                # Sweep from 0% to 20% in 1% increments
-                for led_power in range(0, 21):
-                    self.root.after(0, lambda p=led_power: self.status_label.config(
-                        text=f"Sweeping... LED Power: {p}%", fg="orange"))
-                    
-                    # Measure OD at this LED power
-                    od_results = measure_od(self.bioreactor,
-                                          led_power=float(led_power),
-                                          averaging_duration=0.5,
-                                          channel_name='all')
-                    
-                    if od_results:
-                        led_powers.append(led_power)
-                        for ch in self.channels:
-                            channel_values[ch].append(od_results.get(ch, None))
-                    
-                    # Small delay between measurements
-                    time.sleep(0.2)
+                led_powers, channel_values = self._perform_led_sweep()
                 
                 # Update UI with final results
                 if led_powers:
@@ -441,10 +459,177 @@ class ODManualReadingGUI:
             print(error_msg)
             messagebox.showerror("Plot Error", error_msg)
     
+    def start_two_phase_sweep(self):
+        """Run two sweeps with a vial swap in between and plot the difference."""
+        if not self.initialized or self.bioreactor is None:
+            messagebox.showerror("Error", "Bioreactor not initialized")
+            return
+        
+        if self.awaiting_second_sweep:
+            self._run_second_sweep()
+        else:
+            self._run_first_sweep()
+    
+    def _run_first_sweep(self):
+        """Execute the first sweep and prompt for vial swap."""
+        # Disable other actions during the two-phase process
+        self.read_button.config(state="disabled")
+        self.sweep_button.config(state="disabled")
+        self.swap_sweep_button.config(state="disabled", text="Running first sweep...")
+        self.status_label.config(text="Running first sweep...", fg="orange")
+        
+        def first_sweep_thread():
+            try:
+                led_powers, channel_values = self._perform_led_sweep()
+                if not led_powers:
+                    self.root.after(0, lambda: self.update_status_error("No valid readings collected in first sweep"))
+                    self.root.after(0, self.enable_sweep_button)
+                    return
+                
+                # Store first sweep data and prompt user
+                self.first_sweep_data = (led_powers, channel_values)
+                self.awaiting_second_sweep = True
+                self.root.after(0, lambda: self.status_label.config(
+                    text="First sweep done. Swap vials, then run second sweep.", fg="blue"))
+                self.root.after(0, lambda: self.swap_sweep_button.config(
+                    state="normal", text="Run second sweep"))
+            except Exception as e:
+                error_msg = f"Error during first sweep: {e}"
+                print(error_msg)
+                self.awaiting_second_sweep = False
+                self.root.after(0, lambda: self.update_status_error(error_msg))
+                # Re-enable other buttons on failure
+                self.root.after(0, self.enable_sweep_button)
+            # Do not re-enable other buttons here; wait until second sweep completes
+        
+        threading.Thread(target=first_sweep_thread, daemon=True).start()
+    
+    def _run_second_sweep(self):
+        """Execute the second sweep, compute diff, and plot."""
+        if not self.first_sweep_data:
+            messagebox.showwarning("Sweep Warning", "First sweep data missing. Run first sweep again.")
+            return
+        
+        self.swap_sweep_button.config(state="disabled", text="Running second sweep...")
+        self.status_label.config(text="Running second sweep...", fg="orange")
+        
+        def second_sweep_thread():
+            try:
+                led_powers_2, channel_values_2 = self._perform_led_sweep()
+                if not led_powers_2:
+                    self.root.after(0, lambda: self.update_status_error("No valid readings collected in second sweep"))
+                    return
+                
+                # Update GUI with second sweep results
+                self.root.after(0, lambda: self.update_results_from_sweep(led_powers_2, channel_values_2))
+                
+                # Compute difference (second - first)
+                led_powers_diff, diff_values = self._compute_sweep_difference(
+                    self.first_sweep_data, (led_powers_2, channel_values_2)
+                )
+                
+                if led_powers_diff:
+                    self.root.after(0, lambda: self.plot_diff_results(led_powers_diff, diff_values))
+                    self.root.after(0, lambda: self.status_label.config(
+                        text="Swap sweep complete (second - first plotted).", fg="green"))
+                else:
+                    self.root.after(0, lambda: self.update_status_error(
+                        "No overlapping data points to plot difference"))
+            except Exception as e:
+                error_msg = f"Error during second sweep: {e}"
+                print(error_msg)
+                self.root.after(0, lambda: self.update_status_error(error_msg))
+            finally:
+                # Reset state and re-enable buttons
+                self.first_sweep_data = None
+                self.awaiting_second_sweep = False
+                self.root.after(0, self.enable_sweep_button)
+                self.root.after(0, lambda: self.swap_sweep_button.config(text="Two-sweep (swap vials)"))
+        
+        threading.Thread(target=second_sweep_thread, daemon=True).start()
+    
+    def _compute_sweep_difference(self, first_data, second_data):
+        """Compute per-channel differences between two sweeps (second - first)."""
+        led_powers_1, channel_values_1 = first_data
+        led_powers_2, channel_values_2 = second_data
+        
+        def build_maps(leds, channel_values):
+            maps = {}
+            for ch in self.channels:
+                vals = channel_values.get(ch, [])
+                maps[ch] = {p: vals[i] for i, p in enumerate(leds) if i < len(vals) and vals[i] is not None}
+            return maps
+        
+        maps1 = build_maps(led_powers_1, channel_values_1)
+        maps2 = build_maps(led_powers_2, channel_values_2)
+        
+        # Collect all LED powers that have values in both sweeps for at least one channel
+        common_powers = sorted({p for ch in self.channels for p in (set(maps1[ch].keys()) & set(maps2[ch].keys()))})
+        
+        diff_values = {ch: [] for ch in self.channels}
+        aligned_powers = []
+        
+        for p in common_powers:
+            any_value = False
+            for ch in self.channels:
+                if p in maps1[ch] and p in maps2[ch]:
+                    diff = maps2[ch][p] - maps1[ch][p]
+                    diff_values[ch].append(diff)
+                    any_value = True
+                else:
+                    diff_values[ch].append(None)
+            if any_value:
+                aligned_powers.append(p)
+            else:
+                # Remove trailing None entries if no channel had a value
+                for ch in self.channels:
+                    if diff_values[ch]:
+                        diff_values[ch].pop()
+        
+        return aligned_powers, diff_values
+    
+    def plot_diff_results(self, led_powers, diff_values):
+        """Plot difference between sweeps (second - first) for each channel."""
+        try:
+            plot_data = {}
+            for channel in self.channels:
+                vals = diff_values.get(channel, [])
+                points = [(p, v) for p, v in zip(led_powers, vals) if v is not None]
+                if points:
+                    plot_data[channel] = points
+            
+            if not plot_data:
+                messagebox.showwarning("Plot Warning", "No valid difference data to plot")
+                return
+            
+            fig, ax = plt.subplots(figsize=(10, 6))
+            markers = ['o', 's', '^', 'd', 'v', 'x']
+            for idx, (channel, points) in enumerate(plot_data.items()):
+                m = markers[idx % len(markers)]
+                powers = [p for p, _ in points]
+                values = [v for _, v in points]
+                ax.plot(powers, values, f'{m}-', label=f"{channel} (Δ)", linewidth=2, markersize=6)
+            
+            ax.set_xlabel('LED Power (%)', fontsize=12)
+            ax.set_ylabel('Voltage Difference (V)', fontsize=12)
+            ax.set_title('OD Voltage Difference (Second - First)', fontsize=14, fontweight='bold')
+            ax.grid(True, alpha=0.3)
+            ax.legend(fontsize=11)
+            
+            plt.tight_layout()
+            plt.show()
+        except Exception as e:
+            error_msg = f"Error plotting differences: {e}"
+            print(error_msg)
+            messagebox.showerror("Plot Error", error_msg)
+    
     def enable_sweep_button(self):
         """Re-enable the sweep button"""
+        self.awaiting_second_sweep = False
+        self.first_sweep_data = None
         self.read_button.config(state="normal")
         self.sweep_button.config(state="normal", text="LED Power Sweep (0-20%)")
+        self.swap_sweep_button.config(state="normal", text="Two-sweep (swap vials)")
     
     def on_closing(self):
         """Cleanup when window is closed"""
