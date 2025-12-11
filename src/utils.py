@@ -156,25 +156,26 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
     
     # Write to CSV
     if hasattr(bioreactor, 'writer') and bioreactor.writer:
-        # Map to config labels if available
         config = getattr(bioreactor, 'cfg', None)
-        if config and hasattr(config, 'SENSOR_LABELS'):
-            csv_row = {
-                'time': elapsed,
-                config.SENSOR_LABELS.get('co2', 'CO2_ppm'): sensor_data['co2'],
-                config.SENSOR_LABELS.get('co2_2', 'CO2_2_ppm'): sensor_data.get('co2_2', float('nan')),
-                config.SENSOR_LABELS.get('o2', 'O2_percent'): sensor_data['o2'],
-                config.SENSOR_LABELS.get('temperature', 'temperature_C'): sensor_data['temperature'],
-            }
-            # Add OD data using config labels
-            if 'od_trx' in sensor_data:
-                csv_row[config.SENSOR_LABELS.get('od_trx', 'OD_Trx_V')] = sensor_data['od_trx']
-            if 'od_sct' in sensor_data:
-                csv_row[config.SENSOR_LABELS.get('od_sct', 'OD_Sct_V')] = sensor_data['od_sct']
-            if 'od_ref' in sensor_data:
-                csv_row[config.SENSOR_LABELS.get('od_ref', 'OD_Ref_V')] = sensor_data['od_ref']
-        else:
-            csv_row = sensor_data
+        labels = getattr(config, 'SENSOR_LABELS', {}) if config else {}
+        
+        csv_row = {'time': elapsed}
+        
+        # Core sensors (guarded presence)
+        if 'co2' in sensor_data:
+            csv_row[labels.get('co2', 'CO2_ppm')] = sensor_data['co2']
+        if 'co2_2' in sensor_data:
+            csv_row[labels.get('co2_2', 'CO2_2_ppm')] = sensor_data['co2_2']
+        if 'o2' in sensor_data:
+            csv_row[labels.get('o2', 'O2_percent')] = sensor_data['o2']
+        if 'temperature' in sensor_data:
+            csv_row[labels.get('temperature', 'temperature_C')] = sensor_data['temperature']
+        
+        # Dynamic OD channels: keys like od_<name>
+        for key in sorted(k for k in sensor_data.keys() if k.startswith('od_')):
+            channel = key[3:]
+            label_key = labels.get(key) or labels.get(f"od_{channel}") or f"OD_{channel.upper()}_V"
+            csv_row[label_key] = sensor_data[key]
         
         try:
             # Only write fields that exist in fieldnames to avoid errors
