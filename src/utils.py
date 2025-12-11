@@ -204,6 +204,21 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
             _plot_fig.suptitle('Live Sensor Monitoring', fontsize=14)
             plt.ion()  # Turn on interactive mode
             plt.show(block=False)
+
+        # Choose time scale: seconds by default, minutes after 100s, hours after 300 minutes
+        def _scaled_time(times):
+            if not times:
+                return [], "Seconds"
+            max_t = times[-1]
+            if max_t >= 300 * 60:  # 300 minutes -> hours
+                return [t / 3600 for t in times], "Hours"
+            if max_t >= 100:  # after ~100 seconds -> minutes
+                return [t / 60 for t in times], "Minutes"
+            return times, "Seconds"
+
+        times_sec = list(_plot_data['time'])
+        times_scaled, time_unit = _scaled_time(times_sec)
+        xlabel = f"Time ({time_unit.lower()})"
         
         # Top left: CO2 (both sensors)
         ax1 = _plot_axes[0, 0]
@@ -212,9 +227,9 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
         ax1.set_ylabel('CO2 (ppm)')
         ax1.grid(True, alpha=0.3)
         if len(_plot_data['co2']) > 0:
-            ax1.plot(list(_plot_data['time']), list(_plot_data['co2']), 'b-', linewidth=2, label='CO2')
+            ax1.plot(times_scaled, list(_plot_data['co2']), 'b-', linewidth=2, label='CO2')
         if len(_plot_data['co2_2']) > 0:
-            ax1.plot(list(_plot_data['time']), list(_plot_data['co2_2']), 'r--', linewidth=2, label='CO2_2')
+            ax1.plot(times_scaled, list(_plot_data['co2_2']), 'r--', linewidth=2, label='CO2_2')
         ax1.legend()
         
         # Top right: O2
@@ -224,25 +239,25 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
         ax2.set_ylabel('O2 (%)')
         ax2.grid(True, alpha=0.3)
         if len(_plot_data['o2']) > 0:
-            ax2.plot(list(_plot_data['time']), list(_plot_data['o2']), 'r-', linewidth=2, label='O2')
+            ax2.plot(times_scaled, list(_plot_data['o2']), 'r-', linewidth=2, label='O2')
         ax2.legend()
         
         # Bottom left: Temperature
         ax3 = _plot_axes[1, 0]
         ax3.clear()
         ax3.set_title('Temperature')
-        ax3.set_xlabel('Time (seconds)')
+        ax3.set_xlabel(xlabel)
         ax3.set_ylabel('Temperature (°C)')
         ax3.grid(True, alpha=0.3)
         if len(_plot_data['temperature']) > 0:
-            ax3.plot(list(_plot_data['time']), list(_plot_data['temperature']), 'g-', linewidth=2, label='Temperature')
+            ax3.plot(times_scaled, list(_plot_data['temperature']), 'g-', linewidth=2, label='Temperature')
         ax3.legend()
         
         # Bottom right: OD voltages (dynamic)
         ax4 = _plot_axes[1, 1]
         ax4.clear()
         ax4.set_title('Optical Density Voltages')
-        ax4.set_xlabel('Time (seconds)')
+        ax4.set_xlabel(xlabel)
         ax4.set_ylabel('Voltage (V)')
         ax4.grid(True, alpha=0.3)
         # Plot any OD_* series we have tracked
@@ -254,7 +269,7 @@ def measure_and_plot_sensors(bioreactor, elapsed: Optional[float] = None, led_po
             if len(_plot_data[key]) == 0:
                 continue
             color = colors[idx % len(colors)]
-            ax4.plot(list(_plot_data['time']), list(_plot_data[key]), color, linewidth=2, label=key[3:].upper())
+            ax4.plot(times_scaled, list(_plot_data[key]), color, linewidth=2, label=key[3:].upper())
             idx += 1
         if idx > 0:
             ax4.legend()
