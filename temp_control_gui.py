@@ -240,6 +240,7 @@ class TemperatureControlGUI:
                     'led': False,
                     'optical_density': False,
                 }
+                config.LOG_TO_TERMINAL = True 
                 
                 self.bioreactor = Bioreactor(config)
                 self.initialized = True
