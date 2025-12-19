@@ -21,7 +21,7 @@ from matplotlib.figure import Figure
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from src import Bioreactor, Config
-from src.io import get_temperature, set_peltier_power, stop_peltier
+from src.io import get_temperature, set_peltier_power, stop_peltier, set_stirrer_speed, stop_stirrer
 from src.utils import temperature_pid_controller
 
 
@@ -52,6 +52,9 @@ class TemperatureControlGUI:
         self.kp = 12.0
         self.ki = 0.015
         self.kd = 0.0
+        
+        # Stirrer state
+        self.current_duty = 0.0
         
         # Create widgets
         self.create_widgets()
@@ -200,6 +203,60 @@ class TemperatureControlGUI:
         tk.Button(manual_btn_frame, text="Apply", width=8, command=self.apply_manual_control).pack(side='left', padx=2)
         tk.Button(manual_btn_frame, text="Stop", width=8, command=self.stop_peltier_manual).pack(side='left', padx=2)
         
+        # Stirrer Control section
+        stirrer_frame = tk.LabelFrame(left_panel, text="Stirrer Control", font=("Arial", 12, "bold"), padx=10, pady=10)
+        stirrer_frame.pack(fill='x', pady=(0, 10))
+        
+        # Duty cycle display
+        duty_display_frame = tk.Frame(stirrer_frame)
+        duty_display_frame.pack(pady=5)
+        
+        tk.Label(duty_display_frame, text="Duty Cycle:", font=("Arial", 10)).pack(side='left', padx=5)
+        self.duty_label = tk.Label(duty_display_frame, text="0.0%", font=("Arial", 10, "bold"), width=10)
+        self.duty_label.pack(side='left', padx=5)
+        
+        # PWM slider
+        slider_frame = tk.Frame(stirrer_frame)
+        slider_frame.pack(pady=10, fill='x')
+        
+        tk.Label(slider_frame, text="0%", font=("Arial", 9)).pack(side='left')
+        self.duty_scale = tk.Scale(slider_frame, from_=0, to=100, orient='horizontal', 
+                                   length=200, resolution=0.1, command=self.on_stirrer_scale_change,
+                                   state="disabled")
+        self.duty_scale.set(0)
+        self.duty_scale.pack(side='left', padx=5, fill='x', expand=True)
+        tk.Label(slider_frame, text="100%", font=("Arial", 9)).pack(side='left')
+        
+        # Direct input frame
+        stirrer_input_frame = tk.Frame(stirrer_frame)
+        stirrer_input_frame.pack(pady=5)
+        
+        tk.Label(stirrer_input_frame, text="Set Duty:", font=("Arial", 10)).pack(side='left', padx=5)
+        self.stirrer_duty_entry = tk.Entry(stirrer_input_frame, width=8, state="disabled")
+        self.stirrer_duty_entry.insert(0, "0.0")
+        self.stirrer_duty_entry.pack(side='left', padx=5)
+        
+        tk.Label(stirrer_input_frame, text="%", font=("Arial", 10)).pack(side='left', padx=2)
+        tk.Button(stirrer_input_frame, text="Set", width=6, command=self.set_stirrer_duty_from_entry,
+                 state="disabled").pack(side='left', padx=5)
+        
+        # Control buttons
+        stirrer_button_frame = tk.Frame(stirrer_frame)
+        stirrer_button_frame.pack(pady=10)
+        
+        self.stirrer_stop_btn = tk.Button(stirrer_button_frame, text="Stop (0%)", width=10, 
+                                          command=self.stop_stirrer_control, state="disabled")
+        self.stirrer_stop_btn.pack(side='left', padx=5)
+        self.stirrer_20_btn = tk.Button(stirrer_button_frame, text="20%", width=8, 
+                                        command=lambda: self.set_stirrer_duty(20.0), state="disabled")
+        self.stirrer_20_btn.pack(side='left', padx=5)
+        self.stirrer_50_btn = tk.Button(stirrer_button_frame, text="50%", width=8, 
+                                        command=lambda: self.set_stirrer_duty(50.0), state="disabled")
+        self.stirrer_50_btn.pack(side='left', padx=5)
+        self.stirrer_100_btn = tk.Button(stirrer_button_frame, text="100%", width=8, 
+                                         command=lambda: self.set_stirrer_duty(100.0), state="disabled")
+        self.stirrer_100_btn.pack(side='left', padx=5)
+        
         # === RIGHT PANEL: Plot ===
         
         plot_frame = tk.LabelFrame(right_panel, text="Temperature Plot", font=("Arial", 12, "bold"), padx=10, pady=10)
@@ -237,7 +294,7 @@ class TemperatureControlGUI:
                     'i2c': False,
                     'temp_sensor': True,  # Enable temperature sensor
                     'peltier_driver': True,  # Enable peltier driver
-                    'stirrer': False,
+                    'stirrer': True,  # Enable stirrer
                     'led': False,
                     'optical_density': False,
                 }
@@ -261,6 +318,14 @@ class TemperatureControlGUI:
         self.pid_toggle.config(state="normal")
         self.setpoint_entry.config(state="normal")
         self.power_entry.config(state="normal")
+        
+        # Enable stirrer controls
+        self.duty_scale.config(state="normal")
+        self.stirrer_duty_entry.config(state="normal")
+        self.stirrer_stop_btn.config(state="normal")
+        self.stirrer_20_btn.config(state="normal")
+        self.stirrer_50_btn.config(state="normal")
+        self.stirrer_100_btn.config(state="normal")
     
     def update_status_error(self, error_msg):
         """Update UI when initialization fails"""
@@ -383,6 +448,53 @@ class TemperatureControlGUI:
         stop_peltier(self.bioreactor)
         self.status_label.config(text="Peltier Stopped", fg="orange")
     
+    def on_stirrer_scale_change(self, value):
+        """Called when stirrer slider is moved"""
+        try:
+            duty = float(value)
+            self.set_stirrer_duty(duty, update_scale=False)
+        except ValueError:
+            pass
+    
+    def set_stirrer_duty_from_entry(self):
+        """Set stirrer duty cycle from entry field"""
+        try:
+            duty = float(self.stirrer_duty_entry.get())
+            self.set_stirrer_duty(duty)
+        except ValueError:
+            messagebox.showerror("Invalid Input", "Please enter a valid number between 0 and 100")
+    
+    def set_stirrer_duty(self, duty, update_scale=True):
+        """Set stirrer PWM duty cycle"""
+        if not self.initialized or self.bioreactor is None:
+            messagebox.showwarning("Not Initialized", "Bioreactor not initialized yet")
+            return
+        
+        # Clamp duty cycle to 0-100
+        duty = max(0.0, min(100.0, float(duty)))
+        self.current_duty = duty
+        
+        # Update UI
+        self.duty_label.config(text=f"{duty:.1f}%")
+        if update_scale:
+            self.duty_scale.set(duty)
+        self.stirrer_duty_entry.delete(0, tk.END)
+        self.stirrer_duty_entry.insert(0, f"{duty:.1f}")
+        
+        # Set stirrer speed
+        success = set_stirrer_speed(self.bioreactor, duty)
+        if not success:
+            messagebox.showerror("Error", "Failed to set stirrer speed")
+    
+    def stop_stirrer_control(self):
+        """Stop stirrer (set to 0%)"""
+        if not self.initialized or self.bioreactor is None:
+            messagebox.showwarning("Not Initialized", "Bioreactor not initialized yet")
+            return
+        
+        self.set_stirrer_duty(0.0)
+        stop_stirrer(self.bioreactor)
+    
     def update_temperature(self):
         """Update temperature reading and plot"""
         if not self.monitoring:
@@ -432,6 +544,7 @@ class TemperatureControlGUI:
         if self.initialized and self.bioreactor is not None:
             try:
                 stop_peltier(self.bioreactor)
+                stop_stirrer(self.bioreactor)
             except:
                 pass
         
