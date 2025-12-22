@@ -158,7 +158,6 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
             fig, axes = plt.subplots(rows, cols, figsize=(14, 4 * rows))
             fig.suptitle(f'Live Data from {os.path.basename(csv_file_path)}', fontsize=14)
             plt.ion()
-            plt.show(block=False)
             
             # Flatten axes if needed
             if num_groups == 1:
@@ -167,6 +166,10 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
                 axes = list(axes)
             else:
                 axes = axes.flatten()
+            
+            # Show the figure window
+            plt.show(block=False)
+            plt.pause(0.1)  # Give matplotlib time to display the window
         
         # Plot each group
         ax_idx = 0
@@ -217,7 +220,7 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
         
         plt.tight_layout()
         plt.draw()
-        plt.pause(0.01)
+        plt.pause(0.1)  # Increased pause time to ensure display updates
     
     def update_loop():
         """Continuously update the plot."""
@@ -232,18 +235,26 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
                 time.sleep(update_interval)
     
     # Initial plot
+    print("Reading CSV and creating plot...")
     update_plot()
+    
+    if fig is None:
+        print("Warning: No data found to plot. Check that the CSV file has data.")
+        return
+    
+    print("Plot window opened. Press Ctrl+C to stop.")
     
     # Start update thread
     update_thread = threading.Thread(target=update_loop, daemon=True)
     update_thread.start()
     
-    # Keep main thread alive
+    # Keep main thread alive and process GUI events
     try:
         while True:
-            time.sleep(1)
+            plt.pause(0.1)  # Process GUI events
+            time.sleep(0.5)
     except KeyboardInterrupt:
-        print("Plotting stopped by user")
+        print("\nPlotting stopped by user")
         if fig:
             plt.close(fig)
 

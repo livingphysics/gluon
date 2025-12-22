@@ -33,6 +33,12 @@ class Bioreactor():
         
         # Add file handler if LOG_FILE is specified
         if config and hasattr(config, 'LOG_FILE') and config.LOG_FILE:
+            # Clear log file if CLEAR_LOG_ON_START is True
+            clear_log = getattr(config, 'CLEAR_LOG_ON_START', False) if config else False
+            if clear_log and os.path.exists(config.LOG_FILE):
+                # Truncate the log file to clear it
+                open(config.LOG_FILE, 'w').close()
+            
             file_handler = logging.FileHandler(config.LOG_FILE)
             file_handler.setFormatter(formatter)
             self.logger.addHandler(file_handler)

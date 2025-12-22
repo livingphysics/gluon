@@ -14,6 +14,7 @@ class Config:
     LOG_FORMAT: str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     LOG_FILE: str = 'bioreactor.log'
     LOG_TO_TERMINAL: bool = True  # Print logs to terminal/console
+    CLEAR_LOG_ON_START: bool = False  # If True, clears/truncates the log file on startup
     DATA_OUT_FILE: str = 'bioreactor_data.csv'
     USE_TIMESTAMPED_FILENAME: bool = True  # If True, adds timestamp prefix (e.g., "20250113_153000_bioreactor_data.csv"). If False, uses base filename only.
     
