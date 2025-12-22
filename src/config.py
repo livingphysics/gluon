@@ -52,7 +52,7 @@ class Config:
 
     # Optical Density (OD) Configuration (ADS1115 ADC)
     OD_ADC_CHANNELS: dict[str, str] = {
-        'Trx': 'A0',
+        '135': 'A0',
         'Ref': 'A1',
-        'Sct': 'A2',
+        '90': 'A2',
     }  # Dictionary mapping channel names to ADS1115 pins (A0-A3)
