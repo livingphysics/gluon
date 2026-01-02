@@ -27,6 +27,7 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
     
     Groups columns by type:
     - OD readings (columns containing 'OD' or 'od') -> one subplot
+    - Eyespy readings (columns containing 'eyespy' or 'Eyespy') -> one subplot
     - Temperature (columns containing 'temp' or 'temperature') -> one subplot
     - Time -> x-axis for all
     
@@ -49,6 +50,7 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
         """Group column headers by type."""
         groups = {
             'OD': [],
+            'Eyespy': [],
             'Temperature': [],
             'Time': []
         }
@@ -59,6 +61,8 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
                 groups['Time'].append(header)
             elif 'od' in header_lower:
                 groups['OD'].append(header)
+            elif 'eyespy' in header_lower:
+                groups['Eyespy'].append(header)
             elif 'temp' in header_lower:
                 groups['Temperature'].append(header)
         
@@ -191,6 +195,8 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
             
             # Determine ylabel based on group
             if group_name == 'OD':
+                ax.set_ylabel('Voltage (V)')
+            elif group_name == 'Eyespy':
                 ax.set_ylabel('Voltage (V)')
             elif group_name == 'Temperature':
                 ax.set_ylabel('Temperature (°C)')
