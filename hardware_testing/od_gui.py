@@ -18,8 +18,10 @@ import threading
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Add src directory to path to allow imports
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Add parent directory to path to allow imports from src
+# od_gui.py is in hardware_testing/, so we need to go up one level to find src/
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, parent_dir)
 
 from src import Bioreactor, Config
 from src.io import measure_od, set_led, set_stirrer_speed, stop_stirrer
