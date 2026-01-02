@@ -233,7 +233,7 @@ def measure_and_record_sensors(bioreactor, elapsed: Optional[float] = None, led_
         dict: Dictionary with all sensor readings
     """
     # Import IO functions
-    from .io import get_temperature, read_voltage, measure_od
+    from .io import get_temperature, read_voltage, measure_od, read_all_eyespy_boards, read_eyespy_voltage, read_eyespy_adc
     
     # Get elapsed time
     if elapsed is None:
@@ -264,21 +264,41 @@ def measure_and_record_sensors(bioreactor, elapsed: Optional[float] = None, led_
     
     # Read OD channels dynamically based on config
     if bioreactor.is_component_initialized('led') and bioreactor.is_component_initialized('optical_density'):
-        # Measure OD with LED on
+        # Measure OD with LED on (also reads eyespy if initialized)
         od_results = measure_od(bioreactor, led_power=led_power, averaging_duration=averaging_duration, channel_name='all')
-        if od_results and od_channel_names:
-            for ch_name in od_channel_names:
-                plot_key = f"od_{ch_name.lower()}"
-                od_value = od_results.get(ch_name, None)
-                if od_value is not None:
-                    sensor_data[plot_key] = od_value
-                else:
-                    sensor_data[plot_key] = float('nan')
+        if od_results:
+            # Extract OD channel readings
+            if od_channel_names:
+                for ch_name in od_channel_names:
+                    plot_key = f"od_{ch_name.lower()}"
+                    od_value = od_results.get(ch_name, None)
+                    if od_value is not None:
+                        sensor_data[plot_key] = od_value
+                    else:
+                        sensor_data[plot_key] = float('nan')
+            
+            # Extract eyespy readings from od_results (they're included when both are initialized)
+            if bioreactor.is_component_initialized('eyespy_adc') and hasattr(bioreactor, 'eyespy_boards'):
+                for board_name in bioreactor.eyespy_boards.keys():
+                    eyespy_voltage = od_results.get(board_name, None)
+                    if eyespy_voltage is not None:
+                        sensor_data[f"eyespy_{board_name}_voltage"] = eyespy_voltage
+                        # Also get raw value for completeness
+                        raw_value = read_eyespy_adc(bioreactor, board_name)
+                        sensor_data[f"eyespy_{board_name}_raw"] = raw_value if raw_value is not None else float('nan')
+                    else:
+                        sensor_data[f"eyespy_{board_name}_voltage"] = float('nan')
+                        sensor_data[f"eyespy_{board_name}_raw"] = float('nan')
         else:
             # No results, set all to NaN
             for ch_name in od_channel_names:
                 plot_key = f"od_{ch_name.lower()}"
                 sensor_data[plot_key] = float('nan')
+            # Also set eyespy to NaN if initialized
+            if bioreactor.is_component_initialized('eyespy_adc') and hasattr(bioreactor, 'eyespy_boards'):
+                for board_name in bioreactor.eyespy_boards.keys():
+                    sensor_data[f"eyespy_{board_name}_voltage"] = float('nan')
+                    sensor_data[f"eyespy_{board_name}_raw"] = float('nan')
     else:
         # Try reading without LED if OD sensor is available but LED is not
         if bioreactor.is_component_initialized('optical_density') and od_channel_names:
@@ -292,8 +312,8 @@ def measure_and_record_sensors(bioreactor, elapsed: Optional[float] = None, led_
                 plot_key = f"od_{ch_name.lower()}"
                 sensor_data[plot_key] = float('nan')
     
-    # Read eyespy ADC boards
-    if bioreactor.is_component_initialized('eyespy_adc'):
+    # Eyespy ADC readings when OD/LED are not both available (read separately)
+    if bioreactor.is_component_initialized('eyespy_adc') and not (bioreactor.is_component_initialized('led') and bioreactor.is_component_initialized('optical_density')):
         eyespy_readings = read_all_eyespy_boards(bioreactor)
         if eyespy_readings:
             for board_name, raw_value in eyespy_readings.items():
