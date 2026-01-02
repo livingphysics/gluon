@@ -106,8 +106,27 @@ class ODManualReadingGUI:
                                            state="disabled")
         self.swap_sweep_button.pack(pady=5)
         
+        # Get channel names from config (OD channels + eyespy boards)
+        try:
+            config = Config()
+            od_channels = getattr(config, 'OD_ADC_CHANNELS', {})
+            self.od_channels = list(od_channels.keys()) if od_channels else ['Trx', 'Sct', 'Ref']
+            
+            # Get eyespy board names
+            eyespy_config = getattr(config, 'EYESPY_ADC', {})
+            self.eyespy_boards = list(eyespy_config.keys()) if eyespy_config else []
+            
+            # Combine all channels for display
+            self.channels = self.od_channels + self.eyespy_boards
+        except:
+            # Fallback to default channels
+            self.od_channels = ['Trx', 'Sct', 'Ref']
+            self.eyespy_boards = []
+            self.channels = self.od_channels + self.eyespy_boards
+        
         # Results frame
-        results_frame = tk.LabelFrame(self.root, text="OD Voltage Readings", 
+        frame_title = "OD & Eyespy Voltage Readings" if self.eyespy_boards else "OD Voltage Readings"
+        results_frame = tk.LabelFrame(self.root, text=frame_title, 
                                       font=("Arial", 12, "bold"), padx=10, pady=10)
         results_frame.pack(pady=20, padx=20, fill="both", expand=True)
         
@@ -120,15 +139,6 @@ class ODManualReadingGUI:
                                           font=("Arial", 10, "italic"), 
                                           fg="gray")
         self.last_reading_label.pack(anchor='w', padx=10)
-        
-        # Get channel names from config
-        try:
-            config = Config()
-            od_channels = getattr(config, 'OD_ADC_CHANNELS', {})
-            self.channels = list(od_channels.keys()) if od_channels else ['Trx', 'Sct', 'Ref']
-        except:
-            # Fallback to default channels
-            self.channels = ['Trx', 'Sct', 'Ref']
         
         # Initialize last readings dictionary
         self.last_readings = {ch: None for ch in self.channels}
@@ -147,8 +157,8 @@ class ODManualReadingGUI:
         tk.Label(header_frame, text="Last", width=15, anchor='w',
                 font=("Arial", 10, "bold")).pack(side='left', padx=10)
         
-        # Create channel rows
-        for channel in self.channels:
+        # Create channel rows (OD channels first, then eyespy)
+        for channel in self.od_channels:
             frame = tk.Frame(results_frame)
             frame.pack(fill="x", pady=5)
             
@@ -168,11 +178,42 @@ class ODManualReadingGUI:
             last_value_label.pack(side='left', padx=10)
             self.last_result_labels[channel] = last_value_label
         
+        # Add separator if both OD and eyespy are present
+        if self.od_channels and self.eyespy_boards:
+            separator = tk.Frame(results_frame, height=2, bg="gray")
+            separator.pack(fill="x", pady=5)
+            separator_label = tk.Label(results_frame, text="Eyespy Readings", 
+                                       font=("Arial", 10, "bold"), fg="gray")
+            separator_label.pack(pady=5)
+        
+        # Create eyespy board rows
+        for board_name in self.eyespy_boards:
+            frame = tk.Frame(results_frame)
+            frame.pack(fill="x", pady=5)
+            
+            label = tk.Label(frame, text=f"{board_name}:", width=10, anchor='w', 
+                            font=("Arial", 11))
+            label.pack(side='left', padx=10)
+            
+            # Current reading
+            value_label = tk.Label(frame, text="--- V", width=15, anchor='w',
+                                  font=("Arial", 11, "bold"), fg="blue")
+            value_label.pack(side='left', padx=10)
+            self.result_labels[board_name] = value_label
+            
+            # Last reading
+            last_value_label = tk.Label(frame, text="--- V", width=15, anchor='w',
+                                       font=("Arial", 11), fg="gray")
+            last_value_label.pack(side='left', padx=10)
+            self.last_result_labels[board_name] = last_value_label
+        
         # Info label
-        info_label = tk.Label(self.root, 
-                             text="Select LED power (0-30%), then click 'Take OD Reading'.\n"
-                                  "Stirrer will turn on to 15%, LED will turn on for 1s,\n"
-                                  "then readings averaged over 0.5s.",
+        info_text = "Select LED power (0-30%), then click 'Take OD Reading'.\n"
+        info_text += "Stirrer will turn on to 15%, LED will turn on for 1s,\n"
+        info_text += "then readings averaged over 0.5s."
+        if self.eyespy_boards:
+            info_text += f"\nEyespy boards ({', '.join(self.eyespy_boards)}) will also be read."
+        info_label = tk.Label(self.root, text=info_text,
                              font=("Arial", 9), fg="gray")
         info_label.pack(pady=10)
     
@@ -186,12 +227,13 @@ class ODManualReadingGUI:
                     'co2_sensor': False,
                     'co2_sensor_2': False,
                     'o2_sensor': False,
-                    'i2c': True,  # Needed for OD sensor
+                    'i2c': True,  # Needed for OD sensor and eyespy
                     'temp_sensor': False,
                     'peltier_driver': False,
                     'stirrer': True,  # Enable stirrer
                     'led': True,  # Enable LED
                     'optical_density': True,  # Enable OD sensor
+                    'eyespy_adc': True,  # Enable eyespy ADC boards
                 }
                 
                 self.bioreactor = Bioreactor(config)
@@ -331,6 +373,7 @@ class ODManualReadingGUI:
             set_stirrer_speed(self.bioreactor, 15.0)
         
         led_powers = []
+        # Initialize with OD channels and eyespy boards
         channel_values = {ch: [] for ch in self.channels}
         
         for led_power in led_range:
@@ -346,6 +389,7 @@ class ODManualReadingGUI:
             
             if od_results:
                 led_powers.append(led_power)
+                # Collect readings for all channels (OD + eyespy)
                 for ch in self.channels:
                     channel_values[ch].append(od_results.get(ch, None))
             
