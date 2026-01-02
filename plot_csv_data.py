@@ -26,10 +26,11 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
     Read CSV file and plot data with automatic grouping of similar columns.
     
     Groups columns by type:
-    - OD readings (columns containing 'OD' or 'od') -> one subplot
-    - Eyespy readings (columns containing 'eyespy' or 'Eyespy') -> one subplot
+    - OD and Eyespy voltage readings (columns containing 'OD', 'od', 'eyespy', or 'Eyespy') -> one subplot
     - Temperature (columns containing 'temp' or 'temperature') -> one subplot
     - Time -> x-axis for all
+    
+    Note: Only voltage columns are plotted (raw ADC values are excluded).
     
     Updates the plot periodically by re-reading the CSV file.
     
@@ -50,7 +51,6 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
         """Group column headers by type."""
         groups = {
             'OD': [],
-            'Eyespy': [],
             'Temperature': [],
             'Time': []
         }
@@ -59,10 +59,11 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
             header_lower = header.lower()
             if header_lower == 'time':
                 groups['Time'].append(header)
-            elif 'od' in header_lower:
-                groups['OD'].append(header)
-            elif 'eyespy' in header_lower:
-                groups['Eyespy'].append(header)
+            elif 'od' in header_lower or 'eyespy' in header_lower:
+                # Group both OD and eyespy voltage columns together
+                # Only include voltage columns (not raw ADC values)
+                if 'raw' not in header_lower:
+                    groups['OD'].append(header)
             elif 'temp' in header_lower:
                 groups['Temperature'].append(header)
         
@@ -195,9 +196,7 @@ def plot_csv_data(csv_file_path: str, update_interval: float = 5.0):
             
             # Determine ylabel based on group
             if group_name == 'OD':
-                ax.set_ylabel('Voltage (V)')
-            elif group_name == 'Eyespy':
-                ax.set_ylabel('Voltage (V)')
+                ax.set_ylabel('Voltage (V)')  # OD and Eyespy both use this
             elif group_name == 'Temperature':
                 ax.set_ylabel('Temperature (°C)')
             
