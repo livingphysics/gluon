@@ -24,6 +24,7 @@ import threading
 import tempfile
 import shutil
 import subprocess
+import socket
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -97,13 +98,42 @@ def fetch_remote_file(server_config, cache_dir):
                 timeout=plot_config.SSH_TIMEOUT + 5
             )
             if result.returncode != 0:
-                print(f"Warning: Failed to fetch from {server_config['host']}: {result.stderr.decode()}")
+                stderr = result.stderr.decode() if result.stderr else ""
+                stdout = result.stdout.decode() if result.stdout else ""
+                error_msg = stderr or stdout
+                
+                # Check for hostname resolution errors
+                if "Name or service not known" in error_msg or "Could not resolve hostname" in error_msg:
+                    host = server_config['host']
+                    print(f"Error: Cannot resolve hostname '{host}'")
+                    print(f"  Hint: Try using an IP address or fully qualified domain name (FQDN)")
+                    print(f"  Example: Use 'bioreactor00.local' or '192.168.1.100' instead of 'bioreactor00'")
+                else:
+                    print(f"Warning: Failed to fetch from {server_config['host']}: {error_msg}")
                 return None
         
         return local_file if os.path.exists(local_file) else None
         
+    except paramiko.ssh_exception.SSHException as e:
+        print(f"Error: SSH connection failed to {server_config['host']}: {e}")
+        return None
+    except socket.gaierror as e:
+        host = server_config['host']
+        print(f"Error: Cannot resolve hostname '{host}': {e}")
+        print(f"  Hint: Try using an IP address or fully qualified domain name (FQDN)")
+        print(f"  Example: Use 'bioreactor00.local' or '192.168.1.100' instead of 'bioreactor00'")
+        return None
     except Exception as e:
-        print(f"Error fetching from {server_config['host']}: {e}")
+        error_msg = str(e)
+        if "Name or service not known" in error_msg or "Errno -2" in error_msg:
+            host = server_config['host']
+            print(f"Error: Cannot resolve hostname '{host}'")
+            print(f"  Hint: The hostname cannot be resolved. Try:")
+            print(f"    1. Use an IP address instead (e.g., '192.168.1.100')")
+            print(f"    2. Use a fully qualified domain name (e.g., 'bioreactor00.local' or 'bioreactor00.example.com')")
+            print(f"    3. Add an entry to /etc/hosts: '192.168.1.100 bioreactor00'")
+        else:
+            print(f"Error fetching from {server_config['host']}: {e}")
         return None
 
 
@@ -226,8 +256,8 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
     else:
         use_remote = False
         if csv_file_path is None or not os.path.exists(csv_file_path):
-            print(f"Error: CSV file not found: {csv_file_path}")
-            return
+        print(f"Error: CSV file not found: {csv_file_path}")
+        return
     
     # Global storage for plot data
     last_row_count = 0
@@ -282,37 +312,37 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
             return data, headers
         else:
             # Read from local file
-            data = {}
-            headers = []
-            
-            try:
-                with open(csv_file_path, 'r', newline='') as f:
-                    reader = csv.DictReader(f)
-                    headers = reader.fieldnames or []
-                    
-                    rows = list(reader)
-                    if len(rows) == last_row_count:
-                        return None  # No new data
-                    
-                    last_row_count = len(rows)
-                    
-                    # Initialize data structure
+        data = {}
+        headers = []
+        
+        try:
+            with open(csv_file_path, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                headers = reader.fieldnames or []
+                
+                rows = list(reader)
+                if len(rows) == last_row_count:
+                    return None  # No new data
+                
+                last_row_count = len(rows)
+                
+                # Initialize data structure
+                for header in headers:
+                    data[header] = []
+                
+                # Read all rows
+                for row in rows:
                     for header in headers:
-                        data[header] = []
-                    
-                    # Read all rows
-                    for row in rows:
-                        for header in headers:
-                            try:
-                                value = float(row[header]) if row[header] else float('nan')
-                                data[header].append(value)
-                            except (ValueError, KeyError):
-                                data[header].append(float('nan'))
-                    
-                    return data, headers
-            except Exception as e:
-                print(f"Error reading CSV file: {e}")
-                return None
+                        try:
+                            value = float(row[header]) if row[header] else float('nan')
+                            data[header].append(value)
+                        except (ValueError, KeyError):
+                            data[header].append(float('nan'))
+                
+                return data, headers
+        except Exception as e:
+            print(f"Error reading CSV file: {e}")
+            return None
     
     def update_plot():
         """Update the plot with latest data."""
@@ -375,7 +405,7 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
                 server_names = ', '.join([s['label'] for s in getattr(plot_config, 'SSH_SERVERS', [])])
                 fig.suptitle(f'Live Data from Remote Servers ({server_names})', fontsize=14)
             else:
-                fig.suptitle(f'Live Data from {os.path.basename(csv_file_path)}', fontsize=14)
+            fig.suptitle(f'Live Data from {os.path.basename(csv_file_path)}', fontsize=14)
             
             plt.ion()
             
@@ -443,19 +473,19 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
                                label=label, markersize=4 if marker else None)
             else:
                 # Original behavior: plot all columns
-                for col_idx, col in enumerate(columns):
-                    if col not in data:
-                        continue
-                    values = data[col]
-                    if not values:
-                        continue
-                    
-                    color = colors[col_idx % len(colors)]
-                    marker = markers[col_idx % len(markers)] if len(columns) > 1 else None
-                    style = f'{color[0]}{marker}-' if marker else color
-                    
-                    ax.plot(times_scaled, values, style, linewidth=2, 
-                           label=col, markersize=4 if marker else None)
+            for col_idx, col in enumerate(columns):
+                if col not in data:
+                    continue
+                values = data[col]
+                if not values:
+                    continue
+                
+                color = colors[col_idx % len(colors)]
+                marker = markers[col_idx % len(markers)] if len(columns) > 1 else None
+                style = f'{color[0]}{marker}-' if marker else color
+                
+                ax.plot(times_scaled, values, style, linewidth=2, 
+                       label=col, markersize=4 if marker else None)
             
             # Show legend if we have multiple series
             if (use_remote and 'source' in data and len(set(data['source'])) > 1) or len(columns) > 1:
