@@ -6,7 +6,7 @@ Specifies SSH servers and file paths for fetching bioreactor data.
 
 # Default configuration
 DEFAULT_FILENAME = "bioreactor_data.csv"
-DEFAULT_REMOTE_PATH = "/Documents/GitHub/gluon/src/bioreactor_data/"
+DEFAULT_REMOTE_PATH = "/home/david/Documents/GitHub/gluon/src/bioreactor_data/"
 
 # SSH Server Configuration
 # Each server entry should have:
