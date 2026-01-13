@@ -2,18 +2,30 @@
 """
 Standalone script to plot CSV data from bioreactor data files.
 
-Reads CSV files from remote SSH servers (configured in plot_config.py) or local files
-and plots data with automatic grouping of similar columns.
+Supports two modes:
+1. LOCAL MODE: Plot data from a single local CSV file
+2. REMOTE MODE: Fetch and plot data from multiple remote SSH servers
+
+Reads CSV files and plots data with automatic grouping of similar columns.
 Groups columns by type (OD, Temperature) and updates the plot periodically.
+Each bioreactor appears in its own row when using remote mode.
 
 Usage:
-    python plot_csv_data.py [csv_file_path] [update_interval]
+    python plot_csv_data.py [options] [csv_file_path] [update_interval]
     
-    If csv_file_path is not provided, will fetch from remote servers configured in plot_config.py.
+Options:
+    --remote, -r    Force remote mode (fetch from SSH servers)
+    --local, -l    Force local mode (read from local file)
     
 Examples:
-    python plot_csv_data.py bioreactor_data/20251210_134704_bioreactor_data.csv 5.0
-    python plot_csv_data.py 5.0  # Use remote servers from config
+    # Remote mode (default when no file specified):
+    python plot_csv_data.py                    # Remote, 5s interval
+    python plot_csv_data.py --remote 10.0     # Remote, 10s interval
+    
+    # Local mode:
+    python plot_csv_data.py data.csv          # Local file, 5s interval
+    python plot_csv_data.py data.csv 10.0    # Local file, 10s interval
+    python plot_csv_data.py --local data.csv  # Explicitly local mode
 """
 
 import csv
@@ -226,9 +238,19 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
     """
     Read CSV file(s) and plot data with automatic grouping of similar columns.
     
-    Can read from:
-    - A single local CSV file (if csv_file_path is provided)
-    - Multiple remote CSV files via SSH (if use_remote=True or csv_file_path is None)
+    Supports two modes:
+    
+    1. LOCAL MODE: Read from a single local CSV file
+       - Provide csv_file_path pointing to a local CSV file
+       - Set use_remote=False (or omit csv_file_path and use_remote)
+       - Example: plot_csv_data('data.csv', 5.0, False)
+    
+    2. REMOTE MODE: Fetch from multiple remote SSH servers
+       - Set use_remote=True (or omit csv_file_path)
+       - Configure servers in plot_config.py
+       - Fetches CSV files from all configured servers and combines them
+       - Each bioreactor appears in its own row
+       - Example: plot_csv_data(None, 5.0, True)
     
     Groups columns by type:
     - OD and Eyespy voltage readings (columns containing 'OD', 'od', 'eyespy', or 'Eyespy') -> one subplot
@@ -240,9 +262,11 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
     Updates the plot periodically by re-reading the CSV file(s).
     
     Args:
-        csv_file_path: Path to a local CSV file to read (optional if using remote)
+        csv_file_path: Path to a local CSV file to read (required for local mode, ignored for remote mode)
         update_interval: Time in seconds between plot updates (default: 5.0)
-        use_remote: If True, fetch from remote servers instead of using csv_file_path
+        use_remote: If True, fetch from remote servers configured in plot_config.py
+                   If False and csv_file_path provided, read from local file
+                   If False and csv_file_path is None, defaults to remote mode
     """
     # Determine if we're using remote files
     if csv_file_path is None or use_remote:
@@ -257,7 +281,7 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
         use_remote = False
         if csv_file_path is None or not os.path.exists(csv_file_path):
             print(f"Error: CSV file not found: {csv_file_path}")
-        return
+            return
     
     # Global storage for plot data
     last_row_count = 0
@@ -545,6 +569,18 @@ def main():
     update_interval = 5.0
     
     # Parse arguments
+    # Check for explicit flags first
+    if '--remote' in sys.argv or '-r' in sys.argv:
+        use_remote = True
+        # Remove flag from args for further processing
+        sys.argv = [a for a in sys.argv if a not in ['--remote', '-r']]
+    
+    if '--local' in sys.argv or '-l' in sys.argv:
+        use_remote = False
+        # Remove flag from args for further processing
+        sys.argv = [a for a in sys.argv if a not in ['--local', '-l']]
+    
+    # Parse remaining arguments
     if len(sys.argv) < 2:
         # No arguments: use remote servers from config
         use_remote = True
@@ -552,29 +588,44 @@ def main():
         # One argument: could be file path or update interval
         try:
             update_interval = float(sys.argv[1])
-            use_remote = True  # If it's a number, assume remote mode
+            # If it's a number and no explicit flag, assume remote mode
+            if not ('--local' in sys.argv or '-l' in sys.argv):
+                use_remote = True
         except ValueError:
             csv_file = sys.argv[1]  # If not a number, assume it's a file path
+            use_remote = False
     elif len(sys.argv) == 3:
         # Two arguments: could be (file, interval) or (interval, interval)
         try:
             # Try to parse first as float
             float(sys.argv[1])
-            # If successful, both are numbers - use remote
-            use_remote = True
+            # If successful, both are numbers - use remote unless --local specified
+            if not ('--local' in sys.argv or '-l' in sys.argv):
+                use_remote = True
             update_interval = float(sys.argv[1])
         except ValueError:
             # First is file path, second is interval
             csv_file = sys.argv[1]
             update_interval = float(sys.argv[2])
+            use_remote = False
     else:
-        print("Usage: python plot_csv_data.py [csv_file_path] [update_interval]")
-        print("  If csv_file_path is omitted, fetches from remote servers in plot_config.py")
-        print("Examples:")
-        print("  python plot_csv_data.py                                    # Use remote servers, 5s interval")
-        print("  python plot_csv_data.py 10.0                               # Use remote servers, 10s interval")
-        print("  python plot_csv_data.py data.csv                           # Use local file, 5s interval")
-        print("  python plot_csv_data.py data.csv 10.0                      # Use local file, 10s interval")
+        print("Usage: python plot_csv_data.py [options] [csv_file_path] [update_interval]")
+        print("\nOptions:")
+        print("  --remote, -r    Force remote mode (fetch from SSH servers)")
+        print("  --local, -l     Force local mode (read from local file)")
+        print("\nModes:")
+        print("  Remote mode: Fetches CSV files from SSH servers configured in plot_config.py")
+        print("  Local mode:  Reads from a single local CSV file")
+        print("\nExamples:")
+        print("  # Remote mode (default when no file specified):")
+        print("  python plot_csv_data.py                                    # Remote, 5s interval")
+        print("  python plot_csv_data.py --remote 10.0                     # Remote, 10s interval")
+        print("  python plot_csv_data.py -r                                 # Remote, 5s interval")
+        print("\n  # Local mode:")
+        print("  python plot_csv_data.py data.csv                           # Local file, 5s interval")
+        print("  python plot_csv_data.py --local data.csv                  # Local file, 5s interval")
+        print("  python plot_csv_data.py data.csv 10.0                     # Local file, 10s interval")
+        print("  python plot_csv_data.py -l data.csv 10.0                  # Local file, 10s interval")
         sys.exit(1)
     
     plot_csv_data(csv_file, update_interval, use_remote)
