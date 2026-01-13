@@ -426,10 +426,12 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
         if num_groups == 0:
             return
         
+        # Calculate number of sources (needed for both figure creation and plotting)
+        num_sources = len(sources)
+        
         # Create or update figure
         # Layout: Each bioreactor (source) gets a row, each row has subplots for each data type
         if fig is None:
-            num_sources = len(sources)
             num_cols = num_groups  # One column per data type
             num_rows = num_sources  # One row per bioreactor
             
