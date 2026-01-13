@@ -444,15 +444,33 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
             
             plt.ion()
             
-            # Flatten axes if needed
+            # Normalize axes to always be a 2D list for consistent access
+            # matplotlib's subplots returns different structures depending on dimensions
+            import numpy as np
+            
             if num_rows == 1 and num_cols == 1:
+                # Single subplot: axes is a single Axes object
                 axes = [[axes]]
             elif num_rows == 1:
-                axes = [axes]
+                # One row, multiple columns: axes is a 1D array, convert to list
+                if isinstance(axes, np.ndarray):
+                    axes = [axes[i] for i in range(num_cols)]  # Convert to list of axes
+                elif not isinstance(axes, list):
+                    axes = [axes]
+                axes = [axes]  # Make it 2D: [row0] where row0 is a list of axes
             elif num_cols == 1:
-                axes = [[ax] for ax in axes]
+                # Multiple rows, one column: axes is a 1D array, convert to list
+                if isinstance(axes, np.ndarray):
+                    axes = [[axes[i]] for i in range(num_rows)]  # Convert to 2D list
+                else:
+                    axes = [[ax] for ax in axes]  # Make it 2D: [[row0], [row1], ...]
             else:
-                axes = axes.reshape(num_rows, num_cols)
+                # Multiple rows and columns: axes is a 2D array, convert to 2D list
+                if isinstance(axes, np.ndarray):
+                    axes = [[axes[i, j] for j in range(num_cols)] for i in range(num_rows)]
+                elif not isinstance(axes[0], list):
+                    # If it's not already a 2D list, convert it
+                    axes = [[axes[i][j] for j in range(num_cols)] for i in range(num_rows)]
             
             # Show the figure window
             plt.show(block=False)
@@ -479,10 +497,8 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
                 columns = data_groups[group_name]
                 
                 # Get the axis for this source row and group column
-                if num_rows == 1:
-                    ax = axes[group_idx] if isinstance(axes, list) else axes
-                else:
-                    ax = axes[source_idx][group_idx]
+                # axes is now guaranteed to be 2D: axes[row][col]
+                ax = axes[source_idx][group_idx]
                 
                 ax.clear()
                 
