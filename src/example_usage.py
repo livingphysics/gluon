@@ -69,15 +69,15 @@ with Bioreactor(config) as reactor:
     # duration: how long to run in seconds, or True for indefinite
     jobs = [
         # Measure and record sensors every 5 seconds
-        (partial(measure_and_record_sensors, led_power=8.0), 2, True),  # Read sensors and record to CSV every 5 seconds
+        (partial(measure_and_record_sensors, led_power=8.0), 20, True),  # Read sensors and record to CSV every 5 seconds
         
         # Temperature PID controller - maintains temperature at 37.0°C
         # Run PID controller every 5 seconds
-        (partial(temperature_pid_controller, setpoint=37.0, kp=12.0, ki=0.015, kd=0.0), 5, True),
+        (partial(temperature_pid_controller, setpoint=30.0, kp=12.0, ki=0.015, kd=0.0), 5, True),
         
         # Ring light cycle - turns on at (50,50,50) for 60s, then off for 60s, repeating
         # Check every 1 second to update state
-        (partial(ring_light_cycle, color=(50, 50, 50), on_time=60.0, off_time=60.0), 1, True),
+        (partial(ring_light_cycle, color=(100, 100, 100), on_time=7200.0, off_time=7200.0), 1, True),
 
     ]
     
