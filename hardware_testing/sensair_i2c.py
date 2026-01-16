@@ -78,14 +78,14 @@ def scan_i2c_bus(bus_num=1):
     return found_devices
 
 
-def read_co2(bus_num=1, i2c_addr=K33_I2C_ADDR, use_raw_i2c=False, debug=False):
+def read_co2(bus_num=1, i2c_addr=K33_I2C_ADDR, debug=False):
     """
     Read CO2 concentration from Senseair K33 sensor via I2C.
+    Uses raw i2c_msg for reliable communication with the sensor.
     
     Args:
         bus_num: I2C bus number (default: 1)
         i2c_addr: I2C address of the sensor (default: 0x68)
-        use_raw_i2c: If True, use raw i2c_msg for more control
         debug: If True, print debug information about the communication
         
     Returns:
@@ -114,44 +114,18 @@ def read_co2(bus_num=1, i2c_addr=K33_I2C_ADDR, use_raw_i2c=False, debug=False):
                 print(f"Write packet: {[f'0x{b:02X}' for b in write_packet]}")
                 print(f"  Command: 0x{command:02X}, Addr: 0x{addr_hi:02X}{addr_lo:02X}, Checksum: 0x{write_checksum:02X}")
             
-            if use_raw_i2c:
-                # Method 1: Use raw i2c_msg (most reliable for Senseair K33)
-                write_msg = i2c_msg.write(i2c_addr, write_packet)
-                bus.i2c_rdwr(write_msg)
-                time.sleep(0.05)  # Wait for sensor to prepare data (50ms recommended)
-                
-                # Read response: 4 bytes [status, co2_high, co2_low, checksum]
-                read_msg = i2c_msg.read(i2c_addr, 4)
-                bus.i2c_rdwr(read_msg)
-                response = list(read_msg)
-                
-                if debug:
-                    print(f"Read response: {[f'0x{b:02X}' for b in response]}")
-            else:
-                # Method 2: Use block data write/read
-                try:
-                    # Write the command packet
-                    bus.write_i2c_block_data(i2c_addr, command, [addr_hi, addr_lo, write_checksum])
-                except:
-                    # Fallback: write using i2c_msg if block write fails
-                    write_msg = i2c_msg.write(i2c_addr, write_packet)
-                    bus.i2c_rdwr(write_msg)
-                
-                # Wait for sensor to prepare data (typically 50ms)
-                time.sleep(0.05)
-                
-                # Read response: [status, co2_high, co2_low, checksum]
-                try:
-                    # Try reading block data (4 bytes)
-                    response = bus.read_i2c_block_data(i2c_addr, 0x00, 4)
-                except:
-                    # Fallback: use i2c_msg for reading
-                    read_msg = i2c_msg.read(i2c_addr, 4)
-                    bus.i2c_rdwr(read_msg)
-                    response = list(read_msg)
-                
-                if debug:
-                    print(f"Read response: {[f'0x{b:02X}' for b in response]}")
+            # Use raw i2c_msg for reliable communication with Senseair K33
+            write_msg = i2c_msg.write(i2c_addr, write_packet)
+            bus.i2c_rdwr(write_msg)
+            time.sleep(0.05)  # Wait for sensor to prepare data (50ms recommended)
+            
+            # Read response: 4 bytes [status, co2_high, co2_low, checksum]
+            read_msg = i2c_msg.read(i2c_addr, 4)
+            bus.i2c_rdwr(read_msg)
+            response = list(read_msg)
+            
+            if debug:
+                print(f"Read response: {[f'0x{b:02X}' for b in response]}")
             
             if len(response) < 4:
                 raise IOError(f"Incomplete response: got {len(response)} bytes, expected 4")
@@ -235,17 +209,16 @@ if __name__ == "__main__":
     # Try reading CO2
     print("\nAttempting to read CO2...")
     try:
-        # Try standard method first
-        co2_value = read_co2(bus_num=bus_num, debug=True)
+        co2_value = read_co2(bus_num=bus_num, debug=False)
         print(f"CO2 concentration: {co2_value} ppm")
     except Exception as e:
-        print(f"Error with standard method: {e}")
-        print("\nTrying alternative method (raw I2C)...")
+        print(f"Error reading CO2: {e}")
+        print("\nTrying with debug output...")
         try:
-            co2_value = read_co2(bus_num=bus_num, use_raw_i2c=True, debug=True)
+            co2_value = read_co2(bus_num=bus_num, debug=True)
             print(f"CO2 concentration: {co2_value} ppm")
         except Exception as e2:
-            print(f"Error with alternative method: {e2}")
+            print(f"Error: {e2}")
     
     # Uncomment to run continuous readings:
     # read_co2_continuous(bus_num=bus_num, interval=1.0)
