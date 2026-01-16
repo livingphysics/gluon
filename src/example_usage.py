@@ -31,8 +31,8 @@ config.INIT_COMPONENTS = {
     'stirrer': True,
     'led': True,  # Enable LED PWM control
     'ring_light': True,  # Enable ring light (neopixel)
-    'optical_density': False,  # Enable optical density sensor (ADS1115)
-    'eyespy_adc': True,  # Enable eyespy ADC boards
+    'optical_density': True,  # Enable optical density sensor (ADS1115)
+    'eyespy_adc': False,  # Enable eyespy ADC boards
 }
 
 config.LOG_TO_TERMINAL = True  # Print logs to terminal (default: True)

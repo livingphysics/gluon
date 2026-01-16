@@ -1,107 +1,589 @@
-2026-01-15 11:43:49,713 - Bioreactor - INFO - Initializing Bioreactor...
-2026-01-15 11:43:49,714 - Bioreactor - INFO - Initializing i2c...
-2026-01-15 11:43:49,763 - Bioreactor.Components - INFO - I2C bus initialized
-2026-01-15 11:43:49,764 - Bioreactor - INFO - i2c initialized successfully
-2026-01-15 11:43:49,764 - Bioreactor - INFO - Initializing temp_sensor...
-2026-01-15 11:43:49,774 - Bioreactor.Components - INFO - DS18B20 temperature sensors initialized (1 sensors)
-2026-01-15 11:43:49,774 - Bioreactor - INFO - temp_sensor initialized successfully
-2026-01-15 11:43:49,774 - Bioreactor - INFO - Initializing peltier_driver...
-2026-01-15 11:43:49,774 - Bioreactor.Components - INFO - Peltier driver initialized (PWM pin 21, DIR pin 20, 1000 Hz)
-2026-01-15 11:43:49,774 - Bioreactor - INFO - peltier_driver initialized successfully
-2026-01-15 11:43:49,774 - Bioreactor - INFO - Initializing stirrer...
-2026-01-15 11:43:49,774 - Bioreactor.Components - INFO - Stirrer driver initialized (PWM pin 12, 1000 Hz)
-2026-01-15 11:43:49,774 - Bioreactor - INFO - Stirrer duty set to 20.0%
-2026-01-15 11:43:49,774 - Bioreactor - INFO - stirrer initialized successfully
-2026-01-15 11:43:49,775 - Bioreactor - INFO - Initializing led...
-2026-01-15 11:43:49,775 - Bioreactor.Components - INFO - LED driver initialized (PWM pin 25, 500 Hz)
-2026-01-15 11:43:49,775 - Bioreactor - INFO - led initialized successfully
-2026-01-15 11:43:49,775 - Bioreactor - INFO - Initializing ring_light...
-2026-01-15 11:43:49,992 - Bioreactor - INFO - Ring light initialized: 32 LEDs on /dev/spidev0.0
-2026-01-15 11:43:50,094 - Bioreactor - INFO - Ring light turned off
-2026-01-15 11:43:50,094 - Bioreactor.Components - INFO - Ring light initialized: 32 LEDs on /dev/spidev0.0 at 800kHz
-2026-01-15 11:43:50,094 - Bioreactor - INFO - ring_light initialized successfully
-2026-01-15 11:43:50,094 - Bioreactor - INFO - Initializing eyespy_adc...
-2026-01-15 11:43:50,100 - Bioreactor.Components - INFO - Eyespy ADC board eyespy_sct configured: address=0x49, bus=1, gain=1.0
-2026-01-15 11:43:50,100 - Bioreactor.Components - INFO - Eyespy ADC board eyespy_ref configured: address=0x4a, bus=1, gain=1.0
-2026-01-15 11:43:50,100 - Bioreactor.Components - INFO - Eyespy ADC initialized with 2 board(s)
-2026-01-15 11:43:50,100 - Bioreactor - INFO - eyespy_adc initialized successfully
-2026-01-15 11:43:50,101 - Bioreactor - INFO - Data logging to: bioreactor_data/bioreactor_data.csv
-2026-01-15 11:43:50,101 - Bioreactor - INFO - Bioreactor initialization complete.
-2026-01-15 11:43:50,122 - Bioreactor - INFO - Ring light initialization check: turning red for 2 seconds
-2026-01-15 11:43:50,223 - Bioreactor - INFO - Ring light set to color (255, 0, 0)
-2026-01-15 11:43:52,325 - Bioreactor - INFO - Ring light turned off
-2026-01-15 11:43:52,325 - Bioreactor - INFO - Ring light initialization check complete
-2026-01-15 11:43:52,325 - Bioreactor - INFO - Reading temperature from sensor 0
-2026-01-15 11:43:52,326 - Bioreactor - INFO - Reading temperature from sensor 0
-2026-01-15 11:43:52,326 - Bioreactor - INFO - Started 3 job threads.
-2026-01-15 11:43:52,427 - Bioreactor - INFO - Ring light set to color (50, 50, 50)
-2026-01-15 11:43:52,427 - Bioreactor - INFO - Ring light cycle started: turned ON with color=(50, 50, 50), will stay on for 60.0s
-2026-01-15 11:43:53,124 - Bioreactor - INFO - Temperature: 22.562
-2026-01-15 11:43:53,225 - Bioreactor - INFO - Ring light turned off
-2026-01-15 11:43:53,225 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
-2026-01-15 11:43:53,225 - Bioreactor - INFO - LED power set to 8.0%
-2026-01-15 11:43:53,923 - Bioreactor - INFO - Temperature: 22.562
-2026-01-15 11:43:53,924 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
-2026-01-15 11:43:53,924 - Bioreactor - INFO - Temperature PID: setpoint=37.00°C, current=22.56°C, error=14.44°C, output=173.47, duty=70.0%, direction=heat, integral=14.44
-2026-01-15 11:43:54,729 - Bioreactor - INFO - LED turned off (0% power).
-2026-01-15 11:43:54,831 - Bioreactor - INFO - Ring light set to color (50, 50, 50)
-2026-01-15 11:43:54,831 - Bioreactor - INFO - Ring light restored to previous state: color=(50, 50, 50)
-2026-01-15 11:43:54,831 - Bioreactor - INFO - Eyespy measurement complete: 17 readings averaged, LED power 8.0%, duration 0.5s, board eyespy_sct, avg voltage: 2.3575V
-2026-01-15 11:43:54,831 - Bioreactor - INFO - Eyespy measurement complete: 17 readings averaged, LED power 8.0%, duration 0.5s, board eyespy_ref, avg voltage: 1.7190V
-2026-01-15 11:43:54,852 - Bioreactor - INFO - Sensor readings - Temp: 22.56°C, OD 135: nanV, OD Ref: nanV, OD 90: nanV, Eyespy eyespy_sct: 2.3575V, Eyespy eyespy_ref: 1.7190V
-2026-01-15 11:43:54,852 - Bioreactor - INFO - Reading temperature from sensor 0
-2026-01-15 11:43:55,651 - Bioreactor - INFO - Temperature: 22.562
-2026-01-15 11:43:55,755 - Bioreactor - INFO - Ring light turned off
-2026-01-15 11:43:55,758 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
-2026-01-15 11:43:55,758 - Bioreactor - INFO - LED power set to 8.0%
-2026-01-15 11:43:57,263 - Bioreactor - INFO - LED turned off (0% power).
-2026-01-15 11:43:57,326 - Bioreactor - INFO - Reading temperature from sensor 0
-2026-01-15 11:43:57,367 - Bioreactor - INFO - Ring light set to color (50, 50, 50)
-2026-01-15 11:43:57,369 - Bioreactor - INFO - Ring light restored to previous state: color=(50, 50, 50)
-2026-01-15 11:43:57,370 - Bioreactor - INFO - Eyespy measurement complete: 17 readings averaged, LED power 8.0%, duration 0.5s, board eyespy_sct, avg voltage: 2.4610V
-2026-01-15 11:43:57,370 - Bioreactor - INFO - Eyespy measurement complete: 17 readings averaged, LED power 8.0%, duration 0.5s, board eyespy_ref, avg voltage: 1.7164V
-2026-01-15 11:43:57,390 - Bioreactor - INFO - Sensor readings - Temp: 22.56°C, OD 135: nanV, OD Ref: nanV, OD 90: nanV, Eyespy eyespy_sct: 2.4610V, Eyespy eyespy_ref: 1.7164V
-2026-01-15 11:43:57,390 - Bioreactor - INFO - Reading temperature from sensor 0
-2026-01-15 11:43:58,115 - Bioreactor - INFO - Temperature: 22.562
-2026-01-15 11:43:58,116 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
-2026-01-15 11:43:58,116 - Bioreactor - INFO - Temperature PID: setpoint=37.00°C, current=22.56°C, error=14.44°C, output=174.56, duty=70.0%, direction=heat, integral=86.63
-2026-01-15 11:43:58,915 - Bioreactor - INFO - Temperature: 22.625
-2026-01-15 11:43:59,017 - Bioreactor - INFO - Ring light turned off
-2026-01-15 11:43:59,017 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
-2026-01-15 11:43:59,017 - Bioreactor - INFO - LED power set to 8.0%
-2026-01-15 11:44:00,522 - Bioreactor - INFO - LED turned off (0% power).
-2026-01-15 11:44:00,624 - Bioreactor - INFO - Ring light set to color (50, 50, 50)
-2026-01-15 11:44:00,624 - Bioreactor - INFO - Ring light restored to previous state: color=(50, 50, 50)
-2026-01-15 11:44:00,624 - Bioreactor - INFO - Eyespy measurement complete: 17 readings averaged, LED power 8.0%, duration 0.5s, board eyespy_sct, avg voltage: 2.4924V
-2026-01-15 11:44:00,624 - Bioreactor - INFO - Eyespy measurement complete: 17 readings averaged, LED power 8.0%, duration 0.5s, board eyespy_ref, avg voltage: 1.7208V
-2026-01-15 11:44:00,645 - Bioreactor - INFO - Sensor readings - Temp: 22.62°C, OD 135: nanV, OD Ref: nanV, OD 90: nanV, Eyespy eyespy_sct: 2.4924V, Eyespy eyespy_ref: 1.7208V
-2026-01-15 11:44:00,645 - Bioreactor - INFO - Reading temperature from sensor 0
-2026-01-15 11:44:01,443 - Bioreactor - INFO - Temperature: 22.562
-2026-01-15 11:44:01,545 - Bioreactor - INFO - Ring light turned off
-2026-01-15 11:44:01,545 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
-2026-01-15 11:44:01,545 - Bioreactor - INFO - LED power set to 8.0%
-2026-01-15 11:44:02,326 - Bioreactor - INFO - Reading temperature from sensor 0
-2026-01-15 11:44:03,051 - Bioreactor - INFO - LED turned off (0% power).
-2026-01-15 11:44:03,140 - Bioreactor - INFO - Temperature: 22.625
-2026-01-15 11:44:03,140 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
-2026-01-15 11:44:03,140 - Bioreactor - INFO - Temperature PID: setpoint=37.00°C, current=22.62°C, error=14.38°C, output=174.88, duty=70.0%, direction=heat, integral=158.51
-2026-01-15 11:44:03,152 - Bioreactor - INFO - Ring light set to color (50, 50, 50)
-2026-01-15 11:44:03,153 - Bioreactor - INFO - Ring light restored to previous state: color=(50, 50, 50)
-2026-01-15 11:44:03,153 - Bioreactor - INFO - Eyespy measurement complete: 17 readings averaged, LED power 8.0%, duration 0.5s, board eyespy_sct, avg voltage: 2.4599V
-2026-01-15 11:44:03,153 - Bioreactor - INFO - Eyespy measurement complete: 17 readings averaged, LED power 8.0%, duration 0.5s, board eyespy_ref, avg voltage: 1.7180V
-2026-01-15 11:44:03,173 - Bioreactor - INFO - Sensor readings - Temp: 22.56°C, OD 135: nanV, OD Ref: nanV, OD 90: nanV, Eyespy eyespy_sct: 2.4599V, Eyespy eyespy_ref: 1.7180V
-2026-01-15 11:44:03,173 - Bioreactor - INFO - Reading temperature from sensor 0
-2026-01-15 11:44:03,535 - Bioreactor - INFO - Cleaning up Bioreactor...
-2026-01-15 11:44:03,536 - Bioreactor - INFO - Stop event set for all threads.
-2026-01-15 11:44:03,536 - Bioreactor - INFO - Data file closed.
-2026-01-15 11:44:03,536 - Bioreactor - INFO - Peltier PWM stopped.
-2026-01-15 11:44:03,536 - Bioreactor - INFO - Stirrer stopped (0% duty).
-2026-01-15 11:44:03,637 - Bioreactor - INFO - Ring light turned off
-2026-01-15 11:44:03,638 - Bioreactor - INFO - Bioreactor cleanup complete.
-2026-01-15 11:44:03,638 - Bioreactor - INFO - Cleaning up Bioreactor...
-2026-01-15 11:44:03,638 - Bioreactor - INFO - Stop event set for all threads.
-2026-01-15 11:44:03,638 - Bioreactor - INFO - Data file closed.
-2026-01-15 11:44:03,638 - Bioreactor - INFO - Peltier PWM stopped.
-2026-01-15 11:44:03,638 - Bioreactor - INFO - Stirrer stopped (0% duty).
-2026-01-15 11:44:03,739 - Bioreactor - INFO - Ring light turned off
-2026-01-15 11:44:03,740 - Bioreactor - INFO - Bioreactor cleanup complete.
+2026-01-16 12:30:32,221 - Bioreactor - INFO - Initializing Bioreactor...
+2026-01-16 12:30:32,221 - Bioreactor - INFO - Initializing i2c...
+2026-01-16 12:30:32,235 - Bioreactor.Components - INFO - I2C bus initialized
+2026-01-16 12:30:32,235 - Bioreactor - INFO - i2c initialized successfully
+2026-01-16 12:30:32,235 - Bioreactor - INFO - Initializing temp_sensor...
+2026-01-16 12:30:32,242 - Bioreactor.Components - INFO - DS18B20 temperature sensors initialized (1 sensors)
+2026-01-16 12:30:32,242 - Bioreactor - INFO - temp_sensor initialized successfully
+2026-01-16 12:30:32,242 - Bioreactor - INFO - Initializing peltier_driver...
+2026-01-16 12:30:32,242 - Bioreactor.Components - INFO - Peltier driver initialized (PWM pin 21, DIR pin 20, 1000 Hz)
+2026-01-16 12:30:32,242 - Bioreactor - INFO - peltier_driver initialized successfully
+2026-01-16 12:30:32,242 - Bioreactor - INFO - Initializing stirrer...
+2026-01-16 12:30:32,242 - Bioreactor.Components - INFO - Stirrer driver initialized (PWM pin 12, 1000 Hz)
+2026-01-16 12:30:32,243 - Bioreactor - INFO - Stirrer duty set to 20.0%
+2026-01-16 12:30:32,243 - Bioreactor - INFO - stirrer initialized successfully
+2026-01-16 12:30:32,243 - Bioreactor - INFO - Initializing led...
+2026-01-16 12:30:32,243 - Bioreactor.Components - INFO - LED driver initialized (PWM pin 25, 500 Hz)
+2026-01-16 12:30:32,243 - Bioreactor - INFO - led initialized successfully
+2026-01-16 12:30:32,243 - Bioreactor - INFO - Initializing ring_light...
+2026-01-16 12:30:32,460 - Bioreactor - INFO - Ring light initialized: 32 LEDs on /dev/spidev0.0
+2026-01-16 12:30:32,562 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:30:32,562 - Bioreactor.Components - INFO - Ring light initialized: 32 LEDs on /dev/spidev0.0 at 800kHz
+2026-01-16 12:30:32,562 - Bioreactor - INFO - ring_light initialized successfully
+2026-01-16 12:30:32,562 - Bioreactor - INFO - Initializing optical_density...
+2026-01-16 12:30:32,571 - Bioreactor.Components - INFO - OD channel 135 initialized on A0
+2026-01-16 12:30:32,572 - Bioreactor.Components - INFO - OD channel Ref initialized on A1
+2026-01-16 12:30:32,572 - Bioreactor.Components - INFO - OD channel 90 initialized on A2
+2026-01-16 12:30:32,572 - Bioreactor.Components - INFO - Optical density sensor initialized with 3 channels
+2026-01-16 12:30:32,572 - Bioreactor - INFO - optical_density initialized successfully
+2026-01-16 12:30:32,572 - Bioreactor - INFO - Data logging to: bioreactor_data/bioreactor_data.csv
+2026-01-16 12:30:32,572 - Bioreactor - INFO - Bioreactor initialization complete.
+2026-01-16 12:30:32,572 - Bioreactor - INFO - Ring light initialization check: turning red for 2 seconds
+2026-01-16 12:30:32,674 - Bioreactor - INFO - Ring light set to color (255, 0, 0)
+2026-01-16 12:30:34,775 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:30:34,775 - Bioreactor - INFO - Ring light initialization check complete
+2026-01-16 12:30:34,776 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:30:34,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:30:34,777 - Bioreactor - INFO - Started 3 job threads.
+2026-01-16 12:30:34,879 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:30:34,879 - Bioreactor - INFO - Ring light cycle started: turned ON with color=(100, 100, 100), will stay on for 7200.0s
+2026-01-16 12:30:35,593 - Bioreactor - INFO - Temperature: 23.312
+2026-01-16 12:30:35,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:30:35,694 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:30:35,694 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:30:36,397 - Bioreactor - INFO - Temperature: 23.375
+2026-01-16 12:30:36,397 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
+2026-01-16 12:30:36,397 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=23.38°C, error=6.62°C, output=79.60, duty=70.0%, direction=heat, integral=6.62
+2026-01-16 12:30:37,207 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:30:37,310 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:30:37,310 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:30:37,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.1540V
+2026-01-16 12:30:37,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.6115V
+2026-01-16 12:30:37,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.3554V
+2026-01-16 12:30:37,310 - Bioreactor - INFO - Sensor readings - Temp: 23.31°C, OD 135: 0.1540V, OD Ref: 0.6115V, OD 90: 0.3554V
+2026-01-16 12:30:39,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:30:40,585 - Bioreactor - INFO - Temperature: 23.375
+2026-01-16 12:30:40,585 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
+2026-01-16 12:30:40,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=23.38°C, error=6.62°C, output=80.10, duty=70.0%, direction=heat, integral=39.75
+2026-01-16 12:30:44,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:30:45,577 - Bioreactor - INFO - Temperature: 23.375
+2026-01-16 12:30:45,577 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
+2026-01-16 12:30:45,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=23.38°C, error=6.62°C, output=80.59, duty=70.0%, direction=heat, integral=72.88
+2026-01-16 12:30:49,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:30:50,569 - Bioreactor - INFO - Temperature: 23.375
+2026-01-16 12:30:50,569 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
+2026-01-16 12:30:50,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=23.38°C, error=6.62°C, output=81.09, duty=70.0%, direction=heat, integral=106.00
+2026-01-16 12:30:54,776 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:30:54,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:30:55,597 - Bioreactor - INFO - Temperature: 23.5
+2026-01-16 12:30:55,698 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:30:55,698 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:30:55,698 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:30:56,397 - Bioreactor - INFO - Temperature: 23.5
+2026-01-16 12:30:56,397 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
+2026-01-16 12:30:56,397 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=23.50°C, error=6.50°C, output=80.08, duty=70.0%, direction=heat, integral=138.50
+2026-01-16 12:30:57,213 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:30:57,314 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:30:57,314 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:30:57,315 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.1524V
+2026-01-16 12:30:57,315 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.6312V
+2026-01-16 12:30:57,315 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.3606V
+2026-01-16 12:30:57,315 - Bioreactor - INFO - Sensor readings - Temp: 23.50°C, OD 135: 0.1524V, OD Ref: 0.6312V, OD 90: 0.3606V
+2026-01-16 12:30:59,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:00,585 - Bioreactor - INFO - Temperature: 23.625
+2026-01-16 12:31:00,585 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
+2026-01-16 12:31:00,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=23.62°C, error=6.38°C, output=79.06, duty=70.0%, direction=heat, integral=170.38
+2026-01-16 12:31:04,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:05,577 - Bioreactor - INFO - Temperature: 23.625
+2026-01-16 12:31:05,577 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
+2026-01-16 12:31:05,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=23.62°C, error=6.38°C, output=79.53, duty=70.0%, direction=heat, integral=202.25
+2026-01-16 12:31:09,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:10,569 - Bioreactor - INFO - Temperature: 24.062
+2026-01-16 12:31:10,569 - Bioreactor - INFO - Peltier set to 70.0% duty, direction reverse
+2026-01-16 12:31:10,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=24.06°C, error=5.94°C, output=74.74, duty=70.0%, direction=heat, integral=231.94
+2026-01-16 12:31:14,776 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:14,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:15,593 - Bioreactor - INFO - Temperature: 24.437
+2026-01-16 12:31:15,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:31:15,694 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:31:15,694 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:31:16,393 - Bioreactor - INFO - Temperature: 24.5
+2026-01-16 12:31:16,393 - Bioreactor - INFO - Peltier set to 69.9% duty, direction reverse
+2026-01-16 12:31:16,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=24.50°C, error=5.50°C, output=69.89, duty=69.9%, direction=heat, integral=259.44
+2026-01-16 12:31:17,206 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:31:17,310 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:31:17,310 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:31:17,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.1522V
+2026-01-16 12:31:17,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.6038V
+2026-01-16 12:31:17,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.3704V
+2026-01-16 12:31:17,310 - Bioreactor - INFO - Sensor readings - Temp: 24.44°C, OD 135: 0.1522V, OD Ref: 0.6038V, OD 90: 0.3704V
+2026-01-16 12:31:19,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:20,585 - Bioreactor - INFO - Temperature: 24.75
+2026-01-16 12:31:20,585 - Bioreactor - INFO - Peltier set to 67.3% duty, direction reverse
+2026-01-16 12:31:20,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=24.75°C, error=5.25°C, output=67.29, duty=67.3%, direction=heat, integral=285.69
+2026-01-16 12:31:24,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:25,577 - Bioreactor - INFO - Temperature: 25.187
+2026-01-16 12:31:25,577 - Bioreactor - INFO - Peltier set to 62.4% duty, direction reverse
+2026-01-16 12:31:25,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=25.19°C, error=4.81°C, output=62.40, duty=62.4%, direction=heat, integral=309.76
+2026-01-16 12:31:29,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:30,569 - Bioreactor - INFO - Temperature: 25.625
+2026-01-16 12:31:30,569 - Bioreactor - INFO - Peltier set to 57.5% duty, direction reverse
+2026-01-16 12:31:30,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=25.62°C, error=4.38°C, output=57.47, duty=57.5%, direction=heat, integral=331.63
+2026-01-16 12:31:34,776 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:34,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:35,593 - Bioreactor - INFO - Temperature: 26.062
+2026-01-16 12:31:35,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:31:35,694 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:31:35,694 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:31:36,393 - Bioreactor - INFO - Temperature: 26.187
+2026-01-16 12:31:36,393 - Bioreactor - INFO - Peltier set to 51.0% duty, direction reverse
+2026-01-16 12:31:36,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=26.19°C, error=3.81°C, output=51.02, duty=51.0%, direction=heat, integral=350.70
+2026-01-16 12:31:37,207 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:31:37,309 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:31:37,309 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:31:37,309 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.1517V
+2026-01-16 12:31:37,309 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.6643V
+2026-01-16 12:31:37,309 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.3515V
+2026-01-16 12:31:37,310 - Bioreactor - INFO - Sensor readings - Temp: 26.06°C, OD 135: 0.1517V, OD Ref: 0.6643V, OD 90: 0.3515V
+2026-01-16 12:31:39,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:40,585 - Bioreactor - INFO - Temperature: 26.562
+2026-01-16 12:31:40,585 - Bioreactor - INFO - Peltier set to 46.8% duty, direction reverse
+2026-01-16 12:31:40,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=26.56°C, error=3.44°C, output=46.77, duty=46.8%, direction=heat, integral=367.89
+2026-01-16 12:31:44,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:45,577 - Bioreactor - INFO - Temperature: 27.062
+2026-01-16 12:31:45,577 - Bioreactor - INFO - Peltier set to 41.0% duty, direction reverse
+2026-01-16 12:31:45,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=27.06°C, error=2.94°C, output=40.99, duty=41.0%, direction=heat, integral=382.58
+2026-01-16 12:31:49,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:50,569 - Bioreactor - INFO - Temperature: 27.5
+2026-01-16 12:31:50,571 - Bioreactor - INFO - Peltier set to 35.9% duty, direction reverse
+2026-01-16 12:31:50,571 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=27.50°C, error=2.50°C, output=35.93, duty=35.9%, direction=heat, integral=395.08
+2026-01-16 12:31:54,776 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:54,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:31:55,593 - Bioreactor - INFO - Temperature: 27.875
+2026-01-16 12:31:55,695 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:31:55,696 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:31:55,696 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:31:56,393 - Bioreactor - INFO - Temperature: 27.937
+2026-01-16 12:31:56,393 - Bioreactor - INFO - Peltier set to 30.8% duty, direction reverse
+2026-01-16 12:31:56,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=27.94°C, error=2.06°C, output=30.84, duty=30.8%, direction=heat, integral=405.40
+2026-01-16 12:31:57,209 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:31:57,311 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:31:57,311 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:31:57,311 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0702V
+2026-01-16 12:31:57,311 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.6074V
+2026-01-16 12:31:57,311 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0689V
+2026-01-16 12:31:57,311 - Bioreactor - INFO - Sensor readings - Temp: 27.88°C, OD 135: 0.0702V, OD Ref: 0.6074V, OD 90: 0.0689V
+2026-01-16 12:31:59,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:00,589 - Bioreactor - INFO - Temperature: 28.25
+2026-01-16 12:32:00,589 - Bioreactor - INFO - Peltier set to 27.2% duty, direction reverse
+2026-01-16 12:32:00,589 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=28.25°C, error=1.75°C, output=27.21, duty=27.2%, direction=heat, integral=414.15
+2026-01-16 12:32:04,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:05,577 - Bioreactor - INFO - Temperature: 28.625
+2026-01-16 12:32:05,577 - Bioreactor - INFO - Peltier set to 22.8% duty, direction reverse
+2026-01-16 12:32:05,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=28.62°C, error=1.38°C, output=22.82, duty=22.8%, direction=heat, integral=421.02
+2026-01-16 12:32:09,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:10,589 - Bioreactor - INFO - Temperature: 29.0
+2026-01-16 12:32:10,589 - Bioreactor - INFO - Peltier set to 18.4% duty, direction reverse
+2026-01-16 12:32:10,589 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.00°C, error=1.00°C, output=18.39, duty=18.4%, direction=heat, integral=426.02
+2026-01-16 12:32:14,776 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:14,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:15,593 - Bioreactor - INFO - Temperature: 29.312
+2026-01-16 12:32:15,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:32:15,695 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:32:15,695 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:32:16,393 - Bioreactor - INFO - Temperature: 29.437
+2026-01-16 12:32:16,393 - Bioreactor - INFO - Peltier set to 13.2% duty, direction reverse
+2026-01-16 12:32:16,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.44°C, error=0.56°C, output=13.19, duty=13.2%, direction=heat, integral=428.84
+2026-01-16 12:32:17,209 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:32:17,310 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:32:17,311 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:32:17,311 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0726V
+2026-01-16 12:32:17,311 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5654V
+2026-01-16 12:32:17,311 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0613V
+2026-01-16 12:32:17,311 - Bioreactor - INFO - Sensor readings - Temp: 29.31°C, OD 135: 0.0726V, OD Ref: 0.5654V, OD 90: 0.0613V
+2026-01-16 12:32:19,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:20,585 - Bioreactor - INFO - Temperature: 29.625
+2026-01-16 12:32:20,585 - Bioreactor - INFO - Peltier set to 11.0% duty, direction reverse
+2026-01-16 12:32:20,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.62°C, error=0.38°C, output=10.96, duty=11.0%, direction=heat, integral=430.71
+2026-01-16 12:32:24,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:25,581 - Bioreactor - INFO - Temperature: 29.937
+2026-01-16 12:32:25,581 - Bioreactor - INFO - Peltier set to 7.2% duty, direction reverse
+2026-01-16 12:32:25,581 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.94°C, error=0.06°C, output=7.22, duty=7.2%, direction=heat, integral=431.03
+2026-01-16 12:32:29,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:30,573 - Bioreactor - INFO - Temperature: 30.125
+2026-01-16 12:32:30,573 - Bioreactor - INFO - Peltier set to 5.0% duty, direction reverse
+2026-01-16 12:32:30,575 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.12°C, error=-0.12°C, output=4.96, duty=5.0%, direction=heat, integral=430.40
+2026-01-16 12:32:34,776 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:34,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:36,381 - Bioreactor - INFO - Temperature: 30.375
+2026-01-16 12:32:36,382 - Bioreactor - INFO - Peltier set to 1.9% duty, direction reverse
+2026-01-16 12:32:36,382 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.38°C, error=-0.38°C, output=1.93, duty=1.9%, direction=heat, integral=428.53
+2026-01-16 12:32:36,401 - Bioreactor - INFO - Temperature: 30.375
+2026-01-16 12:32:36,502 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:32:36,503 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:32:36,503 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:32:38,015 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:32:38,116 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:32:38,116 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:32:38,116 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0716V
+2026-01-16 12:32:38,116 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5979V
+2026-01-16 12:32:38,117 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0690V
+2026-01-16 12:32:38,117 - Bioreactor - INFO - Sensor readings - Temp: 30.38°C, OD 135: 0.0716V, OD Ref: 0.5979V, OD 90: 0.0690V
+2026-01-16 12:32:39,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:40,585 - Bioreactor - INFO - Temperature: 30.5
+2026-01-16 12:32:40,585 - Bioreactor - INFO - Peltier set to 0.4% duty, direction reverse
+2026-01-16 12:32:40,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.50°C, error=-0.50°C, output=0.39, duty=0.4%, direction=heat, integral=426.03
+2026-01-16 12:32:44,778 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:45,577 - Bioreactor - INFO - Temperature: 30.625
+2026-01-16 12:32:45,577 - Bioreactor - INFO - Peltier set to 1.2% duty, direction forward
+2026-01-16 12:32:45,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.62°C, error=-0.62°C, output=-1.16, duty=1.2%, direction=cool, integral=422.90
+2026-01-16 12:32:49,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:50,589 - Bioreactor - INFO - Temperature: 30.687
+2026-01-16 12:32:50,589 - Bioreactor - INFO - Peltier set to 2.0% duty, direction forward
+2026-01-16 12:32:50,589 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.69°C, error=-0.69°C, output=-1.95, duty=2.0%, direction=cool, integral=419.47
+2026-01-16 12:32:54,776 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:54,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:32:55,593 - Bioreactor - INFO - Temperature: 30.812
+2026-01-16 12:32:55,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:32:55,695 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:32:55,695 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:32:56,397 - Bioreactor - INFO - Temperature: 30.812
+2026-01-16 12:32:56,397 - Bioreactor - INFO - Peltier set to 3.5% duty, direction forward
+2026-01-16 12:32:56,397 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.81°C, error=-0.81°C, output=-3.51, duty=3.5%, direction=cool, integral=415.41
+2026-01-16 12:32:57,208 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:32:57,309 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:32:57,309 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:32:57,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0727V
+2026-01-16 12:32:57,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5753V
+2026-01-16 12:32:57,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0684V
+2026-01-16 12:32:57,310 - Bioreactor - INFO - Sensor readings - Temp: 30.81°C, OD 135: 0.0727V, OD Ref: 0.5753V, OD 90: 0.0684V
+2026-01-16 12:32:59,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:00,613 - Bioreactor - INFO - Temperature: 30.812
+2026-01-16 12:33:00,613 - Bioreactor - INFO - Peltier set to 3.6% duty, direction forward
+2026-01-16 12:33:00,613 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.81°C, error=-0.81°C, output=-3.57, duty=3.6%, direction=cool, integral=411.35
+2026-01-16 12:33:04,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:05,585 - Bioreactor - INFO - Temperature: 30.812
+2026-01-16 12:33:05,585 - Bioreactor - INFO - Peltier set to 3.6% duty, direction forward
+2026-01-16 12:33:05,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.81°C, error=-0.81°C, output=-3.63, duty=3.6%, direction=cool, integral=407.29
+2026-01-16 12:33:09,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:10,569 - Bioreactor - INFO - Temperature: 30.812
+2026-01-16 12:33:10,569 - Bioreactor - INFO - Peltier set to 3.7% duty, direction forward
+2026-01-16 12:33:10,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.81°C, error=-0.81°C, output=-3.70, duty=3.7%, direction=cool, integral=403.23
+2026-01-16 12:33:14,776 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:14,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:15,593 - Bioreactor - INFO - Temperature: 30.75
+2026-01-16 12:33:15,695 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:33:15,695 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:33:15,695 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:33:16,393 - Bioreactor - INFO - Temperature: 30.812
+2026-01-16 12:33:16,393 - Bioreactor - INFO - Peltier set to 3.8% duty, direction forward
+2026-01-16 12:33:16,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.81°C, error=-0.81°C, output=-3.76, duty=3.8%, direction=cool, integral=399.17
+2026-01-16 12:33:17,212 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:33:17,314 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:33:17,314 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:33:17,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0739V
+2026-01-16 12:33:17,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5641V
+2026-01-16 12:33:17,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0686V
+2026-01-16 12:33:17,314 - Bioreactor - INFO - Sensor readings - Temp: 30.75°C, OD 135: 0.0739V, OD Ref: 0.5641V, OD 90: 0.0686V
+2026-01-16 12:33:19,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:20,613 - Bioreactor - INFO - Temperature: 30.75
+2026-01-16 12:33:20,613 - Bioreactor - INFO - Peltier set to 3.1% duty, direction forward
+2026-01-16 12:33:20,613 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.75°C, error=-0.75°C, output=-3.07, duty=3.1%, direction=cool, integral=395.42
+2026-01-16 12:33:24,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:25,577 - Bioreactor - INFO - Temperature: 30.687
+2026-01-16 12:33:25,577 - Bioreactor - INFO - Peltier set to 2.4% duty, direction forward
+2026-01-16 12:33:25,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.69°C, error=-0.69°C, output=-2.36, duty=2.4%, direction=cool, integral=391.98
+2026-01-16 12:33:29,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:30,569 - Bioreactor - INFO - Temperature: 30.625
+2026-01-16 12:33:30,569 - Bioreactor - INFO - Peltier set to 1.7% duty, direction forward
+2026-01-16 12:33:30,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.62°C, error=-0.62°C, output=-1.67, duty=1.7%, direction=cool, integral=388.86
+2026-01-16 12:33:34,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:34,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:35,593 - Bioreactor - INFO - Temperature: 30.5
+2026-01-16 12:33:35,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:33:35,695 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:33:35,695 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:33:36,397 - Bioreactor - INFO - Temperature: 30.5
+2026-01-16 12:33:36,397 - Bioreactor - INFO - Peltier set to 0.2% duty, direction forward
+2026-01-16 12:33:36,397 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.50°C, error=-0.50°C, output=-0.20, duty=0.2%, direction=cool, integral=386.36
+2026-01-16 12:33:37,212 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:33:37,314 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:33:37,314 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:33:37,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0720V
+2026-01-16 12:33:37,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5637V
+2026-01-16 12:33:37,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0697V
+2026-01-16 12:33:37,315 - Bioreactor - INFO - Sensor readings - Temp: 30.50°C, OD 135: 0.0720V, OD Ref: 0.5637V, OD 90: 0.0697V
+2026-01-16 12:33:39,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:40,585 - Bioreactor - INFO - Temperature: 30.437
+2026-01-16 12:33:40,585 - Bioreactor - INFO - Peltier set to 0.5% duty, direction reverse
+2026-01-16 12:33:40,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.44°C, error=-0.44°C, output=0.52, duty=0.5%, direction=heat, integral=384.17
+2026-01-16 12:33:44,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:45,577 - Bioreactor - INFO - Temperature: 30.312
+2026-01-16 12:33:45,577 - Bioreactor - INFO - Peltier set to 2.0% duty, direction reverse
+2026-01-16 12:33:45,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.31°C, error=-0.31°C, output=2.00, duty=2.0%, direction=heat, integral=382.61
+2026-01-16 12:33:49,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:50,569 - Bioreactor - INFO - Temperature: 30.25
+2026-01-16 12:33:50,569 - Bioreactor - INFO - Peltier set to 2.7% duty, direction reverse
+2026-01-16 12:33:50,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.25°C, error=-0.25°C, output=2.72, duty=2.7%, direction=heat, integral=381.36
+2026-01-16 12:33:54,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:54,779 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:33:55,593 - Bioreactor - INFO - Temperature: 30.187
+2026-01-16 12:33:55,697 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:33:55,700 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:33:55,700 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:33:56,393 - Bioreactor - INFO - Temperature: 30.187
+2026-01-16 12:33:56,393 - Bioreactor - INFO - Peltier set to 3.5% duty, direction reverse
+2026-01-16 12:33:56,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.19°C, error=-0.19°C, output=3.46, duty=3.5%, direction=heat, integral=380.43
+2026-01-16 12:33:57,216 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:33:57,318 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:33:57,318 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:33:57,318 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0746V
+2026-01-16 12:33:57,318 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5696V
+2026-01-16 12:33:57,318 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0693V
+2026-01-16 12:33:57,318 - Bioreactor - INFO - Sensor readings - Temp: 30.19°C, OD 135: 0.0746V, OD Ref: 0.5696V, OD 90: 0.0693V
+2026-01-16 12:33:59,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:00,585 - Bioreactor - INFO - Temperature: 30.062
+2026-01-16 12:34:00,585 - Bioreactor - INFO - Peltier set to 5.0% duty, direction reverse
+2026-01-16 12:34:00,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.06°C, error=-0.06°C, output=4.96, duty=5.0%, direction=heat, integral=380.12
+2026-01-16 12:34:04,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:05,577 - Bioreactor - INFO - Temperature: 30.0
+2026-01-16 12:34:05,577 - Bioreactor - INFO - Peltier set to 5.7% duty, direction reverse
+2026-01-16 12:34:05,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=30.00°C, error=0.00°C, output=5.70, duty=5.7%, direction=heat, integral=380.12
+2026-01-16 12:34:09,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:10,569 - Bioreactor - INFO - Temperature: 29.937
+2026-01-16 12:34:10,569 - Bioreactor - INFO - Peltier set to 6.5% duty, direction reverse
+2026-01-16 12:34:10,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.94°C, error=0.06°C, output=6.46, duty=6.5%, direction=heat, integral=380.43
+2026-01-16 12:34:14,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:14,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:15,593 - Bioreactor - INFO - Temperature: 29.812
+2026-01-16 12:34:15,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:34:15,694 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:34:15,694 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:34:16,393 - Bioreactor - INFO - Temperature: 29.812
+2026-01-16 12:34:16,393 - Bioreactor - INFO - Peltier set to 8.0% duty, direction reverse
+2026-01-16 12:34:16,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.81°C, error=0.19°C, output=7.98, duty=8.0%, direction=heat, integral=381.37
+2026-01-16 12:34:17,207 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:34:17,308 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:34:17,308 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:34:17,308 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0731V
+2026-01-16 12:34:17,308 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5533V
+2026-01-16 12:34:17,308 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0645V
+2026-01-16 12:34:17,308 - Bioreactor - INFO - Sensor readings - Temp: 29.81°C, OD 135: 0.0731V, OD Ref: 0.5533V, OD 90: 0.0645V
+2026-01-16 12:34:19,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:20,585 - Bioreactor - INFO - Temperature: 29.75
+2026-01-16 12:34:20,585 - Bioreactor - INFO - Peltier set to 8.7% duty, direction reverse
+2026-01-16 12:34:20,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.75°C, error=0.25°C, output=8.74, duty=8.7%, direction=heat, integral=382.62
+2026-01-16 12:34:24,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:25,577 - Bioreactor - INFO - Temperature: 29.687
+2026-01-16 12:34:25,577 - Bioreactor - INFO - Peltier set to 9.5% duty, direction reverse
+2026-01-16 12:34:25,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.69°C, error=0.31°C, output=9.52, duty=9.5%, direction=heat, integral=384.19
+2026-01-16 12:34:29,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:30,601 - Bioreactor - INFO - Temperature: 29.625
+2026-01-16 12:34:30,601 - Bioreactor - INFO - Peltier set to 10.3% duty, direction reverse
+2026-01-16 12:34:30,601 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.62°C, error=0.38°C, output=10.29, duty=10.3%, direction=heat, integral=386.06
+2026-01-16 12:34:34,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:34,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:35,597 - Bioreactor - INFO - Temperature: 29.562
+2026-01-16 12:34:35,699 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:34:35,700 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:34:35,700 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:34:36,397 - Bioreactor - INFO - Temperature: 29.625
+2026-01-16 12:34:36,397 - Bioreactor - INFO - Peltier set to 10.3% duty, direction reverse
+2026-01-16 12:34:36,397 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.62°C, error=0.38°C, output=10.32, duty=10.3%, direction=heat, integral=387.94
+2026-01-16 12:34:37,212 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:34:37,314 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:34:37,314 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:34:37,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0732V
+2026-01-16 12:34:37,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5472V
+2026-01-16 12:34:37,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0614V
+2026-01-16 12:34:37,314 - Bioreactor - INFO - Sensor readings - Temp: 29.56°C, OD 135: 0.0732V, OD Ref: 0.5472V, OD 90: 0.0614V
+2026-01-16 12:34:39,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:40,585 - Bioreactor - INFO - Temperature: 29.562
+2026-01-16 12:34:40,587 - Bioreactor - INFO - Peltier set to 11.1% duty, direction reverse
+2026-01-16 12:34:40,587 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.56°C, error=0.44°C, output=11.11, duty=11.1%, direction=heat, integral=390.13
+2026-01-16 12:34:44,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:45,577 - Bioreactor - INFO - Temperature: 29.5
+2026-01-16 12:34:45,577 - Bioreactor - INFO - Peltier set to 11.9% duty, direction reverse
+2026-01-16 12:34:45,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.50°C, error=0.50°C, output=11.89, duty=11.9%, direction=heat, integral=392.63
+2026-01-16 12:34:49,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:50,569 - Bioreactor - INFO - Temperature: 29.5
+2026-01-16 12:34:50,569 - Bioreactor - INFO - Peltier set to 11.9% duty, direction reverse
+2026-01-16 12:34:50,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.50°C, error=0.50°C, output=11.93, duty=11.9%, direction=heat, integral=395.13
+2026-01-16 12:34:54,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:54,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:34:55,593 - Bioreactor - INFO - Temperature: 29.437
+2026-01-16 12:34:55,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:34:55,695 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:34:55,695 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:34:56,413 - Bioreactor - INFO - Temperature: 29.5
+2026-01-16 12:34:56,413 - Bioreactor - INFO - Peltier set to 12.0% duty, direction reverse
+2026-01-16 12:34:56,413 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.50°C, error=0.50°C, output=11.96, duty=12.0%, direction=heat, integral=397.63
+2026-01-16 12:34:57,209 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:34:57,310 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:34:57,310 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:34:57,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0718V
+2026-01-16 12:34:57,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5182V
+2026-01-16 12:34:57,311 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0655V
+2026-01-16 12:34:57,311 - Bioreactor - INFO - Sensor readings - Temp: 29.44°C, OD 135: 0.0718V, OD Ref: 0.5182V, OD 90: 0.0655V
+2026-01-16 12:34:59,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:00,589 - Bioreactor - INFO - Temperature: 29.5
+2026-01-16 12:35:00,589 - Bioreactor - INFO - Peltier set to 12.0% duty, direction reverse
+2026-01-16 12:35:00,589 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.50°C, error=0.50°C, output=12.00, duty=12.0%, direction=heat, integral=400.13
+2026-01-16 12:35:04,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:05,577 - Bioreactor - INFO - Temperature: 29.437
+2026-01-16 12:35:05,577 - Bioreactor - INFO - Peltier set to 12.8% duty, direction reverse
+2026-01-16 12:35:05,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.44°C, error=0.56°C, output=12.80, duty=12.8%, direction=heat, integral=402.94
+2026-01-16 12:35:09,780 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:10,569 - Bioreactor - INFO - Temperature: 29.437
+2026-01-16 12:35:10,569 - Bioreactor - INFO - Peltier set to 12.8% duty, direction reverse
+2026-01-16 12:35:10,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.44°C, error=0.56°C, output=12.84, duty=12.8%, direction=heat, integral=405.76
+2026-01-16 12:35:14,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:14,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:15,593 - Bioreactor - INFO - Temperature: 29.5
+2026-01-16 12:35:15,696 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:35:15,696 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:35:15,696 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:35:16,413 - Bioreactor - INFO - Temperature: 29.5
+2026-01-16 12:35:16,413 - Bioreactor - INFO - Peltier set to 12.1% duty, direction reverse
+2026-01-16 12:35:16,413 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.50°C, error=0.50°C, output=12.12, duty=12.1%, direction=heat, integral=408.26
+2026-01-16 12:35:17,212 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:35:17,316 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:35:17,316 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:35:17,316 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0739V
+2026-01-16 12:35:17,316 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5206V
+2026-01-16 12:35:17,316 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0658V
+2026-01-16 12:35:17,317 - Bioreactor - INFO - Sensor readings - Temp: 29.50°C, OD 135: 0.0739V, OD Ref: 0.5206V, OD 90: 0.0658V
+2026-01-16 12:35:19,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:20,593 - Bioreactor - INFO - Temperature: 29.5
+2026-01-16 12:35:20,593 - Bioreactor - INFO - Peltier set to 12.2% duty, direction reverse
+2026-01-16 12:35:20,594 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.50°C, error=0.50°C, output=12.16, duty=12.2%, direction=heat, integral=410.76
+2026-01-16 12:35:24,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:25,585 - Bioreactor - INFO - Temperature: 29.5
+2026-01-16 12:35:25,585 - Bioreactor - INFO - Peltier set to 12.2% duty, direction reverse
+2026-01-16 12:35:25,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.50°C, error=0.50°C, output=12.20, duty=12.2%, direction=heat, integral=413.26
+2026-01-16 12:35:29,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:30,609 - Bioreactor - INFO - Temperature: 29.562
+2026-01-16 12:35:30,609 - Bioreactor - INFO - Peltier set to 11.5% duty, direction reverse
+2026-01-16 12:35:30,609 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.56°C, error=0.44°C, output=11.49, duty=11.5%, direction=heat, integral=415.45
+2026-01-16 12:35:34,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:34,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:35,593 - Bioreactor - INFO - Temperature: 29.562
+2026-01-16 12:35:35,695 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:35:35,695 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:35:35,695 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:35:36,393 - Bioreactor - INFO - Temperature: 29.625
+2026-01-16 12:35:36,393 - Bioreactor - INFO - Peltier set to 10.8% duty, direction reverse
+2026-01-16 12:35:36,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.62°C, error=0.38°C, output=10.76, duty=10.8%, direction=heat, integral=417.32
+2026-01-16 12:35:37,212 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:35:37,314 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:35:37,314 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:35:37,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0720V
+2026-01-16 12:35:37,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5395V
+2026-01-16 12:35:37,314 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0611V
+2026-01-16 12:35:37,314 - Bioreactor - INFO - Sensor readings - Temp: 29.56°C, OD 135: 0.0720V, OD Ref: 0.5395V, OD 90: 0.0611V
+2026-01-16 12:35:39,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:40,585 - Bioreactor - INFO - Temperature: 29.625
+2026-01-16 12:35:40,585 - Bioreactor - INFO - Peltier set to 10.8% duty, direction reverse
+2026-01-16 12:35:40,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.62°C, error=0.38°C, output=10.79, duty=10.8%, direction=heat, integral=419.20
+2026-01-16 12:35:44,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:45,581 - Bioreactor - INFO - Temperature: 29.625
+2026-01-16 12:35:45,581 - Bioreactor - INFO - Peltier set to 10.8% duty, direction reverse
+2026-01-16 12:35:45,581 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.62°C, error=0.38°C, output=10.82, duty=10.8%, direction=heat, integral=421.07
+2026-01-16 12:35:49,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:50,609 - Bioreactor - INFO - Temperature: 29.687
+2026-01-16 12:35:50,609 - Bioreactor - INFO - Peltier set to 10.1% duty, direction reverse
+2026-01-16 12:35:50,609 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.69°C, error=0.31°C, output=10.10, duty=10.1%, direction=heat, integral=422.64
+2026-01-16 12:35:54,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:54,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:35:55,597 - Bioreactor - INFO - Temperature: 29.687
+2026-01-16 12:35:55,699 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:35:55,699 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:35:55,699 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:35:56,393 - Bioreactor - INFO - Temperature: 29.75
+2026-01-16 12:35:56,393 - Bioreactor - INFO - Peltier set to 9.4% duty, direction reverse
+2026-01-16 12:35:56,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.75°C, error=0.25°C, output=9.36, duty=9.4%, direction=heat, integral=423.89
+2026-01-16 12:35:57,215 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:35:57,317 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:35:57,317 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:35:57,317 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0740V
+2026-01-16 12:35:57,317 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5397V
+2026-01-16 12:35:57,317 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0623V
+2026-01-16 12:35:57,317 - Bioreactor - INFO - Sensor readings - Temp: 29.69°C, OD 135: 0.0740V, OD Ref: 0.5397V, OD 90: 0.0623V
+2026-01-16 12:35:59,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:00,585 - Bioreactor - INFO - Temperature: 29.75
+2026-01-16 12:36:00,585 - Bioreactor - INFO - Peltier set to 9.4% duty, direction reverse
+2026-01-16 12:36:00,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.75°C, error=0.25°C, output=9.38, duty=9.4%, direction=heat, integral=425.14
+2026-01-16 12:36:04,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:05,577 - Bioreactor - INFO - Temperature: 29.75
+2026-01-16 12:36:05,577 - Bioreactor - INFO - Peltier set to 9.4% duty, direction reverse
+2026-01-16 12:36:05,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.75°C, error=0.25°C, output=9.40, duty=9.4%, direction=heat, integral=426.39
+2026-01-16 12:36:09,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:10,569 - Bioreactor - INFO - Temperature: 29.75
+2026-01-16 12:36:10,569 - Bioreactor - INFO - Peltier set to 9.4% duty, direction reverse
+2026-01-16 12:36:10,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.75°C, error=0.25°C, output=9.41, duty=9.4%, direction=heat, integral=427.64
+2026-01-16 12:36:14,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:14,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:15,593 - Bioreactor - INFO - Temperature: 29.812
+2026-01-16 12:36:15,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:36:15,694 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:36:15,694 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:36:16,393 - Bioreactor - INFO - Temperature: 29.812
+2026-01-16 12:36:16,393 - Bioreactor - INFO - Peltier set to 8.7% duty, direction reverse
+2026-01-16 12:36:16,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.81°C, error=0.19°C, output=8.68, duty=8.7%, direction=heat, integral=428.58
+2026-01-16 12:36:17,208 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:36:17,309 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:36:17,310 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:36:17,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0744V
+2026-01-16 12:36:17,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5164V
+2026-01-16 12:36:17,310 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0639V
+2026-01-16 12:36:17,310 - Bioreactor - INFO - Sensor readings - Temp: 29.81°C, OD 135: 0.0744V, OD Ref: 0.5164V, OD 90: 0.0639V
+2026-01-16 12:36:19,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:20,585 - Bioreactor - INFO - Temperature: 29.875
+2026-01-16 12:36:20,585 - Bioreactor - INFO - Peltier set to 7.9% duty, direction reverse
+2026-01-16 12:36:20,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.88°C, error=0.12°C, output=7.94, duty=7.9%, direction=heat, integral=429.20
+2026-01-16 12:36:24,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:25,577 - Bioreactor - INFO - Temperature: 29.812
+2026-01-16 12:36:25,577 - Bioreactor - INFO - Peltier set to 8.7% duty, direction reverse
+2026-01-16 12:36:25,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.81°C, error=0.19°C, output=8.71, duty=8.7%, direction=heat, integral=430.14
+2026-01-16 12:36:29,781 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:30,569 - Bioreactor - INFO - Temperature: 29.875
+2026-01-16 12:36:30,569 - Bioreactor - INFO - Peltier set to 8.0% duty, direction reverse
+2026-01-16 12:36:30,569 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.88°C, error=0.12°C, output=7.96, duty=8.0%, direction=heat, integral=430.77
+2026-01-16 12:36:34,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:34,782 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:35,593 - Bioreactor - INFO - Temperature: 29.875
+2026-01-16 12:36:35,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:36:35,695 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:36:35,695 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:36:36,393 - Bioreactor - INFO - Temperature: 29.875
+2026-01-16 12:36:36,393 - Bioreactor - INFO - Peltier set to 8.0% duty, direction reverse
+2026-01-16 12:36:36,393 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.88°C, error=0.12°C, output=7.97, duty=8.0%, direction=heat, integral=431.39
+2026-01-16 12:36:37,207 - Bioreactor - INFO - LED turned off (0% power).
+2026-01-16 12:36:37,309 - Bioreactor - INFO - Ring light set to color (100, 100, 100)
+2026-01-16 12:36:37,311 - Bioreactor - INFO - Ring light restored to previous state: color=(100, 100, 100)
+2026-01-16 12:36:37,311 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 135, avg voltage: 0.0734V
+2026-01-16 12:36:37,311 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel Ref, avg voltage: 0.5365V
+2026-01-16 12:36:37,311 - Bioreactor - INFO - OD measurement complete: 14 readings averaged, LED power 8.0%, duration 0.5s, channel 90, avg voltage: 0.0639V
+2026-01-16 12:36:37,311 - Bioreactor - INFO - Sensor readings - Temp: 29.88°C, OD 135: 0.0734V, OD Ref: 0.5365V, OD 90: 0.0639V
+2026-01-16 12:36:39,782 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:40,585 - Bioreactor - INFO - Temperature: 29.875
+2026-01-16 12:36:40,585 - Bioreactor - INFO - Peltier set to 8.0% duty, direction reverse
+2026-01-16 12:36:40,585 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.88°C, error=0.12°C, output=7.98, duty=8.0%, direction=heat, integral=432.02
+2026-01-16 12:36:44,782 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:45,577 - Bioreactor - INFO - Temperature: 29.937
+2026-01-16 12:36:45,577 - Bioreactor - INFO - Peltier set to 7.2% duty, direction reverse
+2026-01-16 12:36:45,577 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.94°C, error=0.06°C, output=7.24, duty=7.2%, direction=heat, integral=432.33
+2026-01-16 12:36:49,782 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:50,573 - Bioreactor - INFO - Temperature: 29.875
+2026-01-16 12:36:50,573 - Bioreactor - INFO - Peltier set to 8.0% duty, direction reverse
+2026-01-16 12:36:50,573 - Bioreactor - INFO - Temperature PID: setpoint=30.00°C, current=29.88°C, error=0.12°C, output=7.99, duty=8.0%, direction=heat, integral=432.96
+2026-01-16 12:36:54,777 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:54,782 - Bioreactor - INFO - Reading temperature from sensor 0
+2026-01-16 12:36:55,593 - Bioreactor - INFO - Temperature: 29.875
+2026-01-16 12:36:55,694 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:36:55,694 - Bioreactor - INFO - Ring light turned off for OD measurement (dodging)
+2026-01-16 12:36:55,694 - Bioreactor - INFO - LED power set to 8.0%
+2026-01-16 12:36:56,163 - Bioreactor - INFO - Cleaning up Bioreactor...
+2026-01-16 12:36:56,163 - Bioreactor - INFO - Stop event set for all threads.
+2026-01-16 12:36:56,163 - Bioreactor - INFO - Data file closed.
+2026-01-16 12:36:56,163 - Bioreactor - INFO - Peltier PWM stopped.
+2026-01-16 12:36:56,163 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2026-01-16 12:36:56,264 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:36:56,264 - Bioreactor - INFO - Bioreactor cleanup complete.
+2026-01-16 12:36:56,264 - Bioreactor - INFO - Cleaning up Bioreactor...
+2026-01-16 12:36:56,264 - Bioreactor - INFO - Stop event set for all threads.
+2026-01-16 12:36:56,264 - Bioreactor - INFO - Data file closed.
+2026-01-16 12:36:56,265 - Bioreactor - INFO - Peltier PWM stopped.
+2026-01-16 12:36:56,265 - Bioreactor - INFO - Stirrer stopped (0% duty).
+2026-01-16 12:36:56,366 - Bioreactor - INFO - Ring light turned off
+2026-01-16 12:36:56,366 - Bioreactor - INFO - Bioreactor cleanup complete.
