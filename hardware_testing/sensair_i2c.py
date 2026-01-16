@@ -148,8 +148,8 @@ def read_co2(bus_num=1, i2c_addr=K33_I2C_ADDR, debug=False):
                 )
             
             # Combine high and low bytes to get CO2 value in ppm
-            co2_ppm = (co2_high << 8) | co2_low
-            
+            co2_raw = (co2_high << 8) | co2_low
+            co2_ppm = co2_raw*10
             return co2_ppm
         
     except OSError as e:
@@ -209,7 +209,7 @@ if __name__ == "__main__":
     # Try reading CO2
     print("\nAttempting to read CO2...")
     try:
-        co2_value = read_co2(bus_num=bus_num, debug=False)
+        co2_value = read_co2_continuous(bus_num=bus_num)
         print(f"CO2 concentration: {co2_value} ppm")
     except Exception as e:
         print(f"Error reading CO2: {e}")
