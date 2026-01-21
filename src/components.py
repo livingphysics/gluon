@@ -532,13 +532,25 @@ def init_co2_sensor(bioreactor, config):
     try:
         # Get CO2 sensor configuration from config
         co2_enabled = getattr(config, 'CO2_SENSOR_ENABLED', False)
-        co2_i2c_address = getattr(config, 'CO2_SENSOR_I2C_ADDRESS', 0x68)
         co2_i2c_bus = getattr(config, 'CO2_SENSOR_I2C_BUS', 1)
         co2_type = getattr(config, 'CO2_SENSOR_TYPE', 'sensair_k33').lower()
 
         if not co2_enabled:
             logger.info("CO2 sensor disabled in configuration")
             return {'initialized': False, 'error': 'CO2 sensor disabled'}
+        
+        # Set default I2C address based on sensor type if not specified
+        co2_i2c_address = getattr(config, 'CO2_SENSOR_I2C_ADDRESS', None)
+        if co2_i2c_address is None:
+            # Use type-specific defaults
+            if co2_type.startswith('sensair'):
+                co2_i2c_address = 0x68  # Default for Senseair K33
+            elif co2_type.startswith('atlas'):
+                co2_i2c_address = 0x69  # Default for Atlas Scientific
+            else:
+                # Fallback to 0x68 if unknown type
+                co2_i2c_address = 0x68
+                logger.warning(f"Unknown CO2 sensor type '{co2_type}', using default address 0x68")
 
         # Check dependencies based on sensor type
         if co2_type.startswith('sensair'):
