@@ -874,22 +874,17 @@ def _read_co2_sensair_k33(i2c_addr: int, bus_num: int, logger) -> Optional[int]:
         return None
 
 
-def _read_co2_atlas(i2c_addr: int, logger) -> Optional[int]:
-    """Low-level read of CO2 from an Atlas Scientific sensor over I2C."""
+def _read_co2_atlas(atlas_device, logger) -> Optional[int]:
+    """
+    Low-level read of CO2 from an Atlas Scientific sensor over I2C.
+    
+    Args:
+        atlas_device: Pre-initialized AtlasI2C device object (created during component init)
+        logger: Logger instance for error messages
+    """
     try:
-        # atlas_i2c is provided by the external Atlas Scientific library
-        from atlas_i2c import atlas_i2c  # type: ignore
-    except ImportError as e:
-        logger.error(f"CO2 sensor (Atlas) requires atlas_i2c library: {e}")
-        return None
-
-    try:
-        # Initialize Atlas I2C device
-        dev = atlas_i2c.AtlasI2C()
-        dev.set_i2c_address(i2c_addr)
-
         # Query a reading; processing_delay may be required depending on firmware
-        result = dev.query("R", processing_delay=1500)
+        result = atlas_device.query("R", processing_delay=1500)
 
         # result.data is typically bytes; decode and parse
         data_bytes = getattr(result, "data", None)
@@ -954,8 +949,12 @@ def read_co2(bioreactor) -> Optional[int]:
             return None
         return _read_co2_sensair_k33(i2c_addr=i2c_addr, bus_num=bus_num, logger=bioreactor.logger)
     elif sensor_type.startswith('atlas'):
-        # Atlas sensors typically use the I2C address only; bus selection handled by atlas_i2c
-        return _read_co2_atlas(i2c_addr=i2c_addr, logger=bioreactor.logger)
+        # Get pre-initialized Atlas device from config
+        atlas_device = config.get('atlas_device')
+        if atlas_device is None:
+            bioreactor.logger.error("Atlas CO2 sensor device not initialized")
+            return None
+        return _read_co2_atlas(atlas_device=atlas_device, logger=bioreactor.logger)
     else:
         bioreactor.logger.error(f"Unsupported CO2 sensor type: {sensor_type}")
         return None
