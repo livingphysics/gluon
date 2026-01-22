@@ -562,10 +562,17 @@ def init_co2_sensor(bioreactor, config):
         elif co2_type.startswith('atlas'):
             try:
                 # atlas_i2c is provided by Atlas Scientific library (external)
-                from atlas_i2c import atlas_i2c  # noqa: F401
+                from atlas_i2c import atlas_i2c
+                # Initialize Atlas I2C device once during startup
+                atlas_device = atlas_i2c.AtlasI2C()
+                atlas_device.set_i2c_address(co2_i2c_address)
+                logger.info(f"Atlas CO2 sensor device initialized at address 0x{co2_i2c_address:02X}")
             except ImportError as import_error:
                 logger.error(f"CO2 sensor (Atlas) dependencies missing: {import_error}. Install the atlas_i2c library.")
                 return {'initialized': False, 'error': str(import_error)}
+            except Exception as e:
+                logger.error(f"Failed to initialize Atlas CO2 sensor device: {e}")
+                return {'initialized': False, 'error': str(e)}
         else:
             error_msg = f"Unsupported CO2 sensor type: {co2_type}"
             logger.error(error_msg)
@@ -577,6 +584,10 @@ def init_co2_sensor(bioreactor, config):
             'i2c_bus': co2_i2c_bus,
             'type': co2_type,
         }
+        
+        # Store Atlas device if initialized
+        if co2_type.startswith('atlas'):
+            bioreactor.co2_sensor_config['atlas_device'] = atlas_device
 
         logger.info(
             f"CO2 sensor initialized: type={co2_type}, address={hex(co2_i2c_address)}, bus={co2_i2c_bus}"
