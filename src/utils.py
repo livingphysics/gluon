@@ -690,6 +690,7 @@ def ring_light_cycle(
 
 def balanced_flow(bioreactor, pump_name: str, ml_per_sec: float, elapsed: Optional[float] = None, duration: Optional[float] = None) -> None:
     """
+    !!! Use ticgui to disable command timeout. !!!
     Set balanced flow: for a given pump, set its flow and automatically set the
     converse pump (inflow/outflow pair) to the same volumetric rate in the opposite direction.
     
