@@ -652,7 +652,7 @@ def init_pumps(bioreactor, config):
                 try:
                     # Calculate a test velocity (small movement for testing)
                     # Use a low rate: ~0.1 ml/sec for testing
-                    test_rate_ml_per_sec = 0.1
+                    test_rate_ml_per_sec = 10
                     STEPS_PER_ML = 1000.0  # Same conversion as in io.py
                     steps_per_pulse = 0.5 ** step_mode
                     test_velocity = int((test_rate_ml_per_sec * STEPS_PER_ML) / steps_per_pulse)
