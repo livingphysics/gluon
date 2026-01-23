@@ -688,7 +688,7 @@ def ring_light_cycle(
                 )
 
 
-def balanced_flow(bioreactor, pump_name: str, ml_per_sec: float, elapsed: Optional[float] = None) -> None:
+def balanced_flow(bioreactor, pump_name: str, ml_per_sec: float, elapsed: Optional[float] = None, duration: Optional[float] = None) -> None:
     """
     Set balanced flow: for a given pump, set its flow and automatically set the
     converse pump (inflow/outflow pair) to the same volumetric rate in the opposite direction.
@@ -702,6 +702,9 @@ def balanced_flow(bioreactor, pump_name: str, ml_per_sec: float, elapsed: Option
                   If pump_name is 'outflow', sets both 'outflow' and 'inflow' to the same rate.
         ml_per_sec: Desired flow rate in ml/sec (>= 0)
         elapsed: Elapsed time (unused, for compatibility with job functions)
+        duration: Optional duration in seconds to run the pumps. If provided, pumps will run
+                 for this duration and then stop. Must be less than the job frequency.
+                 If None, pumps run continuously.
     """
     from .io import change_pump
     
@@ -735,6 +738,10 @@ def balanced_flow(bioreactor, pump_name: str, ml_per_sec: float, elapsed: Option
             )
             try:
                 change_pump(bioreactor, pump_name, ml_per_sec)
+                if duration is not None and duration > 0:
+                    time.sleep(duration)
+                    change_pump(bioreactor, pump_name, 0.0)
+                    bioreactor.logger.info(f"Pump {pump_name} stopped after {duration:.2f} seconds")
             except Exception as e:
                 bioreactor.logger.error(f"Error setting pump {pump_name}: {e}")
             return
@@ -751,6 +758,10 @@ def balanced_flow(bioreactor, pump_name: str, ml_per_sec: float, elapsed: Option
         )
         try:
             change_pump(bioreactor, pump_name, ml_per_sec)
+            if duration is not None and duration > 0:
+                time.sleep(duration)
+                change_pump(bioreactor, pump_name, 0.0)
+                bioreactor.logger.info(f"Pump {pump_name} stopped after {duration:.2f} seconds")
         except Exception as e:
             bioreactor.logger.error(f"Error setting pump {pump_name}: {e}")
         return
@@ -759,9 +770,25 @@ def balanced_flow(bioreactor, pump_name: str, ml_per_sec: float, elapsed: Option
     try:
         change_pump(bioreactor, pump_name, ml_per_sec)
         change_pump(bioreactor, converse_name, ml_per_sec)
-        bioreactor.logger.info(
-            f"Balanced flow: {pump_name} and {converse_name} set to {ml_per_sec:.4f} ml/sec"
-        )
+        
+        if duration is not None:
+            if duration <= 0:
+                bioreactor.logger.warning(f"Duration must be positive, got {duration}. Ignoring duration parameter.")
+            else:
+                bioreactor.logger.info(
+                    f"Balanced flow: {pump_name} and {converse_name} set to {ml_per_sec:.4f} ml/sec for {duration:.2f} seconds"
+                )
+                time.sleep(duration)
+                # Stop both pumps after duration
+                change_pump(bioreactor, pump_name, 0.0)
+                change_pump(bioreactor, converse_name, 0.0)
+                bioreactor.logger.info(
+                    f"Balanced flow: {pump_name} and {converse_name} stopped after {duration:.2f} seconds"
+                )
+        else:
+            bioreactor.logger.info(
+                f"Balanced flow: {pump_name} and {converse_name} set to {ml_per_sec:.4f} ml/sec (continuous)"
+            )
     except Exception as e:
         bioreactor.logger.error(f"Failed to set balanced flow: {e}")
 
