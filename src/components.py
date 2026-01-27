@@ -531,13 +531,8 @@ def init_co2_sensor(bioreactor, config):
     """
     try:
         # Get CO2 sensor configuration from config
-        co2_enabled = getattr(config, 'CO2_SENSOR_ENABLED', False)
         co2_i2c_bus = getattr(config, 'CO2_SENSOR_I2C_BUS', 1)
         co2_type = getattr(config, 'CO2_SENSOR_TYPE', 'sensair_k33').lower()
-
-        if not co2_enabled:
-            logger.info("CO2 sensor disabled in configuration")
-            return {'initialized': False, 'error': 'CO2 sensor disabled'}
         
         # Set default I2C address based on sensor type if not specified
         co2_i2c_address = getattr(config, 'CO2_SENSOR_I2C_ADDRESS', None)
@@ -612,12 +607,7 @@ def init_o2_sensor(bioreactor, config):
     """
     try:
         # Get O2 sensor configuration from config
-        o2_enabled = getattr(config, 'O2_SENSOR_ENABLED', False)
         o2_i2c_bus = getattr(config, 'O2_SENSOR_I2C_BUS', 1)
-        
-        if not o2_enabled:
-            logger.info("O2 sensor disabled in configuration")
-            return {'initialized': False, 'error': 'O2 sensor disabled'}
         
         # Set default I2C address if not specified
         o2_i2c_address = getattr(config, 'O2_SENSOR_I2C_ADDRESS', None)
