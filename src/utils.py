@@ -375,7 +375,12 @@ def measure_and_record_sensors(bioreactor, elapsed: Optional[float] = None, led_
     
     # Write to CSV
     if hasattr(bioreactor, 'writer') and bioreactor.writer:
-        csv_row = {'time': elapsed}
+        # Get current timestamp
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        csv_row = {
+            'time': current_time,  # Actual timestamp
+            'elapsed_time': elapsed  # Elapsed seconds since start
+        }
         
         # Add temperature with config label if temp_sensor is initialized
         if bioreactor.is_component_initialized('temp_sensor') and 'temperature' in sensor_data:

@@ -406,10 +406,10 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
             print("Warning: No time column found")
             return
         
-        # Determine time column (prefer elapsed_time for plotting, fall back to time)
+        # Determine time column (prefer 'elapsed_time' for plotting as it contains elapsed seconds, fall back to time)
         time_col = None
         if 'Time' in groups and groups['Time']:
-            # Prefer 'elapsed_time' if available, otherwise use first time column
+            # Prefer 'elapsed_time' if available (contains elapsed seconds), otherwise use first time column
             if 'elapsed_time' in groups['Time']:
                 time_col = 'elapsed_time'
             else:
