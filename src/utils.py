@@ -233,7 +233,7 @@ def measure_and_record_sensors(bioreactor, elapsed: Optional[float] = None, led_
         dict: Dictionary with all sensor readings
     """
     # Import IO functions
-    from .io import get_temperature, read_voltage, measure_od, read_all_eyespy_boards, read_eyespy_voltage, read_eyespy_adc, read_co2
+    from .io import get_temperature, read_voltage, measure_od, read_all_eyespy_boards, read_eyespy_voltage, read_eyespy_adc, read_co2, read_o2
     
     # Get elapsed time
     if elapsed is None:
@@ -356,6 +356,16 @@ def measure_and_record_sensors(bioreactor, elapsed: Optional[float] = None, led_
     else:
         sensor_data['co2'] = float('nan')
     
+    # Read O2 sensor if initialized
+    if bioreactor.is_component_initialized('o2_sensor'):
+        o2_value = read_o2(bioreactor)
+        if o2_value is not None:
+            sensor_data['o2'] = o2_value
+        else:
+            sensor_data['o2'] = float('nan')
+    else:
+        sensor_data['o2'] = float('nan')
+    
     # Write to CSV
     if hasattr(bioreactor, 'writer') and bioreactor.writer:
         csv_row = {'time': elapsed}
@@ -418,6 +428,15 @@ def measure_and_record_sensors(bioreactor, elapsed: Optional[float] = None, led_
             else:
                 co2_label = 'CO2_ppm_x10'
             csv_row[co2_label] = sensor_data['co2']
+        
+        # Add O2 data if sensor is initialized
+        if bioreactor.is_component_initialized('o2_sensor') and 'o2' in sensor_data:
+            # Get label from config or auto-generate
+            if config and hasattr(config, 'SENSOR_LABELS'):
+                o2_label = config.SENSOR_LABELS.get('o2', 'O2_percent')
+            else:
+                o2_label = 'O2_percent'
+            csv_row[o2_label] = sensor_data['o2']
         
         try:
             # Only write fields that exist in fieldnames to avoid errors

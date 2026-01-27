@@ -30,6 +30,7 @@ class Config:
         'optical_density': False,  # Optical density sensor (ADS1115)
         'eyespy_adc': False,  # Eyespy ADC component (ADS1114, based on pioreactor)
         'co2_sensor': False,  # Senseair K33 CO2 sensor (I2C)
+        'o2_sensor': False,  # Atlas Scientific O2 sensor (I2C)
         'pumps': False,  # Pump control via ticUSB
     }
     
@@ -91,6 +92,11 @@ class Config:
     CO2_SENSOR_ENABLED: bool = False  # Set to True to enable CO2 sensor
     CO2_SENSOR_I2C_ADDRESS: Optional[int] = None  # I2C address for CO2 sensor (None = use type-specific default: 0x68 for sensair_k33, 0x69 for atlas)
     CO2_SENSOR_I2C_BUS: int = 1  # I2C bus number (typically 1 for /dev/i2c-1)
+    
+    # O2 Sensor Configuration (Atlas Scientific)
+    O2_SENSOR_ENABLED: bool = False  # Set to True to enable O2 sensor
+    O2_SENSOR_I2C_ADDRESS: Optional[int] = None  # I2C address for O2 sensor (None = use default: 0x6C)
+    O2_SENSOR_I2C_BUS: int = 1  # I2C bus number (typically 1 for /dev/i2c-1)
     
     # Pump Configuration (ticUSB protocol)
     # Default configuration: 2 pumps (inflow and outflow)

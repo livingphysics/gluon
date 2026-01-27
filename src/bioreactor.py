@@ -111,6 +111,11 @@ class Bioreactor():
             if co2_enabled:
                 if 'co2' not in config.SENSOR_LABELS:
                     config.SENSOR_LABELS['co2'] = 'CO2_ppm_x10'
+                
+                # Add O2 sensor label if O2 sensor is enabled
+                if config.INIT_COMPONENTS.get('o2_sensor', False):
+                    if 'o2' not in config.SENSOR_LABELS:
+                        config.SENSOR_LABELS['o2'] = 'O2_percent'
             
             # Build fieldnames from SENSOR_LABELS
             sensor_keys = list(config.SENSOR_LABELS.keys())
