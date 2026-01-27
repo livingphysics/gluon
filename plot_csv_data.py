@@ -634,7 +634,8 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
                         else:
                             ax2 = twin_axes[twin_key]
                         ax2.set_ylabel('O2 (%)', color='r')
-                        ax2.tick_params(axis='y', labelcolor='r')
+                        ax2.yaxis.set_label_position('right')
+                        ax2.tick_params(axis='y', labelcolor='r', which='both', left=False, right=True)
                         # Format O2 axis to show 2 decimal places, not scientific notation
                         ax2.yaxis.set_major_formatter(FuncFormatter(lambda x, p: f'{x:.2f}'))
                         # Set O2 axis range to 5% to 30% (will be reapplied after plotting)
