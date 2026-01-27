@@ -237,7 +237,7 @@ def combine_csv_files(file_list):
     return all_data, all_headers
 
 
-def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_remote: bool = False):
+def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_remote: bool = False, debug: bool = False):
     """
     Read CSV file(s) and plot data with automatic grouping of similar columns.
     
@@ -399,7 +399,8 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
             return
         
         # Debug: show which groups were found (after filtering empty ones)
-        print(f"DEBUG: Groups found after filtering: {list(groups.keys())}")
+        if debug:
+            print(f"DEBUG: Groups found after filtering: {list(groups.keys())}")
         
         # Check if we have a Time group (required)
         if 'Time' not in groups or not groups['Time']:
@@ -576,7 +577,7 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
                         o2_columns.append(col)
                 
                 # Debug: print what columns we found
-                if group_name == 'Gases':
+                if debug and group_name == 'Gases':
                     print(f"DEBUG: All columns in Gases group: {columns}")
                     print(f"DEBUG: CO2 columns found: {co2_columns}")
                     print(f"DEBUG: O2 columns found: {o2_columns}")
@@ -606,13 +607,15 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
                 # Plot CO2 columns on primary axis
                 for col_idx, col in enumerate(co2_columns):
                     if col not in data:
-                        print(f"DEBUG: CO2 column '{col}' not found in data dictionary. Available keys: {list(data.keys())[:10]}")
+                        if debug:
+                            print(f"DEBUG: CO2 column '{col}' not found in data dictionary. Available keys: {list(data.keys())[:10]}")
                         continue
                     source_values = [data[col][i] for i in source_indices]
                     # Filter out NaN values for plotting
                     valid_indices = [i for i, v in enumerate(source_values) if not np.isnan(v)]
                     if not valid_indices:
-                        print(f"DEBUG: CO2 column '{col}' has no valid (non-NaN) values")
+                        if debug:
+                            print(f"DEBUG: CO2 column '{col}' has no valid (non-NaN) values")
                         continue
                     
                     # Use only valid data points
@@ -636,13 +639,15 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
                     target_ax = ax2 if ax2 is not None else ax
                     for col_idx, col in enumerate(o2_columns):
                         if col not in data:
-                            print(f"DEBUG: O2 column '{col}' not found in data dictionary. Available keys: {list(data.keys())[:10]}")
+                            if debug:
+                                print(f"DEBUG: O2 column '{col}' not found in data dictionary. Available keys: {list(data.keys())[:10]}")
                             continue
                         source_values = [data[col][i] for i in source_indices]
                         # Filter out NaN values for plotting
                         valid_indices = [i for i, v in enumerate(source_values) if not np.isnan(v)]
                         if not valid_indices:
-                            print(f"DEBUG: O2 column '{col}' has no valid (non-NaN) values")
+                            if debug:
+                                print(f"DEBUG: O2 column '{col}' has no valid (non-NaN) values")
                             continue
                         
                         # Use only valid data points
@@ -738,6 +743,7 @@ def main():
     use_remote = False
     csv_file = None
     update_interval = 5.0
+    debug = False
     
     # Parse arguments
     # Check for explicit flags first
@@ -750,6 +756,11 @@ def main():
         use_remote = False
         # Remove flag from args for further processing
         sys.argv = [a for a in sys.argv if a not in ['--local', '-l']]
+    
+    if '--debug' in sys.argv or '-d' in sys.argv:
+        debug = True
+        # Remove flag from args for further processing
+        sys.argv = [a for a in sys.argv if a not in ['--debug', '-d']]
     
     # Parse remaining arguments
     if len(sys.argv) < 2:
@@ -784,6 +795,7 @@ def main():
         print("\nOptions:")
         print("  --remote, -r    Force remote mode (fetch from SSH servers)")
         print("  --local, -l     Force local mode (read from local file)")
+        print("  --debug, -d     Enable debug output")
         print("\nModes:")
         print("  Remote mode: Fetches CSV files from SSH servers configured in plot_config.py")
         print("  Local mode:  Reads from a single local CSV file")
@@ -799,7 +811,7 @@ def main():
         print("  python plot_csv_data.py -l data.csv 10.0                  # Local file, 10s interval")
         sys.exit(1)
     
-    plot_csv_data(csv_file, update_interval, use_remote)
+    plot_csv_data(csv_file, update_interval, use_remote, debug)
 
 
 if __name__ == "__main__":
