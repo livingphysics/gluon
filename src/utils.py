@@ -473,6 +473,12 @@ def measure_and_record_sensors(bioreactor, elapsed: Optional[float] = None, led_
             # Value is already in PPM (multiplied by 10 in read_co2)
             log_parts.append(f"CO2: {co2_value:.0f} ppm")
     
+    # Add O2 reading to log
+    if bioreactor.is_component_initialized('o2_sensor') and 'o2' in sensor_data:
+        o2_value = sensor_data['o2']
+        if not np.isnan(o2_value):
+            log_parts.append(f"O2: {o2_value:.2f}%")
+    
     bioreactor.logger.info(f"Sensor readings - {', '.join(log_parts)}")
     
     return sensor_data
