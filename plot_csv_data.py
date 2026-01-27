@@ -589,20 +589,45 @@ def plot_csv_data(csv_file_path: str = None, update_interval: float = 5.0, use_r
                 elif group_name == 'Temperature':
                     ax.set_ylabel('Temperature (°C)')
                 elif group_name == 'Gases':
-                    # Handle CO2/O2 dual-axis plotting
-                    if co2_columns and o2_columns:
-                        # Both CO2 and O2: use dual axes
+                    # Check if we have valid O2 data before deciding on axis setup
+                    has_valid_o2_data = False
+                    if o2_columns:
+                        for col in o2_columns:
+                            if col in data:
+                                source_values = [data[col][i] for i in source_indices]
+                                valid_indices = [i for i, v in enumerate(source_values) if not np.isnan(v)]
+                                if valid_indices:
+                                    has_valid_o2_data = True
+                                    break
+                    
+                    # Check if we have valid CO2 data
+                    has_valid_co2_data = False
+                    if co2_columns:
+                        for col in co2_columns:
+                            if col in data:
+                                source_values = [data[col][i] for i in source_indices]
+                                valid_indices = [i for i, v in enumerate(source_values) if not np.isnan(v)]
+                                if valid_indices:
+                                    has_valid_co2_data = True
+                                    break
+                    
+                    # Handle CO2/O2 dual-axis plotting - only create dual axes if both have valid data
+                    if has_valid_co2_data and has_valid_o2_data:
+                        # Both CO2 and O2 have valid data: use dual axes
                         ax.set_ylabel('CO2 (ppm)', color='b')
                         ax.tick_params(axis='y', labelcolor='b')
                         ax2 = ax.twinx()
                         ax2.set_ylabel('O2 (%)', color='r')
                         ax2.tick_params(axis='y', labelcolor='r')
-                    elif co2_columns:
-                        # Only CO2: use primary axis
+                    elif has_valid_co2_data:
+                        # Only CO2 has valid data: use primary axis
                         ax.set_ylabel('CO2 (ppm)')
-                    elif o2_columns:
-                        # Only O2: use primary axis
+                    elif has_valid_o2_data:
+                        # Only O2 has valid data: use primary axis
                         ax.set_ylabel('O2 (%)')
+                    else:
+                        # Neither has valid data: default to CO2 label
+                        ax.set_ylabel('Gases')
                 
                 # Plot CO2 columns on primary axis
                 for col_idx, col in enumerate(co2_columns):
