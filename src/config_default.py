@@ -35,12 +35,11 @@ class Config:
     }
     
     # Sensor Labels for CSV output
-    # Labels are auto-populated in bioreactor.py based on INIT_COMPONENTS
-    # Only add custom labels here if you want to override the defaults
-    SENSOR_LABELS: dict = {
-        # OD channel labels are auto-generated from OD_ADC_CHANNELS in bioreactor.py
-        # Remove old entries if channel names have changed
-    }
+    # Labels are auto-populated in bioreactor.py based on INIT_COMPONENTS.
+    # Only add custom labels here if you want to override the defaults.
+    # Possible keys: 'temperature', 'co2', 'o2'; 'od_<channel>' (e.g. od_135, od_ref, od_90);
+    # 'eyespy_<board>_raw', 'eyespy_<board>_voltage' (e.g. eyespy1_raw, eyespy1_voltage).
+    SENSOR_LABELS: dict = {}
 
     # Peltier Driver Configuration (Raspberry Pi 5 GPIO via lgpio)
     PELTIER_PWM_PIN: int = 12  # BCM pin for PWM output
