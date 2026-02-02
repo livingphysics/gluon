@@ -28,7 +28,7 @@ config = Config()
 config.LOG_TO_TERMINAL = True  # Print logs to terminal (default: True)
 config.LOG_FILE = 'bioreactor.log'  # Also log to file
 
-config.USE_TIMESTAMPED_FILENAME: bool = False 
+config.USE_TIMESTAMPED_FILENAME: bool = True 
 
 # Initialize bioreactor
 with Bioreactor(config) as reactor:
@@ -90,7 +90,7 @@ with Bioreactor(config) as reactor:
         
         # Ring light cycle - turns on at (50,50,50) for 60s, then off for 60s, repeating
         # Check every 1 second to update state
-        (partial(ring_light_cycle, color=(180, 180, 180), on_time=43200.0, off_time=43200.0), 1, True),
+        (partial(ring_light_cycle, color=(50, 50, 50), on_time=43200.0, off_time=43200.0), 1, True),
         
         # Balanced flow - maintains balanced inflow/outflow for chemostat mode
         # Sets both inflow and outflow pumps to the same flow rate (2 ml/s)
