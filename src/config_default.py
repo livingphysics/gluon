@@ -21,13 +21,13 @@ class Config:
     # Component Initialization Control
     # Set to True to initialize, False to skip
     INIT_COMPONENTS: dict[str, bool] = {
-        'i2c': False,  # Only needed if other I2C components are used
+        'i2c': True,  # Only needed if other I2C components are used
         'temp_sensor': True,
         'peltier_driver': True,  # Enable PWM peltier driver (uses lgpio)
         'stirrer': True,  # PWM stirrer driver
-        'led': False,  # LED PWM control
-        'ring_light': False,  # Neopixel ring light (uses pi5neo)
-        'optical_density': False,  # Optical density sensor (ADS1115)
+        'led': True,  # LED PWM control
+        'ring_light': True,  # Neopixel ring light (uses pi5neo)
+        'optical_density': True,  # Optical density sensor (ADS1115)
         'eyespy_adc': False,  # Eyespy ADC component (ADS1114, based on pioreactor)
         'co2_sensor': False,  # Senseair K33 CO2 sensor (I2C)
         'o2_sensor': False,  # Atlas Scientific O2 sensor (I2C)
@@ -42,14 +42,14 @@ class Config:
     SENSOR_LABELS: dict = {}
 
     # Peltier Driver Configuration (Raspberry Pi 5 GPIO via lgpio)
-    PELTIER_PWM_PIN: int = 12  # BCM pin for PWM output
-    PELTIER_DIR_PIN: int = 16  # BCM pin for direction control
+    PELTIER_PWM_PIN: int = 21 # BCM pin for PWM output
+    PELTIER_DIR_PIN: int = 20  # BCM pin for direction control
     PELTIER_PWM_FREQ: int = 1000  # PWM frequency in Hz
 
     # Stirrer Configuration (PWM only)
-    STIRRER_PWM_PIN: int = 21  # BCM pin for stirrer PWM output
+    STIRRER_PWM_PIN: int = 12  # BCM pin for stirrer PWM output
     STIRRER_PWM_FREQ: int = 1000  # PWM frequency in Hz
-    STIRRER_DEFAULT_DUTY: float = 50.0  # Default duty cycle (0-100)
+    STIRRER_DEFAULT_DUTY: float = 30.0  # Default duty cycle (0-100)
 
     # LED Configuration (PWM control)
     LED_PWM_PIN: int = 25  # BCM pin for LED PWM output
