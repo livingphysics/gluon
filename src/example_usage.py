@@ -90,7 +90,7 @@ with Bioreactor(config) as reactor:
         
         # Ring light cycle - turns on at (50,50,50) for 60s, then off for 60s, repeating
         # Check every 1 second to update state
-        (partial(ring_light_cycle, color=(180, 180, 180), on_time=43200.0, off_time=43200.0), 1, True),
+        (partial(ring_light_cycle, color=(50, 50, 50), on_time=60.0, off_time=60.0), 1, True),
         
         # Balanced flow - maintains balanced inflow/outflow for chemostat mode
         # Sets both inflow and outflow pumps to the same flow rate (2 ml/s)
