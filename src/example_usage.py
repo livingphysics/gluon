@@ -28,7 +28,7 @@ config = Config()
 config.LOG_TO_TERMINAL = True  # Print logs to terminal (default: True)
 config.LOG_FILE = 'bioreactor.log'  # Also log to file
 
-config.USE_TIMESTAMPED_FILENAME: bool = False 
+config.USE_TIMESTAMPED_FILENAME: bool = True 
 
 # Initialize bioreactor (script_path is copied into results package when RESULTS_PACKAGE is True)
 with Bioreactor(config, script_path=os.path.abspath(__file__)) as reactor:
