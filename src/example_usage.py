@@ -37,10 +37,14 @@ def load_config_from_file(path: str):
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     if hasattr(mod, "config"):
-        return getattr(mod, "config")
-    if hasattr(mod, "Config"):
-        return mod.Config()
-    raise ValueError(f"Config file must define 'Config' (class) or 'config' (instance): {path}")
+        cfg = getattr(mod, "config")
+    elif hasattr(mod, "Config"):
+        cfg = mod.Config()
+    else:
+        raise ValueError(f"Config file must define 'Config' (class) or 'config' (instance): {path}")
+    # Store path so Bioreactor can copy this file into results package
+    cfg.CONFIG_FILE_PATH = path
+    return cfg
 
 
 def parse_args():
