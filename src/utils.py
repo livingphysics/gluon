@@ -715,37 +715,37 @@ def ring_light_cycle(
     color: tuple = (50, 50, 50),
     on_time: float = 60.0,
     off_time: float = 60.0,
+    start_on: bool = True,
     elapsed: Optional[float] = None
 ) -> None:
     """
     Cycle ring light on and off in a loop.
     
-    This function starts by turning the ring light on at a specified color,
-    then alternates between on and off for specified durations, repeating continuously.
-    Starts with ring light ON first.
+    Alternates between on (at the specified color) and off for the given durations.
+    Can start with the light on first or off first via start_on.
     
     Args:
         bioreactor: Bioreactor instance
         color: RGB tuple (r, g, b) with values 0-255 (default: (50, 50, 50))
         on_time: Duration in seconds to keep ring light on (default: 60.0)
         off_time: Duration in seconds to keep ring light off (default: 60.0)
+        start_on: If True (default), start with light ON first; if False, start with light OFF first.
         elapsed: Elapsed time since start (s). Used internally for timing.
         
     Note:
         State (_ring_light_state, _ring_light_last_switch_time) is stored on bioreactor instance.
-        The function automatically initializes state on first call, starting with ring light ON.
+        The function automatically initializes state on first call.
         
     Example usage as a job:
         from functools import partial
         from src.utils import ring_light_cycle
         
-        # Create a partial function with custom color and timing
+        # Start with light on first (default)
         ring_light_job = partial(ring_light_cycle, color=(100, 100, 100), on_time=30.0, off_time=30.0)
+        # Start with light off first
+        ring_light_job = partial(ring_light_cycle, color=(100, 100, 100), on_time=30.0, off_time=30.0, start_on=False)
         
-        # Add to jobs list - call frequently (every 1 second) to check timing
-        jobs = [
-            (ring_light_job, 1, True),  # Check every 1 second
-        ]
+        jobs = [(ring_light_job, 1, True)]
         reactor.run(jobs)
     """
     from .io import set_ring_light, turn_off_ring_light
@@ -754,14 +754,20 @@ def ring_light_cycle(
         bioreactor.logger.warning("Ring light not initialized; skipping cycle")
         return
     
-    # Initialize state if not present - start with ring light ON
+    # Initialize state if not present
     if not hasattr(bioreactor, '_ring_light_state'):
-        bioreactor._ring_light_state = 'on'  # Start with ring light on
         bioreactor._ring_light_last_switch_time = None
-        # Turn ring light on immediately on first call
-        if set_ring_light(bioreactor, color):
+        if start_on:
+            bioreactor._ring_light_state = 'on'
+            if set_ring_light(bioreactor, color):
+                bioreactor.logger.info(
+                    f"Ring light cycle started: turned ON with color={color}, will stay on for {on_time}s"
+                )
+        else:
+            bioreactor._ring_light_state = 'off'
+            turn_off_ring_light(bioreactor)
             bioreactor.logger.info(
-                f"Ring light cycle started: turned ON with color={color}, will stay on for {on_time}s"
+                f"Ring light cycle started: turned OFF first, will stay off for {off_time}s"
             )
     
     # Get current time
