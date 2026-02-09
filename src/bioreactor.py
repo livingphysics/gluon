@@ -1,15 +1,62 @@
 import csv
+import json
 import logging
 import os
+import pprint
 import shutil
 import sys
 import threading
 import time
 from contextlib import contextmanager
-from typing import List, Tuple, Optional, Union
+from typing import List, Tuple, Optional, Union, Any
 from datetime import datetime
 
 from . import components
+
+
+def _config_to_dict(config: Any) -> dict:
+    """Extract public, non-callable attributes from config into a dict."""
+    out = {}
+    for key in sorted(dir(config)):
+        if key.startswith("_"):
+            continue
+        try:
+            val = getattr(config, key)
+        except AttributeError:
+            continue
+        if callable(val):
+            continue
+        out[key] = val
+    return out
+
+
+def _write_config_to_results(config: Any, data_dir: str) -> None:
+    """Write the config object to run_config.json and run_config.py in data_dir."""
+    data = _config_to_dict(config)
+    # JSON (default=str for non-JSON-serializable values)
+    json_path = os.path.join(data_dir, "run_config.json")
+    with open(json_path, "w") as f:
+        json.dump(data, f, indent=2, default=str)
+    # Python file (readable, can be sourced)
+    py_path = os.path.join(data_dir, "run_config.py")
+    lines = [
+        "# Config used for this run (serialized from in-memory config at startup)",
+        "",
+    ]
+    for key in sorted(data.keys()):
+        val = data[key]
+        try:
+            if isinstance(val, dict):
+                lines.append(f"{key} = {pprint.pformat(val)}")
+            elif isinstance(val, (list, tuple)):
+                lines.append(f"{key} = {pprint.pformat(val)}")
+            else:
+                lines.append(f"{key} = {repr(val)}")
+        except Exception:
+            lines.append(f"{key} = {repr(val)}")
+        lines.append("")
+    with open(py_path, "w") as f:
+        f.write("\n".join(lines))
 
 
 class Bioreactor():
@@ -223,6 +270,13 @@ class Bioreactor():
                     self.logger.warning(f"Could not copy run script into results package: {e}")
             elif results_package and script_to_copy:
                 self.logger.warning(f"Results package: script path not a file, not copied: {script_to_copy}")
+            # Write current config to run_config.json and run_config.py
+            if config:
+                try:
+                    _write_config_to_results(config, data_dir)
+                    self.logger.info(f"Results package: wrote config to run_config.json and run_config.py")
+                except Exception as e:
+                    self.logger.warning(f"Could not write config to results package: {e}")
         else:
             self._results_package_dir = None
             # Non-package mode: also write under package-relative dir (src/bioreactor_data)
